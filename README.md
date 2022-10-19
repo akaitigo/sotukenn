@@ -43,6 +43,7 @@
     2. 以下のコマンドを打つ。
     ``` 
     docker compose up -d
+    //docker compose execが上手くいかなかったら、Docker Windowsからappサーバーのターミナルを開いて、chmodから始める
     docker compose exec app bash
     chmod -R 777 storage bootstrap/cache
     composer install
