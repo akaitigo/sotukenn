@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('employee_job', function (Blueprint $table) {
             $table->increments('employee_job_id');
-            $table->unsignedBigInteger('employee_id');
+            $table->unsignedInteger('employee_id');
             $table->foreign('employee_id')->references('employee_id')->on('employees');
-            $table->unsignedBigInteger('job_id');
+            $table->unsignedInteger('job_id');
             $table->foreign('job_id')->references('job_id')->on('jobs');
         });
     }

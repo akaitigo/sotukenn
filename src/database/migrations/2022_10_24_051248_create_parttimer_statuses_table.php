@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('parttimer_statuses', function (Blueprint $table) {
             $table->increments('parttimer_status_id');
-            $table->unsignedBigInteger('parttimer_id');
+            $table->unsignedInteger('parttimer_id');
             $table->foreign('parttimer_id')->references('parttimer_id')->on('parttimers');
-            $table->unsignedBigInteger('status_id');
+            $table->unsignedInteger('status_id');
             $table->foreign('status_id')->references('status_id')->on('statuses');
         });
     }

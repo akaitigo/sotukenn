@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('parttimers', function (Blueprint $table) {
-            $table->incremrnts('parttimer_id');
-            $table->int('employee_id');
-            $table->foreign('employee_id')->references('employee_id')->on('emploies');
+            $table->increments('parttimer_id');
+            $table->unsignedInteger('employee_id');
+            $table->foreign('employee_id')->references('employee_id')->on('employees');
             $table->string('parttimer_name');
             $table->string('parttimer_pass');
             $table->timestamps();
