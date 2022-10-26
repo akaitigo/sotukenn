@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/header.css" type="text/css">
 <header >
       <div class="site-header__wrapper">
-        <a href="#" class="brand">Brand</a>
+        <a href="#" class="brand">MARUOKUN</a>
         <nav class="nav">
         </div>
         <div class="site-header__wrapper2">
