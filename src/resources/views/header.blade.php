@@ -1,17 +1,21 @@
 <link rel="stylesheet" href="/css/header.css" type="text/css">
 <header >
-      <div class="site-header__wrapper">
+
+
+      <div class="blandWrapper">
         <a href="#" class="brand">MARUOKUN</a>
-        <nav class="nav">
         </div>
-        <div class="site-header__wrapper2">
-          <ul class="nav__wrapper">
-            <div class="nav_box"><a href="#" class="nav__item">カレンダー</a></div>
-            <div class="nav_box"><a href="#" class="nav__item">シフト提出確認画面</a></div>
-            <div class="nav_box"><a href="#" class="nav__item">通知管理画面</a></div>
-            <div class="nav_box"><a href="#" class="nav__item">シフト作成画面</a></div>
-            <div class="nav_box"><a href="#" class="nav__item">シフト閲覧画面</a></div>
+
+    <div class="menuHeader">
+          <ul class="navWrapper">
+        
+            <li><a href="#" class="menuItem">カレンダー</li></a>
+            <li><a href="#" class ="menuItem">従業員管理</li></a>
+            <li><a href="#" class="menuItem">通知管理</li></a>
+            <li><a href="#" class="menuItem">提出シフト管理</li></a>
+            <li><a href="#" class="menuItem">シフト閲覧</li></a>
+            <li><a href="#" class="menuItem">シフト作成</li></a>
+            
           </ul>
-        </nav>
-      </div>
+    </div>
     </header>
