@@ -8,16 +8,13 @@
   margin-bottom: 0px;
 }
 
-ul {
-  display: flex;
+.menuHeaderWrapper {
+  width: auto;
+  display: inline;
+  text-align: center;
 }
-
-.navWrapper {
-  list-style: none;
-}
-
 
 .menuItem {
-  margin-left: 20px;
   margin-right: 20px;
+  margin-left: 20px;
 }
