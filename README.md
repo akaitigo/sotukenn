@@ -55,8 +55,4 @@
     docker compose down
     ```
     3. 
-<<<<<<< HEAD
-    
-=======
-    teammember/yamamura,tsumagari
->>>>>>> 8d2551f2e8873265093f9387cadbe5e5add54cef
+    teammember/yamamura,tsumagari,kudou
