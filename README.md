@@ -56,3 +56,10 @@
     ```
     3. 
     teammember/yamamura,tsumagari,kudou
+
+
+appサーバにlivewireの追加
+
+```
+composer require livewire/livewire
+```
