@@ -1,11 +1,8 @@
 <link rel="stylesheet" href="/css/header.css" type="text/css">
 <header >
-
-
       <div class="blandWrapper">
-        <a href="#" class="brand">MARUOKUN</a>
-        </div>
-
+        <a href="#" class="brand">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
+      </div>
         <div class="menuHeaderWrap">
             <a href="#" class="menuItem">カレンダー</a>
             <a href="#" class ="menuItem">従業員管理</a>
@@ -14,4 +11,4 @@
             <a href="#" class="menuItem">シフト閲覧</a>
             <a href="#" class="menuItem">シフト作成</a>
          </div>
-    </header>
+</header>
