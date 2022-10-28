@@ -2,19 +2,33 @@
   height: 100%;
   width: 100%;
   border-bottom: 4px solid;
-  margin-bottom: 20px;
-  padding-top: 25px;
-  padding-bottom: 25px;
   margin-bottom: 0px;
-}
-
-.menuHeaderWrapper {
-  width: auto;
-  display: inline;
+  padding-top: 25px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
   text-align: center;
 }
 
+.menuHeaderWrap {
+  text-align: center;
+}
+
+
 .menuItem {
+  padding-top: 20px;
+  margin-bottom: 15px;
   margin-right: 20px;
   margin-left: 20px;
+  display: inline-block;
+  text-align: center;
+  font-family: Yu Gothic;
+}
+
+.brand {
+  font-family: Yu Gothic;
+  font-size: 3.4vw;
+}
+
+.menuItem:hover {
+  border-bottom: 0.7px solid;
 }
