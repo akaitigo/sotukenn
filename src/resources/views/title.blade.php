@@ -15,4 +15,4 @@
             <a href="#" class="registerButton">管理者の新規登録はこちら</a>
         </div>
     </body>
-</header>　
+</header>
