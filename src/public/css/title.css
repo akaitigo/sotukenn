@@ -1,0 +1,56 @@
+.blandWrapper {
+    height: auto;
+    width: 100%;
+    border-bottom: 4px solid;
+    margin-bottom: 0px;
+    padding-top: 25px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.brand {
+    font-family: Yu Gothic;
+    font-size: 3.4vw;
+
+}
+
+.titleName {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 190px;
+    margin-left: 190px;
+    font-family: Yu-Gothic;
+    font-size: 3.1vw;
+    border-bottom: solid 5px yellow;
+    font-weight: bold;
+}
+
+.buttonArea {
+    text-align: center;
+}
+
+.loginButton {
+    background-color: #F4FA58;
+    padding-top: 13px;
+    color: white;
+    padding-bottom: 13px;
+    padding-right: 80px;
+    padding-left: 80px;
+}
+
+.registerButton {
+    background-color: #99DDF7;
+    color: white;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-right: 50px;
+    padding-left: 50p
+}
