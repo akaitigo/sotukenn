@@ -55,7 +55,7 @@
     docker compose down
     ```
     3. 
-    teammember/yamamura,tsumagari,kudou
+    teammember/yamamura,tsumagari,kudou,tokuchan
 
 
 appサーバにlivewireの追加
