@@ -3,8 +3,9 @@
       <div class="blandWrapper">
         <a class="brand">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
       </div>
+      <div class="menuhyde">
         <div class="menuHeaderWrap">
-          <ul id="menu">
+          <ul class="menuclass" id="menu">
             <li>
               <a href="#" >カレンダー</a>
               <ul>
@@ -91,4 +92,5 @@
             </li>
           </ul>
          </div>
+        
 </header>

@@ -1,38 +1,46 @@
 .blandWrapper {
   height: auto;
   width: 100%;
-  border-bottom: 4px solid;
   margin-bottom: 0px;
   padding-top: 25px;
   padding-bottom: 0px;
   margin-bottom: 0px;
+  border-bottom: 4px solid;
   text-align: center;
 }
-
 .menuHeaderWrap {
-  position: relative;
-  width: 940px; 
-  text-align :center;
-  margin: 0 auto;
- 
+  height: auto;
+  width: 100%;
+  text-align: center;
+
 }
 .menuHeaderWrap:after {
   content: "";
   display: block;
   clear: both;
   height: 0;
+  overflow: hidden;
+}
+.menuclass{
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+
 }
 
-
 #menu {
-  position:auto;
-  float: center;
+  height: auto;
   width: 100%;
   padding: 0 20px;
   border-radius: 3px;
   box-shadow: inset 0 1px 1px rgba(255,255,255,.5), inset 0 -1px 0 rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.15);
   background: rgb(255, 255, 255); 
+
+
 }
+
+
 #menu, #menu ul {
   list-style: none;
 }
@@ -43,6 +51,7 @@
   border-right: 1px solid rgba(0,0,0,.1);
   box-shadow: 1px 0 0 #000000;
   perspective: 1000px;
+  text-align: center;
   
 }
 #menu > li:first-child {
@@ -68,8 +77,8 @@
 }
 
 #menu > li:hover > a {
-  background: #333;
-  color: rgba(0,223,252,1);
+  background: rgb(70, 70, 70);
+  color: rgb(255, 167, 26);
   text-shadow: none;
 }
 
@@ -93,7 +102,7 @@
   background: #333;
   opacity: 1;
   visibility: visible;
-  box-shadow: 1px 1px 7px rgba(0,0,0,.5);
+  box-shadow: 1px 1px 7px rgba(207, 207, 207, 0.5);
   animation-name: swingdown;
   animation-duration: 1s;
   animation-timing-function: ease;
@@ -138,10 +147,10 @@
 }
 
 #menu li li a:hover {
-  color: rgba(0,223,252,1);
+  color: rgb(252, 160, 0);
   border-top: dotted 1px rgba(255,255,255,.15);
   border-bottom: dotted 1px rgba(255,255,255,.15);
-  background: rgba(0,223,252,.02);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 
