@@ -8,14 +8,21 @@
     border-bottom: 4px solid;
     text-align: center;
   }
+  .brand {
+    font-family: Yu Gothic;
+    font-size: 3.4vw;
+  }
+
   /*タブ切り替え全体のスタイル*/
 .tabs {
     margin-top: 50px;
     padding-bottom: 40px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 700px;
-    margin: 0 auto;}
+    height: auto;
+    width: 100%;
+    margin: 0 auto;
+  }
   
   /*タブのスタイル*/
   .tab_item {
