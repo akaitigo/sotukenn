@@ -10,7 +10,7 @@
         <p class="information">ⓘ</p>
         <p class="loginPane">ロ&nbsp;グ&nbsp;イ&nbsp;ン</p>
         <label for="mailId">メール or ユーザーID&emsp;&emsp;</label>
-        <input type="text" id="mailId" name="mailID" placeholder="email OR UserId" size="25">
+        <input type="text" id="mailId" name="mailID" placeholder="Email OR UserId" size="25">
         <br />
         <br />
         <label for="pass">パ&emsp;ス&emsp;ワ&emsp;ー&emsp;ド&nbsp;&ensp;&emsp;&emsp;</label>
