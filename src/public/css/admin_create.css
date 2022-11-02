@@ -1,0 +1,25 @@
+
+.blandWrapper {
+    background-color: rgb(219, 219, 219);
+    height: auto;
+    width: 100%;
+    margin-bottom: 0px;
+    padding-top: 10px;
+    padding-left: 100px;
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    text-align: left;
+    font-weight: bold;
+  }
+  .brand {
+    font-family: Yu Gothic;
+    font-size: 1.8vw;
+  }
+  .root {
+    float: left;
+    padding-left: 90px;
+    font-size: 16px;
+  }
+  .rootback{
+    text-decoration: none;
+  }

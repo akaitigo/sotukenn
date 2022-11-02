@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/css/title.css" type="text/css">
 <header>
-    <div class="blandWrapper">
+    <div class="brandWrapper">
         <a href="#" class="brand">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
     </div>
 

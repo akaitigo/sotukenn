@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/employeesheader.css" type="text/css">
+<link rel="stylesheet" href="/css/employees_header.css" type="text/css">
 <header >
       <div class="blandWrapper">
         <a class="brand">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
@@ -10,11 +10,13 @@
         <label class="tab_item" for="inspection">シフト閲覧</label>
         
         <div class="tab_content" id="all_content">
-            内容がここに入ります
+          テストテストテスト
         </div>
         <div class="tab_content" id="inspection_content">
-            内容がここに入ります
+          @include('calendar')
         </div>
+      </div>
+    
         
         
 </header>

@@ -1,0 +1,45 @@
+.brandWrapper {
+    height: auto;
+    width: 100%;
+    border-bottom: 4px solid;
+    margin-bottom: 0px;
+    padding-top: 25px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    text-align: center;
+
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.brand {
+    font-family: Yu Gothic;
+    font-size: 3.4vw;
+
+}
+
+.loginWrapper {
+    width: 100%;
+    display: inline-block;
+    text-align: center;
+    font-family: Yu Gothic;
+    font-weight: bold;
+    font-size: 1.3vw;
+}
+
+.information {
+    margin: 40 0 0 420;
+    font-weight: bold;
+    font-size: 1.3vw;
+}
+
+.loginPane {
+    margin: 0 470 80 470;
+    font-size: 3.2vw;
+    background-color: #FFC40C;
+    color: black;
+
+}
