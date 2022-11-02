@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreign('employee_id')->references('employee_id')->on('employees');
             $table->string('parttimer_name');
             $table->string('parttimer_pass');
-            $table->timestamps();
         });
     }
 

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('parttimer_statuses', function (Blueprint $table) {
+        Schema::create('parttimer_status', function (Blueprint $table) {
             $table->increments('parttimer_status_id');
             $table->unsignedInteger('parttimer_id');
             $table->foreign('parttimer_id')->references('parttimer_id')->on('parttimers');
