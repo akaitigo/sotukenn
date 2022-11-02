@@ -63,3 +63,7 @@ appサーバにlivewireの追加
 ```
 composer require livewire/livewire
 ```
+dbサーバーにcliでアクセス
+```
+mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE
+```
