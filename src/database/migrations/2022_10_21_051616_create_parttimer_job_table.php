@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreign('parttimer_id')->references('parttimer_id')->on('parttimers');
             $table->unsignedInteger('job_id');
             $table->foreign('job_id')->references('job_id')->on('jobs');
-            $table->timestamps();
         });
     }
 
