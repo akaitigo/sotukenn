@@ -7,7 +7,7 @@
         <div class="menuHeaderWrap">
           <ul class="menuclass" id="menu">
             <li>
-              <a href="#" >カレンダー</a>
+              <a href="{{ route('calendar') }}" >カレンダー</a>
               <ul>
                 <li>
                   <a href="#" >編集</a>
@@ -21,7 +21,7 @@
               </ul>
             </li>
             <li>
-              <a href="#" >従業員管理</a>
+              <a href="{{ route('employeesManagement') }}" >従業員管理</a>
               <ul>
                 <li>
                   <a href="#" >編集</a>
@@ -35,7 +35,7 @@
               </ul>
             </li>
             <li>
-              <a href="#" >通知管理</a>
+              <a href="{{ route('noticeManagement') }}" >通知管理</a>
               <ul>
                 <li>
                   <a href="#" >編集</a>
@@ -49,7 +49,7 @@
               </ul>
             </li>
             <li>
-              <a href="#" >提出シフト管理</a>
+              <a href="{{ route('submittedShift') }}" >提出シフト管理</a>
               <ul>
                 <li>
                   <a href="#" >編集</a>
@@ -63,7 +63,7 @@
               </ul>
             </li>
             <li>
-              <a href="#" >シフト閲覧</a>
+              <a href="{{ route('ShiftView') }}" >シフト閲覧</a>
               <ul>
                 <li>
                   <a href="#" >編集</a>
@@ -77,7 +77,7 @@
               </ul>
             </li>
             <li>
-              <a href="#" >シフト作成</a>
+              <a href="{{ route('ShiftCreateMenu') }}" >シフト作成</a>
               <ul>
                 <li>
                   <a href="#" >編集</a>

@@ -10,9 +10,9 @@
         </div>
 
         <div class="ButtonArea">
-            <a href="#" class="loginButton">ログインはこちら</a><br />
+            <a href="login" class="loginButton">ログインはこちら</a><br />
             <br />
-            <a href="#" class="registerButton">管理者の新規登録はこちら</a>
+            <a href="register" class="registerButton">管理者の新規登録はこちら</a>
         </div>
     </body>
 </header>
