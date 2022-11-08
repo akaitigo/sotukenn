@@ -8,31 +8,11 @@
           <ul class="menuclass" id="menu">
             <li>
               <a href="{{ route('calendar') }}" >カレンダー</a>
-              <ul>
-                <li>
-                  <a href="#" >編集</a>
-                </li>
-                <li>
-                  <a href="#" >閲覧</a>
-                </li>
-                <li>
-                  <a href="#" >(仮)</a>
-                </li>
-              </ul>
+              
             </li>
             <li>
               <a href="{{ route('employeesManagement') }}" >従業員管理</a>
-              <ul>
-                <li>
-                  <a href="#" >編集</a>
-                </li>
-                <li>
-                  <a href="#" >閲覧</a>
-                </li>
-                <li>
-                  <a href="#" >(仮)</a>
-                </li>
-              </ul>
+              
             </li>
             <li>
               <a href="{{ route('noticeManagement') }}" >通知管理</a>
@@ -40,54 +20,32 @@
                 <li>
                   <a href="#" >編集</a>
                 </li>
-                <li>
-                  <a href="#" >閲覧</a>
-                </li>
-                <li>
-                  <a href="#" >(仮)</a>
-                </li>
+                
               </ul>
             </li>
             <li>
               <a href="{{ route('submittedShift') }}" >提出シフト管理</a>
               <ul>
                 <li>
-                  <a href="#" >編集</a>
+                  <a href="#" >設定</a>
                 </li>
-                <li>
-                  <a href="#" >閲覧</a>
-                </li>
-                <li>
-                  <a href="#" >(仮)</a>
-                </li>
+                
               </ul>
             </li>
             <li>
               <a href="{{ route('ShiftView') }}" >シフト閲覧</a>
-              <ul>
-                <li>
-                  <a href="#" >編集</a>
-                </li>
-                <li>
-                  <a href="#" >閲覧</a>
-                </li>
-                <li>
-                  <a href="#" >(仮)</a>
-                </li>
-              </ul>
+              
             </li>
             <li>
               <a href="{{ route('ShiftCreateMenu') }}" >シフト作成</a>
               <ul>
                 <li>
-                  <a href="#" >編集</a>
+                  <a href="#" >自動シフト作成</a>
                 </li>
                 <li>
-                  <a href="#" >閲覧</a>
+                  <a href="#" >候補シフト表示画面</a>
                 </li>
-                <li>
-                  <a href="#" >(仮)</a>
-                </li>
+                
               </ul>
             </li>
           </ul>
