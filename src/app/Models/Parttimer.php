@@ -9,18 +9,18 @@ class Parttimer extends Model
 {
 
     use HasFactory;
-    
-    protected $fillable=['employee_id','parttimer_pass','parttimer_name'];
-    
-    public function Jobs(): BelongsToMany
+
+    protected $fillable = ['employee_id', 'parttimer_pass', 'parttimer_name'];
+
+    public function Jobs()
     {
         return $this->belongsToMany(Job::class);
     }
-    public function Statuses(): BelongsToMany
+    public function Statuses()
     {
         return $this->belongsToMany(Status::class);
     }
-    public function employee(): BelongsTo
+    public function employee()
     {
         return $this->belongsTo(Employee::class);
     }
