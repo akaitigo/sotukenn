@@ -63,6 +63,20 @@ appサーバにlivewireの追加
 ```
 composer require livewire/livewire
 ```
+appサーバにnodeとnpmの追加
+
+```
+rm -rf /usr/local/bin/npm /usr/local/share/man/man1/node* ~/.npm
+rm -rf /usr/local/lib/node*
+rm -rf /usr/local/bin/node*
+rm -rf /usr/local/include/node*
+
+apt-get purge nodejs npm
+apt autoremove
+curl -fsSL https://deb.nodesource.com/setup_19.x | bash - &&\
+apt-get install -y nodejs
+curl -qL https://www.npmjs.com/install.sh | sh
+```
 dbサーバーにcliでアクセス
 ```
 mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE
