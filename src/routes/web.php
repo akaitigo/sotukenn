@@ -27,5 +27,24 @@ Route::get('/employeesManagement', [App\Http\Controllers\employeesManagementCont
 Route::get('/noticeManagement', [App\Http\Controllers\noticeManagementController::class, '#'])->name('noticeManagement');           //通知管理
 Route::get('/submittedShift', [App\Http\Controllers\submittedShiftController::class, '#'])->name('submittedShift');                 //提出シフト管理
 Route::get('/ShiftView', [App\Http\Controllers\ShiftViewController::class, '#'])->name('ShiftView');                                //シフト閲覧
-Route::get('/ShiftCreateMenu', [App\Http\Controllers\ShiftCreateMenuController::class, '#'])->name('ShiftCreateMenu');              //シフト作成
+Route::get('/ShiftCreateMenu', [App\Http\Controllers\ShiftCreateMenuController::class, '#'])->name('ShiftCreateMenu');              //シフト作成メニュー
+
+//メニューバープルダウン
+Route::get('/noticeEdit', [App\Http\Controllers\noticeManagementController::class, '#'])->name('noticeEdit');                       //通知管理---→通知編集
+Route::get('/submittedShiftEdit', [App\Http\Controllers\submittedShiftController::class, '#'])->name('submittedShiftEdit');         //シフト設定
+Route::get('/submittedShiftDetail', [App\Http\Controllers\submittedShiftController::class, '#'])->name('submittedShiftDetail');     //提出済みシフト確認
+Route::get('/ShiftCreate', [App\Http\Controllers\ShiftViewController::class, '#'])->name('ShiftCreate');                            //シフト作成
+Route::get('/candidacyView', [App\Http\Controllers\ShiftViewController::class, '#'])->name('candidacyView');                        //シフト候補表示
+
+Route::get('/noticeEdit', [App\Http\Controllers\noticeManagementController::class, '#'])->name('noticeEdit');                       //通知管理---→通知編集
+Route::get('/noticeManagement', [App\Http\Controllers\noticeManagementController::class, '#'])->name('noticeManagement');           //通知編集---→通知管理
+Route::get('/submittedShiftEdit', [App\Http\Controllers\submittedShiftController::class, '#'])->name('submittedShiftEdit');         //提出シフト管理---→シフト設定
+Route::get('/submittedShift', [App\Http\Controllers\submittedShiftController::class, '#'])->name('submittedShift');                 //提出シフト管理---→シフト設定
+
+
+
+
+
+
+
 

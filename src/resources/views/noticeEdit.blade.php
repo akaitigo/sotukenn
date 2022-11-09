@@ -1,0 +1,1 @@
+<a href="{{ route('noticeManagement') }}" >確定ボタン</a>

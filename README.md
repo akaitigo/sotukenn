@@ -58,11 +58,7 @@
     teammember/yamamura,tsumagari,kudou,tokuchan
 
 
-appサーバにlivewireの追加
 
-```
-composer require livewire/livewire
-```
 appサーバにnodeとnpmの追加
 
 ```
