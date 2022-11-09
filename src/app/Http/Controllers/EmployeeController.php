@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function index(){
-        $employee = Employee::where('employee_id','2')->first();
-        
-        dd($employee);
+    public function index()
+    {
+        $employees = "test";
 
+
+        //  Employee::all();
+        return view('layouts.employeesManagement', compact($employees));
     }
 }
