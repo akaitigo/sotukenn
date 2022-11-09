@@ -7,12 +7,12 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    public function index(){
-        $employees = Employee::all(){
-            return view('layouts.EmployeeController',conpact($employees));
-        }
-        
-        
+    public function index()
+    {
+        $employees = "test";
 
+
+        //  Employee::all();
+        return view('layouts.employeesManagement', compact($employees));
     }
 }
