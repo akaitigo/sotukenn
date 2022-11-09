@@ -33,17 +33,22 @@
               </ul>
             </li>
             <li>
-              <a href="{{ route('ShiftView') }}" >シフト閲覧</a>
-              
-            </li>
-            <li>
-              <a href="{{ route('ShiftCreateMenu') }}" >シフト作成</a>
+              <a href="{{ route('shiftView') }}" >シフト閲覧</a>
               <ul>
                 <li>
-                  <a href="{{ route('ShiftCreate') }}" >自動シフト作成</a>
+                  <a href="{{ route('shiftEdit') }}" >シフト編集</a>
+                </li>
+                
+              </ul>
+            </li>
+            <li>
+              <a href="{{ route('shiftCreateMenu') }}" >シフト作成</a>
+              <ul>
+                <li>
+                  <a href="{{ route('shiftCreate') }}" >自動シフト作成</a>
                 </li>
                 <li>
-                  <a href="{{ route('candidacyView') }}" >候補シフト表示画面</a>
+                  <a href="{{ route('candidacyView') }}" >候補シフト表示</a>
                 </li>
                 
               </ul>

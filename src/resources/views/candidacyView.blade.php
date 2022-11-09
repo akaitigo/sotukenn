@@ -1,0 +1,1 @@
+<a href="{{ route('candidacyShiftChoice') }}" >シフト候補選択</a>
