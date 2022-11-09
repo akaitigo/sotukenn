@@ -8,9 +8,11 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
     public function index(){
-        $employee = Employee::where('employee_id','2')->first();
+        $employees = Employee::all(){
+            return view('layouts.EmployeeController',conpact($employees));
+        }
         
-        dd($employee);
+        
 
     }
 }
