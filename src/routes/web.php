@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('title');
+    return view('header');
 });
 
 Auth::routes();
@@ -28,6 +28,11 @@ Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController
 Route::get('/submittedShift', [App\Http\Controllers\SubmittedShiftController::class, '#'])->name('submittedShift');                 //提出シフト管理
 Route::get('/shiftView', [App\Http\Controllers\ShiftViewController::class, '#'])->name('shiftView');                                //シフト閲覧
 Route::get('/shiftCreateMenu', [App\Http\Controllers\ShiftCreateMenuController::class, '#'])->name('shiftCreateMenu');              //シフト作成メニュー
+
+//test/ classの後ろにコントローラーのメソッド名
+Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employeesManagement');                                   //カレンダー
+//test//
+
 
 //メニューバープルダウン
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, '#'])->name('noticeEdit');                       //通知管理---→通知編集
@@ -48,7 +53,3 @@ Route::get('/shiftCreate', [App\Http\Controllers\ShiftCreateMenuController::clas
 Route::get('/candidacyView', [App\Http\Controllers\ShiftCreateMenuController::class, '#'])->name('candidacyView');                  //シフト作成メニュー---→シフト候補表示
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftCreateMenuController::class, '#'])->name('candidacyShiftChoice');    //シフト候補表示---→シフト候補詳細
 Route::get('/shiftView', [App\Http\Controllers\ShiftCreateMenuController::class, '#'])->name('shiftView');                          //シフト候補詳細（選択）---→シフト閲覧
-
-
-
-

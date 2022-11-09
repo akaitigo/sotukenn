@@ -13,6 +13,6 @@ class EmployeeController extends Controller
 
 
         //  Employee::all();
-        return view('layouts.employeesManagement', compact($employees));
+        return view('employeesManagement', compact('employees'));
     }
 }
