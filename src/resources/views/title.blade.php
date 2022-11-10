@@ -4,7 +4,7 @@
 
     <body>
         <div class="titleName">
-            <a href="#" class="title">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
+            <a class="title">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
         </div>
 
         <div class="ButtonArea">
