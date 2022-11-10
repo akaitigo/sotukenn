@@ -1,1 +1,10 @@
-<a href="{{ route('shiftEdit') }}" >その人のシフト時間を選択(編集)</a>
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <link rel="stylesheet" href="/css/submittedShiftEdit.css" type="text/css">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <a href="{{ route('shiftEdit') }}" >その人のシフト時間を選択(編集)</a>
+    </body>
+</html>
