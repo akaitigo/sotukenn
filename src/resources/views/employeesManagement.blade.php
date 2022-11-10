@@ -1,3 +1,3 @@
 @include('header')
 
-{{route("calendar")}}
+<p>{{$employees}}</p>

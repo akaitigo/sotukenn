@@ -19,7 +19,7 @@
     float: left;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-left: 90px;
+    padding-left: 70px;
     font-size: 16px;
     position:relative
   }
@@ -123,3 +123,22 @@
     color: #fff;
     background-color: dodgerBlue;
   }
+
+.button_left{
+  margin-left: auto;
+  padding-right: 15px;
+  padding-top: 20px;
+}
+
+.form_input{
+  float: left;
+  width: 50%;
+}
+.passwrod_Forgot{
+  float: left;
+  width: 45%;
+}
+.offset-md-10{
+  margin-top: 8%;
+  margin-left: 20%;
+}

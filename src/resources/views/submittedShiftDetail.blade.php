@@ -1,1 +1,1 @@
-<a href="{{ route('submittedShift') }}" >戻るボタン(routeはhistory.backでもOK)</a>
+<a href="{{ route('submittedShiftEdit') }}" >戻るボタン(routeはhistory.backでもOK)</a>
