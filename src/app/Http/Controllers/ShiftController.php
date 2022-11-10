@@ -8,7 +8,7 @@ class ShiftController extends Controller
      /* 提出シフト管理 */
     public function management()
     {
-        return view('submittedShiftEdit');
+        return view('submittedShift');
     }
 
     /* シフト設定 */
@@ -20,37 +20,44 @@ class ShiftController extends Controller
     /* 提出済みシフト確認 */
     public function detail()
     {
-        return view('submittedShiftEdit');
+        return view('submittedShiftDetail');
     }
 
     /* シフト閲覧 */
     public function view()
     {
-        return view('submittedShiftEdit');
+        return view('shiftView');
+    }
+
+    /* シフト編集 */
+    public function edit()
+    {
+        return view('shiftEdit');
     }
 
     /* シフト作成メニュー */
     public function menu()
     {
-        return view('submittedShiftEdit');
+        return view('shiftCreateMenu');
     }
 
+    
     /* シフト作成 */
     public function create()
     {
-        return view('submittedShiftEdit');
+        return view('shiftCreate');
     }
 
     /* シフト候補表示 */
     public function multiple()
     {
-        return view('submittedShiftEdit');
+        return view('candidacyView');
     }
 
     /* シフト候補詳細 */
     public function choice()
     {
-        return view('submittedShiftEdit');
+        return view('candidacyShiftChoice');
     }
 
 }

@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-class ShiftController extends Controller
+class NoticeManagementController extends Controller
 {
     
     /* 通知管理 */
     public function management()
     {
-        return view('submittedShiftEdit');
+        return view('noticeManagement');
     }
 
     /* 通知編集 */
     public function edit()
     {
-        return view('submittedShiftEdit');
+        return view('noticeEdit');
     }
 }
