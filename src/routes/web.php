@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('title');
+    return view('test');
 });
 
 Auth::routes();
@@ -24,7 +24,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //メニューバー(header)
 Route::get('/calendar', [App\Http\Controllers\CalendarController::class, '#'])->name('calendar');                                   //カレンダー
 
-Route::get('/employeesManagement', [App\Http\Controllers\EmployeesManagementController::class, '#'])->name('employeesManagement');  //従業員管理
+Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employeesManagement');  //従業員管理
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
@@ -43,8 +43,3 @@ Route::get('/candidacyView', [App\Http\Controllers\ShiftController::class, 'mult
 //ボタンクリック&待ち時間遷移
 Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class, 'detail'])->name('submittedShiftDetail');              //提出シフト管理---→提出済みシフト確認
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
-
-
-
-
-

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('employee_id');
             $table->string('employee_name');
             $table->string('employee_pass');
+            
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('company_id')->on('companies');
         });
