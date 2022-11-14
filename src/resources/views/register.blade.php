@@ -12,7 +12,7 @@
                 <div class="card">
                     <div class="card-header">{{ __('会員登録') }}</div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
+                        <form method="POST" action="{{ route('register.post') }}">
                             @csrf
                             <!-- 氏名入力フォーム -->
                             <div class="inputWithIcon">
@@ -72,16 +72,6 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-
-                            </div>
-                            <!-- パスワード確認用入力フォーム -->
-                            <div class="inputWithIcon">
-                                <label for="password-confirm"
-                                    class="col-md-4 col-form-label text-md-end">{{ __(' ') }}</label>
-
-
-                                <input id="password-confirm" type="password" placeholder="   パスワード確認" class="form-control"
-                                    name="password_confirmation" required autocomplete="new-password">
 
                             </div>
                             <!-- ボタン -->

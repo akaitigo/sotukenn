@@ -1,7 +1,154 @@
-.multiedit {
-    
+.titleName {
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 140px;
+    margin-right: 90px;
+    margin-left: 90px;
+    font-family: Yu-Gothic;
+    font-size: 3.1vw;
+    font-weight: bold;
+}
+.title {
+    border-bottom: solid 5px yellow;
+
+}
+
+.multiedit {  
     text-align: center;
     height: auto;
     width: 100%;
-    color: aquamarine;}
+}
 
+.WorkText {
+    font-size: 25px;
+    font-family:Yu-Gothic;
+}
+
+.Character {
+    font-size: 25px;
+    font-family:Yu-Gothic;
+}
+
+.WorkTimeStart {
+    font-size: 25px;
+}
+
+.WorkTimeEnd {
+    font-size: 25px;
+}
+
+.ShiftNote {
+    font-size: 20px;
+    font-family:Yu-Gothic;
+}
+
+.ShiftText {
+    font-size: 25px;
+    font-family:Yu-Gothic;
+}
+
+.SubmissionLimit {
+    font-size: 25px;
+}
+
+.VoteSwitch_Text {
+    font-size: 25px;
+    font-family:Yu-Gothic;
+}
+
+/* 投票機能 */
+
+.VoteSwitch_btn_cover {
+    height: 100px;
+}
+
+.VoteSwitch_cover {
+    position: relative;
+}
+
+.VoteSwitch_cover:before {
+    position: relative;
+    bottom: 0;
+    color: #d7e3e3;
+    font-size: 12px;
+    line-height: 1;
+    padding: 5px;
+}
+
+.VoteSwitch_btn {
+    position: relative;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    margin: -20px auto 0 auto;
+    overflow: hidden;
+}
+
+.VoteSwitch_checkbox {
+    position: relative;
+    width: 110px;
+    height: 50px;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.knobs {
+    z-index: 2;
+}
+
+
+
+.knobs:before,
+.knobs::after,
+.knobs span {
+    position: absolute;
+    top: 4px;
+    width: 30px;
+    height: 20px;
+    font-size: 19px;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1;
+    padding: 8px 8px;
+    border-radius: 2px;
+    transition: 0.3s ease all;
+}
+
+.knobs:before {
+    content: "";
+    left: 4px;
+    background-color: #03a9f4;
+}
+
+.knobs:after {
+    content: "OFF";
+    right: 6px;
+    color: #4e4e4e;
+}
+
+.knobs span {
+    display: inline-block;
+    left: 4px;
+    color: #fff;
+    z-index: 1;
+}
+
+.VoteSwitch_checkbox:checked + .knobs span {
+    color: #4e4e4e;
+}
+
+.VoteSwitch_checkbox:checked + .knobs:before {
+    left: 52px;
+    background-color: #f44336;
+}
+
+.VoteSwitch_checkbox:checked + .knobs:after {
+    color: #fff;
+}
+
+.VoteSwitch_checkbox:checked {
+    background-color: #fcebeb;
+}
