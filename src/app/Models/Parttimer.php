@@ -11,7 +11,7 @@ class Parttimer extends Authenticatable
 
     use HasFactory;
 
-    protected $fillable = ['employee_id', 'parttimer_pass', 'parttimer_name'];
+    protected $fillable = ['id', 'password', 'name'];
 
     public function Jobs()
     {

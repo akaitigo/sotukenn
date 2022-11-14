@@ -16,10 +16,10 @@ class CompanySeeder extends Seeder
     public function run()
     {
         DB::table('companies')->insert([
-            'company_name' => 'とある飲食店',
+            'name' => 'とある飲食店',
         ]);
         DB::table('companies')->insert([
-            'company_name' => '牛鳥焼肉',
+            'name' => '牛鳥焼肉',
         ]);
 
     }

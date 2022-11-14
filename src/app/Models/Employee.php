@@ -13,7 +13,7 @@ class Employee extends Authenticatable
 
     protected $fillable=['employee_name','employee_pass','company_id'];
     
-    public function jobs(): Belongsto
+    public function jobs()
     {
         return $this->belongsToMany(Job::class);
     }

@@ -15,10 +15,10 @@ class EmployeeSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('employees')->insert([
-            'employee_name' => '鈴木武',
-            'employee_pass'=>'password1234',
-            'company_id'=>'1'
-        ]);
+        // DB::table('employees')->insert([
+        //     'name' => '鈴木武',
+        //     'pass'=>'password1234',
+        //     'company_id'=>'1'
+        // ]);
     }
 }
