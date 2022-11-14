@@ -14,11 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('parttimer_status', function (Blueprint $table) {
-            $table->increments('parttimer_status_id');
+            $table->increments('id');
             $table->unsignedInteger('parttimer_id');
-            $table->foreign('parttimer_id')->references('parttimer_id')->on('parttimers');
+            $table->foreign('parttimer_id')->references('id')->on('parttimers');
             $table->unsignedInteger('status_id');
-            $table->foreign('status_id')->references('status_id')->on('statuses');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 
