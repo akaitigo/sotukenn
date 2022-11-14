@@ -12,11 +12,11 @@ class Job extends Model
 
     protected $fillable=['job_name'];
 
-    public function employees(): BelongsToMany
+    public function employees() 
     {
         return $this->belongsToMany(Employee::class);
     }
-    public function parttimers(): BelongsToMany
+    public function parttimers()
     {
         return $this->belongsToMany(Parttimer::class);
     }

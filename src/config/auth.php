@@ -40,6 +40,14 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'employees' => [
+            'driver' => 'session',
+            'provider' => 'employeess',
+        ],
+        'parttimers' => [
+            'driver' => 'session',
+            'provider' => 'parttimers',
+        ],
     ],
 
     /*
@@ -63,6 +71,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Employee::class,
+        ],
+        'parttimers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Parttimer::class,
         ],
 
         // 'users' => [

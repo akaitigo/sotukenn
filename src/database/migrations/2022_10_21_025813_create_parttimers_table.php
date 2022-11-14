@@ -14,12 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('parttimers', function (Blueprint $table) {
-            $table->increments('parttimer_id');
+            $table->increments('id');
             $table->unsignedInteger('employee_id');
-            $table->foreign('employee_id')->references('employee_id')->on('employees');
-            $table->string('parttimer_name');
-            $table->string('parttimer_pass');
-            $table->integer('parttimer_weight');
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->string('name');
+            $table->string('password');
+            
+            $table->integer('weight');
         });
     }
 
