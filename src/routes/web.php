@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +18,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::get('/register', "App\Http\Controllers\RegisterFormController@show")->name('register.show');
+Route::post('/register', "App\Http\Controllers\RegisterFormController@post")->name('register.post');
+
+Route::get('/register/confirm', "App\Http\Controllers\RegisterFormController@confirm")->name("register.confirm");
+Route::post('/register/confirm', "App\Http\Controllers\Auth\RegisterController@register")->name("register");
+Route::post('/register/confirm', "App\Http\Controllers\RegisterFormController@send")->name("register.send");
+
+Route::get('/register/thanks', "App\Http\Controllers\RegisterFormController@complete")->name("register.complete");
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
