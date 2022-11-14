@@ -23,27 +23,28 @@ class RegisterFormController extends Controller
 		"email" => "required|string|email|max:255|unique:users",
 		"password" => "required|string|min:8",
 	];
-
+	//フォーム入力画面の表示
 	function show(){
 		return view("register");
 	}
-
+	//POSTの処理
 	function post(Request $request){
 		
-		$data = $request->only($this->formItems);
-		
+		$data = $request->only($this->formItems);		
 		$validator = Validator::make($data, $this->validator);
+
 		if($validator->fails()){
 			return redirect()->action("App\Http\Controllers\RegisterFormController@show")
 				->withInput()
 				->withErrors($validator);
 		}
 
-		//セッションに書き込む
+		//セッションに保存
 		$request->session()->put("register_input", $data);
 
 		return redirect()->action("App\Http\Controllers\RegisterFormController@confirm");
 	}
+	//確認画面の表示とセッションの受け取り
 	function confirm(Request $request){
 		//セッションから値を取り出す
 		$data = $request->session()->get("register_input");
@@ -55,7 +56,7 @@ class RegisterFormController extends Controller
 		return view("register_confirm",["data" => $data]);
 		return view("register_confirm");
 	}
-
+	//確認画面→登録or戻る時の処理
     function send(Request $request){
 		//セッションから値を取り出す
 		$data = $request->session()->get("register_input");
@@ -84,7 +85,7 @@ class RegisterFormController extends Controller
 
 		return redirect()->action("App\Http\Controllers\RegisterFormController@complete");
 	}
-
+	//完了画面の表示
     function complete(){	
 		return view("register_complete");
 	}
