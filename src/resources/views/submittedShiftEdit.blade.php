@@ -121,7 +121,7 @@
             <div class="VoteSwitch_btn_cover">
                 <div class="VoteSwitch_cover">
                     <div class="VoteSwitch_btn" id="VoteSwitch">
-                        <input type='checkbox' class="VoteSwitch_checkbox" checked  />
+                        <input type='checkbox' class="VoteSwitch_checkbox" checked />
                         <div class="knobs">
                             <span>ON</span>
                         </div>            
