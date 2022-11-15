@@ -11,11 +11,11 @@ class Parttimer extends Authenticatable
 
     use HasFactory;
 
-    protected $fillable = ['employee_id', 'parttimer_pass', 'parttimer_name'];
+    protected $fillable = ['id', 'password', 'name'];
 
     public function Jobs()
     {
-        return $this->belongsToMany(Job::class);
+        return $this->belongsToMany(Job::class,'parttimer_job');
     }
     public function Statuses()
     {

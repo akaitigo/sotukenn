@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(JobSeeder::class);
         $this->call(ParttimerSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(MultiAuthTableSeeder::class);
         $this->call(EmployeeJobSeeder::class);
         $this->call(ParttimerJobSeeder::class);
         $this->call(ParttimerStatusSeeder::class);    

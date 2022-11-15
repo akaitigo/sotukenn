@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('password');
 
             $table->integer('weight');
-            $table->unsignedInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('companies');
-            
+            $table->unsignedInteger('store_id');
+            $table->foreign('store_id')->references('id')->on('stores');
+
             $table->rememberToken();
             $table->timestamps();
         });

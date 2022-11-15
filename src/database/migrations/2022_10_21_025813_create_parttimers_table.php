@@ -18,9 +18,11 @@ return new class extends Migration
             $table->unsignedInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->string('name');
-            $table->string('password');
-            
+            $table->string('password');            
             $table->integer('weight');
+            $table->rememberToken();
+            $table->timestamps();
+        
         });
     }
 
