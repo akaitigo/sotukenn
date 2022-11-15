@@ -11,7 +11,7 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class=form_input>
-                                <div class="inputWithIcon">
+                                {{-- <div class="inputWithIcon">
                                     <div class="col-md">
                                         <input id="enterprise" type="text" placeholder=" 企業名"
                                             class="form-control @error('enterprise') is-invalid @enderror" name="enterprise"
@@ -23,7 +23,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="inputWithIcon">
                                     <div class="col-md">
