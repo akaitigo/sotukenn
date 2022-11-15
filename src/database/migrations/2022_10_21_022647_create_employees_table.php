@@ -22,8 +22,8 @@ return new class extends Migration
 
             $table->integer('weight');
             $table->unsignedInteger('company_id');
-            $table->foreign('company_id')->references('id')->on('companies');
-            
+            $table->foreign('store')->references('id')->on('companies');
+
             $table->rememberToken();
             $table->timestamps();
         });
