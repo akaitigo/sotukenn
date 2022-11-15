@@ -26,7 +26,7 @@ class MultiAuthTableSeeder extends Seeder
                 'employee_id' => '1',
                 'password' => 'qwertytanaka',
                 'weight' => '5',
-                'company_id' => '1',
+                'store_id' => '1',
             ],
             [
                 'name' => '田中花子',
@@ -34,7 +34,7 @@ class MultiAuthTableSeeder extends Seeder
                 'employee_id' => '1',
                 'password' => 'qwertytanaka',
                 'weight' => '5',
-                'company_id' => '1',
+                'store_id' => '1',
             ],
         ];
         foreach ($init_employees as $init_employee) {
@@ -43,7 +43,7 @@ class MultiAuthTableSeeder extends Seeder
             $employee->email = $init_employee['email'];
             $employee->password = Hash::make($init_employee['password']);
             $employee->weight = $init_employee['weight'];
-            $employee->company_id = $init_employee['company_id'];
+            $employee->store_id = $init_employee['store_id'];
             $employee->save();
         }
         //parttimerのテストデータ

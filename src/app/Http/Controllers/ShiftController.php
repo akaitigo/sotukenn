@@ -15,6 +15,7 @@ class ShiftController extends Controller
     public function setting()
     {
         $stores = Store::get();
+        return view('submittedShiftEdit' compact('store'));
     }
 
     /* 提出済みシフト確認 */

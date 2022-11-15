@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StoreSeeder extends Seeder
 {
@@ -19,8 +20,7 @@ class StoreSeeder extends Seeder
             'store_name'=>'しょーまカンパニー',
             'workstarttime'=>'10',
             'workendtime'=>'22',
-            'submissionlimit'=>'',
-            'vote'=>'false'
+            'vote'=>'0'
         ]);
 
         DB::table('stores')->insert([
@@ -28,8 +28,7 @@ class StoreSeeder extends Seeder
             'store_name'=>'まるおカンパニー',
             'workstarttime'=>'10',
             'workendtime'=>'22',
-            'submissionlimit'=>'',
-            'vote'=>'false'
+            'vote'=>'0'
         ]);
 
         DB::table('stores')->insert([
@@ -37,8 +36,8 @@ class StoreSeeder extends Seeder
             'store_name'=>'ひかるカンパニー',
             'workstarttime'=>'10',
             'workendtime'=>'22',
-            'submissionlimit'=>'',
-            'vote'=>'false'
+            'vote'=>'0'
         ]);
+        
     }
 }
