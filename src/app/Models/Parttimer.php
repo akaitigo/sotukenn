@@ -15,7 +15,7 @@ class Parttimer extends Authenticatable
 
     public function Jobs()
     {
-        return $this->belongsToMany(Job::class);
+        return $this->belongsToMany(Job::class,'parttimer_job');
     }
     public function Statuses()
     {

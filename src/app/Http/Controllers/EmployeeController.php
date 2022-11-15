@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
 
 class EmployeeController extends Controller
 {
@@ -12,14 +14,16 @@ class EmployeeController extends Controller
     {
         $employees = Employee::get();
         $parttimers = Parttimer::all();
-        foreach ($parttimers as $parttimer) {
-            echo "<br/>{$parttimer->parttimer_name}の仕事たち：";
+
+
+
+        foreach ($parttimers as $part) {
+            $decrypted = Crypt::decryptString($part->password); //パスワードの復元
+            $part->password = $decrypted;
         }
 
-        foreach ($parttimer->Jobs as $job) {
-            echo "{$job->job_id}";
-            echo "a";
-        }
+
+
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
 }
