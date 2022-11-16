@@ -1,82 +1,56 @@
 <link rel="stylesheet" href="/css/header.css" type="text/css">
 <header>
     <div class="blandWrapper">
-        <a class="brand">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
-    </div>
-    <div class="menuhyde">
-        <div class="menuHeaderWrap">
-            <ul class="menuclass" id="menu">
+        <nav role="navigation" class="nav">
+            <ul class="nav-items">
+                <a class="brand">M&nbsp;A&nbsp;R&nbsp;U&nbsp;O&nbsp;K&nbsp;U&nbsp;N</a>
+
                 <!-- カレンダー -->
-                <li>
-                    <a>カレンダー</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('calendar') }}">カレンダー(仮)</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item">
+                    <a herf="{{ route('calendar') }}"class="nav-link"><span>カレンダー</span></a>
+                </li> 
                 <!-- 従業員管理 -->
-                <li>
-                    <a>従業員管理</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('employeesManagement') }}">従業員管理(仮)</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item">
+                    <a href="{{ route('employeesManagement') }}"  class="nav-link"><span>従業員管理</span></a>
+                </li> 
                 <!-- 通知管理 -->
-                <li>
-                    <a>通知管理</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('noticeManagement') }}">通知管理(仮)</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('noticeEdit') }}">編集</a>
-                        </li>
-                    </ul>
+                <li class="nav-item">
+                    <a href="{{ route('noticeManagement') }}" class="nav-link"><span>通知管理</span></a>
                 </li>
                 <!-- 提出シフト管理 -->
-                <li>
-                    <a>提出シフト管理</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('submittedShift') }}">提出シフト管理(仮)</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('submittedShiftEdit') }}">設定</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item">
+                    <a href="{{ route('submittedShift') }}" class="nav-link"><span>提出シフト管理</span></a>
+                </li> 
                 <!-- シフト作成 -->
-                <li>
-                    <a>シフト作成</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('shiftCreateMenu') }}">シフト作成(仮)</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shiftCreate') }}">自動シフト作成</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('candidacyView') }}">候補シフト表示</a>
-                        </li>
-                    </ul>
+                <li class="nav-item dropdown">
+                    <a class="nav-link"><span>シフト表の操作&nbsp;∇</span></a>
+                    <nav class="submenu">
+                        <ul class="submenu-items">
+                            <li class="submenu-item"><a href="{{ route('shiftCreateMenu') }}" class="submenu-link">シフト作成</a></li>
+                            <li class="submenu-item"><a href="{{ route('shiftCreate') }}" class="submenu-link">自動シフト作成</a></li>
+                            <li class="submenu-item"><a href="{{ route('candidacyView') }}" class="submenu-link">候補シフト表示</a></li>
+                            <li class="submenu-item"><hr class="submenu-seperator" /></li>
+                            <li class="submenu-item"><a href="{{ route('shiftView') }}" class="submenu-link">シフト閲覧</a></li>
+                            <li class="submenu-item"><a href="{{ route('shiftEdit') }}" class="submenu-link">シフト編集</a></li>
+                        </ul>
+                    </nav>
+                </li>  
+                <li class="nav-item">
                 </li>
-                <!-- シフト閲覧 -->
-                <li>
-                    <a>シフト閲覧</a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('shiftView') }}">シフト閲覧(仮)</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shiftEdit') }}">シフト編集</a>
-                        </li>
-
-                    </ul>
+                <li class="nav-item">
+                    <a href="{{ route('submittedShift') }}" class="nav-link"><span>設定</span></a>
                 </li>
-                
+                <li class="nav-item dropdown">
+                    <a class="nav-link"><span>{{ Auth::user()->name }}&nbsp;∇</span></a>
+                    <nav class="submenu">
+                        <ul class="submenu-items"> 
+                            <li class="submenu-item"><a href="{{ route('shiftEdit') }}" class="submenu-link">ログアウト</a></li>
+                        </ul>
+                    </nav>
+                </li>   
             </ul>
-        </div>
+        </nav>
+    </div>
 </header>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<script type="text/javascript" src="/js/header.js"></script>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('store_name');
             $table->integer('workstarttime');
             $table->integer('workendtime');
-            $table->integer('submissionlimit');
+            $table->integer('submissionlimit')->nullable();
             $table->boolean('vote');
         });
     }
