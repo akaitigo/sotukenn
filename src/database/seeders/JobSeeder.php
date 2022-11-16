@@ -16,10 +16,10 @@ class JobSeeder extends Seeder
     public function run()
     {
         DB::table('jobs')->insert([
-            'job_name' => 'キッチン',
+            'name' => 'キッチン',
             ]);
         DB::table('jobs')->insert([
-            'job_name' => 'ウェイター',
+            'name' => 'ウェイター',
             ]);
     }
 }

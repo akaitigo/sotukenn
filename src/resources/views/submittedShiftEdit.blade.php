@@ -6,6 +6,9 @@
     <body>
         @include('header')
         <div class="multiedit">
+        @foreach ($stores as $stores)
+            <a>{{ $stores->store_name}}</a>
+        @endforeach
         <br>
             <a class="WorkText">勤務時間</a><br>
             <select name="WorkTimeStart" class="WorkTimeStart">
@@ -121,7 +124,7 @@
             <div class="VoteSwitch_btn_cover">
                 <div class="VoteSwitch_cover">
                     <div class="VoteSwitch_btn" id="VoteSwitch">
-                        <input type='checkbox' class="VoteSwitch_checkbox" checked  />
+                        <input type='checkbox' class="VoteSwitch_checkbox" checked />
                         <div class="knobs">
                             <span>ON</span>
                         </div>            

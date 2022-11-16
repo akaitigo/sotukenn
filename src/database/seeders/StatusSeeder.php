@@ -16,13 +16,13 @@ class StatusSeeder extends Seeder
     public function run()
     {
         DB::table('statuses')->insert([
-            'status_name'=>'高校生',
+            'name'=>'高校生',
             ]);
         DB::table('statuses')->insert([
-            'status_name'=>'既婚者',
+            'name'=>'既婚者',
         ]);
         DB::table('statuses')->insert([
-            'status_name'=>'社会保険',
+            'name'=>'社会保険',
         ]);
     }
 }

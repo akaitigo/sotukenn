@@ -20,11 +20,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        $this->call(CompanySeeder::class);
+        $this->call(StoreSeeder::class);
         $this->call(EmployeeSeeder::class);
         $this->call(JobSeeder::class);
         $this->call(ParttimerSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(MultiAuthTableSeeder::class);
         $this->call(EmployeeJobSeeder::class);
         $this->call(ParttimerJobSeeder::class);
         $this->call(ParttimerStatusSeeder::class);    

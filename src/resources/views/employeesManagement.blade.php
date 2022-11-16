@@ -3,22 +3,33 @@
 
 <h2>従業員一覧</h2>
 
-<table class="table">
+<table class="table" border="2">
     <thead>
         <tr>
             <th>id</th>
             <th>name</th>
+            <th>weight</th>
+            <th>position</th>
             <th>pass</th>
-
+            <th>delete</th>
         </tr>
     </thead>
     <tbody>
-        @foreach ($employees as $employee)
+        @foreach ($parttimers as $parttimer)
         <tr>
-            <td>{{ $employee->employee_id}}</td>
-            <td>{{ $employee->employee_name }}</td>
-            <td>{{ $employee->employee_pass }}</td>
+            <td>{{ $parttimer->id}}</td>
+            <td>{{ $parttimer->name }}</td>
+            <td>{{ $parttimer->weight}}</td>
 
+            <td> @foreach($parttimer-> Jobs as $job)
+
+                {{$job->name}}
+
+                @endforeach
+            </td>
+            <td>{{ $parttimer->password }}
+            </td>
+            <td><input type="checkbox"></td>
         </tr>
         @endforeach
     </tbody>
