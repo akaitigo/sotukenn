@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Illuminate\Support\Facades\Route;
 
@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('test');
-// });
-Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
+Route::get('/', function () {
+    return view('header');
+});
+//Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
 
 Auth::routes();
@@ -34,7 +34,7 @@ Route::get('/register/thanks', "App\Http\Controllers\RegisterFormController@comp
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //メニューバー(header)
-// Route::get('/calendar', [App\Http\Controllers\CalendarController::class, '#'])->name('calendar');                                   //カレンダー
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, '#'])->name('calendar');                                   //カレンダー
 
 Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employeesManagement');  //従業員管理
 

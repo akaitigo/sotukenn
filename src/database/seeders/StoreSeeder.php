@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class StoreSeeder extends Seeder
 {
@@ -15,30 +16,30 @@ class StoreSeeder extends Seeder
     public function run()
     {
         DB::table('stores')->insert([
-            'id'=>'1',
-            'store_name'=>'しょーまカンパニー',
-            'workstarttime'=>'10',
-            'workendtime'=>'22',
-            'submissionlimit'=>'',
-            'vote'=>'false'
+            'id' => '1',
+            'store_name' => 'しょーまカンパニー',
+            'workstarttime' => '10',
+            'workendtime' => '22',
+            'submissionlimit' => '1',
+            'vote' => false
         ]);
 
         DB::table('stores')->insert([
-            'id'=>'2',
-            'store_name'=>'まるおカンパニー',
-            'workstarttime'=>'10',
-            'workendtime'=>'22',
-            'submissionlimit'=>'',
-            'vote'=>'false'
+            'id' => '2',
+            'store_name' => 'まるおカンパニー',
+            'workstarttime' => '10',
+            'workendtime' => '22',
+            'submissionlimit' => '1',
+            'vote' => false
         ]);
 
         DB::table('stores')->insert([
-            'id'=>'3',
-            'store_name'=>'ひかるカンパニー',
-            'workstarttime'=>'10',
-            'workendtime'=>'22',
-            'submissionlimit'=>'',
-            'vote'=>'false'
+            'id' => '3',
+            'store_name' => 'ひかるカンパニー',
+            'workstarttime' => '10',
+            'workendtime' => '22',
+            'submissionlimit' => '1',
+            'vote' => false
         ]);
     }
 }

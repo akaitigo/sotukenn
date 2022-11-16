@@ -26,7 +26,7 @@ class MultiAuthTableSeeder extends Seeder
                 'employee_id' => '1',
                 'password' => 'qwertytanaka',
                 'weight' => '5',
-                'company_id' => '1',
+                'store_id' => '1',
             ],
             [
                 'name' => '田中花子',
@@ -34,16 +34,17 @@ class MultiAuthTableSeeder extends Seeder
                 'employee_id' => '1',
                 'password' => 'qwertytanaka',
                 'weight' => '5',
-                'company_id' => '1',
+                'store_id' => '1',
             ],
         ];
         foreach ($init_employees as $init_employee) {
             $employee = new Employee();
             $employee->name = $init_employee['name'];
             $employee->email = $init_employee['email'];
-            $employee->password = Hash::make($init_employee['password']);
+            $encrypted = Crypt::encryptString($init_employee['password']); //暗号化
+            $employee->password = $encrypted;
             $employee->weight = $init_employee['weight'];
-            $employee->company_id = $init_employee['company_id'];
+            $employee->store_id = $init_employee['store_id'];
             $employee->save();
         }
         //parttimerのテストデータ
@@ -66,7 +67,7 @@ class MultiAuthTableSeeder extends Seeder
             $parttimer->name = $init_parttimer['name'];
             $parttimer->employee_id = $init_parttimer['employee_id'];
             //$parttimer->password=Hash::make($init_parttimer['password']);
-            $encrypted = Crypt::encryptString($init_parttimer['password']);//暗号化
+            $encrypted = Crypt::encryptString($init_parttimer['password']); //暗号化
             $parttimer->password = $encrypted;
             $parttimer->weight = $init_parttimer['weight'];
             $parttimer->save();

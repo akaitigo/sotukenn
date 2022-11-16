@@ -12,7 +12,7 @@ class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::get();
+        $employees = Employee::all();
         $parttimers = Parttimer::all();
 
 
@@ -21,6 +21,13 @@ class EmployeeController extends Controller
             $decrypted = Crypt::decryptString($part->password); //パスワードの復元
             $part->password = $decrypted;
         }
+
+
+        // foreach ($employees as $emp) {
+        //     $decrypted = Crypt::decryptString($emp->password); //パスワードの復元
+        //     $emp->password = $decrypted;
+        // }
+
 
 
 
