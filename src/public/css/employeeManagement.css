@@ -1,0 +1,13 @@
+img {
+
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin: auto;
+}
+
+table {
+    text-align: center;
+    vertical-align: middle;
+}
+

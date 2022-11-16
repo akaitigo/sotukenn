@@ -61,6 +61,7 @@ class MultiAuthTableSeeder extends Seeder
                 'password' => 'qwertytanaka',
                 'weight' => '1'
             ],
+
         ];
         foreach ($init_parttimers as $init_parttimer) {
             $parttimer = new Parttimer();
