@@ -17,9 +17,9 @@ class Employee extends Authenticatable
     {
         return $this->belongsToMany(Job::class);
     }
-    public function company(): BelongsTo
+    public function stores(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Store::class);
     }
     public function parttimers(): HasMany
     {

@@ -25,4 +25,8 @@ class Parttimer extends Authenticatable
     {
         return $this->belongsTo(Employee::class);
     }
+    public function stores(): BelongsTo
+    {
+        return $this->belongsTo(Store::class);
+    }
 }
