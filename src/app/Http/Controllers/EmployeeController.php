@@ -37,4 +37,13 @@ class EmployeeController extends Controller
         $parttimers = Parttimer::all();
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
+
+    public function update(Request $request){
+        $employees = Employee::all();
+        $parttimers = Parttimer::all();
+
+
+
+        return view('employeesManagementPassView', compact('employees', 'parttimers'));
+    }
 }

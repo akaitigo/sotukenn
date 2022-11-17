@@ -1,8 +1,19 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('header')
 
+<script type="text/javascript">
+    function myEnter() {
+        myPassWord = prompt("パスワードを入力してください", "");
+        if (myPassWord == "pass1") {
+            location.href = "secret.htm";
+        } else {
+            alert("パスワードが違います!");
+        }
+    }
+</script>
+
 <label>🔍<label><input type="text" class="serch"><input type="button" class="serchButton">
-        <a href="{{ route('employeesManagementPassView') }}">パスワードの表示・変更</a>
+        <a href="{{ route('employeesManagementPassView') }}" onclick="myEnter">パスワードの表示・変更</a>
         <h2>正社員一覧</h2>
 
         <title>従業員管理</title>

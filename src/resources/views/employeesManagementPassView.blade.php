@@ -1,8 +1,17 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('header')
 
-<form action="{{route('employeesManagementPassView')}}" method="get"><label>🔍<label><input type="serch" class="serch"><input type="submit" class="serchButton">
-            <a href="{{ route('employeesManagementPassNotView') }}">パスワード非表示</a></form>
+<form action="{{route('employeesManagementPassView')}}" method="get">
+    <label>🔍<label>
+            <input type="serch" class="serch"><input type="submit" class="serchButton">
+            <a href="{{ route('employeesManagementPassNotView') }}">パスワード非表示</a>
+            <input type="button" occlick="" name="update" class="updateButton" value="更新">
+
+
+</form>
+
+
+
 <h2>正社員一覧</h2>
 
 <title>従業員管理</title>
@@ -20,6 +29,7 @@
 
     <tbody>
         @foreach ($employees as $emp)
+        
         <tr>
             <td>{{ $emp->id}}</td>
             <td>{{ $emp->name }}</td>
@@ -31,8 +41,8 @@
 
                 @endforeach
             </td>
-            <td><input type="password" placeholder="{{ $emp->password }}"></td>
-            <td><input type="checkbox"></td>
+            <td><input type="password" name="empPasswordChange" placeholder="{{ $emp->password }}"></td>
+            <td><input name="{{}}" type="checkbox"></td>
         </tr>
         @endforeach
     </tbody>
