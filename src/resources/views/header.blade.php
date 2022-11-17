@@ -39,9 +39,6 @@
                 </li>
                 <li class="nav-item">
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('submittedShift') }}" class="nav-link"><span>設定</span></a>
-                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link"><span>a&nbsp;∇</span></a>
                     <nav class="submenu">
@@ -49,6 +46,9 @@
                             <li class="submenu-item"><a href="{{ route('shiftEdit') }}" class="submenu-link">ログアウト</a></li>
                         </ul>
                     </nav>
+                </li>  
+                <li class="nav-item"> 
+                    @include('setting')
                 </li>
             </ul>
         </nav>

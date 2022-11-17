@@ -20,13 +20,14 @@
 }
 
 .WorkText {
-    font-size: 25px;
+    font-size: 1.4vw;
     font-family:Yu-Gothic;
 }
 
 .Character {
-    font-size: 25px;
+    font-size: 1vw;
     font-family:Yu-Gothic;
+
 }
 
 .WorkTimeStart {

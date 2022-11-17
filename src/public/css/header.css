@@ -24,6 +24,7 @@
 
 .nav {
   width: 100%;
+  max-width: 100%;
   margin: 20px auto 0 auto;
   text-align:left;
 }
@@ -32,21 +33,22 @@
 
 .nav {
   font-family: Georgia, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 18px;
 }
 
 .nav-items {
-  padding: 1;
+  padding: 1%;
   list-style: none;
 }
 
 .nav-item {
   display: inline-block;
-  margin-right: 25px;
+  margin-right: 3%;
 }
 
 .nav-item:last-child {
   margin-right: 0;
+  
 }
 
 .nav-link,
@@ -59,12 +61,13 @@
 .submenu-link:active {
   display: block;
   position: relative;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 1.1vw;
+  letter-spacing: 1;
   cursor: pointer;
   text-decoration: none;
   outline: none;
 }
+
 
 .nav-link,
 .nav-link:link, 
