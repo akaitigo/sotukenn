@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Parttimer;
 use App\Models\Employee;
+use App\Models\Store;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,13 +54,15 @@ class MultiAuthTableSeeder extends Seeder
                 'name' => '鈴木田中',
                 'employee_id' => '1',
                 'password' => 'qwertysuzuki',
-                'weight' => '1'
+                'weight' => '1',
+                'store_id' => '1'
             ],
             [
                 'name' => '田中鈴木',
                 'employee_id' => '1',
                 'password' => 'qwertytanaka',
-                'weight' => '1'
+                'weight' => '1',
+                'store_id' => '2'
             ],
 
         ];
@@ -71,6 +74,7 @@ class MultiAuthTableSeeder extends Seeder
             $encrypted = Crypt::encryptString($init_parttimer['password']); //暗号化
             $parttimer->password = $encrypted;
             $parttimer->weight = $init_parttimer['weight'];
+            $parttimer->store_id = $init_parttimer['store_id'];
             $parttimer->save();
         }
     }

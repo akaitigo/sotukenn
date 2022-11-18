@@ -36,7 +36,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //メニューバー(header)
 Route::get('/calendar', [App\Http\Controllers\CalendarController::class, '#'])->name('calendar');                                   //カレンダー
 
-Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employeesManagement');  //従業員管理
+Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理
+Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集

@@ -7,13 +7,12 @@
 <body>
     @include('header')
     <div class="multiedit">
-        {{--@foreach ($stores as $stores)
-            <a>{{ $stores->store_name }}</a>
-        @endforeach--}}
+        <p>{{($stores)}}</p>
         <br>
 
         <a class="WorkText">勤務時間</a><br>
-        <select name="WorkTimeStart" class="WorkTimeStart">
+        <select name="WorkTimeStart" class="WorkTimeStart" value="10">
+            <option value="{{($stores->workstarttime)}}" selected hidden>{{($stores->workstarttime)}}</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -24,7 +23,7 @@
             <option value="7">7</option>
             <option value="8">8</option>
             <option value="9">9</option>
-            <option value="10" selected>10</option>
+            <option value="10">10</option>
             <option value="11">11</option>
             <option value="12">12</option>
             <option value="13">13</option>
@@ -41,6 +40,7 @@
         </select><a class="Character"> 時</a>
         <a class="Character">～</a>
         <select name="WorkTimeEnd" class="WorkTimeEnd">
+            <option value="{{($stores->workendtime)}}" selected hidden>{{($stores->workendtime)}}</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -86,39 +86,9 @@
             <option value="8">8</option>
             <option value="9">9</option>
             <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-            <option value="16">16</option>
-            <option value="17">17</option>
-            <option value="18">18</option>
-            <option value="19">19</option>
-            <option value="20" selected>20</option>
-            <option value="21">21</option>
-            <option value="22">22</option>
-            <option value="23">23</option>
-            <option value="24">24</option>
-            <option value="25">25</option>
-            <option value="26">26</option>
-            @if ($NextDay == 28)
-                <option value="27">27</option>
-            @elseif($NextDay == 29)
-                <option value="28">28</option>
-                <option value="29">29</option>
-            @elseif($NextDay == 30)
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-            @elseif($NextDay == 31)
-                <option value="28">28</option>
-                <option value="29">29</option>
-                <option value="30">30</option>
-                <option value="31">31</option>
-            @endif
+            
         </select>
-        <a class="Character">日迄</a><br><br><br>
+        <a class="Character">日前まで</a><br><br><br>
 
 
         <!-- 投票機能 -->

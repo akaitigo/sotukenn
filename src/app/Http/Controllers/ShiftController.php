@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Store;
 
 class ShiftController extends Controller
 {
@@ -14,8 +15,8 @@ class ShiftController extends Controller
     /* シフト設定 */
     public function setting()
     {
-        $stores = Store::get();
-        return view('submittedShiftEdit' compact('store'));
+        $stores = Store::find(1);
+        return view('submittedShiftEdit',compact('stores'));
     }
 
     /* 提出済みシフト確認 */
