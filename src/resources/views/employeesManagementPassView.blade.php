@@ -29,7 +29,7 @@
 
     <tbody>
         @foreach ($employees as $emp)
-        
+
         <tr>
             <td>{{ $emp->id}}</td>
             <td>{{ $emp->name }}</td>
@@ -42,7 +42,7 @@
                 @endforeach
             </td>
             <td><input type="password" name="empPasswordChange" placeholder="{{ $emp->password }}"></td>
-            <td><input name="{{}}" type="checkbox"></td>
+            <td><input name="aa" type="checkbox"></td>
         </tr>
         @endforeach
     </tbody>
