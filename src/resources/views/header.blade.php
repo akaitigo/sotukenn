@@ -11,7 +11,7 @@
                 </li>
                 <!-- 従業員管理 -->
                 <li class="nav-item">
-                    <a href="{{ route('employeesManagementPassNotView') }}" class="nav-link"><span>従業員管理</span></a>
+                    <a href="#" class="nav-link"><span>従業員管理</span></a>
                 </li>
                 <!-- 通知管理 -->
                 <li class="nav-item">

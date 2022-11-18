@@ -118,15 +118,9 @@
 
             <li class="navigation_li">
                 <a class="WorkText">投票機能</a>
-                <div class="VoteSwitch_btn_cover">
-                    <div class="VoteSwitch_cover">
-                        <div class="VoteSwitch_btn" id="VoteSwitch">
-                            <input type='checkbox' class="VoteSwitch_checkbox" checked />
-                            <div class="knobs">
-                                <span>ON</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="block">
+                    <input data-index="0" id="cheap" type="checkbox" />
+                    <label for="cheap">投票機能を使いますか？</label>
                 </div>
             </li>
         </ul>
@@ -138,6 +132,7 @@
         <img src="/img_submit/setting.png" width="100%">
     </div>
 </section>
+<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/jquery.ui.min.js"></script>
