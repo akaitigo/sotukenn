@@ -23,8 +23,7 @@ Navigation
   transform: translateY(-100%)
 }
 
-nav,
-nav ul {
+.navigation_ui{
   width: 100%;
   height: 100%;
   margin: 0;
@@ -426,3 +425,5 @@ Animation keyframes
   font-size: 1vw;
   font-family:Yu-Gothic;
 }
+
+
