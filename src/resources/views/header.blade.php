@@ -11,7 +11,7 @@
                 </li>
                 <!-- 従業員管理 -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><span>従業員管理</span></a>
+                    <a href="{{route('employeesManagementPassNotView')}}" class="nav-link"><span>従業員管理</span></a>
                 </li>
                 <!-- 通知管理 -->
                 <li class="nav-item">
@@ -46,8 +46,8 @@
                             <li class="submenu-item"><a href="{{ route('shiftEdit') }}" class="submenu-link">ログアウト</a></li>
                         </ul>
                     </nav>
-                </li>  
-                <li class="nav-item"> 
+                </li>
+                <li class="nav-item">
                     @include('setting')
                 </li>
             </ul>

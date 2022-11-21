@@ -16,15 +16,13 @@ return new class extends Migration
         Schema::create('parttimers', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('employee_id');
-            $table->foreign('employee_id')->references('id')->on('employees');
             $table->string('name');
-            $table->string('password');            
+            $table->string('password');
             $table->integer('weight');
             $table->unsignedInteger('store_id');
             $table->foreign('store_id')->references('id')->on('stores');
             $table->rememberToken();
             $table->timestamps();
-        
         });
     }
 

@@ -9,12 +9,11 @@ class Status extends Model
 {
 
     use HasFactory;
-    
-    protected $fillable=['status_name'];
-    
-    public function Parttimers(): BelongsToMany
+
+    protected $fillable = ['status_name'];
+
+    public function Parttimers()
     {
         return $this->belongsToMany(Parttimer::class);
     }
-
 }
