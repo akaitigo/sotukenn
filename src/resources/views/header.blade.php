@@ -54,5 +54,6 @@
         </nav>
     </div>
 </header>
+<div id="setting_div" class=""><p id="setting"></p></div>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <script type="text/javascript" src="/js/header.js"></script>

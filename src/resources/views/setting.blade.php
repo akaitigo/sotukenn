@@ -7,7 +7,7 @@
                 <a class="WorkText">勤務時間</a><br>
                 <div class="selectdiv">
                     <select name="WorkTimeStart" class="WorkTimeStart">
-                        
+                        <option selected hidden></option>
                         <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -18,7 +18,7 @@
                         <option value="7">7</option>
                         <option value="8">8</option>
                         <option value="9">9</option>
-                        <option value="10" selected>10</option>
+                        <option value="10">10</option>
                         <option value="11">11</option>
                         <option value="12">12</option>
                         <option value="13">13</option>
@@ -80,7 +80,7 @@
                     <a class="Character">日前まで</a>
                 </div>
             </li>
-
+            <!-- 投票機能 -->
             <li class="navigation_li">
                 <a class="WorkText">投票機能</a>
                 <div class="block">
@@ -93,12 +93,20 @@
 </div>
 
 <section class="home">
-    <div class="open-overlay">
+    <div id="setting"  class="open-overlay">
+        <img src="/img_submit/setting.png" width="100%">
+    </div>
+    <div id="setting2"  class="open-overlay2" style="display: none">
         <img src="/img_submit/setting.png" width="100%">
     </div>
 </section>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/jquery.ui.min.js"></script>
+
 <script type="text/javascript" src="/js/setting.js"></script>
+
