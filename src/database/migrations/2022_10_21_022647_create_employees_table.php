@@ -19,11 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-
-            $table->integer('weight');
-            $table->unsignedInteger('store_id');
+            $table->integer('weight')->default('1');
+            $table->unsignedInteger('store_id')->default('1');
             $table->foreign('store_id')->references('id')->on('stores');
-
             $table->rememberToken();
             $table->timestamps();
         });

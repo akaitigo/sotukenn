@@ -19,21 +19,21 @@ class AdminSeeder extends Seeder
             'id'=>'1',
             'store_id'=>'1',
             'password'=>'11111111',
-            'mail'=>'11@gmail.com'
+            'email'=>'11@gmail.com'
         ]);
 
         DB::table('admins')->insert([
             'id'=>'2',
             'store_id'=>'2',
             'password'=>'22222222',
-            'mail'=>'22@gmail.com'
+            'email'=>'22@gmail.com'
         ]);
 
         DB::table('admins')->insert([
             'id'=>'3',
             'store_id'=>'3',
             'password'=>'33333333',
-            'mail'=>'33@gmail.com'
+            'email'=>'33@gmail.com'
         ]);
         
     }

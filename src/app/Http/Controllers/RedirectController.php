@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class CalendarController extends Controller
+class RedirectController extends Controller
 {
     public function toLogin(){
         return redirect(route('parttimer.login'));
     }
+    // public function toRegister(){
+    //     return redirect(route('parttimer.register'));
+    // }
     public function toRegister(){
-        return redirect(route('parttimer.register'));
-    }
-    public function foovar(){
-
+        return redirect(route('admin.register'));
     }
     
 }

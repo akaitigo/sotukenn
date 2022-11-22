@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <form method="POST" action="{{ route('setting.update') }}">
     @csrf
     <ul class="navigation_ui">

@@ -1,16 +1,12 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('header')
 
-<form action="{{route('employeesManagementPassView')}}" method="get">
-    <label>🔍<label>
-            <input type="serch" class="serch"><input type="submit" class="serchButton">
-            <a href="{{ route('employeesManagementPassNotView') }}">パスワード非表示</a>
-            <input type="button" occlick="" name="update" class="updateButton" value="更新">
+
+<a href="{{ route('employeesManagementPassNotView') }}">パスワード非表示</a>
 
 
-</form>
 
-
+@if(!($employees->isEmpty()))
 
 <h2>正社員一覧</h2>
 
@@ -23,7 +19,7 @@
             <th>weight</th>
             <th>position</th>
             <th>pass</th>
-            <th>delete</th>
+            <th>change</th>
         </tr>
     </thead>
 
@@ -41,14 +37,18 @@
 
                 @endforeach
             </td>
-            <td><input type="password" name="empPasswordChange" placeholder="{{ $emp->password }}"></td>
-            <td><input name="aa" type="checkbox"></td>
+            <td>{{ $emp->password }}</td>
+            @csrf
+            <form method="get" action="{{route('employeesManagementChange')}}">
+                <td><button type="submit" name="empChange" value="{{$emp->id}}">変更</button></td>
+            </form>
         </tr>
         @endforeach
     </tbody>
 </table>
+@endif
 
-
+@if(!($parttimers->isEmpty()))
 
 
 <h2>アルバイト一覧</h2>
@@ -61,27 +61,31 @@
             <th>weight</th>
             <th>position</th>
             <th>pass</th>
-            <th>delete</th>
+            <th>change</th>
         </tr>
     </thead>
-    <tbody>
-        @foreach ($parttimers as $parttimer)
-        <tr>
-            <td>{{ $parttimer->id}}</td>
-            <td>{{ $parttimer->name }}</td>
-            <td>{{ $parttimer->weight}}</td>
 
-            <td> @foreach($parttimer-> Jobs as $job)
+    <tbody>
+        @foreach ($parttimers as $part)
+
+        <tr>
+            <td>{{ $part->id}}</td>
+            <td>{{ $part->name }}</td>
+            <td>{{ $part->weight}}</td>
+
+            <td> @foreach($part-> Jobs as $job)
 
                 {{$job->name}}
 
                 @endforeach
             </td>
-
-            <td><input type="password" placeholder="{{ $parttimer->password }}"></td>
-
-            <td><input type="checkbox" class="delete"></td>
+            <td>{{ $part->password }}</td>
+            @csrf
+            <form method="get" action="{{route('partManagementChange')}}">
+                <td><button type="submit" name="partChange" value="{{$part->id}}">変更</button></td>
+            </form>
         </tr>
         @endforeach
     </tbody>
 </table>
+@endif

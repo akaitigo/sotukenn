@@ -5,10 +5,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+                    <div class="card-header">{{ isset($authgroup) ? ucwords($authgroup) : ""}} {{ __('Login') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        @if($authgroup=='admin')
+                        <form method="POST" action="{{ url("admin/login") }}">
+                        @elseif($authgroup=='employee')
+                        <form method="POST" action="{{ url("employee/login") }}">
+                        @else
+                        <form method="POST" action="{{ url("parttimer/login") }}">
+                        @endif
+
                             @csrf
                             <div class=form_input>
                                 {{-- <div class="inputWithIcon">
@@ -78,8 +85,8 @@
                                             {{ __('Login') }}
                                         </button>
 
-                                        @if (Route::has('password.request'))
-                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        @if (Route::has(isset($authgroup) ? $authgroup.'.password.request' : 'password.request'))
+                                            <a class="btn btn-link" href="{{ route(isset($authgroup) ? $authgroup.'.password.request' : 'parttimer.password.request') }}">
                                                 {{ __('Forgot Your Password?') }}
                                             </a>
                                         @endif

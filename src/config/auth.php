@@ -40,13 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'employees' => [
+        'employee' => [
             'driver' => 'session',
-            'provider' => 'employeess',
+            'provider' => 'employees',
         ],
-        'parttimers' => [
+        'parttimer' => [
             'driver' => 'session',
             'provider' => 'parttimers',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
         ],
     ],
 
@@ -79,6 +83,10 @@ return [
         'parttimers' => [
             'driver' => 'eloquent',
             'model' => App\Models\Parttimer::class,
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
@@ -121,7 +129,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*

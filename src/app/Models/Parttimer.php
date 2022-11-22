@@ -5,13 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\ParttimerResetPassword;
 
 class Parttimer extends Authenticatable
 {
 
     use HasFactory;
+    use Notifiable;
 
-    protected $fillable = ['id', 'password', 'name'];
+    protected $guard = 'parttimer';
+
+    protected $fillable =[
+        'name','email','password',
+    ];
+
+    protected $hidden = [
+        'password','remember_token',
+    ];
 
     public function Jobs()
     {
@@ -28,5 +39,11 @@ class Parttimer extends Authenticatable
     public function stores(): BelongsTo
     {
         return $this->belongsTo(Store::class);
+    }
+
+     // Override default reset password
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ParttimerResetPassword($token));
     }
 }
