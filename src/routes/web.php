@@ -14,9 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
-    return view('test');
-=======
     return view('login');
 });
 Route::get('home',function () {
@@ -107,6 +104,7 @@ Route::get('/candidacyView', [App\Http\Controllers\ShiftController::class, 'mult
 
 
 //ボタンクリック&待ち時間遷移
+Route::get('/calendar', [App\Http\Controllers\ShiftController::class, 'firstsetting'])->name('firstsetting');
 Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class, 'detail'])->name('submittedShiftDetail');              //提出シフト管理---→提出済みシフト確認
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
