@@ -15,7 +15,7 @@
 <label>🔍<label><input type="text" class="serch"><input type="button" class="serchButton">
         <a href="{{ route('employeesManagementPassView') }}" onclick="myEnter">パスワードの表示・変更</a>
 
-        @if(!($employees->isEmpty))
+        @if(!($employees->isEmpty()))
         <h2>正社員一覧</h2>
 
         <title>従業員管理</title>
@@ -83,3 +83,18 @@
             </tbody>
         </table>
         @endif
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
