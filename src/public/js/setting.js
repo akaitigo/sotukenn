@@ -1,28 +1,28 @@
 let switchBtn = document.getElementsByTagName('section')[0];
 let box1 = document.getElementById('setting');
 let box2 = document.getElementById('setting2');
-let changeElement = (el)=> {
+let changeElement = (el) => {
   //el.classList.toggle('active');
-  if(box1.style.display==''){
-    box1.style.display='none';
-  }else{
-    box1.style.display='';
+  if (box1.style.display == '') {
+    box1.style.display = 'none';
+  } else {
+    box1.style.display = '';
   }
 }
-let changeElement2 = (el)=> {
+let changeElement2 = (el) => {
   //el.classList.toggle('active');
-  if(box2.style.display==''){
-    box2.style.display='none';
-  }else{
-    box2.style.display='';
+  if (box2.style.display == '') {
+    box2.style.display = 'none';
+  } else {
+    box2.style.display = '';
   }
 }
-switchBtn.addEventListener('click', ()=> {
+switchBtn.addEventListener('click', () => {
   changeElement(box1);
-  changeElement2(box1);
+  changeElement2(box2);
 }, false);
 
-$('.open-overlay').click(function() {
+$('.open-overlay').click(function () {
   var overlay_navigation = $('.overlay-navigation'),
     nav_item_1 = $('.navigation_li:nth-of-type(1)'),
     nav_item_2 = $('.navigation_li:nth-of-type(2)'),
@@ -59,7 +59,7 @@ $('.open-overlay').click(function() {
   }
 })
 
-$('.open-overlay2').click(function() {
+$('.open-overlay2').click(function () {
   var overlay_navigation = $('.overlay-navigation'),
     nav_item_1 = $('.navigation_li:nth-of-type(1)'),
     nav_item_2 = $('.navigation_li:nth-of-type(2)'),
@@ -71,6 +71,27 @@ $('.open-overlay2').click(function() {
     bottom_bar = $('.bar-bottom');
 
   overlay_navigation.toggleClass('overlay-active');
+
+  $(function () { // 遅延処理
+    $('#setting2').click(
+      function () {
+        $.ajax({
+          headers: {
+            // POSTのときはトークンの記述がないと"419 (unknown status)"になるので注意
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          type: 'POST',
+          url: "{{ action('App\Http\Controllers\SettingController@update') }}", // url: は読み込むURLを表す
+        }).done(function (results) {
+          // 通信成功時の処理
+          alert('ファイルの取得に成功しました。');
+        }).fail(function (err) {
+          // 通信失敗時の処理
+          alert('ファイルの取得に失敗しました。');
+        });
+      }
+    );
+  });
 
   if (overlay_navigation.hasClass('overlay-active')) {
     top_bar.removeClass('animate-out-top-bar').addClass('animate-top-bar');
@@ -95,3 +116,4 @@ $('.open-overlay2').click(function() {
     nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
   }
 })
+
