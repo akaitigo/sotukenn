@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="/css/title.css" type="text/css">
+<link rel="stylesheet" href="/css/titleEmployees.css" type="text/css">
 <header>
  
 
@@ -9,10 +9,10 @@
 
         <div class="ButtonArea">
             <div class="space">
-                <a href="login" class="loginButton">管理者のログインはこちら</a>
+                <a href="#" class="loginButton">従業員のログインはこちら</a>
             </div><br />
             <br />
-            <a href="register" class="registerButton">管理者の新規登録はこちら</a>
+            <a href="#" class="registerButton">アルバイトのログインはこちら</a>
         </div>
     </body>
 </header>
