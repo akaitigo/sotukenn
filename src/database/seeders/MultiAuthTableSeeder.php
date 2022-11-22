@@ -24,7 +24,6 @@ class MultiAuthTableSeeder extends Seeder
             [
                 'name' => '田中太郎',
                 'email' => 'tanaka@example.com',
-                'employee_id' => '1',
                 'password' => 'qwertytanaka',
                 'weight' => '5',
                 'store_id' => '1',
@@ -32,7 +31,6 @@ class MultiAuthTableSeeder extends Seeder
             [
                 'name' => '田中花子',
                 'email' => 'tanakahanako@example.com',
-                'employee_id' => '1',
                 'password' => 'qwertytanaka',
                 'weight' => '5',
                 'store_id' => '1',
@@ -52,14 +50,14 @@ class MultiAuthTableSeeder extends Seeder
         $init_parttimers = [
             [
                 'name' => '鈴木田中',
-                'employee_id' => '1',
+                'email' => 'suzukitanaka@example.com',
                 'password' => 'qwertysuzuki',
                 'weight' => '1',
                 'store_id' => '1'
             ],
             [
                 'name' => '田中鈴木',
-                'employee_id' => '1',
+                'email' => 'tanakasuzuki@example.com',
                 'password' => 'qwertytanaka',
                 'weight' => '1',
                 'store_id' => '2'
@@ -69,7 +67,7 @@ class MultiAuthTableSeeder extends Seeder
         foreach ($init_parttimers as $init_parttimer) {
             $parttimer = new Parttimer();
             $parttimer->name = $init_parttimer['name'];
-            $parttimer->employee_id = $init_parttimer['employee_id'];
+            $parttimer->email = $init_parttimer['email'];
             //$parttimer->password=Hash::make($init_parttimer['password']);
             $encrypted = Crypt::encryptString($init_parttimer['password']); //暗号化
             $parttimer->password = $encrypted;

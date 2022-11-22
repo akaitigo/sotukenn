@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Crypt;
 class EmployeeController extends Controller
 {
 
-    //パスワードを表示、複合化
+    //パスワードを表示、復元
     public function empPasswordView()
     {
         $employees = Employee::all();

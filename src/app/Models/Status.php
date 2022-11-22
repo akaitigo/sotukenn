@@ -9,9 +9,9 @@ class Status extends Model
 {
 
     use HasFactory;
-
-    protected $fillable = ['status_name'];
-
+    
+    protected $fillable=['name'];
+    
     public function Parttimers()
     {
         return $this->belongsToMany(Parttimer::class);
