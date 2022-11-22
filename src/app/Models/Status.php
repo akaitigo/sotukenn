@@ -16,5 +16,4 @@ class Status extends Model
     {
         return $this->belongsToMany(Parttimer::class);
     }
-
 }

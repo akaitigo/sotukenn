@@ -221,6 +221,15 @@ Burger king
   display: block;
   cursor: pointer;
 }
+.open-overlay2 {
+  position: absolute;
+  right: 5rem;
+  top: 3.2rem;
+  z-index: 100;
+  width: 34px;
+  display: block;
+  cursor: pointer;
+}
 
 .open-overlay span {
   display: block;

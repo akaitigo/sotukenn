@@ -12,7 +12,7 @@
 
         <a class="WorkText">勤務時間</a><br>
         <select name="WorkTimeStart" class="WorkTimeStart" value="10">
-            <option value="{{($stores->workstarttime)}}" selected hidden>{{($stores->workstarttime)}}</option>
+            <option selected hidden>{{($stores->workstarttime)}}</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -40,7 +40,7 @@
         </select><a class="Character"> 時</a>
         <a class="Character">～</a>
         <select name="WorkTimeEnd" class="WorkTimeEnd">
-            <option value="{{($stores->workendtime)}}" selected hidden>{{($stores->workendtime)}}</option>
+            <option selected hidden>{{($stores->workendtime)}}</option>
             <option value="0">0</option>
             <option value="1">1</option>
             <option value="2">2</option>
@@ -67,7 +67,6 @@
             <option value="23">23</option>
         </select><a class="Character"> 時</a><br><br>
 
-        <a class="ShiftNote">シフトの提出は一ヶ月ごとになります</a><br>
         <br>
         <a class="ShiftText">シフト提出期限</a><br>
         <?php
@@ -75,10 +74,7 @@
         ?>
 
         <select name="SubmissionLimit" class="SubmissionLimit">
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
+            <option selected hidden>{{($stores->submissionlimit)}}</option>
             <option value="4">4</option>
             <option value="5">5</option>
             <option value="6">6</option>

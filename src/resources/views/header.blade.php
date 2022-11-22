@@ -11,7 +11,7 @@
                 </li>
                 <!-- 従業員管理 -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><span>従業員管理</span></a>
+                    <a href="{{route('employeesManagementPassNotView')}}" class="nav-link"><span>従業員管理</span></a>
                 </li>
                 <!-- 通知管理 -->
                 <li class="nav-item">
@@ -59,13 +59,14 @@
                             </li>
                         </ul>
                     </nav>
-                </li>  
-                <li class="nav-item"> 
+                </li>
+                <li class="nav-item">
                     @include('setting')
                 </li>
             </ul>
         </nav>
     </div>
 </header>
+<div id="setting_div" class=""><p id="setting"></p></div>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <script type="text/javascript" src="/js/header.js"></script>

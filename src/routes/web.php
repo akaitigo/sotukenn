@@ -80,8 +80,13 @@ Route::get('register',[App\Http\Controllers\RedirectController::class, 'toRegist
 //メニューバー(header)
 Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foo'])->name('calendar');                                   //カレンダー
 
-Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理
-Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理
+Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
+Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
+Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更
+Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange');
+Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更
+Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更
+
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
