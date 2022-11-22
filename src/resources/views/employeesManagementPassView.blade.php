@@ -6,7 +6,7 @@
 
 
 
-@if(!($employees->isEmpty))
+@if(!($employees->isEmpty()))
 
 <h2>正社員一覧</h2>
 
@@ -48,7 +48,7 @@
 </table>
 @endif
 
-@if(!($parttimers->isEmpty))
+@if(!($parttimers->isEmpty()))
 
 
 <h2>アルバイト一覧</h2>
