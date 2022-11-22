@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('header');
+    return view('test');
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
@@ -56,3 +56,6 @@ Route::get('/candidacyView', [App\Http\Controllers\ShiftController::class, 'mult
 //ボタンクリック&待ち時間遷移
 Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class, 'detail'])->name('submittedShiftDetail');              //提出シフト管理---→提出済みシフト確認
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
+
+
+Route::post('/title', "App\Http\Controllers\SettingController@update")->name('setting.update');
