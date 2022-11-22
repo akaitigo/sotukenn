@@ -13,8 +13,14 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <form method="POST" action="{{ route('password.email') }}">
+                    
+                    @if($authgroup=='admin')
+                    <form method="POST" action="{{ route('admin.password.email') }}">
+                    @elseif($authgroup=='employee')
+                    <form method="POST" action="{{ route('employee.password.email') }}">
+                    @else
+                    <form method="POST" action="{{ route('parttimer.password.email') }}">
+                    @endif
                         @csrf
 
                         <div class="row mb-3">

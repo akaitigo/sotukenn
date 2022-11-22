@@ -39,11 +39,24 @@
                 </li>
                 <li class="nav-item">
                 </li>
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link"><span>a&nbsp;∇</span></a>
                     <nav class="submenu">
                         <ul class="submenu-items">
-                            <li class="submenu-item"><a href="{{ route('shiftEdit') }}" class="submenu-link">ログアウト</a></li>
+                            <li class="submenu-item">
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
                         </ul>
                     </nav>
                 </li>  
