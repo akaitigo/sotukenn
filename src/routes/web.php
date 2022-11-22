@@ -110,3 +110,4 @@ Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class
 
 
 Route::post('/title', "App\Http\Controllers\SettingController@update")->name('setting.update');
+
