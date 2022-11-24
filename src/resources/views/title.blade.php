@@ -9,7 +9,7 @@
 
         <div class="ButtonArea">
             <div class="space">
-                <a href="login" class="loginButton">管理者のログインはこちら</a>
+                <a href="{{ route('admin.login') }}" class="loginButton">管理者のログインはこちら</a>
             </div><br />
             <br />
             <a href="register" class="registerButton">管理者の新規登録はこちら</a>

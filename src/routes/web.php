@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('login');
+    return view('title');
 });
 Route::get('home',function () {
     return view('test');
@@ -30,7 +30,6 @@ Route::middleware('auth:admin')->group(function(){
 Route::middleware('auth:employee,admin')->group(function(){
     Route::get('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
->>>>>>> 7327da6a6579e0be6537db2e43263de704302a8d
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
@@ -104,7 +103,7 @@ Route::get('/candidacyView', [App\Http\Controllers\ShiftController::class, 'mult
 
 
 //ボタンクリック&待ち時間遷移
-Route::get('/calendar', [App\Http\Controllers\ShiftController::class, 'firstsetting'])->name('firstsetting');
+Route::post('/calendar', [App\Http\Controllers\ShiftController::class, 'firstsetting'])->name('firstsetting');
 Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class, 'detail'])->name('submittedShiftDetail');              //提出シフト管理---→提出済みシフト確認
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 

@@ -9,10 +9,10 @@
 
         <div class="ButtonArea">
             <div class="space">
-                <a href="#" class="loginButton">従業員のログインはこちら</a>
+                <a href="{{ route('employee.login') }}" class="loginButton">従業員のログインはこちら</a>
             </div><br />
             <br />
-            <a href="#" class="registerButton">アルバイトのログインはこちら</a>
+            <a href="{{ route('parttimer.login') }}" class="registerButton">アルバイトのログインはこちら</a>
         </div>
     </body>
 </header>
