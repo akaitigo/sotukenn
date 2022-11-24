@@ -14,7 +14,6 @@
 
 <label>🔍<label><input type="text" class="serch"><input type="button" class="serchButton">
         <a href="{{ route('employeesManagementPassView') }}" onclick="myEnter">パスワードの表示・変更</a>
-
         @if(!($employees->isEmpty()))
         <h2>正社員一覧</h2>
 
@@ -23,6 +22,7 @@
             <thead>
                 <tr>
                     <th>id</th>
+                    <th>email</th>
                     <th>name</th>
                     <th>weight</th>
                     <th>position</th>
@@ -34,6 +34,7 @@
                 @foreach ($employees as $emp)
                 <tr>
                     <td>{{ $emp->id}}</td>
+                    <td>****@****</td>
                     <td>{{ $emp->name }}</td>
                     <td>{{ $emp->weight}}</td>
 
@@ -58,6 +59,7 @@
             <thead>
                 <tr>
                     <th>id</th>
+                    <th>email</th>
                     <th>name</th>
                     <th>weight</th>
                     <th>position</th>
@@ -68,6 +70,7 @@
                 @foreach ($parttimers as $parttimer)
                 <tr>
                     <td>{{ $parttimer->id}}</td>
+                    <td>****@****</td>
                     <td>{{ $parttimer->name }}</td>
                     <td>{{ $parttimer->weight}}</td>
 

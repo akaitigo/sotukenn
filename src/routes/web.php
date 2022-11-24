@@ -16,29 +16,33 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('title');
 });
-Route::get('home',function () {
+Route::get('home', function () {
     return view('test');
 })->name('home');
-Route::post('logout',[App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');    
+Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 //adiminしか使えないroute
-Route::middleware('auth:admin')->group(function(){
-    Route::get('employee/register',[App\Http\Controllers\Auth\RegisterController::class, 'showEmployeeRegisterForm'])->name('employee.register');
-    Route::post('employee/register',[App\Http\Controllers\Auth\RegisterController::class, 'registerEmployee'])->name('employee-register');
+Route::middleware('auth:admin')->group(function () {
+    Route::get('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'showEmployeeRegisterForm'])->name('employee.register');
+    Route::post('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerEmployee'])->name('employee-register');
 });
 //adminかemployeeしか使えないroute
 Route::middleware('auth:employee,admin')->group(function(){
     Route::get('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
+=======
+Route::middleware('auth:employee,admin')->group(function () {
+    Route::get('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
+    Route::post('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
 //adminの認証route
 Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('login',[App\Http\Controllers\Auth\LoginController::class, 'showAdminLoginForm'])->name('login');
-    Route::get('register',[App\Http\Controllers\Auth\RegisterController::class, 'showAdminRegisterForm'])->name('register');
-    Route::post('login',[App\Http\Controllers\Auth\LoginController::class, 'adminLogin']);
-    Route::post('register',[App\Http\Controllers\Auth\RegisterController::class, 'registerAdmin'])->name('admin-register');
+    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showAdminLoginForm'])->name('login');
+    Route::get('register', [App\Http\Controllers\Auth\RegisterController::class, 'showAdminRegisterForm'])->name('register');
+    Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'adminLogin']);
+    Route::post('register', [App\Http\Controllers\Auth\RegisterController::class, 'registerAdmin'])->name('admin-register');
     Route::get('password/reset', [App\Http\Controllers\Auth\AdminForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
     Route::post('password/email', [App\Http\Controllers\Auth\AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('password/reset/{token}', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'showResetForm'])->name('password.reset');
@@ -46,8 +50,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 //employeeの認証route
 Route::prefix('employee')->name('employee.')->group(function () {
-    Route::get('login',[App\Http\Controllers\Auth\LoginController::class, 'showEmployeeLoginForm'])->name('login');
-    Route::post('login',[App\Http\Controllers\Auth\LoginController::class, 'employeeLogin']);    
+    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showEmployeeLoginForm'])->name('login');
+    Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'employeeLogin']);
     // Route::get('password/reset', [App\Http\Controllers\Auth\EmployeeForgotPasswordController::class, 'showLinkRequestForm'])->name('employee.password.request');
     // Route::post('password/email', [App\Http\Controllers\Auth\EmployeeForgotPasswordController::class, 'sendResetLinkEmail'])->name('employee.password.email');
     // Route::get('password/reset/{token}', [App\Http\Controllers\Auth\EmployeeResetPasswordController::class, 'showResetForm'])->name('employee.password.reset');
@@ -55,15 +59,15 @@ Route::prefix('employee')->name('employee.')->group(function () {
 });
 //parttimerの認証route
 Route::prefix('parttimer')->name('parttimer.')->group(function () {
-    Route::get('login',[App\Http\Controllers\Auth\LoginController::class, 'showParttimerLoginForm'])->name('login');
-    Route::post('login',[App\Http\Controllers\Auth\LoginController::class, 'parttimerLogin']);
+    Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'showParttimerLoginForm'])->name('login');
+    Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'parttimerLogin']);
     // Route::get('password/reset', [App\Http\Controllers\Auth\ParttimerForgotPasswordController::class, 'showLinkRequestForm'])->name('parttimer.password.request');
     // Route::post('password/email', [App\Http\Controllers\Auth\ParttimerForgotPasswordController::class, 'sendResetLinkEmail'])->name('parttimer.password.email');
     // Route::get('password/reset/{token}', [App\Http\Controllers\Auth\ParttimerResetPasswordController::class, 'showResetForm'])->name('parttimer.password.reset');
     // Route::post('password/reset', [App\Http\Controllers\Auth\ParttimerResetPasswordController::class, 'reset'])->name('parttimer.password.update');
 });
-Route::get('login',[App\Http\Controllers\RedirectController::class, 'toLogin']);
-Route::get('register',[App\Http\Controllers\RedirectController::class, 'toRegister']);
+Route::get('login', [App\Http\Controllers\RedirectController::class, 'toLogin']);
+Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegister']);
 
 // Route::get('/register', "App\Http\Controllers\RegisterFormController@show")->name('register.show');
 // Route::post('/register', "App\Http\Controllers\RegisterFormController@post")->name('register.post');
@@ -82,10 +86,13 @@ Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foo'])
 
 Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
 Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
-Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更
-Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange');
-Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更
-Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更
+Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
+Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(part)
+Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
+Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
+Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
+Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
+
 
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
