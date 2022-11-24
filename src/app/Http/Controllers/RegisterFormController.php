@@ -14,8 +14,6 @@ use Illuminate\Http\Request;
 
 class RegisterFormController extends Controller
 {
-	use RegistersUsers;
-
     private $formItems = ["name", "email", "enterprise","password"];
 
 	private $validator = [
