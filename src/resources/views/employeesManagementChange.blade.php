@@ -11,6 +11,7 @@
         <tr>
             <th>id</th>
             <th>name</th>
+            <th>email</th>
             <th>weight</th>
             <th>position</th>
             <th>pass</th>
@@ -23,24 +24,28 @@
 
     @if($empChangeIden==true)
     <tbody>
+        <form method="post" action="{{route('employeesManegementUpdate')}}">
+            @csrf
         @foreach ($employees as $emp)
         <tr>
-            <td><input tpe="text" name="newEmpId" placeholder="{{ $emp->id }}"></td>
-            <td><input tpe="text" name="newEmpName" placeholder="{{ $emp->name }}"></td>
-            <td><input tpe="text" name="newEmpWeight" placeholder="{{ $emp->weight }}"></td>
+            <td>{{ $emp->id }}</td>
+            <td><input type="text" name="newEmpName" placeholder="{{ $emp->name }}"></td>
+            <td><input type="email" name="newEmpEmail" placeholder="{{$emp->email}}"></td>
+            <td><input type="text" name="newEmpWeight" placeholder="{{ $emp->weight }}"></td>
 
             <td>
-
                 @foreach($allJob as $alljob)
-                <input type="checkbox" name="{{$loop->iteration}}" value="{{$loop->iteration}}">{{$alljob->name}}
+                <input type="checkbox" name="{{$loop->iteration}}" value="{{$loop->iteration}}" >{{$alljob->name}}
                 {{-- {{$loop->iteration}}で現在のループ回数--}}
+                
                 @endforeach
+
             </td>
 
-            <td><input tpe="text" name="newEmpName" placeholder="{{$emp->password}}"></td>
+            <td><input type="text" name="newEmpPassword" placeholder="{{$emp->password}}"></td>
 
-            <form method="get" action="{{route('employeesManagementChange')}}">
-                <td><button type="submit" name="{{$emp->id}}">更新</button></td>
+
+                <td><button type="submit" name="upDateId" value="{{$emp->id}}">更新</button></td>
             </form>
 
             <form method="post" action="{{route('employeesManagementDelete')}}">
@@ -58,9 +63,11 @@
 
         @foreach ($parttimers as $part)
         <tr>
-            <td><input tpe="text" name="newPartId" placeholder="{{ $part->id }}"></td>
-            <td><input tpe="text" name="newPartName" placeholder="{{ $part->name }}"></td>
-            <td><input tpe="text" name="newPartWeight" placeholder="{{ $part->weight }}"></td>
+            <td>{{ $part->id }}</td>
+            <td><input type="text" name="newPartName" placeholder="{{ $part->name }}"></td>
+            <td><input type="email" name="newPartEmail" placeholder="{{$part->email}}"></td>
+
+            <td><input type="text" name="newPartWeight" placeholder="{{ $part->weight }}"></td>
 
             <td>
 
@@ -72,7 +79,7 @@
 
             <td><input type="text" name="newPartPass" placeholder="{{$part->password}}"></td>
 
-            <form method="get" action="{{route('employeesManagementChange')}}">
+            <form method="post" action="{{route('parttimersManegementUpdate')}}">
                 <td><button type="submit" name="{{$part->id}}">更新</button></td>
             </form>
 

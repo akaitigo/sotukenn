@@ -15,6 +15,7 @@
     <thead>
         <tr>
             <th>id</th>
+            <th>email</th>
             <th>name</th>
             <th>weight</th>
             <th>position</th>
@@ -28,6 +29,7 @@
 
         <tr>
             <td>{{ $emp->id}}</td>
+            <td>{{$emp->email}}</td>
             <td>{{ $emp->name }}</td>
             <td>{{ $emp->weight}}</td>
 
@@ -57,6 +59,7 @@
     <thead>
         <tr>
             <th>id</th>
+            <th>email</th>
             <th>name</th>
             <th>weight</th>
             <th>position</th>
@@ -70,6 +73,7 @@
 
         <tr>
             <td>{{ $part->id}}</td>
+            <td>{{$part->email}}</td>
             <td>{{ $part->name }}</td>
             <td>{{ $part->weight}}</td>
 

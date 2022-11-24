@@ -7,7 +7,9 @@ use App\Models\Parttimer;
 use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Symfony\Component\Console\Command\DumpCompletionCommand;
 
+use function PHPUnit\Framework\isNull;
 
 class EmployeeController extends Controller
 {
@@ -101,5 +103,57 @@ class EmployeeController extends Controller
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
 
-    //<-削除
+    //削除->
+
+
+    //<-上書き更新↓
+    public  function empUpdate(Request $request)
+    {
+        $jobCount = Job::get();
+        $jobCountNum = $jobCount->count();
+        $getId = $request->input('upDateId');
+        $inputName = $request->input('newEmpName');
+        $inputEmail = $request->input('newEmpEmail');
+        $inputWeight = $request->input('newEmpWeight');
+        $inputPassword = $request->input('newEmpPassword');
+        $updateUser = Employee::where('id', '=', $getId)->get();
+
+        for ($i = 1; $i <= $jobCountNum; $i++) {
+
+            $inputPosition[$i] = $request->input($i);
+
+            if (!(is_null($inputPosition[$i]))) {
+                foreach ($updateUser as $upJob) {
+                    dump($inputPosition[$i]);
+                    $upJob->jobs()->attach($inputPosition[$i]);
+                }
+            } else {
+                foreach ($updateUser as $delJob) {
+                    $delJob->jobs()->detach();
+                }
+            }
+        }
+
+        if (!(is_null($inputName))) {
+            $changeConfirmName = $inputName;
+        }
+        if (!(isNull($inputEmail))) {
+            $changeConfirmEmail = $inputEmail;
+        }
+
+        // foreach ($updateUser as $remp) {
+        //     $remp->name = $changeConfirmName;
+        //     $remp->save();
+        // }
+    }
+
+
+    public function partUpdate()
+    {
+    }
+
+    //<--上書き更新
+
+
+
 }
