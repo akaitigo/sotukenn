@@ -30,7 +30,7 @@ Route::middleware('auth:admin')->group(function () {
 Route::middleware('auth:employee,admin')->group(function(){
     Route::get('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
-=======
+});
 Route::middleware('auth:employee,admin')->group(function () {
     Route::get('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
