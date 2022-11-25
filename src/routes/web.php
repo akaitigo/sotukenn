@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('header');
+    return view('title');
 });
 Route::get('home', function () {
     return view('test');
@@ -27,6 +27,10 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerEmployee'])->name('employee-register');
 });
 //adminかemployeeしか使えないroute
+Route::middleware('auth:employee,admin')->group(function(){
+    Route::get('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
+    Route::post('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
+});
 Route::middleware('auth:employee,admin')->group(function () {
     Route::get('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
@@ -105,7 +109,7 @@ Route::get('/candidacyView', [App\Http\Controllers\ShiftController::class, 'mult
 
 
 //ボタンクリック&待ち時間遷移
-Route::get('/calendar', [App\Http\Controllers\ShiftController::class, 'firstsetting'])->name('firstsetting');
+Route::post('/calendar', [App\Http\Controllers\ShiftController::class, 'firstsetting'])->name('firstsetting');
 Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class, 'detail'])->name('submittedShiftDetail');              //提出シフト管理---→提出済みシフト確認
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
