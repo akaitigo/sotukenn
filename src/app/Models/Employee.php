@@ -36,6 +36,10 @@ class Employee extends Authenticatable
     {
         return $this->hasMany(Parttimer::class);
     }
+    public function Statuses()
+    {
+        return $this->belongsToMany(Status::class);
+    }
     
     // Override default reset password
     public function sendPasswordResetNotification($token)

@@ -27,6 +27,14 @@ class MultiAuthTableSeeder extends Seeder
                 'password' => 'qwertytanaka',
                 'weight' => '5',
                 'store_id' => '1',
+                'age' => '30',
+                'submissionrate' => '100',
+                'monthminworktime' => '100.0',
+                'monthmaxworktime' => '0',
+                'weekminworktime' => '20.5',
+                'weekmaxworktime' => '0',
+                'dayminworktime' => '0',
+                'daymaxworktime' => '0',
             ],
             [
                 'name' => '田中花子',
@@ -34,6 +42,14 @@ class MultiAuthTableSeeder extends Seeder
                 'password' => 'qwertytanaka',
                 'weight' => '5',
                 'store_id' => '1',
+                'age' => '28',
+                'submissionrate' => '0',
+                'monthminworktime' => '100.0',
+                'monthmaxworktime' => '0',
+                'weekminworktime' => '20.5',
+                'weekmaxworktime' => '0',
+                'dayminworktime' => '0',
+                'daymaxworktime' => '0',
             ],
         ];
         foreach ($init_employees as $init_employee) {
@@ -44,6 +60,14 @@ class MultiAuthTableSeeder extends Seeder
             $employee->password = $encrypted;
             $employee->weight = $init_employee['weight'];
             $employee->store_id = $init_employee['store_id'];
+            $employee->age = $init_employee['age'];
+            $employee->submissionrate = $init_employee['submissionrate'];
+            $employee->monthminworktime = $init_employee['monthminworktime'];
+            $employee->monthmaxworktime = $init_employee['monthmaxworktime'];
+            $employee->weekminworktime = $init_employee['weekminworktime'];
+            $employee->weekmaxworktime = $init_employee['weekmaxworktime'];
+            $employee->dayminworktime = $init_employee['dayminworktime'];
+            $employee->daymaxworktime = $init_employee['daymaxworktime'];
             $employee->save();
         }
         //parttimerのテストデータ
@@ -53,14 +77,30 @@ class MultiAuthTableSeeder extends Seeder
                 'email' => 'suzukitanaka@example.com',
                 'password' => 'qwertysuzuki',
                 'weight' => '1',
-                'store_id' => '1'
+                'store_id' => '1',
+                'age' => '19',
+                'submissionrate' => '0',
+                'monthminworktime' => '100.0',
+                'monthmaxworktime' => '0',
+                'weekminworktime' => '20.5',
+                'weekmaxworktime' => '0',
+                'dayminworktime' => '0',
+                'daymaxworktime' => '0',
             ],
             [
                 'name' => '田中鈴木',
                 'email' => 'tanakasuzuki@example.com',
                 'password' => 'qwertytanaka',
                 'weight' => '1',
-                'store_id' => '2'
+                'store_id' => '2',
+                'age' => '20',
+                'submissionrate' => '0',
+                'monthminworktime' => '100.0',
+                'monthmaxworktime' => '0',
+                'weekminworktime' => '20.5',
+                'weekmaxworktime' => '0',
+                'dayminworktime' => '0',
+                'daymaxworktime' => '0',
             ],
 
         ];
@@ -73,6 +113,14 @@ class MultiAuthTableSeeder extends Seeder
             $parttimer->password = $encrypted;
             $parttimer->weight = $init_parttimer['weight'];
             $parttimer->store_id = $init_parttimer['store_id'];
+            $parttimer->age = $init_employee['age'];
+            $parttimer->submissionrate = $init_parttimer['submissionrate'];
+            $parttimer->monthminworktime = $init_parttimer['monthminworktime'];
+            $parttimer->monthmaxworktime = $init_parttimer['monthmaxworktime'];
+            $parttimer->weekminworktime = $init_parttimer['weekminworktime'];
+            $parttimer->weekmaxworktime = $init_parttimer['weekmaxworktime'];
+            $parttimer->dayminworktime = $init_parttimer['dayminworktime'];
+            $parttimer->daymaxworktime = $init_parttimer['daymaxworktime'];
             $parttimer->save();
         }
     }

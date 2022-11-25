@@ -16,4 +16,8 @@ class Status extends Model
     {
         return $this->belongsToMany(Parttimer::class);
     }
+    public function Employees()
+    {
+        return $this->belongsToMany(Employee::class);
+    }
 }

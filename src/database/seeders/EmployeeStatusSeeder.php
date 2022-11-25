@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ParttimerStatusSeeder extends Seeder
+class EmployeeStatusSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -28,10 +28,6 @@ class ParttimerStatusSeeder extends Seeder
             'status_id'=>'3',
             ]);
         DB::table('parttimer_status')->insert([
-            'parttimer_id' => '1',
-            'status_id'=>'4',
-            ]);
-        DB::table('parttimer_status')->insert([
             'parttimer_id' => '2',
             'status_id'=>'1',
             ]);
@@ -42,6 +38,10 @@ class ParttimerStatusSeeder extends Seeder
         DB::table('parttimer_status')->insert([
             'parttimer_id' => '2',
             'status_id'=>'3',
+            ]);
+        DB::table('parttimer_status')->insert([
+            'parttimer_id' => '1',
+            'status_id'=>'4',
             ]);
 
     }
