@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use App\Models\Job;
+use Illuminate\Database\Console\DumpCommand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use PDO;
 use Symfony\Component\Console\Command\DumpCompletionCommand;
+use Symfony\Component\Console\Input\Input;
+use Symfony\Component\Console\Input\InputOption;
 
 use function PHPUnit\Framework\isNull;
 
@@ -47,11 +51,16 @@ class EmployeeController extends Controller
         $getId = $request->input('empChange');
         $employees = Employee::where('id', '=', $getId)->get();
         $allJob = Job::get();
+        $jobcheck[0] = 0;
+        $jobCount = 1;
         foreach ($employees as $emp) {
             $decrypted = Crypt::decryptString($emp->password); //empパスワードの復元
             $emp->password = $decrypted;
+            foreach ($emp->jobs as $job) {
+                $jobcheck[] = $job->id;
+            }
         }
-        return view('employeesManagementChange', compact('employees', 'allJob', 'empChangeIden', 'partChangeIden'));
+        return view('employeesManagementChange', compact('employees', 'allJob', 'empChangeIden', 'partChangeIden', 'jobcheck'));
     }
     public function partChange(Request $request) //変更ボタン押下の際呼び出し
     {
@@ -66,8 +75,6 @@ class EmployeeController extends Controller
         }
         return view('employeesManagementChange', compact('allJob', 'parttimers', 'partChangeIden', 'empChangeIden'));
     }
-
-
     //<- 変更対象受け渡し
 
     //削除->
@@ -117,22 +124,8 @@ class EmployeeController extends Controller
         $inputWeight = $request->input('newEmpWeight');
         $inputPassword = $request->input('newEmpPassword');
         $updateUser = Employee::where('id', '=', $getId)->get();
-
-        for ($i = 1; $i <= $jobCountNum; $i++) {
-
-            $inputPosition[$i] = $request->input($i);
-
-            if (!(is_null($inputPosition[$i]))) {
-                foreach ($updateUser as $upJob) {
-                    dump($inputPosition[$i]);
-                    $upJob->jobs()->attach($inputPosition[$i]);
-                }
-            } else {
-                foreach ($updateUser as $delJob) {
-                    $delJob->jobs()->detach();
-                }
-            }
-        }
+        $alljobCheck = 3; //3の場合すべてのジョブが登録されていない
+        $jobCount = 1;
 
         if (!(is_null($inputName))) {
             $changeConfirmName = $inputName;
@@ -140,13 +133,64 @@ class EmployeeController extends Controller
         if (!(isNull($inputEmail))) {
             $changeConfirmEmail = $inputEmail;
         }
+        foreach ($updateUser as $remp) {
+            $remp->name = $changeConfirmName;
+            $remp->save();
+        }
 
-        // foreach ($updateUser as $remp) {
-        //     $remp->name = $changeConfirmName;
-        //     $remp->save();
-        // }
+
+
+
+        foreach ($updateUser as $up) {
+            foreach ($up->jobs as $job) {
+                for ($i = 1; $i <= $jobCountNum; $i++) {
+                    if ($jobCount == $job->id) {
+                        $jobcheck[$jobCount] = 0; //0であれば存在している上書き禁止
+                        $jobCount = $jobCount + 1;
+                        $alljobCheck = 0; //既にデータあり判定
+                    } else {
+                        $jobcheck[$jobCount] = 1;
+                        $jobCount = $jobCount + 1;
+                        $alljobCheck = 0;
+                    }
+                }
+            }
+            if ($alljobCheck == 3) {
+                for ($i = 1; $i <= $jobCountNum; $i++) {
+                    $jobcheck[$jobCount] = 1;
+                    $jobCount = $jobCount + 1;
+                }
+            }
+        }
+        $jobCount = 1;
+        for ($i = 1; $i <= $jobCountNum; $i++) {
+            $inputPosition[$jobCount] = $request->input($jobCount);
+            if (!(is_null($inputPosition[$jobCount]))) { //チェックボックス選択状態の判定選択されている状態である場合
+                if ($jobcheck[$jobCount] == 1) {
+                    foreach ($updateUser as $up) {
+                        $up->jobs()->attach($inputPosition[$jobCount]); //登録
+                        $jobcheck[$jobCount] = 0;
+                        $jobCount = $jobCount + 1;
+                    }
+                } else {
+                    foreach ($updateUser as $up) {
+                        foreach ($up->jobs as $jobs) {
+                            $jobCount = $jobCount + 1;
+                        }
+                    }
+                }
+            } else {
+                foreach ($updateUser as $up) {
+                    $up->jobs()->detach($jobCount); //削除
+                    $jobcheck[$jobCount] = 1;
+                }
+            }
+        }
+        $employees = Employee::all();
+        $parttimers = Parttimer::all();
+
+        return view('employeesManagement', compact('employees', 'parttimers'));
     }
-
 
     public function partUpdate()
     {

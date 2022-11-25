@@ -39,7 +39,6 @@
                     <td>{{ $emp->weight}}</td>
 
                     <td> @foreach($emp-> Jobs as $job)
-
                         {{$job->name}}
 
                         @endforeach
