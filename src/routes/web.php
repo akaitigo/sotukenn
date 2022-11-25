@@ -82,8 +82,7 @@ Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegis
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //メニューバー(header)
-Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foo'])->name('calendar');                                   //カレンダー
-
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar');                                   //カレンダー
 Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
 Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
 Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
@@ -116,4 +115,3 @@ Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class
 
 
 Route::post('/title', "App\Http\Controllers\SettingController@update")->name('setting.update');
-

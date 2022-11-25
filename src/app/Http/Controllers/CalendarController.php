@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 
 class CalendarController extends Controller
 {
-    public function toLogin(){
+    public function toLogin()
+    {
         return redirect(route('parttimer.login'));
     }
-    public function toRegister(){
+    public function toRegister()
+    {
         return redirect(route('parttimer.register'));
     }
-    public function foovar(){
-
+    public function foovar()
+    {
+        return view('calendar');
     }
-    
 }
