@@ -28,7 +28,16 @@ class ShiftController extends Controller
             $data['vote'] = 1;
         }
         /*認証コード
-        Auth::guard(admin)->user()->id
+        Auth::guard(admins)->user()->id
+        $store_id = DB::table('admin)->where('store_id');
+        \DB::table('stores')
+            ->where('id', $store_id)
+            ->update([
+                'workstarttime' => $data['workstarttime'],
+                'workendtime' => $data['workendtime'],
+                'submissionlimit' => $data['submissionlimit'],
+                'vote' => $data['vote']     
+            ]);
         */
         \DB::table('stores')
             ->where('id', 1)
@@ -37,9 +46,8 @@ class ShiftController extends Controller
                 'workendtime' => $data['workendtime'],
                 'submissionlimit' => $data['submissionlimit'],
                 'vote' => $data['vote']
-                
             ]);
-            return view('calendar');
+        return view('calendar');
     }
 
     public function setting()
