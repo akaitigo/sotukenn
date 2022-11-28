@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('title');
+    return view('ShiftCreate');
 });
 Route::get('home', function () {
     return view('test');
