@@ -23,10 +23,7 @@ class EmployeeJobSeeder extends Seeder
             'employee_id' => '1',
             'job_id' => '2'
         ]);
-        DB::table('employee_job')->insert([
-            'employee_id' => '1',
-            'job_id' => '1'
-        ]);
+
         DB::table('employee_job')->insert([
             'employee_id' => '2',
             'job_id' => '1'

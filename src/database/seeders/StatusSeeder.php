@@ -24,5 +24,8 @@ class StatusSeeder extends Seeder
         DB::table('statuses')->insert([
             'name'=>'社会保険',
         ]);
+        DB::table('statuses')->insert([
+            'name'=>'提出状態',
+        ]);
     }
 }

@@ -35,9 +35,10 @@
 
             <td>
                 @foreach($allJob as $alljob)
-                <input type="checkbox" name="{{$loop->iteration}}" value="{{$loop->iteration}}" >{{$alljob->name}}
+
+                <input type="checkbox" name="{{$loop->iteration}}" value="{{$loop->iteration}}" {{in_array($alljob->id, $jobcheck)? 'checked' : '' }}>
+                {{$alljob->name}}
                 {{-- {{$loop->iteration}}で現在のループ回数--}}
-                
                 @endforeach
 
             </td>

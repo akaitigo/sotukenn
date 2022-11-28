@@ -72,27 +72,6 @@ $('.open-overlay2').click(function () {
 
   overlay_navigation.toggleClass('overlay-active');
 
-  $(function () { // 遅延処理
-    $('#setting2').click(
-      function () {
-        $.ajax({
-          headers: {
-            // POSTのときはトークンの記述がないと"419 (unknown status)"になるので注意
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-          },
-          type: 'POST',
-          url: "{{ action('App\Http\Controllers\SettingController@update') }}", // url: は読み込むURLを表す
-        }).done(function (results) {
-          // 通信成功時の処理
-          alert('ファイルの取得に成功しました。');
-        }).fail(function (err) {
-          // 通信失敗時の処理
-          alert('ファイルの取得に失敗しました。');
-        });
-      }
-    );
-  });
-
   if (overlay_navigation.hasClass('overlay-active')) {
     top_bar.removeClass('animate-out-top-bar').addClass('animate-top-bar');
     middle_bar.removeClass('animate-out-middle-bar').addClass('animate-middle-bar');
@@ -114,6 +93,42 @@ $('.open-overlay2').click(function () {
     nav_item_3.removeClass('slide-in-nav-item-delay-2').addClass('slide-in-nav-item-delay-2-reverse');
     nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
     nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
+
+    $(function () { // 遅延処理
+      $('#setting2').click(
+        function () {
+          $.ajax({
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url: "/", // url: は読み込むURLを表す
+            timeout: 5000,
+            datatype: "json",
+            data: {
+              // valueをセット
+              "workstarttime" : $('#workstarttime').val(),
+              "workendtime" : $('#workendtime').val(),
+              "submissionlimit" : $('#submissionlimit').val(),
+              "vote" : $('#cheap').val()
+            }
+          }).done(function (data) {
+            // 通信成功時の処理
+            alert('ファイルの取得に成功しました。');
+          }).fail(function (err) {
+            // 通信失敗時の処理
+            alert('ファイルの取得に失敗しました。');
+          }).always(function() {
+            // 成否に関わらず実行されるコールバック
+            alert('とりあえず確認');
+            alert($('#workstarttime').val())
+        });
+        }
+      );
+    });
+    
+
+
   }
 })
 
