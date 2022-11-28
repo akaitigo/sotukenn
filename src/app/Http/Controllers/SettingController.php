@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 use App\Models\Store;
 
-use App\post;
-
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
@@ -20,14 +18,23 @@ class SettingController extends Controller
         $submissionlimit = $_POST['submissionlimit'];
         $vote = $_POST['vote'];
 
+        if(is_null($vote)){
+            $vote2 = 1;
+        }else{
+            $vote2 = 0;
+        }
+
+
         \DB::table('stores')
             ->where('id', 1)
             ->update([
                 'workstarttime' => $workstarttime,
                 'workendtime' => $workendtime,
                 'submissionlimit' => $submissionlimit,
-                'vote' => $vote
+                'vote' => $vote2
                 
             ]);
+
+        return;
     }
 }

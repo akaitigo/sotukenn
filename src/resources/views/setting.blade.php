@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/setting.css" type="text/css">
-<form id="form_ajax" method="post" >
+<form  method="post" >
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="overlay-navigation">
         <nav role="navigation">
@@ -9,7 +9,6 @@
                     <a class="WorkText">勤務時間</a><br>
                     <div class="selectdiv">
                         <select id="WorkTimeStart" name="WorkTimeStart" class="WorkTimeStart">
-                            <option selected hidden></option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -86,7 +85,7 @@
                 <li class="navigation_li">
                     <a class="WorkText">投票機能</a>
                     <div class="block">
-                        <input value="vote" id="cheap" type="checkbox" />
+                        <input value="vote" id="cheap" type="checkbox"  onclick="func1()"/>
                         <label for="cheap">投票機能を使いますか？</label>
                     </div>
                 </li>

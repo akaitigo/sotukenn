@@ -94,6 +94,8 @@ $('.open-overlay2').click(function () {
     nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
     nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
 
+    
+
     $(function () { // 遅延処理
       $('#setting2').click(
         function () {
@@ -107,21 +109,23 @@ $('.open-overlay2').click(function () {
             datatype: "json",
             data: {
               // valueをセット
-              "workstarttime" : $('#workstarttime').val(),
-              "workendtime" : $('#workendtime').val(),
-              "submissionlimit" : $('#submissionlimit').val(),
-              "vote" : $('#cheap').val()
+              "workstarttime" : $('#WorkTimeStart').val(),
+              "workendtime" : $('#WorkTimeEnd').val(),
+              "submissionlimit" : $('#SubmissionLimit').val(),
+              "vote" : $('#cheap').prop('checked')
             }
-          }).done(function (data) {
+          }).done(function (res) {
             // 通信成功時の処理
             alert('ファイルの取得に成功しました。');
+            alert($('#cheap').prop('checked'))
           }).fail(function (err) {
             // 通信失敗時の処理
             alert('ファイルの取得に失敗しました。');
+            alert($('#WorkTimeStart').val())
+            alert($('#cheap').prop('checked'))
           }).always(function() {
             // 成否に関わらず実行されるコールバック
             alert('とりあえず確認');
-            alert($('#workstarttime').val())
         });
         }
       );
