@@ -1,13 +1,14 @@
 <link rel="stylesheet" href="/css/setting.css" type="text/css">
-<div class="overlay-navigation">
-    <nav role="navigation">
-        <form>
+<form id="form_ajax" method="post" >
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <div class="overlay-navigation">
+        <nav role="navigation">
             <ul class="navigation_ui">
                 <!-- 勤務時間 -->
                 <li class="navigation_li">
                     <a class="WorkText">勤務時間</a><br>
                     <div class="selectdiv">
-                        <select name="WorkTimeStart" class="WorkTimeStart">
+                        <select id="WorkTimeStart" name="WorkTimeStart" class="WorkTimeStart">
                             <option selected hidden></option>
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -35,7 +36,7 @@
                             <option value="23">23</option>
                         </select>
                         <a class="Character">～</a>
-                        <select name="WorkTimeEnd" class="WorkTimeEnd">
+                        <select id="WorkTimeEnd" name="WorkTimeEnd" class="WorkTimeEnd">
 
                             <option value="0">0</option>
                             <option value="1">1</option>
@@ -68,7 +69,7 @@
                 <li class="navigation_li">
                     <a class="WorkText">シフト提出期限</a><br>
                     <div class="selectdiv">
-                        <select name="SubmissionLimit" class="SubmissionLimit">
+                        <select id="SubmissionLimit" name="SubmissionLimit" class="SubmissionLimit">
 
                             <option value="4">4</option>
                             <option value="5">5</option>
@@ -85,23 +86,24 @@
                 <li class="navigation_li">
                     <a class="WorkText">投票機能</a>
                     <div class="block">
-                        <input data-index="0" id="cheap" type="checkbox" />
+                        <input value="vote" id="cheap" type="checkbox" />
                         <label for="cheap">投票機能を使いますか？</label>
                     </div>
                 </li>
             </ul>
-            <div id="setting2" class="open-overlay2" style="display: none">
-                <img type=submit src="/img_submit/setting.png" width="100%">
-            </div>
-        </form>
-    </nav>
-</div>
-
-<section class="home">
-    <div id="setting" class="open-overlay">
-        <img src="/img_submit/setting.png" width="100%">
+        </nav>
     </div>
-</section>
+    <section class="home">
+        <div id="setting" class="open-overlay" >
+            <img src="/img_submit/setting.png" width="100%">
+        </div>
+        <div id="setting2" class="open-overlay2" style="display: none">
+            <img type=submit name="add" src="/img_submit/setting.png" width="100%">
+        </div>
+    </section>
+</form>
+
+
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
 

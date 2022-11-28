@@ -3,31 +3,30 @@
 namespace App\Http\Controllers;
 use App\Models\Store;
 
+use App\post;
+
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-
-    private $formItems = ["workstarttime", "workendtime", "submissionlimit","vote"];
-
+    private $formItems = ["workstarttime", "workendtime", "submissionlimit","vote"];    
 
     public function update(Request $request){
 
-        $data = $request->only($this->formItems);
+        //$data = $request->only($this->formItems);
 
-        if($data['vote'] == null ){
-            $data['vote'] = 0;
-        }else{
-            $data['vote'] = 1;
-        }
+        $workstarttime = $_POST['workstarttime'];
+        $workendtime = $_POST['workendtime'];
+        $submissionlimit = $_POST['submissionlimit'];
+        $vote = $_POST['vote'];
 
         \DB::table('stores')
             ->where('id', 1)
             ->update([
-                'workstarttime' => $data['workstarttime'],
-                'workendtime' => $data['workendtime'],
-                'submissionlimit' => $data['submissionlimit'],
-                'vote' => $data['vote']
+                'workstarttime' => $workstarttime,
+                'workendtime' => $workendtime,
+                'submissionlimit' => $submissionlimit,
+                'vote' => $vote
                 
             ]);
     }
