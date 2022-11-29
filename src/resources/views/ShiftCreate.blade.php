@@ -1,10 +1,21 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-        <link rel="stylesheet" href="/css/#.css" type="text/css">
-    </head>
-    <body>
-        <!-- シフト作成待ち時間 -->
-        <meta http-equiv="refresh" content=" 7; url= {{ route('candidacyView') }}">  <!-- 間違ってるかも -->
-    </body>
-</html>
+<?php
+    $jarFilePath = "java -Dfile.encoding=UTF-8 -jar /data/sotuken-test/Sotu.jar";
+    //$cmd = escapeshellcmd($jarFilePath);
+
+    echo shell_exec($jarFilePath);
+
+    
+
+    // $path = "java -jar Sotu.jar";
+    // $cmd2 = escapeshellcmd($path);
+    // echo $result2 = exec($cmd,$output2,$error2);
+
+    // if($result2){
+    //     echo $result2;
+    // }
+    // elseif($result2 == false){
+    //     echo "NG";
+    // }
+
+
+?>

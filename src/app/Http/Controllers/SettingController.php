@@ -7,28 +7,33 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-
-    private $formItems = ["workstarttime", "workendtime", "submissionlimit","vote"];
-
+    private $formItems = ["workstarttime", "workendtime", "submissionlimit","vote"];    
 
     public function update(Request $request){
 
-        $data = $request->only($this->formItems);
+        //$data = $request->only($this->formItems);
 
-        if($data['vote'] == null ){
-            $data['vote'] = 0;
+        $workstarttime = $_POST['workstarttime'];
+        $workendtime = $_POST['workendtime'];
+        $submissionlimit = $_POST['submissionlimit'];
+        $vote = $_POST['vote'];
+
+        if($vote == "true"){
+            $vote2 = 1;
         }else{
-            $data['vote'] = 1;
+            $vote2 = 0;
         }
+
 
         \DB::table('stores')
             ->where('id', 1)
             ->update([
-                'workstarttime' => $data['workstarttime'],
-                'workendtime' => $data['workendtime'],
-                'submissionlimit' => $data['submissionlimit'],
-                'vote' => $data['vote']
-                
+                'workstarttime' => $workstarttime,
+                'workendtime' => $workendtime,
+                'submissionlimit' => $submissionlimit,
+                'vote' => $vote2
             ]);
+
+        return;
     }
 }
