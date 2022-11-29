@@ -37,7 +37,6 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
         $this->middleware('guest:admin')->except('logout');
         $this->middleware('guest:employee')->except('logout');
         $this->middleware('guest:parttimer')->except('logout');
@@ -61,6 +60,24 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
+        // dump($request);
+        // echo($request['email']);
+        // $credentials = $request->validate([
+        //     'email' => ['required', 'email'],
+        //     'password' => ['required'],
+        // ]);
+        // dump($credentials);
+        // exit;
+
+        if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect(route('home'));
+        }
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return back()->withInput($request->only('email', 'remember'));
     }
     //employee用login
     public function showEmployeeLoginForm()
@@ -81,6 +98,15 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
+        if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect(route('home'));
+        }
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return back()->withInput($request->only('email', 'remember'));
     }
     //parttimer用login
     public function showParttimerLoginForm()
@@ -101,7 +127,17 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
+        if (Auth::guard('parttimer')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            return redirect(route('home'));
+        }
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return back()->withInput($request->only('email', 'remember'));
     }
+    
     public function logout(Request $request)
     {
         Auth::logout();

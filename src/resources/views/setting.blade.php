@@ -36,7 +36,7 @@
                         </select>
                         <a class="Character">～</a>
                         <select id="WorkTimeEnd" name="WorkTimeEnd" class="WorkTimeEnd">
-
+                            <option value="settingdata" selected></option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -85,7 +85,7 @@
                 <li class="navigation_li">
                     <a class="WorkText">投票機能</a>
                     <div class="block">
-                        <input value="vote" id="cheap" type="checkbox"  onclick="func1()"/>
+                        <input value="vote" id="cheap" type="checkbox"/>
                         <label for="cheap">投票機能を使いますか？</label>
                     </div>
                 </li>
@@ -93,10 +93,7 @@
         </nav>
     </div>
     <section class="home">
-        <div id="setting" class="open-overlay" >
-            <img src="/img_submit/setting.png" width="100%">
-        </div>
-        <div id="setting2" class="open-overlay2" style="display: none">
+        <div id="setting" class="open-overlay">
             <img type=submit name="add" src="/img_submit/setting.png" width="100%">
         </div>
     </section>

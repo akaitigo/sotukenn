@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('ShiftCreate');
 });
 Route::get('home', function () {
-    return view('test');
+    return view('authtest');
 })->name('home');
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -27,10 +27,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerEmployee'])->name('employee-register');
 });
 //adminかemployeeしか使えないroute
-Route::middleware('auth:employee,admin')->group(function(){
-    Route::get('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
-    Route::post('parttimer/register',[App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
-});
 Route::middleware('auth:employee,admin')->group(function () {
     Route::get('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');

@@ -18,7 +18,7 @@ class SettingController extends Controller
         $submissionlimit = $_POST['submissionlimit'];
         $vote = $_POST['vote'];
 
-        if(is_null($vote)){
+        if($vote == "true"){
             $vote2 = 1;
         }else{
             $vote2 = 0;
@@ -32,7 +32,6 @@ class SettingController extends Controller
                 'workendtime' => $workendtime,
                 'submissionlimit' => $submissionlimit,
                 'vote' => $vote2
-                
             ]);
 
         return;
