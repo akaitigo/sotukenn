@@ -15,32 +15,36 @@ class EmployeeStatusSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '1',
+        DB::table('employee_status')->insert([
+            'employee_id' => '1',
             'status_id'=>'1',
             ]);
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '1',
+        DB::table('employee_status')->insert([
+            'employee_id' => '1',
             'status_id'=>'2',
             ]);
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '1',
+        DB::table('employee_status')->insert([
+            'employee_id' => '1',
             'status_id'=>'3',
             ]);
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '2',
+        DB::table('employee_status')->insert([
+            'employee_id' => '1',
+            'status_id'=>'4',
+            ]);    
+        DB::table('employee_status')->insert([
+            'employee_id' => '2',
             'status_id'=>'1',
             ]);
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '2',
+        DB::table('employee_status')->insert([
+            'employee_id' => '2',
             'status_id'=>'2',
             ]);
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '2',
+        DB::table('employee_status')->insert([
+            'employee_id' => '2',
             'status_id'=>'3',
             ]);
-        DB::table('parttimer_status')->insert([
-            'parttimer_id' => '1',
+        DB::table('employee_status')->insert([
+            'employee_id' => '2',
             'status_id'=>'4',
             ]);
 
