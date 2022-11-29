@@ -15,6 +15,7 @@ use App\Models\Employee;
 use App\Models\Parttimer;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Auth\Events\Registered;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -45,9 +46,26 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
-        $this->middleware('guest:admin');
-        $this->middleware('guest:employee');
+        // $this->middleware('guest');
+        $this->middleware('guest:admin')->except(
+            
+            'employeeValidator',
+            'showEmployeeRegisterForm',
+            'registerEmployee',
+            'createEmployee',
+            'registeredEmployee',
+
+            'parttimerValidator',
+            'showParttimerRegisterForm',
+            'registerParttimer',
+            'createParttimer',
+            'registeredParttimer');
+        $this->middleware('guest:employee')->except(
+            'parttimerValidator',
+            'showParttimerRegisterForm',
+            'registerParttimer',
+            'createParttimer',
+            'registeredParttimer');
         $this->middleware('guest:parttimer');
     }
 
@@ -79,6 +97,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'enterprise' => $data['enterprise'],
             'password' => Hash::make($data['password']),
+
         ]);
     }
     //admin用
@@ -118,7 +137,9 @@ class RegisterController extends Controller
         return Admin::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Crypt::encryptString($data['password']),
+            'password' => Hash::make($data['password']),
+            "created_at" =>  Carbon::now(),
+            "updated_at" =>  Carbon::now(),
         ]);
     }
 
@@ -163,7 +184,9 @@ class RegisterController extends Controller
         return Employee::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Crypt::encryptString($data['password']),
+            'password' => Hash::make($data['password']),
+            "created_at" =>  Carbon::now(),
+            "updated_at" =>  Carbon::now(),
         ]);
     }
 
@@ -208,7 +231,9 @@ class RegisterController extends Controller
         return Parttimer::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Crypt::encryptString($data['password']),
+            'password' => Hash::make($data['password']),
+            "created_at" =>  Carbon::now(),
+            "updated_at" =>  Carbon::now(),
         ]);
     }
 
