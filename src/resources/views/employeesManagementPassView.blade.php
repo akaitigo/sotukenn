@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('header')
 
+<button class="backButton" onclick="history.back()">戻　る</button>
+<a href="{{ route('employeesManagementPassNotView') }}" class="passViewButton">メール非表示</a>
 
-<a href="{{ route('employeesManagementPassNotView') }}">パスワード非表示</a>
-
-
+<title>従業員管理</title>
 
 @if(!($employees->isEmpty()))
 
@@ -19,7 +19,6 @@
             <th>name</th>
             <th>weight</th>
             <th>position</th>
-            <th>pass</th>
             <th>change</th>
         </tr>
     </thead>
@@ -39,10 +38,9 @@
 
                 @endforeach
             </td>
-            <td>{{ $emp->password }}</td>
             @csrf
             <form method="get" action="{{route('employeesManagementChange')}}">
-                <td><button type="submit" name="empChange" value="{{$emp->id}}">変更</button></td>
+                <td><button type="submit" name="empChange" value="{{$emp->id}}">変　更</button></td>
             </form>
         </tr>
         @endforeach
@@ -63,7 +61,6 @@
             <th>name</th>
             <th>weight</th>
             <th>position</th>
-            <th>pass</th>
             <th>change</th>
         </tr>
     </thead>
@@ -83,13 +80,14 @@
 
                 @endforeach
             </td>
-            <td>{{ $part->password }}</td>
             @csrf
             <form method="get" action="{{route('partManagementChange')}}">
-                <td><button type="submit" name="partChange" value="{{$part->id}}">変更</button></td>
+                <td><button type="submit" name="partChange" value="{{$part->id}}">変　更</button></td>
             </form>
         </tr>
         @endforeach
     </tbody>
 </table>
 @endif
+
+

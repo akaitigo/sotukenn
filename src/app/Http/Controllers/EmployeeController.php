@@ -12,7 +12,7 @@ use PDO;
 use Symfony\Component\Console\Command\DumpCompletionCommand;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputOption;
-
+use Illuminate\Support\Facades\Hash;
 use function PHPUnit\Framework\isNull;
 
 class EmployeeController extends Controller
@@ -23,14 +23,7 @@ class EmployeeController extends Controller
     {
         $employees = Employee::all();
         $parttimers = Parttimer::all();
-        foreach ($parttimers as $part) {
-            $decrypted = Crypt::decryptString($part->password); //partパスワードの復元
-            $part->password = $decrypted;
-        }
-        foreach ($employees as $emp) {
-            $decrypted = Crypt::decryptString($emp->password); //empパスワードの復元
-            $emp->password = $decrypted;
-        }
+
         return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
 
@@ -54,8 +47,8 @@ class EmployeeController extends Controller
         $jobcheck[0] = 0;
         $jobCount = 1;
         foreach ($employees as $emp) {
-            $decrypted = Crypt::decryptString($emp->password); //empパスワードの復元
-            $emp->password = $decrypted;
+            // $decrypted = Crypt::decryptString($emp->password); //empパスワードの復元
+            // $emp->password = $decrypted;
             foreach ($emp->jobs as $job) {
                 $jobcheck[] = $job->id;
             }
@@ -70,8 +63,8 @@ class EmployeeController extends Controller
         $parttimers = Parttimer::where('id', '=', $getId)->get();
         $allJob = Job::get();
         foreach ($parttimers as $part) {
-            $decrypted = Crypt::decryptString($part->password); //empパスワードの復元
-            $part->password = $decrypted;
+            // $decrypted = Crypt::decryptString($part->password); //empパスワードの復元
+            // $part->password = $decrypted;
         }
         return view('employeesManagementChange', compact('allJob', 'parttimers', 'partChangeIden', 'empChangeIden'));
     }
@@ -127,14 +120,26 @@ class EmployeeController extends Controller
         $alljobCheck = 3; //3の場合すべてのジョブが登録されていない
         $jobCount = 1;
 
-        if (!(is_null($inputName))) {
-            $changeConfirmName = $inputName;
-        }
-        if (!(isNull($inputEmail))) {
-            $changeConfirmEmail = $inputEmail;
-        }
+
         foreach ($updateUser as $remp) {
-            $remp->name = $changeConfirmName;
+            if (!(is_null($inputName))) {
+                $changeConfirmName = $inputName;
+                $remp->name = $changeConfirmName;
+            }
+            if (!(is_null($inputEmail))) {
+                $changeConfirmEmail = $inputEmail;
+                $remp->email = $changeConfirmEmail;
+            }
+            if (!(is_null($inputWeight))) {
+                $changeConfirmWeight = $inputWeight;
+                $remp->weight = $changeConfirmWeight;
+            }
+            if (!(is_null($inputPassword))) {
+                $changeConfirmPassword = $inputPassword;
+                $remp->password = Hash::make($changeConfirmPassword);
+            }
+            dump($remp);
+
             $remp->save();
         }
 
@@ -181,8 +186,10 @@ class EmployeeController extends Controller
                 }
             } else {
                 foreach ($updateUser as $up) {
-                    $up->jobs()->detach($jobCount); //削除
+
+                    $up->jobs()->detach($i); //削除
                     $jobcheck[$jobCount] = 1;
+                    $jobCount = $jobCount + 1;
                 }
             }
         }
