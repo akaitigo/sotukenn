@@ -28,6 +28,10 @@ class ParttimerStatusSeeder extends Seeder
             'status_id'=>'3',
             ]);
         DB::table('parttimer_status')->insert([
+            'parttimer_id' => '1',
+            'status_id'=>'4',
+            ]);
+        DB::table('parttimer_status')->insert([
             'parttimer_id' => '2',
             'status_id'=>'1',
             ]);

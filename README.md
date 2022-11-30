@@ -77,3 +77,15 @@ dbサーバーにcliでアクセス
 ```
 mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE
 ```
+appサーバーにdefault-jdkを入れる
+```
+apt update
+apt install default-jdk
+```
+pathを通す
+```
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+```
+
+
