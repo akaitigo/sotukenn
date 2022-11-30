@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 <script type="text/javascript" src="/js/employee.js"></script>
-<button onclick="history.back()">戻る</button>
+
+<button class="backButton" onclick="history.back()">戻　る</button>
 
 <h2>変更</h2>
 
@@ -43,15 +44,15 @@
 
             </td>
 
-            <td><input type="text" name="newEmpPassword" placeholder="{{$emp->password}}"></td>
+            <td><input type="text" name="newEmpPassword" placeholder="Password"></td>
 
 
-                <td><button type="submit" name="upDateId" value="{{$emp->id}}">更新</button></td>
+                <td><button type="submit" name="upDateId" value="{{$emp->id}}" class="updateButton">更　新</button></td>
             </form>
 
             <form method="post" action="{{route('employeesManagementDelete')}}">
                 @csrf
-                <td><button type="submit" name="delete" value="{{$emp->id}}" onclick="MoveCheck();">削除</td>
+                <td><button type="submit" name="delete" value="{{$emp->id}}" onclick="MoveCheck();" class="deleteButton">削　除</td>
             </form>
 
 
@@ -78,15 +79,15 @@
                 @endforeach
             </td>
 
-            <td><input type="text" name="newPartPass" placeholder="{{$part->password}}"></td>
+            <td><input type="text" name="newPartPass" placeholder="passwors"></td>
 
             <form method="post" action="{{route('parttimersManegementUpdate')}}">
-                <td><button type="submit" name="{{$part->id}}">更新</button></td>
+                <td><button type="submit" name="{{$part->id}}" class="updateButton">更新</button></td>
             </form>
 
             <form method="post" action="{{route('partManagementDelete')}}">
                 @csrf
-                <td><button type="submit" name="delete" value="{{$part->id}}" onclick="MoveCheck();">削除</td>
+                <td><button type="submit" name="delete" value="{{$part->id}}" onclick="MoveCheck();" class="deleteButton">削除aa  </td>
             </form>
         </tr>
         @endforeach

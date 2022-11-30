@@ -1,21 +1,11 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('header')
 
-<script type="text/javascript">
-    function myEnter() {
-        myPassWord = prompt("パスワードを入力してください", "");
-        if (myPassWord == "pass1") {
-            location.href = "secret.htm";
-        } else {
-            alert("パスワードが違います!");
-        }
-    }
-</script>
 
-<label>🔍<label><input type="text" class="serch"><input type="button" class="serchButton">
-        <a href="{{ route('employeesManagementPassView') }}" onclick="myEnter">パスワードの表示・変更</a>
+<button class="backButton" onclick="history.back()">戻　る</button>
+        <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更</a>
         @if(!($employees->isEmpty()))
-        <h2>正社員一覧</h2>
+        <h2 class="employeeH2">正社員一覧</h2>
 
         <title>従業員管理</title>
         <table class="table" border="2">
@@ -26,7 +16,6 @@
                     <th>name</th>
                     <th>weight</th>
                     <th>position</th>
-                    <th>pass</th>
                 </tr>
             </thead>
 
@@ -43,7 +32,6 @@
 
                         @endforeach
                     </td>
-                    <td>*****</td>
                 </tr>
                 @endforeach
             </tbody>
@@ -52,7 +40,7 @@
 
 
         @if(!($parttimers->isEmpty()))
-        <h2>アルバイト一覧</h2>
+        <h2 class="parttimerH2">アルバイト一覧</h2>
 
         <table class="table" border="2">
             <thead>
@@ -62,7 +50,6 @@
                     <th>name</th>
                     <th>weight</th>
                     <th>position</th>
-                    <th>pass</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,7 +66,6 @@
 
                         @endforeach
                     </td>
-                    <td>*****</td>
                 </tr>
                 @endforeach
             </tbody>

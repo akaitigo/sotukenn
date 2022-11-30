@@ -1,12 +1,146 @@
-img {
-
-    width: 20px;
-    height: 20px;
-    object-fit: contain;
+table {
     margin: auto;
+
 }
 
-table {
+h2 {
+    font-family: Yu Gothic;
     text-align: center;
-    vertical-align: middle;
+    color: rebeccapurple;
+}
+
+td {
+    text-align: center;
+    font-family: Yu Gothic;
+    font-weight: normal;
+}
+
+th {
+    font-family: Yu Gothic;
+    font-weight: bold;
+}
+
+button {
+    font-family: Yu Gothic;
+    font-weight: bold;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 1em 0;
+    padding: 0.6em 1em;
+    font-size: 0.6em;
+    background-color: #1aa1ff;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 0;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #064fda;
+
+}
+
+.backButton {
+    font-family: Yu Gothic;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 10px;
+    padding: 0.7em 1em;
+    font-size: 0.8em;
+    background-color: #1aa1ff;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 0;
+    transition: 0.3s;
+}
+
+.backButton:hover {
+    background-color: #FFC40C;
+
+}
+
+.detailButton {
+    background-color: #1aa1ff;
+    margin-bottom: 20px;
+    color: #FFF;
+    display: inline-block;
+    padding: 0.7em 1em;
+    font-size: 0.8em;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Yu Gothic;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.detailButton:hover {
+    background-color: rebeccapurple;
+}
+
+
+.passViewButton {
+    background-color: #1aa1ff;
+    margin-bottom: 20px;
+    color: #FFF;
+    display: inline-block;
+    padding: 0.7em 1em;
+    font-size: 0.8em;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Yu Gothic;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.passViewButton:hover {
+    background-color: rebeccapurple;
+}
+
+.deleteButton {
+    background-color: red;
+    margin: 5;
+    color: #FFF;
+    display: inline-block;
+    padding: 0.4em 1em;
+    font-size: 0.7em;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Yu Gothic;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.deleteButton:hover {
+    background-color: whitesmoke;
+}
+
+.updateButton {
+    background-color: #1aa1ff;
+    margin: 5;
+    color: #FFF;
+    display: inline-block;
+    padding: 0.4em 1em;
+    font-size: 0.7em;
+    border-radius: 3px;
+    text-align: center;
+    font-family: Yu Gothic;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.updateButton:hover {
+    background-color: orange;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+td {
+    margin-bottom: 70px;
 }
