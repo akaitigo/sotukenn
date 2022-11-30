@@ -8,7 +8,8 @@
         <div>
         <h2>現在のシフト提出状況</h2>
         @if(!($employees->isEmpty()))
-            <table class="table1" border="2">
+        <div class="alltable">
+            <table class="tablesubcomp">
                 <thead>
                     <tr>
                         <th colspan="2">提出済み</th>
@@ -30,7 +31,7 @@
                 </tbody>
             </table><br>
 
-            <table class="table2" border="2">
+            <table class="tablenotsub">
                 <thead>
                     <tr>
                         <th colspan="2">未提出</th>
@@ -51,10 +52,10 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
         @endif
-
+        </div>
             <a href="{{ route('submittedShiftDetail') }}" >提出済み従業員それぞれのシフト確認ボタン</a>
             <a href="{{ route('submittedShiftEdit') }}" >設定ボタン</a>
-        </div>
     </body>
 </html>
