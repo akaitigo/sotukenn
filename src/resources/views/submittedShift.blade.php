@@ -1,11 +1,60 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>
-    <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
+    <link rel="stylesheet" href="/css/submittedShift.css" type="text/css">
     </head>
     <body>
     @include('header')
+        <div>
+        <h2>現在のシフト提出状況</h2>
+        @if(!($employees->isEmpty()))
+            <table class="table1" border="2">
+                <thead>
+                    <tr>
+                        <th colspan="2">提出済み</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($submitcompempname as $subcompempname)
+                        <tr>
+                            <td class="subcompempname">{{$subcompempname}}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                    @foreach ($submitcomppartname as $subcomppartname)
+                        <tr>
+                            <td class="subcomppartname">{{$subcomppartname}}</td>
+                            <td></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table><br>
+
+            <table class="table2" border="2">
+                <thead>
+                    <tr>
+                        <th colspan="2">未提出</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($notsubmitempname as $notsubempname)
+                    <tr>
+                        <td class="notsubempname">{{$notsubempname}}</td>
+                        <td></td>
+                    </tr>
+                    @endforeach
+                    @foreach ($notsubmitpartname as $notsubpartname)
+                    <tr>
+                        <td class="notsubpartname">{{$notsubpartname}}</td>
+                        <td></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+
             <a href="{{ route('submittedShiftDetail') }}" >提出済み従業員それぞれのシフト確認ボタン</a>
             <a href="{{ route('submittedShiftEdit') }}" >設定ボタン</a>
+        </div>
     </body>
 </html>

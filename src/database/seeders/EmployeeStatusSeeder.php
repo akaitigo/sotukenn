@@ -47,6 +47,27 @@ class EmployeeStatusSeeder extends Seeder
             'employee_id' => '2',
             'status_id'=>'4',
             ]);
-
+        DB::table('employee_status')->insert([
+            'employee_id' => '3',
+            'status_id'=>'1',
+            ]);
+        DB::table('employee_status')->insert([
+            'employee_id' => '3',
+            'status_id'=>'2',
+            ]);
+        DB::table('employee_status')->insert([
+            'employee_id' => '3',
+            'status_id'=>'3',
+            ]);
+        DB::table('employee_status')->insert([
+            'employee_id' => '4',
+            'status_id'=>'1',
+            ]);
+        DB::table('employee_status')->insert([
+            'employee_id' => '4',
+            'status_id'=>'2',
+            ]);
+        
+        
     }
 }
