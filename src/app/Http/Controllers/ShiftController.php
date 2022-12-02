@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Models\Store;
+use App\Models\Employee;
+use App\Models\Parttimer;
+use App\Models\Status;
 use Illuminate\Http\Request;
+
 
 class ShiftController extends Controller
 {
@@ -13,7 +17,31 @@ class ShiftController extends Controller
      /* 提出シフト管理 */
     public function management()
     {
-        return view('submittedShift');
+        $employees = Employee::all();
+        $parttimers = Parttimer::all();
+        $empCountNum = $employees->count();
+
+
+        foreach($employees as $emp){
+            $allempname[] = $emp->name;
+            foreach($emp-> Statuses as $status){
+                    if($status->id == 4){
+                        $submitcompempname[] = $emp->name;
+                    }
+            }
+        }
+        foreach($parttimers as $part){
+            $allpartname[] = $part->name;
+            foreach($part-> Statuses as $status){
+                    if($status->id == 4){
+                        $submitcomppartname[] = $part->name;
+                    }
+            }
+        }
+        $notsubmitempname = array_diff($allempname,$submitcompempname);
+        $notsubmitpartname = array_diff($allpartname,$submitcomppartname);
+
+        return view('submittedShift', compact('employees', 'parttimers','submitcompempname','notsubmitempname','submitcomppartname','notsubmitpartname'));
     }
 
     /* シフト設定 */
@@ -59,7 +87,6 @@ class ShiftController extends Controller
     /* 提出済みシフト確認 */
     public function detail()
     {
-        return view('submittedShiftDetail');
     }
 
     /* シフト閲覧 */

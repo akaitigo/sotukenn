@@ -1,0 +1,51 @@
+table {
+    border: 2px solid;
+    width: 25%;
+}
+
+ td {
+    border: 1px solid;
+ }
+
+.alltable {
+    display: flex;
+}
+
+.subcompempname {
+    border: 1px solid;
+    background-color: aqua;
+    text-align: center;
+}
+
+.subcomppartname {
+    background-color: rgb(241, 144, 0);
+    text-align: center;
+}
+
+.notsubempname {
+    background-color: aqua;
+    text-align: center;
+}
+
+.notsubpartname {
+    background-color: rgb(241, 144, 0);
+    text-align: center;
+}
+
+.tablesubcomp {
+    position: relative;
+    top: 10%;
+    left: 21%;
+    margin: 10px;
+    font-size: 20px;
+    height: 30%;
+}
+
+.tablenotsub {
+    position: relative;
+    top: 10%;
+    left: 24%;
+    margin: 10px;
+    font-size: 20px;
+    height: 30%;
+}

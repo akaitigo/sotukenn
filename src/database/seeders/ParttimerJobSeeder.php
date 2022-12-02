@@ -31,5 +31,13 @@ class ParttimerJobSeeder extends Seeder
             'parttimer_id' => '2',
             'job_id' => '2',
         ]);
+        DB::table('parttimer_job')->insert([
+            'parttimer_id' => '3',
+            'job_id' => '1',
+        ]);
+        DB::table('parttimer_job')->insert([
+            'parttimer_id' => '4',
+            'job_id' => '2',
+        ]);
     }
 }
