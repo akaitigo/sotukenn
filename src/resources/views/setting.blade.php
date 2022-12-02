@@ -6,7 +6,7 @@
             <ul class="navigation_ui">
                 <!-- 勤務時間 -->
                 <li class="navigation_li">
-                    <a class="WorkText">勤務時間</a><br>
+                    <a class="WorkText">勤務時間</a><br><br><br><br>
                     <div class="selectdiv">
                         <select id="WorkTimeStart" name="WorkTimeStart" class="WorkTimeStart">
                             <option value="0">0</option>
@@ -34,7 +34,7 @@
                             <option value="22">22</option>
                             <option value="23">23</option>
                         </select>
-                        <a class="Character">～</a>
+                        <a>～</a>
                         <select id="WorkTimeEnd" name="WorkTimeEnd" class="WorkTimeEnd">
                             <option value="settingdata" selected></option>
                             <option value="0">0</option>
@@ -64,9 +64,41 @@
                         </select>
                     </div>
                 </li>
+                <script>
+                var slc_elm = document.querySelector("#WorkTimeStart");
+                slc_elm.addEventListener("focus",function(elm){
+                    if(elm.currentTarget.options.length >=11){
+                        elm.currentTarget.size = "10";
+                    }
+                }, false)
+
+                slc_elm.addEventListener("blur",function(elm){
+                    elm.currentTarget.size = "1";
+                }, false)
+
+                slc_elm.addEventListener("change",function(elm){
+                    elm.currentTarget.blur();
+                }, false)
+
+                var slce_elm = document.querySelector("#WorkTimeEnd");
+                slce_elm.addEventListener("focus",function(elm){
+                    if(elm.currentTarget.options.length >=11){
+                        elm.currentTarget.size = "10";
+                    }
+                }, false)
+
+                slce_elm.addEventListener("blur",function(elm){
+                    elm.currentTarget.size = "1";
+                }, false)
+
+                slce_elm.addEventListener("change",function(elm){
+                    elm.currentTarget.blur();
+                }, false)
+
+            </script>
                 <!-- シフト提出期限 -->
                 <li class="navigation_li">
-                    <a class="WorkText">シフト提出期限</a><br>
+                    <a class="WorkText">シフト提出期限</a><br><br><br><br>
                     <div class="selectdiv">
                         <select id="SubmissionLimit" name="SubmissionLimit" class="SubmissionLimit">
 
@@ -83,10 +115,10 @@
                 </li>
                 <!-- 投票機能 -->
                 <li class="navigation_li">
-                    <a class="WorkText">投票機能</a>
+                    <a class="WorkText">投票機能</a><br><br><br><br>
                     <div class="block">
-                        <input value="vote" id="cheap" type="checkbox"/>
-                        <label for="cheap">投票機能を使いますか？</label>
+                        <input value="vote" class="votecheck" id="cheap" type="checkbox"/>
+                        <label for="cheap" class="vote">投票機能を使いますか？</label>
                     </div>
                 </li>
             </ul>

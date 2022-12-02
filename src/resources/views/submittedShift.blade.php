@@ -1,9 +1,4 @@
-<!DOCTYPE html>
-<html lang="ja">
-    <head>
-    <link rel="stylesheet" href="/css/submittedShift.css" type="text/css">
-    </head>
-    <body>
+<link rel="stylesheet" href="/css/submittedShift.css" type="text/css">
     @include('header')
         <div>
         <h2>現在のシフト提出状況</h2>
@@ -56,6 +51,3 @@
         @endif
         </div>
             <a href="{{ route('submittedShiftDetail') }}" >提出済み従業員それぞれのシフト確認ボタン</a>
-            <a href="{{ route('submittedShiftEdit') }}" >設定ボタン</a>
-    </body>
-</html>
