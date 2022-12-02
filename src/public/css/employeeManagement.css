@@ -7,17 +7,20 @@ h2 {
     font-family: Yu Gothic;
     text-align: center;
     color: rebeccapurple;
+    font-size: 1.4em;
 }
 
 td {
     text-align: center;
     font-family: Yu Gothic;
     font-weight: normal;
+    font-size: 1em;
 }
 
 th {
     font-family: Yu Gothic;
     font-weight: bold;
+    font-size: 1em;
 }
 
 button {
@@ -47,7 +50,7 @@ button:hover {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    margin: 10px;
+    margin: 20 30 0 60;
     padding: 0.7em 1em;
     font-size: 0.8em;
     background-color: #1aa1ff;
@@ -106,7 +109,7 @@ button:hover {
     color: #FFF;
     display: inline-block;
     padding: 0.4em 1em;
-    font-size: 0.7em;
+    font-size: 0.6em;
     border-radius: 3px;
     text-align: center;
     font-family: Yu Gothic;
@@ -115,7 +118,8 @@ button:hover {
 }
 
 .deleteButton:hover {
-    background-color: whitesmoke;
+    background-color: rgb(255, 53, 53);
+    color: black;
 }
 
 .updateButton {
@@ -124,7 +128,7 @@ button:hover {
     color: #FFF;
     display: inline-block;
     padding: 0.4em 1em;
-    font-size: 0.7em;
+    font-size: 0.6em;
     border-radius: 3px;
     text-align: center;
     font-family: Yu Gothic;
@@ -133,9 +137,12 @@ button:hover {
 }
 
 .updateButton:hover {
-    background-color: orange;
+    background-color: rgb(255, 136, 0);
 }
 
+.underTd {
+    margin-bottom: 50px;
+}
 
 a {
     text-decoration: none;

@@ -12,12 +12,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
 
 Route::get('/', function () {
-    return view('ShiftCreate');
+    return view('header');
 });
 Route::get('home', function () {
-    return view('authtest');
+    return view('header');
 })->name('home');
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
@@ -110,4 +111,6 @@ Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
 
-Route::post('/title', "App\Http\Controllers\SettingController@update")->name('setting.update');
+Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
+
+

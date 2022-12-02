@@ -17,6 +17,7 @@
             <th>id</th>
             <th>email</th>
             <th>name</th>
+            <th>age</th>
             <th>weight</th>
             <th>position</th>
             <th>change</th>
@@ -30,6 +31,7 @@
             <td>{{ $emp->id}}</td>
             <td>{{$emp->email}}</td>
             <td>{{ $emp->name }}</td>
+            <td>{{$emp->age}}</td>
             <td>{{ $emp->weight}}</td>
 
             <td> @foreach($emp-> Jobs as $job)
@@ -38,8 +40,9 @@
 
                 @endforeach
             </td>
-            @csrf
+
             <form method="get" action="{{route('employeesManagementChange')}}">
+                @csrf
                 <td><button type="submit" name="empChange" value="{{$emp->id}}">変　更</button></td>
             </form>
         </tr>
@@ -59,6 +62,7 @@
             <th>id</th>
             <th>email</th>
             <th>name</th>
+            <th>age</th>
             <th>weight</th>
             <th>position</th>
             <th>change</th>
@@ -72,6 +76,7 @@
             <td>{{ $part->id}}</td>
             <td>{{$part->email}}</td>
             <td>{{ $part->name }}</td>
+            <td>{{$part->age}}</td>
             <td>{{ $part->weight}}</td>
 
             <td> @foreach($part-> Jobs as $job)
@@ -82,12 +87,17 @@
             </td>
             @csrf
             <form method="get" action="{{route('partManagementChange')}}">
-                <td><button type="submit" name="partChange" value="{{$part->id}}">変　更</button></td>
+                <td class="underTd"><button type="submit" name="partChange" value="{{$part->id}}">変　更</button></td>
             </form>
         </tr>
         @endforeach
     </tbody>
 </table>
+<br/>
+<br/>
+<br/>
+<br/>
+
 @endif
 
 

@@ -108,13 +108,7 @@ class MultiAuthTableSeeder extends Seeder
             $parttimer = new Parttimer();
             $parttimer->name = $init_parttimer['name'];
             $parttimer->email = $init_parttimer['email'];
-<<<<<<< HEAD
             $parttimer->password = Hash::make($init_parttimer['password']);
-            // $encrypted = Crypt::encryptString($init_parttimer['password']); //暗号化
-=======
-            //$parttimer->password=Hash::make($init_parttimer['password']);
-            $encrypted = Hash::make($init_parttimer['password']); //暗号化
->>>>>>> 485700aab66cc9a5a7f10a5bc8d965946f6985da
             $parttimer->password = $encrypted;
             $parttimer->weight = $init_parttimer['weight'];
             $parttimer->store_id = $init_parttimer['store_id'];

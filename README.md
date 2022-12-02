@@ -89,3 +89,10 @@ export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 
+NGROK COMMAND
+ngroc
+./ngrok config add-authtoken 2IFrSidrY60v1avxRFsyjWo9vGC_4kyUpeAKJPgcobLpk4nSC
+
+
+
+./ngrok http 8080 --host-header="localhost:8080"

@@ -3,6 +3,10 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+
+use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use LINE\LINEBot;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +21,4 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
