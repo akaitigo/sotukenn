@@ -5,15 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use App\Models\Job;
-use Illuminate\Database\Console\DumpCommand;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use PDO;
-use Symfony\Component\Console\Command\DumpCompletionCommand;
-use Symfony\Component\Console\Input\Input;
-use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Support\Facades\Hash;
-use function PHPUnit\Framework\isNull;
 
 class EmployeeController extends Controller
 {
@@ -147,10 +140,6 @@ class EmployeeController extends Controller
                 $changeConfirmAge = $inputAge;
                 $remp->age = $changeConfirmAge;
             }
-
-
-
-
             $remp->save();
         }
         foreach ($updateUser as $up) {
@@ -206,8 +195,6 @@ class EmployeeController extends Controller
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
 
-
-
     public function partUpdate(Request $request)
     {
         $jobCount = Job::get();
@@ -246,10 +233,6 @@ class EmployeeController extends Controller
 
             $remp->save();
         }
-
-
-
-
         foreach ($updateUser as $up) {
             foreach ($up->jobs as $job) {
                 for ($i = 1; $i <= $jobCountNum; $i++) {
@@ -304,11 +287,5 @@ class EmployeeController extends Controller
     }
 
     //<--上書き更新
-
-
-
-
-
-
 
 }
