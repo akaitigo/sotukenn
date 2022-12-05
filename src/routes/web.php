@@ -15,11 +15,12 @@ use Illuminate\Support\Facades\Route;
 Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
 
 Route::get('/', function () {
-    return view('header');
+    return view('title');
 });
 Route::get('home', function () {
     return view('header');
 })->name('home');
+
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 //adiminしか使えないroute
@@ -95,7 +96,6 @@ Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
-Route::get('/submittedShiftEdit', [App\Http\Controllers\ShiftController::class, 'setting'])->name('submittedShiftEdit');            //シフト設定
 
 Route::get('/shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                    //シフト編集

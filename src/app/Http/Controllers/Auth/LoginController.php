@@ -7,6 +7,9 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Store;
+use App\Models\admin;
+use function PHPUnit\Framework\isNull;
 
 class LoginController extends Controller
 {
@@ -70,7 +73,15 @@ class LoginController extends Controller
         // exit;
 
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            return redirect(route('home'));
+            $adminid=Auth::guard('admin')->id();
+            $storeid = admin::where('id',$adminid)->value('store_id');
+            $submitlimit = Store::where('id',$storeid)->value('submissionlimit');
+            $stores = Store::find($storeid);
+            if(is_null($submitlimit)) {
+                return view('submittedShiftEdit',compact('stores'));
+            }else {
+                return redirect(route('home'));
+            }
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
@@ -128,6 +139,7 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         if (Auth::guard('parttimer')->attempt(['email' => $request->email, 'password' => $request->password])) {
+
             return redirect(route('home'));
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
