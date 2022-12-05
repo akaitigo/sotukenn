@@ -89,10 +89,16 @@ export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 
-NGROK COMMAND
-ngroc
-./ngrok config add-authtoken 2IFrSidrY60v1avxRFsyjWo9vGC_4kyUpeAKJPgcobLpk4nSC
+ngrok公式サイト
+https://ngrok.com/
 
+アカウント作成
+Connect Your Accountのトークンをコピー
+Download ngrokでダウンロード
 
+インストールしたらngrokが入っているフォルダをShift+右クリックでPowerShellで開く
+トークンの冒頭に './'を追加して貼り付け
+ex)./ngrok config...
 
+下のコードを張り付け
 ./ngrok http 8080 --host-header="localhost:8080"
