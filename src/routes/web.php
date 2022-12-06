@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
 
 Route::get('/', function () {
-    return view('title');
+    return view('header');
 });
 Route::get('home', function () {
     return view('header');
@@ -111,6 +111,6 @@ Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
 
-Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
-
+Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
+Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
 
