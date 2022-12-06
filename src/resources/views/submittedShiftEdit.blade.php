@@ -70,8 +70,8 @@
             <script>
                 var slc_elm = document.querySelector("#slc");
                 slc_elm.addEventListener("focus",function(elm){
-                    if(elm.currentTarget.options.length >=11){
-                        elm.currentTarget.size = "10";
+                    if(elm.currentTarget.options.length >=8){
+                        elm.currentTarget.size = "7";
                     }
                 }, false)
 
@@ -85,8 +85,8 @@
 
                 var slce_elm = document.querySelector("#slce");
                 slce_elm.addEventListener("focus",function(elm){
-                    if(elm.currentTarget.options.length >=11){
-                        elm.currentTarget.size = "10";
+                    if(elm.currentTarget.options.length >=8){
+                        elm.currentTarget.size = "7";
                     }
                 }, false)
 

@@ -44,6 +44,49 @@ $('.open-overlay').click(function () {
     nav_item_2.removeClass('slide-in-nav-item-delay-1-reverse').addClass('slide-in-nav-item-delay-1');
     nav_item_3.removeClass('slide-in-nav-item-delay-2-reverse').addClass('slide-in-nav-item-delay-2');
     nav_item_4.removeClass('slide-in-nav-item-delay-3-reverse').addClass('slide-in-nav-item-delay-3');
+   
+    $(function () { // 遅延処理
+      $.ajax({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        type: 'GET',
+        url: "settingselect", // url: は読み込むURLを表す
+        datatype: "json",
+        }).done(function(res){
+          // 通信成功時の処理
+            const WorkTimeStart = document.getElementById('WorkTimeStart');
+            const WorkTimeEnd = document.getElementById('WorkTimeEnd');
+            const SubmissionLimit = document.getElementById('SubmissionLimit');
+            const cheap = document.getElementById('cheap');
+            const option1 = document.createElement('option');
+            const option2 = document.createElement('option');
+            const option3 = document.createElement('option');
+            option1.textContent = (res['workstarttime']);
+            option2.textContent = (res['workendtime']);
+            option3.textContent = (res['submissionlimit']);
+            WorkTimeStart.appendChild(option1);
+            WorkTimeEnd.appendChild(option2);
+            SubmissionLimit.appendChild(option3);
+            WorkTimeStart.options[24].selected = true;
+            WorkTimeEnd.options[24].selected = true;
+            SubmissionLimit.options[7].selected = true;
+            WorkTimeStart.options[24].hidden = true;
+            WorkTimeEnd.options[24].hidden = true;
+            SubmissionLimit.options[7].hidden = true;
+
+            if((res['vote']) == 1) {
+                cheap.checked = true;
+            }else {
+                cheap.checked = false;
+            }
+
+        }).fail(function (err) {
+          // 通信失敗時の処理
+            alert('ファイルの取得に失敗しました。');
+        });
+    });
+
   } else {
     top_bar.removeClass('animate-top-bar').addClass('animate-out-top-bar');
     middle_bar.removeClass('animate-middle-bar').addClass('animate-out-middle-bar');
@@ -60,7 +103,7 @@ $('.open-overlay').click(function () {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'POST',
-            url: "/", // url: は読み込むURLを表す
+            url: "settingupdate", // url: は読み込むURLを表す
             datatype: "json",
             data: {
               // valueをセット
@@ -69,12 +112,6 @@ $('.open-overlay').click(function () {
               "submissionlimit": $('#SubmissionLimit').val(),
               "vote": $('#cheap').prop('checked')
             }
-          }).done(function (res) {
-            // 通信成功時の処理
-            alert('ファイルの取得に成功しました。');
-          }).fail(function (err) {
-            // 通信失敗時の処理
-            alert('ファイルの取得に失敗しました。');
           });
     });
   }

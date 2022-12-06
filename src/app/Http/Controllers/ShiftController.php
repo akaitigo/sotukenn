@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use App\Models\admin;
 use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
@@ -55,33 +57,19 @@ class ShiftController extends Controller
         }else{
             $data['vote'] = 1;
         }
-        /*認証コード
-        Auth::guard(admins)->user()->id
-        $store_id = DB::table('admin)->where('store_id');
+        /*認証コード*/
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
         \DB::table('stores')
-            ->where('id', $store_id)
+            ->where('id', $storeid)
             ->update([
                 'workstarttime' => $data['workstarttime'],
                 'workendtime' => $data['workendtime'],
                 'submissionlimit' => $data['submissionlimit'],
                 'vote' => $data['vote']     
             ]);
-        */
-        \DB::table('stores')
-            ->where('id', 1)
-            ->update([
-                'workstarttime' => $data['workstarttime'],
-                'workendtime' => $data['workendtime'],
-                'submissionlimit' => $data['submissionlimit'],
-                'vote' => $data['vote']
-            ]);
-        return view('calendar');
-    }
 
-    public function setting()
-    {
-        $stores = Store::find(1);
-        return view('submittedShiftEdit',compact('stores'));
+        return view('calendar');
     }
 
     /* 提出済みシフト確認 */

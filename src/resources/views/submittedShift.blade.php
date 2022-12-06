@@ -1,4 +1,9 @@
-<link rel="stylesheet" href="/css/submittedShift.css" type="text/css">
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+    <link rel="stylesheet" href="/css/submittedShift.css" type="text/css">
+    </head>
+    <body>
     @include('header')
         <div>
         <h2>現在のシフト提出状況</h2>

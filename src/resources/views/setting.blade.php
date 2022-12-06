@@ -1,3 +1,6 @@
+<?php $data = file_get_contents('php://input');
+$stores = json_decode($data);
+?>
 <link rel="stylesheet" href="/css/setting.css" type="text/css">
 <form  method="post" >
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -36,7 +39,6 @@
                         </select>
                         <a>～</a>
                         <select id="WorkTimeEnd" name="WorkTimeEnd" class="WorkTimeEnd">
-                            <option value="settingdata" selected></option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -59,7 +61,7 @@
                             <option value="19">19</option>
                             <option value="20">20</option>
                             <option value="21">21</option>
-                            <option value="22" selected>22</option>
+                            <option value="22">22</option>
                             <option value="23">23</option>
                         </select>
                     </div>
@@ -67,8 +69,8 @@
                 <script>
                 var slc_elm = document.querySelector("#WorkTimeStart");
                 slc_elm.addEventListener("focus",function(elm){
-                    if(elm.currentTarget.options.length >=11){
-                        elm.currentTarget.size = "10";
+                    if(elm.currentTarget.options.length >=8){
+                        elm.currentTarget.size = "7";
                     }
                 }, false)
 
@@ -82,8 +84,8 @@
 
                 var slce_elm = document.querySelector("#WorkTimeEnd");
                 slce_elm.addEventListener("focus",function(elm){
-                    if(elm.currentTarget.options.length >=11){
-                        elm.currentTarget.size = "10";
+                    if(elm.currentTarget.options.length >=8){
+                        elm.currentTarget.size = "7";
                     }
                 }, false)
 
@@ -101,7 +103,6 @@
                     <a class="WorkText">シフト提出期限</a><br><br><br><br>
                     <div class="selectdiv">
                         <select id="SubmissionLimit" name="SubmissionLimit" class="SubmissionLimit">
-
                             <option value="4">4</option>
                             <option value="5">5</option>
                             <option value="6">6</option>

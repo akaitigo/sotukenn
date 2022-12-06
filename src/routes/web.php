@@ -27,6 +27,7 @@ Route::get('/', function () {
 Route::get('home', function () {
     return view('header');
 })->name('home');
+
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 //adiminしか使えないroute
@@ -102,7 +103,6 @@ Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
-Route::get('/submittedShiftEdit', [App\Http\Controllers\ShiftController::class, 'setting'])->name('submittedShiftEdit');            //シフト設定
 
 Route::get('/shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                    //シフト編集
@@ -118,4 +118,9 @@ Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
 
+
 Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
+
+Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
+Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
+
