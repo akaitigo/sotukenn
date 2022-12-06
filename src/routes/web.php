@@ -12,7 +12,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+//line
 Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
+Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1');//通知管理
+Route::get('/messages/{lineUserId}', 'App\Http\Controllers\MessageController@show')->name('message.show');
+Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
+//-<line
+
 
 Route::get('/', function () {
     return view('header');
@@ -112,5 +119,3 @@ Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class
 
 
 Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
-
-

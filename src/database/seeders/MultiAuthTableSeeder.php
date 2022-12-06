@@ -35,6 +35,9 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
+                'lineUserId' => 'sasa',
+
+
             ],
             [
                 'name' => '田中花子',
@@ -50,6 +53,8 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
+                'lineUserId' => 'sasa',
+
             ],
             [
                 'name' => '田中まさお',
@@ -65,6 +70,8 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
+                'lineUserId' => 'sasa',
+
             ],
             [
                 'name' => '田中ゆの',
@@ -80,6 +87,8 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
+                'lineUserId' => 'sasa',
+
             ],
         ];
         foreach ($init_employees as $init_employee) {
@@ -98,6 +107,9 @@ class MultiAuthTableSeeder extends Seeder
             $employee->weekmaxworktime = $init_employee['weekmaxworktime'];
             $employee->dayminworktime = $init_employee['dayminworktime'];
             $employee->daymaxworktime = $init_employee['daymaxworktime'];
+            $employee->daymaxworktime = $init_employee['daymaxworktime'];
+            $employee->lineUserId = $init_employee['lineUserId'];
+
             $employee->save();
         }
         //parttimerのテストデータ
@@ -170,10 +182,8 @@ class MultiAuthTableSeeder extends Seeder
             $parttimer->email = $init_parttimer['email'];
             $parttimer->password = Hash::make($init_parttimer['password']);
             // $encrypted = Crypt::encryptString($init_parttimer['password']); //暗号化
-=======
             //$parttimer->password=Hash::make($init_parttimer['password']);
             $encrypted = Hash::make($init_parttimer['password']); //暗号化
->>>>>>> 485700aab66cc9a5a7f10a5bc8d965946f6985da
             $parttimer->password = $encrypted;
             $parttimer->weight = $init_parttimer['weight'];
             $parttimer->store_id = $init_parttimer['store_id'];
