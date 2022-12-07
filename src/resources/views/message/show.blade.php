@@ -22,25 +22,13 @@
 
 
 
-
       <div>
-        LINEユーザーID {{ $lineUserId }}
+        LINEユーザーID {{ $lineId }}
       </div>
-      <ul>
-      @foreach($messages as $message)
-        <li>
-          @if(empty($message->line_message_id))
-            WEBアプリメッセージ {{ $message->text }}
-          @else
-            LINEメッセージ {{ $message->text }}
-          @endif
-        </li>
-      @endforeach
-      </ul>
-      <form method="post" action="{{ route('message.create', ['lineUserId' => $lineUserId]) }}">
+
+      <form method="post"  action="{{ route('message.create', ['lineUserId' => $lineId]) }}">
         @csrf
-        <input type="text" name="message">
-        <button type="submit">送信</button>
+        <button name="lineId" value="{{$lineId}}">通知</button>
       </form>
     </body>
 </html>

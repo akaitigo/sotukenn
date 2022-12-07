@@ -15,8 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 //line
 Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
-Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1');//通知管理
-Route::get('/messages/{lineUserId}', 'App\Http\Controllers\MessageController@show')->name('message.show');
+Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
+Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
 Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
 //-<line
 
@@ -123,4 +123,3 @@ Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting
 
 Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
 Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
-

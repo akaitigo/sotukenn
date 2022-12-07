@@ -203,7 +203,7 @@ class EmployeeController extends Controller
         $inputName = $request->input('newPartName');
         $inputEmail = $request->input('newPartEmail');
         $inputWeight = $request->input('newPartWeight');
-        $inputPassword = $request->input('newPartPassword');
+        $inputPassword = $request->input('newPartPass');
         $inputAge = $request->input('newPartAge');
         $updateUser = Parttimer::where('id', '=', $getId)->get();
         $alljobCheck = 3; //3の場合すべてのジョブが登録されていない
