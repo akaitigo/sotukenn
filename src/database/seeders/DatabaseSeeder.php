@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ParttimerJobSeeder::class);
         $this->call(ParttimerStatusSeeder::class);    
         $this->call(UsersSeeder::class);  
-        $this->call(EmployeeStatusSeeder::class);  
+        $this->call(EmployeeStatusSeeder::class);
+        $this->call(NoticeSeeder::class);
     }
 }

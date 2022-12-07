@@ -15,7 +15,7 @@
                 </li>
                 <!-- 通知管理 -->
                 <li class="nav-item">
-                    <a href="{{ route('message.index1') }}" class="nav-link"><span>通知管理</span></a>
+                    <a href="{{ route('noticeManagement') }}" class="nav-link"><span>通知管理</span></a>
                 </li>
                 <!-- 提出シフト管理 -->
                 <li class="nav-item">

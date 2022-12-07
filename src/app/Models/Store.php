@@ -25,4 +25,9 @@ class Store extends Model
     {
         return $this->hasMany(Parttimer::class);
     }
+
+    public function notices()
+    {
+        return $this->hasMany(Notice::class);
+    }
 }
