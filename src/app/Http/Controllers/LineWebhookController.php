@@ -46,7 +46,8 @@ class LineWebhookController extends Controller
                         if (Hash::check($inputPass, $emp->password)) {
                             $emp->lineUserId = $inputLineId;
                             $emp->lineRegister = true;
-                            $text = $emp->lineUserId;
+                            $emp->save();
+                            $text = "照合成功";
                         } else {
                             $text = "照合失敗";
                         }

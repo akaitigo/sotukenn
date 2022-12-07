@@ -35,7 +35,7 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
-                'lineUserId' => 'sasa',
+
 
 
             ],
@@ -53,7 +53,7 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
-                'lineUserId' => 'sasa',
+
 
             ],
             [
@@ -70,7 +70,7 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
-                'lineUserId' => 'sasa',
+
 
             ],
             [
@@ -87,7 +87,6 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
-                'lineUserId' => 'sasa',
 
             ],
         ];
@@ -108,7 +107,6 @@ class MultiAuthTableSeeder extends Seeder
             $employee->dayminworktime = $init_employee['dayminworktime'];
             $employee->daymaxworktime = $init_employee['daymaxworktime'];
             $employee->daymaxworktime = $init_employee['daymaxworktime'];
-            $employee->lineUserId = $init_employee['lineUserId'];
 
             $employee->save();
         }
