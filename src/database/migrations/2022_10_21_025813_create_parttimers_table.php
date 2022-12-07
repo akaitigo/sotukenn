@@ -17,20 +17,22 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('password');            
+            $table->string('password');
             $table->integer('weight')->default('1');
             $table->unsignedInteger('store_id')->default('1');
             $table->foreign('store_id')->references('id')->on('stores');
             $table->integer('age');
             $table->integer('submissionrate');                  //提出率
-            $table->double('monthminworktime',4,1);             //月の最低労働時間
-            $table->double('monthmaxworktime',4,1);             //月の最高労働時間
-            $table->double('weekminworktime',3,1);              //週の最低労働時間
-            $table->double('weekmaxworktime',3,1);              //週の最高労働時間
-            $table->double('dayminworktime',3,1);               //日の最低労働時間
-            $table->double('daymaxworktime',3,1);               //日の最高労働時間
+            $table->double('monthminworktime', 4, 1);             //月の最低労働時間
+            $table->double('monthmaxworktime', 4, 1);             //月の最高労働時間
+            $table->double('weekminworktime', 3, 1);              //週の最低労働時間
+            $table->double('weekmaxworktime', 3, 1);              //週の最高労働時間
+            $table->double('dayminworktime', 3, 1);               //日の最低労働時間
+            $table->double('daymaxworktime', 3, 1);               //日の最高労働時間
             $table->rememberToken();
             $table->timestamps();
+            $table->string('lineUserId')->nullable();
+            $table->boolean('lineRegister')->default(false);
         });
     }
 

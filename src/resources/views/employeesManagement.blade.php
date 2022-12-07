@@ -4,7 +4,7 @@
 
 <button class="backButton" onclick="history.back()">戻　る</button>
 
-        <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更</a>
+        <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更・個別通知</a>
         @if(!($employees->isEmpty()))
         <h2 class="employeeH2">正社員一覧</h2>
 

@@ -20,7 +20,9 @@
             <th>age</th>
             <th>weight</th>
             <th>position</th>
+            <th>notice</th>
             <th>change</th>
+
         </tr>
     </thead>
 
@@ -33,13 +35,24 @@
             <td>{{ $emp->name }}</td>
             <td>{{$emp->age}}</td>
             <td>{{ $emp->weight}}</td>
-
             <td> @foreach($emp-> Jobs as $job)
 
                 {{$job->name}}
 
                 @endforeach
             </td>
+
+            @if(!(is_null($emp->lineUserId)))
+            <form method="get" action="{{route('messagessent')}}">
+                @csrf
+                <td><button type="submit" name="noticeLineId" value="{{$emp->lineUserId}}">通　知</button></td>
+            </form>
+            @endif
+            @if(is_null($emp->lineUserId))
+            <td><p>未登録</p></td>
+
+            @endif
+
 
             <form method="get" action="{{route('employeesManagementChange')}}">
                 @csrf

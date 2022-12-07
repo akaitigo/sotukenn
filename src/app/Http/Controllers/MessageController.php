@@ -9,6 +9,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use App\Models\Employee;
 use App\Models\Parttimer;
+use Illuminate\Database\Console\DumpCommand;
 
 class MessageController extends Controller
 {
@@ -16,8 +17,9 @@ class MessageController extends Controller
 
     public function show(Request $request)
     {
-        $messages = Message::where('line_user_id', $request->lineUserId)->get();
-        return view('message.show', ['lineUserId' => $request->lineUserId, 'messages' => $messages]);
+        //$messages = Message::where('line_user_id', $request->lineUserId)->get();
+        $lineId = $request->noticeLineId;
+        return view('message.show', compact('lineId'));
     }
     public function index1(Request $request)
     {
@@ -28,16 +30,17 @@ class MessageController extends Controller
     //通知コントローラー
     public function create(Request $request)
     {
-        Message::create([
-            'line_user_id' => $request->lineUserId,
-            'text' => $request->message,
-        ]);
+        // Message::create([
+        //     'line_user_id' => $request->lineId,
+        //     'text' => $request->message,
+        // ]);
 
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
 
         $textMessageBuilder = new TextMessageBuilder('シフトを提出して下さい');
-        $response = $bot->pushMessage($request->lineUserId, $textMessageBuilder);
+        $response = $bot->pushMessage($request->lineId, $textMessageBuilder);
+        dump($request->lineId);
         //return redirect(route('message.show', ['lineUserId' => $request->lineUserId]));
     }
 }

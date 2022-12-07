@@ -11,8 +11,6 @@ use App\Models\Employee;
 use App\Models\Parttimer;
 use Illuminate\Support\Facades\Hash;
 
-use function PHPUnit\Framework\isNull;
-
 class LineWebhookController extends Controller
 {
     public function message(Request $request)
@@ -34,12 +32,14 @@ class LineWebhookController extends Controller
 
             $inputText = $event['message']['text'];
             $inputLineId = $event['source']['userId'];
-            if ($inputText === "test") {
-            } else if ($inputText == "test1") {
-                $text = 'test2';
+            if ($inputText === "シフトの確認") {
+                //
+            } else if ($inputText == "メモ") {
+                //
             } else if (strpos($inputText, '@') !== false) {
                 $inputMail = substr($inputText, 0, strcspn($inputText, '&'));
                 $employeeNullCheck = Employee::where('email', '=', $inputMail)->get();
+                $partNullCheck = Parttimer::where('email', '=', $inputMail)->get();
                 if (!(is_null($employeeNullCheck))) {
                     foreach ($employeeNullCheck as $emp) {
                         $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
@@ -52,10 +52,24 @@ class LineWebhookController extends Controller
                             $text = "照合失敗";
                         }
                     }
-                    $response = $bot->replyText($event['replyToken'], $text);
                 }
+                if (!(is_null($partNullCheck))) {
+                    foreach ($partNullCheck as $part) {
+                        $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
+                        if (Hash::check($inputPass, $part->password)) {
+                            $part->lineUserId = $inputLineId;
+                            $part->lineRegister = true;
+                            $part->save();
+                            $text = "照合成功";
+                        } else {
+                            $text = "照合失敗";
+                        }
+                    }
+                }
+
+                $response = $bot->replyText($event['replyToken'], $text);
             }
+            return;
         }
-        return;
     }
 }
