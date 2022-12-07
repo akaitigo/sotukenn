@@ -19,13 +19,13 @@
                     @foreach ($submitcompempname as $subcompempname)
                         <tr>
                             <td class="subcompempname">{{$subcompempname}}</td>
-                            <td></td>
+                            <td class="subcompempname_btn"><button>確認</button></td>
                         </tr>
                     @endforeach
                     @foreach ($submitcomppartname as $subcomppartname)
                         <tr>
                             <td class="subcomppartname">{{$subcomppartname}}</td>
-                            <td></td>
+                            <td class="subcompempname_btn"><button>確認</button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -41,13 +41,13 @@
                     @foreach ($notsubmitempname as $notsubempname)
                     <tr>
                         <td class="notsubempname">{{$notsubempname}}</td>
-                        <td></td>
+                        <td><button>通知を送る</button></td>
                     </tr>
                     @endforeach
                     @foreach ($notsubmitpartname as $notsubpartname)
                     <tr>
                         <td class="notsubpartname">{{$notsubpartname}}</td>
-                        <td></td>
+                        <td><button>通知を送る</button></td>
                     </tr>
                     @endforeach
                 </tbody>

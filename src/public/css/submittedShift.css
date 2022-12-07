@@ -49,3 +49,9 @@ table {
     font-size: 20px;
     height: 30%;
 }
+
+.subcompempname_btn {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
