@@ -8,6 +8,7 @@ h2 {
     text-align: center;
     color: rebeccapurple;
     font-size: 1.4em;
+    margin-top: 30px;
 }
 
 td {
@@ -154,23 +155,24 @@ td {
 }
 
 .noticeButton {
+    background-color: #1aa1ff;
+    margin: 5;
+    color: #FFF;
+    display: inline-block;
+    padding: 0.4em 1em;
+    font-size: 0.8em;
+    border-radius: 3px;
+    text-align: center;
     font-family: Yu Gothic;
     font-weight: bold;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    margin: 1em 0;
-    padding: 0.6em 1em;
-    font-size: 0.6em;
-    background-color: #1aa1ff;
-    color: #FFF;
-    cursor: pointer;
-    border-radius: 3px;
-    border: 0;
     transition: 0.3s;
     white-space: nowrap;
 }
 
 .noticeButton:hover {
     background-color: rgb(47, 255, 0);
+}
+
+form {
+    margin-bottom: 0px;
 }
