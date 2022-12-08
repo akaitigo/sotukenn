@@ -21,28 +21,46 @@ class LineWebhookController extends Controller
         $text = '入力内容をもう一度ご確認ください';
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
+
+
+
         foreach ($events as $event) {
             Message::create([
                 'line_user_id' => $event['source']['userId'],
                 'line_message_id' => $event['message']['id'],
                 'text' => $event['message']['text'],
             ]);
-
-
-
             $inputText = $event['message']['text'];
             $inputLineId = $event['source']['userId'];
+
             if ($inputText === "シフトの確認") {
                 $text = "未実装です";
                 $response = $bot->replyText($event['replyToken'], $text);
-            } else if ($inputText == "メモ") {
-                //
-            } else if (strpos($inputText, '@') !== false) {
+            }
+            if ($inputText === "シフトの提出") {
+                $text = "未実装です";
+                $response = $bot->replyText($event['replyToken'], $text);
+            }
+            if ($inputText === "アカウントの連携") {
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('”MARUOKUN”で登録しているメールアドレスとパスワードを”&”区切りで送信してください。');
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('例）maruokun@example.com&password');
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('↓コピー用↓');
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('&');
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+            }
+
+
+
+            if (strpos($inputText, '@') !== false) {
 
 
                 $inputMail = substr($inputText, 0, strcspn($inputText, '&'));
                 $employeeNullCheck = Employee::where('email', '=', $inputMail)->get();
                 $partNullCheck = Parttimer::where('email', '=', $inputMail)->get();
+
                 if (!(is_null($employeeNullCheck))) {
 
                     foreach ($employeeNullCheck as $emp) {
@@ -54,8 +72,8 @@ class LineWebhookController extends Controller
                                 $emp->save();
                                 $text = "アカウント連携成功";
                             } else {
-                                $text = "アカウント連携失敗
-                            情報をもう一度確認してください";
+                                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('アカウント連携失敗。もう一度情報を確認してください');
+                                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                             }
                         } else {
                             $text = "既にアカウント連携済みです";
