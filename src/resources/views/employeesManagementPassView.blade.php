@@ -45,12 +45,11 @@
             @if(!(is_null($emp->lineUserId)))
             <form method="get" action="{{route('messagessent')}}">
                 @csrf
-                <td><button type="submit" name="noticeLineId" value="{{$emp->lineUserId}}">通　知</button></td>
+                <td><button type="submit" name="noticeId" value="{{$emp->id}}" class="noticeButton">通知</button></td>
             </form>
             @endif
             @if(is_null($emp->lineUserId))
             <td><p>未登録</p></td>
-
             @endif
 
 
@@ -78,6 +77,7 @@
             <th>age</th>
             <th>weight</th>
             <th>position</th>
+            <th>notice</th>
             <th>change</th>
         </tr>
     </thead>
@@ -98,8 +98,18 @@
 
                 @endforeach
             </td>
-            @csrf
+
+                @if(!(is_null($part->lineUserId)))
+            <form method="get" action="{{route('partMessagessent')}}">
+                @csrf
+                <td><button type="submit" name="noticeId" value="{{$emp->id}}" class="noticeButton">通知</button></td>
+            </form>
+            @endif
+            @if(is_null($part->lineUserId))
+            <td><p>未登録</p></td>
+            @endif
             <form method="get" action="{{route('partManagementChange')}}">
+                @csrf
                 <td class="underTd"><button type="submit" name="partChange" value="{{$part->id}}">変　更</button></td>
             </form>
         </tr>

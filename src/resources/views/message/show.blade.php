@@ -1,3 +1,7 @@
+<link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
+<script type="text/javascript" src="/js/employee.js"></script>
+@include('header')
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -5,30 +9,46 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>通知管理</title>
     </head>
+
     <body>
+    @if(!(is_null($empPick)))
+        @foreach($empPick as $emp)
+            <h2>ユーザー名:{{"$emp->name"}}</h2>
+        @endforeach
+    @endif
 
-        <td>
-
-
-
-
-
-
-
-
-
-
-
+    @if(!(is_null($partPick)))
+        @foreach($partPick as $part)
+            <h2>ユーザー名:{{"$part->name"}}</h2>
+        @endforeach
+    @endif
 
 
 
-      <div>
-        LINEユーザーID {{ $lineId }}
-      </div>
+<table class="table" border="2">
+    <thead>
+        <tr>
+            <th>message</th>
+            <th>通　知</th>
+        </tr>
+    </thead>
 
-      <form method="post"  action="{{ route('message.create', ['lineUserId' => $lineId]) }}">
-        @csrf
-        <button name="lineId" value="{{$lineId}}">通知</button>
-      </form>
+    <tbody>
+        @foreach ($notice as $no)
+        <tr>
+            <td>{{ $no->message}}</td>
+            <td>
+                <form method="post"  action="{{ route('message.create', ['lineUserId' => $lineId]) }}">
+                @csrf
+                <button name="noticeId" value="{{$no->id}}" onclick="NoticeAlart();" class="noticeButton">通知</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+
+
+
     </body>
 </html>
