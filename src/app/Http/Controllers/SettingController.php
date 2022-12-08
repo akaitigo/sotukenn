@@ -29,14 +29,18 @@ class SettingController extends Controller
 
         $adminid=Auth::guard('admin')->id();
         $storeid = admin::where('id',$adminid)->value('store_id');
-        \DB::table('stores')
-            ->where('id', $storeid)
-            ->update([
-                'workstarttime' => $workstarttime,
-                'workendtime' => $workendtime,
-                'submissionlimit' => $submissionlimit,
-                'vote' => $vote2     
-            ]);
+        if($workstarttime == 0 && $workendtime == 0 && $submissionlimit == 4 && $vote2 == 0) {
+
+        }else {
+            \DB::table('stores')
+                ->where('id', $storeid)
+                ->update([
+                    'workstarttime' => $workstarttime,
+                    'workendtime' => $workendtime,
+                    'submissionlimit' => $submissionlimit,
+                    'vote' => $vote2     
+                ]);
+        }
 
         return;
     }

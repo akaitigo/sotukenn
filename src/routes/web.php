@@ -88,6 +88,7 @@ Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegis
 
 //メニューバー(header)
 Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar');                                   //カレンダー
+
 Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
 Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
 Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
@@ -101,6 +102,8 @@ Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeControl
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
+Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
+Route::post('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeDelete');                       //通知削除
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
 

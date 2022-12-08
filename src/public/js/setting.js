@@ -62,19 +62,28 @@ $('.open-overlay').click(function () {
             const option1 = document.createElement('option');
             const option2 = document.createElement('option');
             const option3 = document.createElement('option');
-            option1.textContent = (res['workstarttime']);
-            option2.textContent = (res['workendtime']);
-            option3.textContent = (res['submissionlimit']);
-            WorkTimeStart.appendChild(option1);
-            WorkTimeEnd.appendChild(option2);
-            SubmissionLimit.appendChild(option3);
+            if(WorkTimeStart.options[24] == null) {
+              option1.textContent = (res['workstarttime']);
+              option2.textContent = (res['workendtime']);
+              option3.textContent = (res['submissionlimit']);
+              WorkTimeStart.appendChild(option1);
+              WorkTimeEnd.appendChild(option2);
+              SubmissionLimit.appendChild(option3);
+            }else {
+              WorkTimeStart.options[24].val = (res['workstarttime']);
+              WorkTimeEnd.options[24].val = (res['workendtime']);
+              SubmissionLimit.options[7].val = (res['submissionlimit']);
+              WorkTimeStart.options[24].textContent = (res['workstarttime']);
+              WorkTimeEnd.options[24].textContent = (res['workendtime']);
+              SubmissionLimit.options[7].textContent = (res['submissionlimit']);
+            }
             WorkTimeStart.options[24].selected = true;
             WorkTimeEnd.options[24].selected = true;
             SubmissionLimit.options[7].selected = true;
             WorkTimeStart.options[24].hidden = true;
             WorkTimeEnd.options[24].hidden = true;
             SubmissionLimit.options[7].hidden = true;
-
+9
             if((res['vote']) == 1) {
                 cheap.checked = true;
             }else {

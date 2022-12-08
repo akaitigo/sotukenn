@@ -79,6 +79,7 @@ class EmployeeController extends Controller
         $employees = Employee::all();
         foreach ($deleteUser as $del) {
             $del->jobs()->detach(); //外部参照から切り離し
+            $del->statuses()->detach();
         }
         Employee::where('id', '=', $getId)->delete(); //削除
         $parttimers = Parttimer::all();
