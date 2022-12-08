@@ -51,12 +51,8 @@
 
 
                 <td><button type="submit" name="upDateId" value="{{$emp->id}}" class="updateButton">更　新</button></td>
-            </form>
-
-            <form method="post" action="{{route('employeesManagementDelete')}}">
-                @csrf
-                <td><button type="submit" name="delete" value="{{$emp->id}}" onclick="MoveCheck();" class="deleteButton">削　除</td>
-            </form>
+        </form>
+                <td><button id="delete_id"  name="delete" value="{{$emp->id}}" onclick="MoveCheck();"  class="deleteButton">削　除</td>
 
 
         </tr>
@@ -93,7 +89,7 @@
                 <td><button type="submit" name="upDateId" value="{{$part->id}}" class="updateButton">更新</button></td>
             </form>
 
-            <form method="post" action="{{route('partManagementDelete')}}">
+            <form method="post" >
                 @csrf
                 <td class="underTd"><button type="submit" name="delete" value="{{$part->id}}" onclick="MoveCheck();" class="deleteButton">削除</td>
             </form>

@@ -74,7 +74,7 @@ class EmployeeController extends Controller
     public function empDelete(Request $request)
     {
         $parttimers = Parttimer::all();
-        $getId = $request->input('delete');
+        $getId = $_POST['delete'];
         $deleteUser = Employee::where('id', '=', $getId)->get();
         $employees = Employee::all();
         foreach ($deleteUser as $del) {
