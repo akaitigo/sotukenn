@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
 Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
 Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
+Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partShow')->name('partMessagessent');
+
 Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
 //-<line
 

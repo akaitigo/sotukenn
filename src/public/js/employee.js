@@ -6,4 +6,8 @@ function MoveCheck() {
         location.href="google.co.jp"
     }
 }
+function NoticeAlart() {
+    alert("通知を送信しました");
+
+    }
 

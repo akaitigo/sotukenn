@@ -10,6 +10,7 @@ use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use Illuminate\Database\Console\DumpCommand;
+use App\Models\Notice;
 
 class MessageController extends Controller
 {
@@ -17,10 +18,36 @@ class MessageController extends Controller
 
     public function show(Request $request)
     {
-        //$messages = Message::where('line_user_id', $request->lineUserId)->get();
-        $lineId = $request->noticeLineId;
-        return view('message.show', compact('lineId'));
+        $notice = Notice::all();
+        $getId = $request->noticeId;
+        $empPick = Employee::where('id', '=', $getId)->get();
+        $partPick = null;
+
+
+
+        foreach ($empPick as $emp) {
+            $lineId = $emp->lineUserId;
+        }
+
+
+        return view('message.show', compact('lineId', 'empPick', 'notice', 'partPick'));
     }
+
+    public function partShow(Request $request)
+    {
+        $notice = Notice::all();
+        $getId = $request->noticeId;
+        $partPick = Parttimer::where('id', '=', $getId)->get();
+        $empPick = null;
+
+        foreach ($partPick as $part) {
+            $lineId = $part->lineUserId;
+        }
+
+        return view('message.show', compact('lineId',  'notice', 'partPick', 'empPick'));
+    }
+
+
     public function index1(Request $request)
     {
         $lineUsers = Message::groupBy('line_user_id')->get('line_user_id');
@@ -34,13 +61,19 @@ class MessageController extends Controller
         //     'line_user_id' => $request->lineId,
         //     'text' => $request->message,
         // ]);
-
+        $getId = $request->noticeId;
+        $noticePick = Notice::where('id', '=', $getId)->get();
+        $text = 'null';
+        foreach ($noticePick as $no) {
+            $text = $no->message;
+        }
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
 
-        $textMessageBuilder = new TextMessageBuilder('シフトを提出して下さい');
-        $response = $bot->pushMessage($request->lineId, $textMessageBuilder);
-        dump($request->lineId);
-        //return redirect(route('message.show', ['lineUserId' => $request->lineUserId]));
+        $textMessageBuilder = new TextMessageBuilder($text);
+        $response = $bot->pushMessage($request->lineUserId, $textMessageBuilder);
+        $employees = Employee::all();
+        $parttimers = Parttimer::all();
+        return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
 }

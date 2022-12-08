@@ -18,7 +18,7 @@ class LineWebhookController extends Controller
         // return 'ok';
         $data = $request->all();
         $events = $data['events'];
-        $text = 'null';
+        $text = '入力内容をもう一度ご確認ください';
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
         foreach ($events as $event) {
@@ -33,43 +33,57 @@ class LineWebhookController extends Controller
             $inputText = $event['message']['text'];
             $inputLineId = $event['source']['userId'];
             if ($inputText === "シフトの確認") {
-                //
+                $text = "未実装です";
+                $response = $bot->replyText($event['replyToken'], $text);
             } else if ($inputText == "メモ") {
                 //
             } else if (strpos($inputText, '@') !== false) {
+
+
                 $inputMail = substr($inputText, 0, strcspn($inputText, '&'));
                 $employeeNullCheck = Employee::where('email', '=', $inputMail)->get();
                 $partNullCheck = Parttimer::where('email', '=', $inputMail)->get();
                 if (!(is_null($employeeNullCheck))) {
+
                     foreach ($employeeNullCheck as $emp) {
-                        $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
-                        if (Hash::check($inputPass, $emp->password)) {
-                            $emp->lineUserId = $inputLineId;
-                            $emp->lineRegister = true;
-                            $emp->save();
-                            $text = "照合成功";
+                        if (!($emp->lineRegister)) {
+                            $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
+                            if (Hash::check($inputPass, $emp->password)) {
+                                $emp->lineUserId = $inputLineId;
+                                $emp->lineRegister = true;
+                                $emp->save();
+                                $text = "アカウント連携成功";
+                            } else {
+                                $text = "アカウント連携失敗
+                            情報をもう一度確認してください";
+                            }
                         } else {
-                            $text = "照合失敗";
+                            $text = "既にアカウント連携済みです";
                         }
                     }
                 }
                 if (!(is_null($partNullCheck))) {
                     foreach ($partNullCheck as $part) {
                         $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
-                        if (Hash::check($inputPass, $part->password)) {
-                            $part->lineUserId = $inputLineId;
-                            $part->lineRegister = true;
-                            $part->save();
-                            $text = "照合成功";
+                        if (!($part->lineRegister)) {
+                            if (Hash::check($inputPass, $part->password)) {
+                                $part->lineUserId = $inputLineId;
+                                $part->lineRegister = true;
+                                $part->save();
+                                $text = "アカウント連携成功";
+                            } else {
+                                $text = "アカウント連携失敗
+                            情報をもう一度確認してください";
+                            }
                         } else {
-                            $text = "照合失敗";
+                            $text = "既にアカウント連携済みです";
                         }
                     }
-                }
 
-                $response = $bot->replyText($event['replyToken'], $text);
+                    $response = $bot->replyText($event['replyToken'], $text);
+                }
+                return;
             }
-            return;
         }
     }
 }
