@@ -41,7 +41,7 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link"><span>a&nbsp;∇</span></a>
+                    <a class="nav-link"><span>ユーザー名&nbsp;∇</span></a>
                     <nav class="submenu">
                         <ul class="submenu-items">
                             <li class="submenu-item">
