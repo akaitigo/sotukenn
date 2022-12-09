@@ -220,8 +220,8 @@ Burger king
 
 .open-overlay {
     position: absolute;
-    right: 5rem;
-    top: 3.2rem;
+    right: 1.5rem;
+    top: 1rem;
     z-index: 100;
     width: 34px;
     display: block;
