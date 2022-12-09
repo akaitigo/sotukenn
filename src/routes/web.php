@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
 Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
 Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
-Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partShow')->name('partMessagessent');
-
 Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
 //-<line
 
@@ -105,7 +103,7 @@ Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeControl
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
 Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
-Route::post('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeDelete');                       //通知削除
+Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeManagementDelete');                       //通知削除
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
 

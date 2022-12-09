@@ -1,9 +1,9 @@
-<link rel="stylesheet" href="/css/#.css" type="text/css">
+<link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 <title>通知管理</title>
 @include('header')
 
 @if(!($notices->isEmpty()))
-    <h2 class="employeeH2">正社員一覧</h2>
+    <h2 class="employeeH2">通知一覧</h2>
         <table class="table" border="2">
             <thead>
                 <tr>

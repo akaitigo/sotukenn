@@ -176,3 +176,11 @@ td {
 form {
     margin-bottom: 0px;
 }
+
+.noticeManagementmessage {
+    width: 200px;
+}
+
+.notiday {
+    font-size: 14px;
+}
