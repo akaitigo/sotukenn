@@ -102,3 +102,7 @@ ex)./ngrok config...
 
 下のコードを張り付け
 ./ngrok http 8080 --host-header="localhost:8080"
+
+
+12/9用
+https://3ee2-49-104-8-143.jp.ngrok.io
