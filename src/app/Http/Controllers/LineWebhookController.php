@@ -53,8 +53,8 @@ class LineWebhookController extends Controller
                 $partNullCheck = Parttimer::where('email', '=', $inputText)->get();
 
                 foreach ($employeeNullCheck as $emp) {
-                    if ($emp->lineRegistere === 1) {
-                        if ($emp->email == $inputText) {
+                    if ($emp->lineRegister === 1) {
+                        if ($emp->email === $inputText) {
                             $forcheck = false;
                             $emp->lineUserId = $event['source']['userId'];
                             $emp->lineRegister = 2;
@@ -63,6 +63,31 @@ class LineWebhookController extends Controller
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('アカウント情報が確認できました', $emp->name, '様でお間違いなければ下記のリンクよりログインをお願いいたします');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(route('login.check', ['lineUserId' => $event['source']['userId']]));
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        } else {
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('よく確認して');
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        }
+                    } else {
+                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('既に登録されています');
+                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        $forcheck = false;
+                    }
+                }
+
+                foreach ($partNullCheck as $part) {
+                    if ($part->lineRegister === 1) {
+                        if ($part->email == $inputText) {
+                            $forcheck = false;
+                            $part->lineUserId = $event['source']['userId'];
+                            $part->lineRegister = 2;
+                            $part->save();
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('アカウント情報が確認できました', $part->name, '様でお間違いなければ下記のリンクよりログインをお願いいたします');
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(route('login.check', ['lineUserId' => $event['source']['userId']]));
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        } else {
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('よく情報を確認してください');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                         }
                     } else {

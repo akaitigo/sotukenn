@@ -102,7 +102,7 @@
                 @if(!(is_null($part->lineUserId)))
             <form method="get" action="{{route('partMessagessent')}}">
                 @csrf
-                <td><button type="submit" name="noticeId" value="{{$emp->id}}" class="noticeButton">通知</button></td>
+                <td><button type="submit" name="noticeId" value="{{$part->id}}" class="noticeButton">通知</button></td>
             </form>
             @endif
             @if(is_null($part->lineUserId))
