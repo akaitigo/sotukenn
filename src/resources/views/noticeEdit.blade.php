@@ -13,7 +13,7 @@
             <th>通知内容</th>
             <th>対象</th>
             <th class="noticeManagementmessage">メッセージ</th>
-            <th>通知日</th>
+            <th>&nbsp;通知日&nbsp;</th>
             <th>更新</th>
             <th>削除</th>
         </tr>
@@ -28,7 +28,13 @@
                 <td><input type="text" name="newNotiTarget" placeholder="{{$noti->target}}"></td>
                 <td><input type="text" name="newNotiMessage" placeholder="{{$noti->message}}" class="noticeManagementmessage"></td>
                 <td><select id="slc" name="newNotiDay" class="notiday">
-                        <option selected hidden>{{($noti->noticeday)}}</option>
+                        <option selected hidden>
+                            @if(($noti->noticeday) == 0)
+                                手動
+                            @else
+                                {{($noti->noticeday)}}
+                            @endif
+                        </option>
                         <option value="0">手動</option>
                         <option value="1">1日</option>
                         <option value="2">2日</option>
@@ -62,12 +68,28 @@
                         <option value="30">30日</option>
                         <option value="31">31日</option>
                     </select></td>
+                    <script>
+                var slc_elm = document.querySelector("#slc");
+                slc_elm.addEventListener("focus",function(elm){
+                    if(elm.currentTarget.options.length >=8){
+                        elm.currentTarget.size = "7";
+                    }
+                }, false)
+
+                slc_elm.addEventListener("blur",function(elm){
+                    elm.currentTarget.size = "1";
+                }, false)
+
+                slc_elm.addEventListener("change",function(elm){
+                    elm.currentTarget.blur();
+                }, false)
+                </script>
                 <td><button type="submit" name="updateId" value="{{$noti->id}}" class="updateButton">更　新</button></td>
                 </form>
 
-                <form method="post">
+                <form method="post"  action="{{route('noticeManagementDelete')}}" onSubmit="return DeleteCheck()">
                     @csrf
-                    <td><button id="deleteid" type="button" name="delete" value="{{$noti->id}}" onclick="DeleteCheck();" class="deleteButton">削　除</td>
+                    <td><button id="deleteid" type="submit" name="deleteid" value="{{$noti->id}}" class="deleteButton">削　除</td>
                 </form>
             </tr>
         @endforeach
