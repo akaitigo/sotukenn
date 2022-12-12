@@ -52,7 +52,10 @@
 
                 <td><button type="submit" name="upDateId" value="{{$emp->id}}" class="updateButton">更　新</button></td>
         </form>
-                <td><button id="delete_id"  name="delete" value="{{$emp->id}}" onclick="empdelete();"  class="deleteButton">削　除</td>
+        <form method="post" action="{{route('employeesManagementDelete')}}" onsubmit="retuMoveCheck();">
+            @csrf
+            <td><button type="submit" name="delete" value="{{$emp->id}}" class="deleteButton">削　除</td>
+        </form>
 
 
         </tr>
