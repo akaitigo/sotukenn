@@ -40,7 +40,7 @@
             <td>
                 <form method="post"  action="{{ route('message.create', ['lineUserId' => $lineId]) }}">
                 @csrf
-                <button name="noticeId" value="{{$no->id}}" onclick="NoticeAlart();" class="noticeButton">通知</button>
+                <button id="#" name="noticeId" value="{{$no->id}}" onclick="MoveCheck();" class="noticeButton">通知</button>
                 </form>
             </td>
         </tr>

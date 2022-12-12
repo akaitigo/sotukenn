@@ -20,6 +20,9 @@ Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name
 Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partShow')->name('partMessagessent');
 
 Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
+Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
+Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
+
 //-<line
 
 

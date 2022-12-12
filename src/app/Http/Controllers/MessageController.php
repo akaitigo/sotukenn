@@ -11,6 +11,7 @@ use App\Models\Employee;
 use App\Models\Parttimer;
 use Illuminate\Database\Console\DumpCommand;
 use App\Models\Notice;
+use Illuminate\Support\Facades\Hash;
 
 class MessageController extends Controller
 {
@@ -75,5 +76,36 @@ class MessageController extends Controller
         $employees = Employee::all();
         $parttimers = Parttimer::all();
         return view('employeesManagementPassView', compact('employees', 'parttimers'));
+    }
+
+    public function login(Request $request)
+    {
+        $lineId = $request->lineUserId;
+
+
+        $employee = Employee::where('lineUserId', '=', $lineId)->get();
+        $parttimer = Parttimer::where('lineUserId', '=', $lineId)->get();
+        return view('lineLoginCheck', compact('employee', 'parttimer'));
+    }
+    public function loginCheck(Request $request)
+    {
+        $inputEmail = $request->mail;
+        $inputPass = $request->pass;
+        $employee = Employee::where('email', '=', $inputEmail)->get();
+        $parttimer = Parttimer::where('lineUserId', '=', $inputEmail)->get();
+        $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
+        $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
+
+        foreach ($employee as $emp) {
+            if ($emp->email === $inputEmail) {
+                if (Hash::check($inputPass, $emp->password)) {
+                    $emp->lineRegister = 3;
+                    $emp->save();
+                    $text = "認証に成功しました";
+                    $textMessageBuilder = new TextMessageBuilder($text);
+                    $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
+                }
+            }
+        }
     }
 }

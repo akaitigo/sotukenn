@@ -9,7 +9,6 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use App\Models\Message;
 use App\Models\Employee;
 use App\Models\Parttimer;
-use Illuminate\Support\Facades\Hash;
 
 class LineWebhookController extends Controller
 {
@@ -18,7 +17,7 @@ class LineWebhookController extends Controller
         // return 'ok';
         $data = $request->all();
         $events = $data['events'];
-        $text = '入力内容をもう一度ご確認ください';
+        // $text = '入力内容をもう一度ご確認ください';
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
 
@@ -41,66 +40,41 @@ class LineWebhookController extends Controller
                 $text = "未実装です";
                 $response = $bot->replyText($event['replyToken'], $text);
             }
-            if ($inputText === "アカウントの連携") {
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('”MARUOKUN”で登録しているメールアドレスとパスワードを”&”区切りで送信してください。');
+
+            if ($inputText === 'アカウントの連携') {
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('MARUOKUNアカウントとLINEアカウントの連携ですね！');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('例）maruokun@example.com&password');
-                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('↓コピー用↓');
-                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('&');
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('MARUOKUNで登録しているメールアドレスを送信して下さい！');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
             }
+            if (strpos($inputText, '@') !== false) { //メールアドレスか検査
+                $forcheck = true;
+                $employeeNullCheck = Employee::where('email', '=', $inputText)->get();
+                $partNullCheck = Parttimer::where('email', '=', $inputText)->get();
 
+                foreach ($employeeNullCheck as $emp) {
+                    if ($emp->lineRegistere === 1) {
+                        if ($emp->email == $inputText) {
+                            $forcheck = false;
+                            $emp->lineUserId = $event['source']['userId'];
+                            $emp->lineRegister = 2;
+                            $emp->save();
 
-
-            if (strpos($inputText, '@') !== false) {
-
-
-                $inputMail = substr($inputText, 0, strcspn($inputText, '&'));
-                $employeeNullCheck = Employee::where('email', '=', $inputMail)->get();
-                $partNullCheck = Parttimer::where('email', '=', $inputMail)->get();
-
-                if (!(is_null($employeeNullCheck))) {
-
-                    foreach ($employeeNullCheck as $emp) {
-                        if (!($emp->lineRegister)) {
-                            $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
-                            if (Hash::check($inputPass, $emp->password)) {
-                                $emp->lineUserId = $inputLineId;
-                                $emp->lineRegister = true;
-                                $emp->save();
-                                $text = "アカウント連携成功";
-                            } else {
-                                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('アカウント連携失敗。もう一度情報を確認してください');
-                                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                            }
-                        } else {
-                            $text = "既にアカウント連携済みです";
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('アカウント情報が確認できました', $emp->name, '様でお間違いなければ下記のリンクよりログインをお願いいたします');
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(route('login.check', ['lineUserId' => $event['source']['userId']]));
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                         }
+                    } else {
+                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('既に登録されています');
+                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        $forcheck = false;
                     }
                 }
-                if (!(is_null($partNullCheck))) {
-                    foreach ($partNullCheck as $part) {
-                        $inputPass = mb_substr($inputText, mb_strrpos($inputText, '&') + 1, mb_strlen($inputText));
-                        if (!($part->lineRegister)) {
-                            if (Hash::check($inputPass, $part->password)) {
-                                $part->lineUserId = $inputLineId;
-                                $part->lineRegister = true;
-                                $part->save();
-                                $text = "アカウント連携成功";
-                            } else {
-                                $text = "アカウント連携失敗
-                            情報をもう一度確認してください";
-                            }
-                        } else {
-                            $text = "既にアカウント連携済みです";
-                        }
-                    }
-
-                    $response = $bot->replyText($event['replyToken'], $text);
+                if ($forcheck) {
+                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('アカウントが確認できませんでした。いま一度情報の確認をお願いいたします。');
+                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 }
-                return;
             }
         }
     }

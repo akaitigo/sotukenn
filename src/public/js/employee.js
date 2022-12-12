@@ -10,7 +10,7 @@ function empdelete() {
               datatype: "json",
               data: {
                 // valueをセット
-                "delete" : $('#delete_id').val()
+                "delete" : $('##').val()
               }
             });
             alert($('#delete_id').val());
@@ -19,6 +19,18 @@ function empdelete() {
         alert("2");
     }
 }
+
+function MoveCheck(){
+    alert("2");
+    ret=confirm("本当に送信しますか？");
+    if(ret==true){
+        alert("#");
+    }else
+        alert("#");{
+    }
+}
+
+
 function prtdelete() {
   ret=confirm("本当に削除しますか？");
   if(ret==true){

@@ -33,7 +33,8 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('lineUserId')->nullable();
-            $table->boolean('lineRegister')->default(false);
+            $table->integer('lineRegister')->default('1');//1が未登録２が仮保存３が登録済み
+            
         });
     }
 
