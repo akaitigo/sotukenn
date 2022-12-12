@@ -24,7 +24,9 @@ class NoticeManagementController extends Controller
     {
         $getId = $request->input('notiChange');
         $notices = Notice::where('id',$getId)->get();
-        return view('noticeEdit',compact('notices'));
+        $noticemessage = Notice::where('id',$getId)->value('message');
+        $noticemessagelength = mb_strwidth($noticemessage);
+        return view('noticeEdit',compact('notices', 'noticemessagelength'));
     }
     /* 通知更新 */
     public function update(Request $request)
@@ -78,6 +80,12 @@ class NoticeManagementController extends Controller
     /* 通知削除 */
     public function delete(Request $request)
     {
-        return view('noticeManagement');
+        $getId = $_POST['deleteid'];
+        $deleteNotice = Notice::where('id',$getId)->get();
+        Notice::where('id',$getId)->delete(); //削除
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $notices = Notice::where('store_id',$storeid)->get();
+        return view('noticeManagement',compact('notices'));
     }
 }
