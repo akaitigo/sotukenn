@@ -84,7 +84,7 @@
     <tbody>
         <td>{{$staff[10][0]}}</td>
         @for($staffsetting= 1; $staffsetting <= 14; $staffsetting++)
-            @if($staffsetting==4)
+            @if($staffsetting==3)
             @else
                 @if($staff[10][$staffsetting] == -1)
                     <?php $staff[10][$staffsetting] = "なし"; ?>
