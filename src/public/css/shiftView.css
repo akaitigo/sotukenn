@@ -1,0 +1,61 @@
+.shiftcomp,
+.shiftcomp_kudo,
+.shiftsub_kudo {
+    width: 150vw;
+}
+
+.nameview {
+    width: 50;
+}
+
+.gusu,
+.kisu {
+    width: 70;
+    font-weight: 100;
+}
+
+.thname,
+.nameview,
+.headgusu,
+.headkisu {
+    border: 1px solid;
+}
+
+.thname {
+    background-color: #fff;
+}
+
+.headgusu {
+    background-color: rgb(149, 238, 208);
+}
+
+.headkisu {
+    background-color: rgb(231, 255, 137);
+}
+
+.gusu {
+    background-color: rgb(149, 238, 208);
+    border: 1px solid;
+    border-color: #666;
+}
+
+.kisu {
+    background-color: rgb(231, 255, 137);
+    border: 1px solid;
+    border-color: #666;
+}
+
+.shiftcomp,
+.shiftcomp_kudo,
+.shiftsub_kudo,
+.shiftset_kudo {
+    border: solid;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+}
+
+.shiftset_kudo th,
+.shiftset_kudo td {
+    border-color: #000;
+}
