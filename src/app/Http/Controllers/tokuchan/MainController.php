@@ -121,20 +121,22 @@
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
 
-			/*
+			
 			$c = 0;
 			do{
-				if($c == 40){
+				/*if($c == 40){
 					break;
-				}$c++;
+				}$c++;*/
 				$Bsc->RoadTimes($EndShift);
 				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, 30 );
-				}while($Bsc->beSort($PerfectShift, $staff,$Bsc->RoadTimes($EndShift), $EndShift));
+				$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+				}while($Bsc->Stoper1($staff));
 				do{
-					print_r($Bsc->RoadTimes($EndShift));
+					$Bsc->RoadTimes($EndShift);
 					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, 30);
-				}while($Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift));
-			*/
+					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+				}while($Bsc->Stoper2($staff));
+			
 			print_r($EndShift);
 
         }
