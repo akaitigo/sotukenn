@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
-<script type="text/javascript" src="/js/employee.js"></script>
+<script type="text/javascript" src="/js/deletepopup.js"></script>
 @include('header')
 
 <button class="backButton" onclick="history.back()">戻　る</button>
@@ -52,7 +52,7 @@
 
                 <td><button type="submit" name="upDateId" value="{{$emp->id}}" class="updateButton">更　新</button></td>
         </form>
-        <form method="post" action="{{route('employeesManagementDelete')}}" onsubmit="retuMoveCheck();">
+        <form method="post" action="{{route('employeesManagementDelete')}}" onsubmit="return DeleteCheck();">
             @csrf
             <td><button type="submit" name="delete" value="{{$emp->id}}" class="deleteButton">削　除</td>
         </form>
@@ -92,8 +92,10 @@
                 <td><button type="submit" name="upDateId" value="{{$part->id}}" class="updateButton">更新</button></td>
             </form>
 
-            <td class="underTd"><button id="delete_id" name="delete" value="{{$part->id}}" onclick="prtdelete();" class="deleteButton">削除</td>
-
+            <form method="post" action="{{route('partManagementDelete')}}" onsubmit="return DeleteCheck();">
+                @csrf
+                <td><button type="submit" name="delete" value="{{$emp->id}}" class="deleteButton">削　除</td>
+            </form>
         </tr>
         @endforeach
     </tbody>
