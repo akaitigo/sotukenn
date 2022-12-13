@@ -22,6 +22,25 @@
 <br><br>
 
 
+<h2>工藤くんの完成シフト</h2>
+<table border="2">
+    <thead>
+        <th>名前</th>
+        @for($i= 1;$i <= 30; $i++)
+            <th><?php echo $i; ?>日</th>
+        @endfor
+    </thead>
+    <tbody>
+        <td>{{$staff[10][0]}}</td>
+        @for($day= 1; $day <= 30; $day++)
+            <td>{{$EndShift[10][$day]}}</td>
+        @endfor
+    </tbody>
+</table>
+
+<br><br>
+
+
 <h2>工藤くんの提出シフト</h2>
 <table border="2">
     <thead>
@@ -33,6 +52,9 @@
     <tbody>
         <td>{{$staff[10][0]}}</td>
         @for($day= 1; $day <= 30; $day++)
+            @if($StaffShift[10][$day] == -1)
+                <?php $StaffShift[10][$day] = "×"; ?>
+            @endif
             <td>{{$StaffShift[10][$day]}}</td>
         @endfor
     </tbody>
@@ -62,10 +84,14 @@
     <tbody>
         <td>{{$staff[10][0]}}</td>
         @for($staffsetting= 1; $staffsetting <= 14; $staffsetting++)
-        @if($staffsetting==4)
-        @else
-            <td>{{$staff[10][$staffsetting]}}</td>
-        @endif
+            @if($staffsetting==3)
+            @else
+                @if($staff[10][$staffsetting] == -1)
+                    <?php $staff[10][$staffsetting] = "なし"; ?>
+                @endif
+                <td>{{$staff[10][$staffsetting]}}</td>
+            @endif
         @endfor
     </tbody>
 </table>
+<br><br>
