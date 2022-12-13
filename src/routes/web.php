@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('ShiftCreate');
-});
+Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
 Route::get('home', function () {
     return view('authtest');
 })->name('home');

@@ -1,10 +1,16 @@
 <?php
     $jarFilePath = "java -Dfile.encoding=UTF-8 -jar /data/sotuken-test/Sotu.jar";
     //$cmd = escapeshellcmd($jarFilePath);
-
-    echo shell_exec($jarFilePath);
-
+    $array = array();
+    shell_exec($jarFilePath);
     
+
+    if($array){
+        print_r($array);
+    }
+    elseif($array == false){
+        echo "NG";
+    }
 
     // $path = "java -jar Sotu.jar";
     // $cmd2 = escapeshellcmd($path);
