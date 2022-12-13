@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/login.css" type="text/css">
+<script type="text/javascript" src="/js/employee.js"></script>
 <header>
     <div class="brandWrapper">
         <a href="#" class="brand">M&emsp;A&emsp;R&emsp;U&emsp;O&emsp;K&emsp;U&emsp;N</a>
@@ -62,7 +63,7 @@
         <br />
         <br />
         @foreach($parttimer as $part)
-        <button value={{$part->id}} name="partId" class="loginButton">ログイン</button>
+        <button value={{$part->id}} name="partId" class="loginButton" onclick="LoginMessage();">ログイン</button>
         @endforeach
 
         </form>

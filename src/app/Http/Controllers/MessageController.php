@@ -34,19 +34,19 @@ class MessageController extends Controller
         return view('message.show', compact('lineId', 'empPick', 'notice', 'partPick'));
     }
 
-    public function partShow(Request $request)
+    public function partshow(Request $request)
     {
         $notice = Notice::all();
         $getId = $request->noticeId;
         $partPick = Parttimer::where('id', '=', $getId)->get();
         $empPick = null;
-
         foreach ($partPick as $part) {
             $lineId = $part->lineUserId;
         }
 
-        return view('message.show', compact('lineId',  'notice', 'partPick', 'empPick'));
+        return view('message.show', compact('lineId', 'empPick', 'notice', 'partPick'));
     }
+
 
 
     public function index1(Request $request)
@@ -101,6 +101,19 @@ class MessageController extends Controller
                 if (Hash::check($inputPass, $emp->password)) {
                     $emp->lineRegister = 3;
                     $emp->save();
+                    $text = "認証に成功しました";
+                    $textMessageBuilder = new TextMessageBuilder($text);
+                    $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
+                }
+            }
+        }
+
+
+        foreach ($parttimer as $part) {
+            if ($part->email === $inputEmail) {
+                if (Hash::check($inputPass, $part->password)) {
+                    $part->lineRegister = 3;
+                    $part->save();
                     $text = "認証に成功しました";
                     $textMessageBuilder = new TextMessageBuilder($text);
                     $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
