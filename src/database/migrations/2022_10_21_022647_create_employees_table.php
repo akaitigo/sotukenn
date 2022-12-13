@@ -30,6 +30,9 @@ return new class extends Migration
             $table->double('weekmaxworktime', 3, 1);              //週の最高労働時間
             $table->double('dayminworktime', 3, 1);               //日の最低労働時間
             $table->double('daymaxworktime', 3, 1);               //日の最高労働時間
+            $table->string('refresh_token')->nullable();
+            $table->string('access_token')->nullable();
+            $table->string('calendarId')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->string('lineUserId')->nullable();

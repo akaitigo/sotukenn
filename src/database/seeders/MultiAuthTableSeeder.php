@@ -23,8 +23,8 @@ class MultiAuthTableSeeder extends Seeder
         $init_employees = [
             [
                 'name' => '田中太郎',
-                'email' => 'tanaka@example.com',
-                'password' => 'qwertytanaka',
+                'email' => 'test@test.com',
+                'password' => 'test',
                 'weight' => '5',
                 'store_id' => '1',
                 'age' => '30',
@@ -41,7 +41,7 @@ class MultiAuthTableSeeder extends Seeder
             ],
             [
                 'name' => '田中花子',
-                'email' => 'test@test.com',
+                'email' => 'test2@test.com',
                 'password' => 'test',
                 'weight' => '5',
                 'store_id' => '1',

@@ -9,11 +9,11 @@ class Store extends Model
 {
     use HasFactory;
 
-    protected $fillable=['store_id'];
+    protected $fillable=['name'];
     
     public function admin()
     {
-        return $this->hasOne(Admin::class);
+        return $this->hasOne(Admin::class,'store_id');
     }
 
     public function employees()

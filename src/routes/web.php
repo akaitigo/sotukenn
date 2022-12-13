@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Store;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//googleapi
+Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+Route::get('/api/index', [App\Http\Controllers\GoogleApi\TokenController::class, 'test']);
+Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+// Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+// Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+// Route::get('/api/index', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'handleGoogleCallback']);
+// Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+Route::get('/api/callbuck',[App\Http\Controllers\GoogleApi\TokenController::class, 'saveRefreshToken']);
+Route::get('/submittedShiftEdit', function () {
+    $stores = Store::find(Auth::guard('admin')->user()->store_id);
+    return view('submittedShiftEdit',compact('stores'));
+});
 
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
 
