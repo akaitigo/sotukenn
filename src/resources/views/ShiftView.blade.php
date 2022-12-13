@@ -22,7 +22,7 @@
 <br><br>
 
 
-<h2>提出シフト</h2>
+<h2>工藤くんの提出シフト</h2>
 <table border="2">
     <thead>
         <th>名前</th>
@@ -34,6 +34,25 @@
         <td>{{$staff[10][0]}}</td>
         @for($day= 1; $day <= 30; $day++)
             <td>{{$StaffShift[10][$day]}}</td>
+        @endfor
+    </tbody>
+</table>
+
+<br><br>
+
+
+<h2>工藤くんの従業員設定</h2>
+<table border="2">
+    <thead>
+        <th>名前</th>
+        @for($i= 1;$i <= 30; $i++)
+            <th><?php echo $i; ?>日</th>
+        @endfor
+    </thead>
+    <tbody>
+        <td>{{$staff[10][0]}}</td>
+        @for($staffsetting= 1; $staffsetting <= 13; $staffsetting++)
+            <td>{{$staff[10][$staffsetting]}}</td>
         @endfor
     </tbody>
 </table>
