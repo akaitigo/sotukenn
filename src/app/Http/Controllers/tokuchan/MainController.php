@@ -120,6 +120,7 @@
 				$EndShift = $Osc->End($Shift,$EndShift,$ShiftDivider,$staff,$now);
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
+			
 
 			
 			$c = 0;
