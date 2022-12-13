@@ -595,27 +595,14 @@
 				/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
 				continue;
 				}*/
-				if (BesideSortController::$MaxTime[$i][1] == -1 && BesideSortController::$MinTime[$i][1] == -1) { //どちらも制限がなければ次のスタッフへ
-					BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
-					BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
-					continue;
-				}
 				if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
-					BesideSortController::$CompStaff[$i][1] = "Y"; //調整の必要があるためYを代入
 					$MaxCounter++;
-				} else {
-					BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
 				}
 				if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
-					BesideSortController::$CompStaff[$i][2] = "Y"; //調整の必要があるためYを代入
 					$MinCounter++;
-				} else {
-					BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
 				}
 
 			}
-
-		echo 1;
 			if ($MaxCounter == count($staff) || $MinCounter == count($staff)) { //全スタッフが各項目OR全項目調整の必要がある場合は調整が不可能なので処理を返す
 				return false;
 			}
@@ -630,7 +617,6 @@
 
 		function Stoper2($staff)
 		{
-		echo 2;
 
 		(int) $MaxCounter = 0;
 		(int) $MinCounter = 0;
@@ -640,34 +626,21 @@
 			/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
 			continue;
 			}*/
-			if (BesideSortController::$MaxTime[$i][1] == -1 && BesideSortController::$MinTime[$i][1] == -1) { //どちらも制限がなければ次のスタッフへ
-				BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
-				BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
-				continue;
-			}
 			if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
-				BesideSortController::$CompStaff[$i][1] = "Y"; //調整の必要があるためYを代入
 				$MaxCounter++;
-			} else {
-				BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
 			}
 			if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
-				BesideSortController::$CompStaff[$i][2] = "Y"; //調整の必要があるためYを代入
 				$MinCounter++;
-			} else {
-				BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
-			}
+			} 
 
 		}
 
 
 		if ($MaxCounter == count($staff) || $MinCounter == count($staff)) { //全スタッフが各項目OR全項目調整の必要がある場合は調整が不可能なので処理を返す
-			//BesideSortController::$Stop2 = false;
+			return false;
 		}
 			for ($j = 0; count(BesideSortController::$CompStaff) > $j; $j++) {
 				if (0 == strcmp(BesideSortController::$CompStaff[$j][1], "Y")) {
-				echo 3;
-					print_r(BesideSortController::$CompStaff);
 					return true;
 				}
 			}
