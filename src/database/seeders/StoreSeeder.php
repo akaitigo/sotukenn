@@ -17,7 +17,7 @@ class StoreSeeder extends Seeder
     {
         DB::table('stores')->insert([
 
-            'store_name' => 'しょーまカンパニー',
+            'store_name' => 'MARUOカンパニー',
             'workstarttime' => '10',
             'workendtime' => '22',
             'submissionlimit' => null,
@@ -28,7 +28,7 @@ class StoreSeeder extends Seeder
 
         DB::table('stores')->insert([
 
-            'store_name' => 'まるおカンパニー',
+            'store_name' => 'しょーまカンパニー',
             'workstarttime' => '10',
             'workendtime' => '22',
             'submissionlimit' => null,

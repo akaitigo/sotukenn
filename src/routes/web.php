@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-<<<<<<< HEAD
+
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
-=======
+
 //line
     // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
     // Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
@@ -30,7 +30,7 @@ Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
 Route::get('/title', function () {
     return view('title');
 });
->>>>>>> 8411d4e31930e8600771c8a55a1bf9d5f8255cb9
+
 Route::get('home', function () {
     return view('header');
 })->name('home');
