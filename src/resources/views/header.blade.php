@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="/css/header.css" type="text/css">
+<?php 
+use App\Models\admin;
+use App\Models\Store;
+use App\Models\Employee;
+use App\Models\Parttimer;
+?>
 <header>
     <div class="blandWrapper">
         <nav role="navigation" class="nav">
@@ -41,7 +47,22 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link"><span>ユーザー名&nbsp;∇</span></a>
+                    <a class="nav-link"><span>
+                    @if(Auth::guard('admin')->check())
+                        <?php $adminid = Auth::guard('admin')->id();
+                              $storeid = admin::where('id',$adminid)->value('store_id');
+                              echo Store::where('id',$storeid)->value('store_name');
+                        ?>
+                    @elseif(Auth::guard('employee')->check())
+                        <?php $empid = Auth::guard('employee')->id(); 
+                              echo Employee::where('id',$empid)->value('name');
+                        ?>
+                    @elseif(Auth::guard('parttimer')->check())
+                        <?php $partid = Auth::guard('parttimer')->id(); 
+                              echo Parttimer::where('id',$partid)->value('name');
+                        ?>
+                    @endif    
+                    &nbsp;∇</span></a>
                     <nav class="submenu">
                         <ul class="submenu-items">
                             <li class="submenu-item">
@@ -49,7 +70,7 @@
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        ログアウト
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
