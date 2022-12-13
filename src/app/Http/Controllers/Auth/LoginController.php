@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Store;
 use App\Models\admin;
 use function PHPUnit\Framework\isNull;
+use App\Http\Controllers\ryu_test\CalendarApiController;
 
 class LoginController extends Controller
 {
@@ -77,6 +78,14 @@ class LoginController extends Controller
             $storeid = admin::where('id',$adminid)->value('store_id');
             $submitlimit = Store::where('id',$storeid)->value('submissionlimit');
             $stores = Store::find($storeid);
+            $user=Auth::guard('admin')->user();
+            // dump($user);
+            // echo $user->refresh_token;
+            // return ;
+            if(empty($user->refresh_token)){
+                $api = new CalendarApiController();
+                return $api->redirectToGoogle();
+            }
             if(is_null($submitlimit)) {
                 return view('submittedShiftEdit',compact('stores'));
             }else {
@@ -110,6 +119,9 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
+            dump(Auth::guard('employee')->user());
+            dump(Auth::guard('employee')->user()->getTable());
+            return ;
             return redirect(route('home'));
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -158,6 +170,19 @@ class LoginController extends Controller
  
         $request->session()->regenerateToken();
  
-        return redirect('/login');
+        return redirect('/admin/login');
+    }
+    public function tokenCheck($user){
+        $client = tokenClient();
+        if($user->getTable()=='employees'){
+            if(is_null($user->refresh_token)){
+
+            }else{
+
+            }
+               
+        }else if($user->getTable()=='parttimer'){
+            
+        }
     }
 }

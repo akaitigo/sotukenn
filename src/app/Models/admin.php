@@ -16,7 +16,7 @@ class Admin extends Authenticatable
     protected $guard = 'admin';
 
     protected $fillable =[
-        'name','email','password',
+        'name','email','password','refresh_token','access_token','calendarId'
     ];
 
     protected $hidden = [
@@ -32,6 +32,10 @@ class Admin extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPassword($token));
+    }
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
     }
     
 }
