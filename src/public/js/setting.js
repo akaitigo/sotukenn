@@ -67,8 +67,6 @@ $(function () { // 遅延処理
         }
 
     }).fail(function (err) {
-      // 通信失敗時の処理
-        alert('ファイルの取得に失敗しました。');
     });
 });
 
@@ -94,8 +92,8 @@ $('.open-overlay').click(function () {
     nav_item_2.removeClass('slide-in-nav-item-delay-1-reverse').addClass('slide-in-nav-item-delay-1');
     nav_item_3.removeClass('slide-in-nav-item-delay-2-reverse').addClass('slide-in-nav-item-delay-2');
     nav_item_4.removeClass('slide-in-nav-item-delay-3-reverse').addClass('slide-in-nav-item-delay-3');
-   
-    
+
+
 
   } else {
     top_bar.removeClass('animate-top-bar').addClass('animate-out-top-bar');
@@ -106,7 +104,7 @@ $('.open-overlay').click(function () {
     nav_item_2.removeClass('slide-in-nav-item-delay-1').addClass('slide-in-nav-item-delay-1-reverse');
     nav_item_3.removeClass('slide-in-nav-item-delay-2').addClass('slide-in-nav-item-delay-2-reverse');
     nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
-    
+
     $(function () { // 遅延処理
           $.ajax({
             headers: {
