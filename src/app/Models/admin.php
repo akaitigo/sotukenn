@@ -23,15 +23,17 @@ class Admin extends Authenticatable
         'password','remember_token',
     ];
 
-    public function store()
-    {
-        return $this->belongsTo(Store::class);
-    }
+
 
      // Override default reset password
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new AdminResetPassword($token));
     }
-    
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
+
 }
