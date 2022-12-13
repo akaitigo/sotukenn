@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Store;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,17 +13,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-// line
-Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
-Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
-Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
-Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
-Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
-Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
-Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
-// -<line
+//googleapi
+Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+Route::get('/api/index', [App\Http\Controllers\GoogleApi\TokenController::class, 'test']);
+Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+// Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+// Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+// Route::get('/api/index', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'handleGoogleCallback']);
+// Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+Route::get('/api/callbuck',[App\Http\Controllers\GoogleApi\TokenController::class, 'saveRefreshToken']);
+Route::get('/submittedShiftEdit', function () {
+    $stores = Store::find(Auth::guard('admin')->user()->store_id);
+    return view('submittedShiftEdit',compact('stores'));
+});
 
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
 
