@@ -121,7 +121,6 @@
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
 			
-
 			
 			$c = 0;
 			do{
