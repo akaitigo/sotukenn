@@ -135,8 +135,8 @@
 					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, 30);
 				}while($Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift));
 			*/
-			print_r($EndShift);
-
+			// print_r($EndShift);
+			return view('shiftView', compact('EndShift','StaffShift','staff'));
         }
 	}
 
