@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Store;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,31 +13,43 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//googleapi
+Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+Route::get('/api/index', [App\Http\Controllers\GoogleApi\TokenController::class, 'test']);
+Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+// Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+// Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+// Route::get('/api/index', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'handleGoogleCallback']);
+// Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+Route::get('/api/callbuck', [App\Http\Controllers\GoogleApi\TokenController::class, 'saveRefreshToken']);
+Route::get('/submittedShiftEdit', function () {
+    $stores = Store::find(Auth::guard('admin')->user()->store_id);
+    return view('submittedShiftEdit', compact('stores'));
+});
 
-<<<<<<< HEAD
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
-=======
+
 //line
-    // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
-    // Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
-    // Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
-    // Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
-    // Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
-    // Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
-    // Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
+Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
+Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
+Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
+Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
+Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
+Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
+Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
 //-<line
 
 
 Route::get('/title', function () {
     return view('title');
 });
->>>>>>> 8411d4e31930e8600771c8a55a1bf9d5f8255cb9
+
 Route::get('home', function () {
     return view('header');
 })->name('home');
 
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
 //adiminしか使えないroute
 Route::middleware('auth:admin')->group(function () {
     Route::get('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'showEmployeeRegisterForm'])->name('employee.register');
@@ -50,13 +63,13 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
     Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
     //line
-    Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
-    Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
-    Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
-    Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
-    Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
-    Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
-    Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
+    // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
+    // Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
+    // Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
+    // Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
+    // Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
+    // Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
+    // Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
 });
 //adminかemployeeしか使えないroute
 Route::middleware('auth:employee,admin')->group(function () {
@@ -75,7 +88,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('password/email', [App\Http\Controllers\Auth\AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('password/reset/{token}', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('password/reset', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'reset'])->name('password.update');
-    
 });
 //employeeの認証route
 Route::prefix('employee')->name('employee.')->group(function () {
@@ -131,7 +143,7 @@ Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementCon
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
 
-Route::get('/shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('shiftView');                                    //シフト閲覧
+Route::get('/shiftView', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                    //シフト編集
 
 Route::get('/shiftCreateMenu', [App\Http\Controllers\ShiftController::class, 'menu'])->name('shiftCreateMenu');                        //シフト作成メニュー

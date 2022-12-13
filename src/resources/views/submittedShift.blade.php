@@ -55,4 +55,4 @@
         </div>
         @endif
         </div>
-            <a href="{{ route('submittedShiftDetail') }}" >提出済み従業員それぞれのシフト確認ボタン</a>
+            <a href="{{ route('shiftView') }}" >緊急アルゴリズムテスト</a>

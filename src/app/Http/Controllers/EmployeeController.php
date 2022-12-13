@@ -84,7 +84,7 @@ class EmployeeController extends Controller
         Employee::where('id', '=', $getId)->delete(); //削除
         $parttimers = Parttimer::all();
         $employees = Employee::all(); //削除後のデータを取得
-        return view('employeesManagement', compact('employees', 'parttimers'));
+        return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
 
     public function partDelete(Request $request)
