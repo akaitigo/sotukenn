@@ -92,7 +92,7 @@ class MessageController extends Controller
         $inputEmail = $request->mail;
         $inputPass = $request->pass;
         $employee = Employee::where('email', '=', $inputEmail)->get();
-        $parttimer = Parttimer::where('lineUserId', '=', $inputEmail)->get();
+        $parttimer = Parttimer::where('email', '=', $inputEmail)->get();
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
 
@@ -116,7 +116,7 @@ class MessageController extends Controller
                     $part->save();
                     $text = "認証に成功しました";
                     $textMessageBuilder = new TextMessageBuilder($text);
-                    $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
+                    $response = $bot->pushMessage($part->lineUserId, $textMessageBuilder);
                 }
             }
         }
