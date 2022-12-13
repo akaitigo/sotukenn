@@ -89,3 +89,20 @@ export PATH=$PATH:$JAVA_HOME/bin
 ```
 
 
+ngrok公式サイト
+https://ngrok.com/
+
+アカウント作成
+Connect Your Accountのトークンをコピー
+Download ngrokでダウンロード
+
+インストールしたらngrokが入っているフォルダをShift+右クリックでPowerShellで開く
+トークンの冒頭に './'を追加して貼り付け
+ex)./ngrok config...
+
+下のコードを張り付け
+./ngrok http 8080 --host-header="localhost:8080"
+
+
+12/9用
+https://3ee2-49-104-8-143.jp.ngrok.io

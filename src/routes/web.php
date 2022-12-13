@@ -13,16 +13,50 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
+=======
+//line
+    // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
+    // Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
+    // Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
+    // Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
+    // Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
+    // Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
+    // Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
+//-<line
+
+
+Route::get('/title', function () {
+    return view('title');
+});
+>>>>>>> 8411d4e31930e8600771c8a55a1bf9d5f8255cb9
 Route::get('home', function () {
-    return view('authtest');
+    return view('header');
 })->name('home');
+
 Route::post('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 //adiminしか使えないroute
 Route::middleware('auth:admin')->group(function () {
     Route::get('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'showEmployeeRegisterForm'])->name('employee.register');
     Route::post('employee/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerEmployee'])->name('employee-register');
+    Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
+    Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
+    Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
+    Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(part)
+    Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
+    Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
+    Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
+    Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
+    //line
+    Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
+    Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
+    Route::get('/messagessent', 'App\Http\Controllers\MessageController@show')->name('messagessent');
+    Route::get('/partMessagessent', 'App\Http\Controllers\MessageController@partshow')->name('partMessagessent');
+    Route::post('/message/{lineUserId}', 'App\Http\Controllers\MessageController@create')->name('message.create');
+    Route::get('/loginCheck/{lineUserId}', 'App\Http\Controllers\MessageController@login')->name('login.check');
+    Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
 });
 //adminかemployeeしか使えないroute
 Route::middleware('auth:employee,admin')->group(function () {
@@ -41,6 +75,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::post('password/email', [App\Http\Controllers\Auth\AdminForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
     Route::get('password/reset/{token}', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'showResetForm'])->name('password.reset');
     Route::post('password/reset', [App\Http\Controllers\Auth\AdminResetPasswordController::class, 'reset'])->name('password.update');
+    
 });
 //employeeの認証route
 Route::prefix('employee')->name('employee.')->group(function () {
@@ -77,22 +112,24 @@ Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegis
 
 //メニューバー(header)
 Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar');                                   //カレンダー
-Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
-Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
-Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
-Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(part)
-Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
-Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
-Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
-Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
+
+// Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
+// Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
+// Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
+// Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(part)
+// Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
+// Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
+// Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
+// Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
 
 
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
+Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
+Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeManagementDelete');                       //通知削除
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
-Route::get('/submittedShiftEdit', [App\Http\Controllers\ShiftController::class, 'setting'])->name('submittedShiftEdit');            //シフト設定
 
 Route::get('/shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                    //シフト編集
@@ -108,4 +145,8 @@ Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
 
-Route::post('/title', "App\Http\Controllers\SettingController@update")->name('setting.update');
+
+Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
+
+Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
+Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');

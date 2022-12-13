@@ -21,6 +21,54 @@ switchBtn.addEventListener('click', () => {
   changeElement(box1);
   changeElement2(box2);
 }, false); */
+$(function () { // 遅延処理
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    type: 'GET',
+    url: "settingselect", // url: は読み込むURLを表す
+    datatype: "json",
+    }).done(function(res){
+      // 通信成功時の処理
+        const WorkTimeStart = document.getElementById('WorkTimeStart');
+        const WorkTimeEnd = document.getElementById('WorkTimeEnd');
+        const SubmissionLimit = document.getElementById('SubmissionLimit');
+        const cheap = document.getElementById('cheap');
+        const option1 = document.createElement('option');
+        const option2 = document.createElement('option');
+        const option3 = document.createElement('option');
+        if(WorkTimeStart.options[24] == null) {
+          option1.textContent = (res['workstarttime']);
+          option2.textContent = (res['workendtime']);
+          option3.textContent = (res['submissionlimit']);
+          WorkTimeStart.appendChild(option1);
+          WorkTimeEnd.appendChild(option2);
+          SubmissionLimit.appendChild(option3);
+        }else {
+          WorkTimeStart.options[24].val = (res['workstarttime']);
+          WorkTimeEnd.options[24].val = (res['workendtime']);
+          SubmissionLimit.options[7].val = (res['submissionlimit']);
+          WorkTimeStart.options[24].textContent = (res['workstarttime']);
+          WorkTimeEnd.options[24].textContent = (res['workendtime']);
+          SubmissionLimit.options[7].textContent = (res['submissionlimit']);
+        }
+        WorkTimeStart.options[24].selected = true;
+        WorkTimeEnd.options[24].selected = true;
+        SubmissionLimit.options[7].selected = true;
+        WorkTimeStart.options[24].hidden = true;
+        WorkTimeEnd.options[24].hidden = true;
+        SubmissionLimit.options[7].hidden = true;
+9
+        if((res['vote']) == 1) {
+            cheap.checked = true;
+        }else {
+            cheap.checked = false;
+        }
+
+    }).fail(function (err) {
+    });
+});
 
 
 $('.open-overlay').click(function () {
@@ -29,7 +77,6 @@ $('.open-overlay').click(function () {
     nav_item_2 = $('.navigation_li:nth-of-type(2)'),
     nav_item_3 = $('.navigation_li:nth-of-type(3)'),
     nav_item_4 = $('.navigation_li:nth-of-type(4)'),
-    nav_item_5 = $('.navigation_li  :nth-of-type(5)'),
     top_bar = $('.bar-top'),
     middle_bar = $('.bar-middle'),
     bottom_bar = $('.bar-bottom');
@@ -45,7 +92,9 @@ $('.open-overlay').click(function () {
     nav_item_2.removeClass('slide-in-nav-item-delay-1-reverse').addClass('slide-in-nav-item-delay-1');
     nav_item_3.removeClass('slide-in-nav-item-delay-2-reverse').addClass('slide-in-nav-item-delay-2');
     nav_item_4.removeClass('slide-in-nav-item-delay-3-reverse').addClass('slide-in-nav-item-delay-3');
-    nav_item_5.removeClass('slide-in-nav-item-delay-4-reverse').addClass('slide-in-nav-item-delay-4');
+
+
+
   } else {
     top_bar.removeClass('animate-top-bar').addClass('animate-out-top-bar');
     middle_bar.removeClass('animate-middle-bar').addClass('animate-out-middle-bar');
@@ -55,7 +104,6 @@ $('.open-overlay').click(function () {
     nav_item_2.removeClass('slide-in-nav-item-delay-1').addClass('slide-in-nav-item-delay-1-reverse');
     nav_item_3.removeClass('slide-in-nav-item-delay-2').addClass('slide-in-nav-item-delay-2-reverse');
     nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
-    nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
 
     $(function () { // 遅延処理
           $.ajax({
@@ -63,7 +111,7 @@ $('.open-overlay').click(function () {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'POST',
-            url: "/", // url: は読み込むURLを表す
+            url: "settingupdate", // url: は読み込むURLを表す
             datatype: "json",
             data: {
               // valueをセット
@@ -72,14 +120,6 @@ $('.open-overlay').click(function () {
               "submissionlimit": $('#SubmissionLimit').val(),
               "vote": $('#cheap').prop('checked')
             }
-          }).done(function (res) {
-            // 通信成功時の処理
-            alert('ファイルの取得に成功しました。');
-            alert($('#cheap').prop('checked'))
-          }).fail(function (err) {
-            // 通信失敗時の処理
-            alert('ファイルの取得に失敗しました。');
-            alert($('#cheap').prop('checked'))
           });
     });
   }

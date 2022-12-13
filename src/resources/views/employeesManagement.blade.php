@@ -3,7 +3,8 @@
 
 
 <button class="backButton" onclick="history.back()">戻　る</button>
-        <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更</a>
+
+        <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更・個別通知</a>
         @if(!($employees->isEmpty()))
         <h2 class="employeeH2">正社員一覧</h2>
 
@@ -14,6 +15,7 @@
                     <th>id</th>
                     <th>email</th>
                     <th>name</th>
+                    <th>age</th>
                     <th>weight</th>
                     <th>position</th>
                 </tr>
@@ -25,6 +27,7 @@
                     <td>{{ $emp->id}}</td>
                     <td>****@****</td>
                     <td>{{ $emp->name }}</td>
+                    <td>**</td>
                     <td>{{ $emp->weight}}</td>
 
                     <td> @foreach($emp-> Jobs as $job)
@@ -48,6 +51,7 @@
                     <th>id</th>
                     <th>email</th>
                     <th>name</th>
+                    <th>age</th>
                     <th>weight</th>
                     <th>position</th>
                 </tr>
@@ -58,9 +62,10 @@
                     <td>{{ $parttimer->id}}</td>
                     <td>****@****</td>
                     <td>{{ $parttimer->name }}</td>
+                    <td>**</td>
                     <td>{{ $parttimer->weight}}</td>
 
-                    <td> @foreach($parttimer-> Jobs as $job)
+                    <td class="underTd"> @foreach($parttimer-> Jobs as $job)
 
                         {{$job->name}}
 
@@ -70,6 +75,10 @@
                 @endforeach
             </tbody>
         </table>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         @endif
 
 

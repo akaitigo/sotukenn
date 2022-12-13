@@ -1,8 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
+use App\Models\admin;
 use App\Models\Store;
+use App\Models\Employee;
+use App\Models\Parttimer;
+use App\Models\Status;
 use Illuminate\Http\Request;
+
 
 class ShiftController extends Controller
 {
@@ -13,7 +19,31 @@ class ShiftController extends Controller
      /* 提出シフト管理 */
     public function management()
     {
-        return view('submittedShift');
+        $employees = Employee::all();
+        $parttimers = Parttimer::all();
+        $empCountNum = $employees->count();
+
+
+        foreach($employees as $emp){
+            $allempname[] = $emp->name;
+            foreach($emp-> Statuses as $status){
+                    if($status->id == 4){
+                        $submitcompempname[] = $emp->name;
+                    }
+            }
+        }
+        foreach($parttimers as $part){
+            $allpartname[] = $part->name;
+            foreach($part-> Statuses as $status){
+                    if($status->id == 4){
+                        $submitcomppartname[] = $part->name;
+                    }
+            }
+        }
+        $notsubmitempname = array_diff($allempname,$submitcompempname);
+        $notsubmitpartname = array_diff($allpartname,$submitcomppartname);
+
+        return view('submittedShift', compact('employees', 'parttimers','submitcompempname','notsubmitempname','submitcomppartname','notsubmitpartname'));
     }
 
     /* シフト設定 */
@@ -27,39 +57,24 @@ class ShiftController extends Controller
         }else{
             $data['vote'] = 1;
         }
-        /*認証コード
-        Auth::guard(admins)->user()->id
-        $store_id = DB::table('admin)->where('store_id');
+        /*認証コード*/
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
         \DB::table('stores')
-            ->where('id', $store_id)
+            ->where('id', $storeid)
             ->update([
                 'workstarttime' => $data['workstarttime'],
                 'workendtime' => $data['workendtime'],
                 'submissionlimit' => $data['submissionlimit'],
                 'vote' => $data['vote']     
             ]);
-        */
-        \DB::table('stores')
-            ->where('id', 1)
-            ->update([
-                'workstarttime' => $data['workstarttime'],
-                'workendtime' => $data['workendtime'],
-                'submissionlimit' => $data['submissionlimit'],
-                'vote' => $data['vote']
-            ]);
-        return view('calendar');
-    }
 
-    public function setting()
-    {
-        $stores = Store::find(1);
-        return view('submittedShiftEdit',compact('stores'));
+        return view('calendar');
     }
 
     /* 提出済みシフト確認 */
     public function detail()
     {
-        return view('submittedShiftDetail');
     }
 
     /* シフト閲覧 */
