@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="/css/shiftView.css" type="text/css">
 @include('header')
 
-<h2>完成シフト</h2>
+<h2>完成シフト</h2><h3>×・・・シフト希望を出してない</h3><h3>ー ・・・シフト希望を出してるが入れない</h3>
 <div class="shiftcomp_wrapper">
 <table class="shiftcomp">
     <thead>
