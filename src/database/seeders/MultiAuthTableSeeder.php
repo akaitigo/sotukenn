@@ -42,7 +42,7 @@ class MultiAuthTableSeeder extends Seeder
             [
                 'name' => '田中花子',
                 'email' => 'test2@test.com',
-                'password' => 'test',
+                'password' => 'testtest',
                 'weight' => '5',
                 'store_id' => '1',
                 'age' => '28',

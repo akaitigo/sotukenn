@@ -18,6 +18,11 @@
     font-weight: 100;
 }
 
+<<<<<<< HEAD
+=======
+.setgusu {}
+
+>>>>>>> 26773de9c14bd66b44a54c68b0bb427d37bd7428
 .setkisu {
     background-color: rgb(182, 243, 255);
 }
@@ -33,6 +38,10 @@
     background-color: #fff;
 }
 
+<<<<<<< HEAD
+=======
+.headgusu {}
+>>>>>>> 26773de9c14bd66b44a54c68b0bb427d37bd7428
 
 .headkisu {
     background-color: rgb(182, 243, 255);
@@ -66,4 +75,8 @@
 .shiftset_kudo th,
 .shiftset_kudo td {
     border-color: #000;
+}
+
+h2 {
+    margin-top: 0;
 }
