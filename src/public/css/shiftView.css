@@ -18,9 +18,7 @@
     font-weight: 100;
 }
 
-.setgusu {
-
-}
+.setgusu {}
 
 .setkisu {
     background-color: rgb(182, 243, 255);
@@ -37,9 +35,7 @@
     background-color: #fff;
 }
 
-.headgusu {
-    
-}
+.headgusu {}
 
 .headkisu {
     background-color: rgb(182, 243, 255);
@@ -73,4 +69,8 @@
 .shiftset_kudo th,
 .shiftset_kudo td {
     border-color: #000;
+}
+
+h2 {
+    margin-top: 0;
 }
