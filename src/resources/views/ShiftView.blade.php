@@ -13,6 +13,7 @@
                 <th class="headkisu">{{ $i }} 日</th>
             @endif
         @endfor
+        <th class="headkisu">労働時間</th>
     </thead>
     <tbody>
         @for($staffid= 0; $staffid <= 12; $staffid++)
@@ -24,6 +25,7 @@
                     <td class="kisu">{{$EndShift[$staffid][$day]}}</td>
                 @endif
             @endfor
+                <td class="kisu">{{$staffTime[$staffid][1]}}</td>
             </tr>
         @endfor
     </tbody>
@@ -44,6 +46,7 @@
                 <th class="headkisu">{{ $i }} 日</th>
             @endif
         @endfor
+        <th class="headkisu">労働時間</th>
     </thead>
     <tbody>
         <td class="nameview">{{$staff[10][0]}}</td>
@@ -54,6 +57,7 @@
                 <td class="kisu">{{$EndShift[10][$day]}}</td>
             @endif
         @endfor
+        <td class="kisu">{{$staffTime[10][1]}}</td>
     </tbody>
 </table>
 
