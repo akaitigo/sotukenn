@@ -1,7 +1,10 @@
 .shiftcomp,
-.shiftcomp_kudo,
-.shiftsub_kudo {
+.shiftcomp_kudo{
     width: 150vw;
+}
+
+.shiftsub_kudo {
+    width: 145vw;
 }
 
 .shiftset_kudo {
@@ -18,11 +21,6 @@
     font-weight: 100;
 }
 
-<<<<<<< HEAD
-=======
-.setgusu {}
-
->>>>>>> 26773de9c14bd66b44a54c68b0bb427d37bd7428
 .setkisu {
     background-color: rgb(182, 243, 255);
 }
@@ -37,11 +35,6 @@
 .thname {
     background-color: #fff;
 }
-
-<<<<<<< HEAD
-=======
-.headgusu {}
->>>>>>> 26773de9c14bd66b44a54c68b0bb427d37bd7428
 
 .headkisu {
     background-color: rgb(182, 243, 255);
@@ -70,6 +63,10 @@
     text-align: center;
     font-family: Yu Gothic;
     font-weight: bold;
+}
+
+.hleft {
+    margin-right: -5px;
 }
 
 .shiftset_kudo th,

@@ -36,7 +36,7 @@
 
 
 			$staff = [
-					 ["徳澤","4","0","0","18","Y","N","Y","0","130","-1","-1","-1","-1","-1"],
+					 ["徳澤","4","0","0","18","Y","N","Y","0","-1","120","-1","-1","-1","-1"],
 					 ["檜田","3","0","0","18","Y","N","Y","1","-1","120","-1","-1","-1","-1"],
 					 ["三浦","3","0","0","18","Y","N","Y","2","-1","120","-1","-1","-1","-1"],
 					 ["田中","3","0","0","18","Y","N","Y","3","-1","120","-1","-1","-1","-1"],
@@ -133,7 +133,10 @@
 					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
 				}while($Bsc->Stoper2($staff));
 			// print_r($EndShift);
-			return view('shiftView', compact('EndShift','StaffShift','staff'));
+
+			$staffTime = $Bsc->RoadTimes($EndShift);
+
+			return view('shiftView', compact('EndShift','StaffShift','staff','staffTime'));
         }
 	}
 
