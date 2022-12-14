@@ -4,6 +4,10 @@
     width: 150vw;
 }
 
+.shiftset_kudo {
+    width: 110vw;
+}
+
 .nameview {
     width: 50;
 }
@@ -12,6 +16,14 @@
 .kisu {
     width: 70;
     font-weight: 100;
+}
+
+.setgusu {
+
+}
+
+.setkisu {
+    background-color: rgb(182, 243, 255);
 }
 
 .thname,
@@ -26,23 +38,24 @@
 }
 
 .headgusu {
-    background-color: rgb(149, 238, 208);
+    
 }
 
 .headkisu {
-    background-color: rgb(231, 255, 137);
+    background-color: rgb(182, 243, 255);
 }
 
 .gusu {
-    background-color: rgb(149, 238, 208);
     border: 1px solid;
     border-color: #666;
+    font-weight: bold;
 }
 
 .kisu {
-    background-color: rgb(231, 255, 137);
+    background-color: rgb(182, 243, 255);
     border: 1px solid;
     border-color: #666;
+    font-weight: bold;
 }
 
 .shiftcomp,
@@ -53,6 +66,8 @@
     border-collapse: separate;
     border-spacing: 0;
     text-align: center;
+    font-family: Yu Gothic;
+    font-weight: bold;
 }
 
 .shiftset_kudo th,

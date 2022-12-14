@@ -93,20 +93,20 @@
 <h2>工藤くんの従業員設定</h2>
 <table class="shiftset_kudo" border="2">
     <thead>
-        <th>&nbsp;名前&nbsp;</th>
-        <th>&nbsp;期待値&nbsp;</th>
-        <th>&nbsp;提出率&nbsp;</th>
-        <th>&nbsp;年齢&nbsp;</th>
-        <th>&nbsp;社会保険&nbsp;</th>
-        <th>&nbsp;学生&nbsp;</th>
-        <th>&nbsp;既婚&nbsp;</th>
-        <th>&nbsp;キー値&nbsp;</th>
-        <th>&nbsp;月の最低労働時間&nbsp;</th>
-        <th>&nbsp;月の最高労働時間&nbsp;</th>
-        <th>&nbsp;週の最低労働時間&nbsp;</th>
-        <th>&nbsp;週の最高労働時間&nbsp;</th>
-        <th>&nbsp;１日の最低労働時間&nbsp;</th>
-        <th>&nbsp;１日の最高労働時間&nbsp;</th>
+        <th class="headgusu">&nbsp;名前&nbsp;</th>
+        <th class="headkisu">&nbsp;期待値&nbsp;</th>
+        <th class="headgusu">&nbsp;提出率&nbsp;</th>
+        <th class="headkisu">&nbsp;年齢&nbsp;</th>
+        <th class="headgusu">&nbsp;社会保険&nbsp;</th>
+        <th class="headkisu">&nbsp;学生&nbsp;</th>
+        <th class="headgusu">&nbsp;既婚&nbsp;</th>
+        <th class="headkisu">&nbsp;キー値&nbsp;</th>
+        <th class="headgusu">&nbsp;月の最低労働時間&nbsp;</th>
+        <th class="headkisu">&nbsp;月の最高労働時間&nbsp;</th>
+        <th class="headgusu">&nbsp;週の最低労働時間&nbsp;</th>
+        <th class="headkisu">&nbsp;週の最高労働時間&nbsp;</th>
+        <th class="headgusu">&nbsp;１日の最低労働時間&nbsp;</th>
+        <th class="headkisu">&nbsp;１日の最高労働時間&nbsp;</th>
     </thead>
     <tbody>
         <td>{{$staff[10][0]}}</td>
@@ -116,7 +116,20 @@
                 @if($staff[10][$staffsetting] == -1)
                     <?php $staff[10][$staffsetting] = "なし"; ?>
                 @endif
-                <td>{{$staff[10][$staffsetting]}}</td>
+                
+                @if($staffsetting % 2 == 0)
+                    @if($staffsetting == 2)
+                        <td class="setgusu">{{$staff[10][$staffsetting]}}</td>
+                    @else
+                        <td class="setkisu">{{$staff[10][$staffsetting]}}</td>
+                    @endif
+                @else
+                    @if($staffsetting == 1)
+                        <td class="setkisu">{{$staff[10][$staffsetting]}}</td>
+                    @else
+                        <td class="setgusu">{{$staff[10][$staffsetting]}}</td>
+                    @endif
+                @endif
             @endif
         @endfor
     </tbody>
