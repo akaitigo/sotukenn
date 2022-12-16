@@ -10,7 +10,7 @@
         <label class="tab_item" for="inspection">シフト閲覧</label>
         
         <div class="tab_content" id="all_content">
-          テストテストテスト
+          
         </div>
         <div class="tab_content" id="inspection_content">
           @include('calendar')
