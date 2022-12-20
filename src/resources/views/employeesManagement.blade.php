@@ -11,7 +11,7 @@
         <h2 class="employeeH2">正社員一覧</h2>
 
         <title>従業員管理</title>
-        <table class="table" border="2">
+        <table class="table" border="4">
             <thead>
                 <tr>
                     <th>id</th>
@@ -47,7 +47,7 @@
         @if(!($parttimers->isEmpty()))
         <h2 class="parttimerH2">アルバイト一覧</h2>
 
-        <table class="table" border="2">
+        <table class="table" border="4">
             <thead>
                 <tr>
                     <th>id</th>
