@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
-@include('header')
+<link rel="stylesheet" href="/css/slide.css" type="text/css">
+@include('new_header')
 
-
+<body>
+<div id=slide>
 <button class="backButton" onclick="history.back()">戻　る</button>
 
         <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更・個別通知</a>
@@ -80,6 +82,8 @@
         <br/>
         <br/>
         @endif
+</div>
+</body>
 
 
 
