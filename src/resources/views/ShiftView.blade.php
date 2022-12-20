@@ -8,9 +8,9 @@
         <th class="thname">&nbsp;名前&nbsp;</th>
         @for($i= 1;$i <= 30; $i++)
             @if($i % 2 == 0)
-                <th class="headgusu">{{ $i }} 日</th>
+                <th class="headgusu">{{ $i }} (日)</th>
             @else
-                <th class="headkisu">{{ $i }} 日</th>
+                <th class="headkisu">{{ $i }} (日)</th>
             @endif
         @endfor
         <th class="headkisu">労働時間</th>

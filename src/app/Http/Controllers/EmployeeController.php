@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\admin;
+use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use App\Models\Job;
@@ -14,8 +16,12 @@ class EmployeeController extends Controller
     //パスワードを表示、復元
     public function empPasswordView()
     {
-        $employees = Employee::all();
-        $parttimers = Parttimer::all();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
 
         return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
@@ -23,8 +29,13 @@ class EmployeeController extends Controller
     //パスワード非表示にする
     public function empPasswordNotView()
     {
-        $employees = Employee::all();
-        $parttimers = Parttimer::all();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
+
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
 

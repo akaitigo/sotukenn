@@ -1,28 +1,15 @@
-table {
+/* table {
     margin: auto;
 
-}
+} */
 
 h2 {
     font-family: Yu Gothic;
     text-align: center;
     color: rebeccapurple;
-    font-size: 1.4em;
+    font-size: 1.2vw;
     margin-top: 30px;
-}
-
-td {
-    text-align: center;
-    font-family: Yu Gothic;
-    font-weight: normal;
-    font-size: 1em;
-    white-space: nowrap;
-}
-
-th {
-    font-family: Yu Gothic;
-    font-weight: bold;
-    font-size: 1em;
+    transition: 0.3s;
 }
 
 button {
@@ -33,7 +20,7 @@ button {
     appearance: none;
     margin: 1em 0;
     padding: 0.6em 1em;
-    font-size: 0.6em;
+    font-size: 1.2vw;
     background-color: #1aa1ff;
     color: #FFF;
     cursor: pointer;
@@ -47,14 +34,16 @@ button:hover {
 
 }
 
+
+
 .backButton {
     font-family: Yu Gothic;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    margin: 20 30 0 60;
+    margin: 90 30 0 60;
     padding: 0.7em 1em;
-    font-size: 0.8em;
+    font-size: 1.1vw;
     background-color: #1aa1ff;
     color: #FFF;
     cursor: pointer;
@@ -74,7 +63,7 @@ button:hover {
     color: #FFF;
     display: inline-block;
     padding: 0.7em 1em;
-    font-size: 0.8em;
+    font-size: 1.1vw;
     border-radius: 3px;
     text-align: center;
     font-family: Yu Gothic;
@@ -93,7 +82,7 @@ button:hover {
     color: #FFF;
     display: inline-block;
     padding: 0.7em 1em;
-    font-size: 0.8em;
+    font-size: 1.1vw;
     border-radius: 3px;
     text-align: center;
     font-family: Yu Gothic;
@@ -111,7 +100,7 @@ button:hover {
     color: #FFF;
     display: inline-block;
     padding: 0.4em 1em;
-    font-size: 0.6em;
+    font-size: 1.1vw;
     border-radius: 3px;
     text-align: center;
     font-family: Yu Gothic;
@@ -130,7 +119,7 @@ button:hover {
     color: #FFF;
     display: inline-block;
     padding: 0.4em 1em;
-    font-size: 0.6em;
+    font-size: 1.1vw;
     border-radius: 3px;
     text-align: center;
     font-family: Yu Gothic;
@@ -186,4 +175,54 @@ form {
     position: absolute;
     margin-left: -26.5px;
     margin-top: -10px;
+}
+
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-family: Yu Gothic;
+    font-size: 1.2vw;
+    transition: 0.3s;
+}
+
+table th,
+table td {
+    padding: 10px 0;
+    text-align: center;
+    font-family: Yu Gothic;
+    font-size: 1.2vw;
+    transition: 0.3s;
+}
+
+table tr:nth-child(odd) {
+    background-color: rgb(206, 216, 223)
+}
+
+th {
+    background-color: #ffffff;
+}
+
+.box {
+    height: 1.2vw;
+    width: 10vw;
+    border-radius: 4px;
+    transform: 2;
+    outline: none;
+}
+
+.box:focus {
+    border-color: #000;
+    background-color: #ffc;
+    outline: none;
+
+}
+
+::placeholder {
+    color: #222120;
+    font-family: Yu Gothic;
+    font-weight: bold;
 }

@@ -127,7 +127,7 @@ $stores = json_decode($data);
     </div>
     <section class="home">
         <div id="setting" class="open-overlay">
-            <img type=submit name="add" src="/img_submit/setting.png" width="110%">
+            <img type=submit name="add" src="/img_submit/setting2.png" width="110%">
         </div>
     </section>
 </form>

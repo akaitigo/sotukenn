@@ -19,10 +19,17 @@ class ShiftController extends Controller
      /* 提出シフト管理 */
     public function management()
     {
-        $employees = Employee::all();
-        $parttimers = Parttimer::all();
-        $empCountNum = $employees->count();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
 
+        $allempname = [];
+        $submitcompempname = [];
+        $allpartname = [];
+        $submitcomppartname = [];
 
         foreach($employees as $emp){
             $allempname[] = $emp->name;
@@ -40,6 +47,7 @@ class ShiftController extends Controller
                     }
             }
         }
+
         $notsubmitempname = array_diff($allempname,$submitcompempname);
         $notsubmitpartname = array_diff($allpartname,$submitcomppartname);
 
