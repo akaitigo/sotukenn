@@ -9,10 +9,10 @@
   }
   
   #container{
-    margin: 100px 60px;
-    width: 90%;
+    margin: 100px 20px;
     text-align: left;
     position: relative;
+    font-weight: bold;
 
   }
   
@@ -113,6 +113,7 @@
     color: #fff;
     padding: 8px;
     font-size: 1.4em;
+    font-weight: bold;
   }
   
   .group-table {
@@ -121,16 +122,17 @@
       /* 	border:1px solid #ddd; */
   /* 	  border-top: none;	 */
       border-collapse:collapse;
-          padding:5px;
+      padding:5px;
       text-align: center;
       }
       .group-table th {
       /* 	border:1px solid #ddd;
       border-top: none; */
-          padding: 10px 5px;
+      padding: 10px 5px;
       font-weight: normal;
-          background:#1aa1ff;
+      background:#1aa1ff;
       color: #fff;
+      font-weight: bold;
       }
       .group-table td {
       /* 	border:1px solid #ddd; */
@@ -176,6 +178,11 @@
   }
 
   .newemp{
-    width: 100%;
-
+    width: 80%;
+  }
+  .empbtn{
+    width: 11%;
+  }
+  .emptext{
+    width: 10%;
   }

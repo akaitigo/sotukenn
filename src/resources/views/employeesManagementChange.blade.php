@@ -45,12 +45,13 @@
                                         <td><input class="newemp" type="text" name="newEmpWeight" placeholder="{{ $emp->weight }}">
                                         </td>
 
-                                        <td>
+                                        <td class="emptext">
                                             @foreach ($allJob as $alljob)
-                                                <input type="checkbox" name="{{ $loop->iteration }}"
+                                                <input  type="checkbox" name="{{ $loop->iteration }}"
                                                     value="{{ $loop->iteration }}"
                                                     {{ in_array($alljob->id, $jobcheck) ? 'checked' : '' }}>
                                                 {{ $alljob->name }}
+                                                <br>
                                                 {{-- {{$loop->iteration}}で現在のループ回数 --}}
                                             @endforeach
 
@@ -59,13 +60,13 @@
                                         <td><input class="newemp" type="text" name="newEmpPassword" placeholder="Password"></td>
 
 
-                                        <td><button type="submit" name="upDateId" value="{{ $emp->id }}"
-                                                class="updateButton">更　新</button></td>
-                            </form>
+                                        <td class="empbtn"><button  type="submit" name="upDateId" value="{{ $emp->id }}"
+                                                class="updateButton newemp">更　新</button></td>
+                               </form>
                             <form method="post" action="{{ route('employeesManagementDelete') }}"
                                 onsubmit="return DeleteCheck();">
                                 @csrf
-                                <td><button type="submit" name="delete" value="{{ $emp->id }}"
+                                <td class="empbtn"><button type="submit" name="delete" value="{{ $emp->id }}"
                                         class="deleteButton">削　除</td>
                             </form>
 

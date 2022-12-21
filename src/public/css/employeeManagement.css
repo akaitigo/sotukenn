@@ -20,13 +20,14 @@ button {
     appearance: none;
     margin: 1em 0;
     padding: 0.6em 1em;
-    font-size: 1.2vw;
+    font-size: 1vw;
     background-color: #1aa1ff;
     color: #FFF;
     cursor: pointer;
     border-radius: 3px;
     border: 0;
     transition: 0.3s;
+    width: 80%;
 }
 
 button:hover {
@@ -106,6 +107,7 @@ button:hover {
     font-family: Yu Gothic;
     font-weight: bold;
     transition: 0.3s;
+    width: 80%;
 }
 
 .deleteButton:hover {
