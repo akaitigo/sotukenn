@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/scale.css" type="text/css">
 <link rel="stylesheet" href="/css/tab.css" type="text/css">
+<link rel="stylesheet" href="/css/search.css" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('new_header')
@@ -9,6 +10,19 @@
         <button class="backButton" onclick="history.back()">戻　る</button>
         <a href="{{ route('employeesManagementPassNotView') }}" class="passViewButton">メール非表示</a>
     </div> --}}
+    <div id="search1">
+        <form action="employeesManagementPassView" method="GET">
+            <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" />
+            <input id="sbtn5" type="submit" value="検索" />
+        </form>
+    </div>
+    <div id="search2">
+        <form action="employeesManagementPassView" method="GET">
+            <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" value="" />
+            <input id="sbtn5" type="submit" value="検索" />
+        </form>
+    </div>
+
     <title>従業員管理</title>
     <div id='container'>
         <div class='widget'>
@@ -42,6 +56,11 @@
                         } else {
                             $page1 = 1; //始めのページ
                         }
+                        if (isset($_GET['search_name1'])) {
+                            $search_name1 = $_GET['search_name1']; //検索名前取得
+                        }else{
+                            $search_name1 = null;
+                        }
                         
                         // スタートのポジションを計算する
                         if ($page1 > 1) {
@@ -68,6 +87,9 @@
                                     <?php
                                     $count_loop = $count_loop + 1;
                                     continue; ?>
+                                @endif
+                                @if ($search_name1 != $emp->name && $search_name1 != null)
+                                    <?php continue; ?>
                                 @endif
                                 <tr>
                                     <td>{{ $emp->id }}</td>
@@ -138,7 +160,7 @@
                         </thead>
                         <?php $count = 0; ?>
                         @foreach ($employees as $emp)
-                            <?php $count = $count + 1; ?></a>
+                            <?php $count = $count + 1; ?>
                         @endforeach
                         <?php
                         $pagination = ceil($count / 4);
@@ -150,6 +172,11 @@
                             $page2 = (int) $_GET['page2']; //ページの取得
                         } else {
                             $page2 = 1; //始めのページ
+                        }
+                        if (isset($_GET['search_name2'])) {
+                            $search_name2 = $_GET['search_name2']; //検索名前取得
+                        }else{
+                            $search_name2 = null;
                         }
                         
                         // スタートのポジションを計算する
@@ -176,6 +203,9 @@
                                     <?php
                                     $count_loop = $count_loop + 1;
                                     continue; ?>
+                                @endif
+                                @if ($search_name2 != $emp->name && $search_name2 != null)
+                                    <?php continue; ?>
                                 @endif
                                 <tr id="<?php echo $count_loop; ?>">
                                     <td>{{ $part->id }}</td>
@@ -216,13 +246,14 @@
                     </table>
                 @endif
                 <?php for ($x=1; $x <= $pagination ; $x++) { ?>
-                <a class='pagetab2_<?php echo $x; ?>' href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a>
+                <a class='pagetab2_<?php echo $x; ?>'
+                    href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a>
                 <?php } ?>
             </div>
 
         </div>
         {{-- なぜかこれが無いとアルバイトが最初にでない --}}
-        <div class='widget3' >
+        <div class='widget3'>
             <div id='アルバイト' class="tab-content">
             </div>
         </div>
@@ -233,5 +264,3 @@
 
 <script type="text/javascript" src="/js/tab.js"></script>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-
-
