@@ -37,22 +37,22 @@
                         @endforeach
                         <?php
                         $pagination = ceil($count / 4);
-                        if (isset($_GET['page'])) {
-                            $page = (int) $_GET['page']; //ページの取得
+                        if (isset($_GET['page1'])) {
+                            $page1 = (int) $_GET['page1']; //ページの取得
                         } else {
-                            $page = 1; //始めのページ
+                            $page1 = 1; //始めのページ
                         }
                         
                         // スタートのポジションを計算する
-                        if ($page > 1) {
+                        if ($page1 > 1) {
                             // 例：２ページ目の場合は、(2 × 4) - 4 = 4
-                            $start = $page * 4 - 4;
+                            $start = $page1 * 4 - 4;
                         } else {
                             $start = 0;
                         }
                         $start_loop = $start + 1; //1ページの表示の始め　例8件目からとか
                         $count_loop = 1; //現在の表示件数
-                        $end_loop = 4 * $page; //1ページあたりの表示の終わり
+                        $end_loop = 4 * $page1; //1ページあたりの表示の終わり
                         
                         ?>
 
@@ -110,7 +110,7 @@
                     </table>
                 @endif
                 <?php for ($x=1; $x <= $pagination ; $x++) { ?>
-                <a class='pagetab' href="?page=<?php echo $x; ?>"><?php echo $x; ?></a>
+                <a class='pagetab' href="?page1=<?php echo $x; ?>"><?php echo $x; ?></a>
                 <?php } ?>
             </div>
         </div>
@@ -143,6 +143,26 @@
                         <?php
                         $pagination = ceil($count / 4);
                         $count_loop = 1; //現在の表示件数
+                        ?>
+                        <?php
+                        $pagination = ceil($count / 4);
+                        if (isset($_GET['page2'])) {
+                            $page2 = (int) $_GET['page2']; //ページの取得
+                        } else {
+                            $page2 = 1; //始めのページ
+                        }
+                        
+                        // スタートのポジションを計算する
+                        if ($page2 > 1) {
+                            // 例：２ページ目の場合は、(2 × 4) - 4 = 4
+                            $start = $page2 * 4 - 4;
+                        } else {
+                            $start = 0;
+                        }
+                        $start_loop = $start + 1; //1ページの表示の始め　例8件目からとか
+                        $count_loop = 1; //現在の表示件数
+                        $end_loop = 4 * $page2; //1ページあたりの表示の終わり
+                        
                         ?>
                         <tbody>
                             @foreach ($parttimers as $part)
@@ -196,7 +216,7 @@
                     </table>
                 @endif
                 <?php for ($x=1; $x <= $pagination ; $x++) { ?>
-                <a class='pagetab2_<?php echo $x; ?>' href="?tab=2&page=<?php echo $x; ?>"><?php echo $x; ?></a>
+                <a class='pagetab2_<?php echo $x; ?>' href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a>
                 <?php } ?>
             </div>
 
