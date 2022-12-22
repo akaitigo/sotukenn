@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="/css/scale.css" type="text/css">
 <link rel="stylesheet" href="/css/tab.css" type="text/css">
 <link rel="stylesheet" href="/css/search.css" type="text/css">
+<link rel="stylesheet" href="/css/pagenation.css" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 @include('new_header')
@@ -58,7 +59,7 @@
                         }
                         if (isset($_GET['search_name1'])) {
                             $search_name1 = $_GET['search_name1']; //検索名前取得
-                        }else{
+                        } else {
                             $search_name1 = null;
                         }
                         
@@ -131,9 +132,11 @@
                         </tbody>
                     </table>
                 @endif
-                <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
-                <a class='pagetab' href="?page1=<?php echo $x; ?>"><?php echo $x; ?></a>
-                <?php } ?>
+                <ul class="pagination">
+                    <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
+                    <li><a class='pagetab' href="?page1=<?php echo $x; ?>"><?php echo $x; ?></a></li>
+                    <?php } ?>
+                </ul>
             </div>
         </div>
 
@@ -175,7 +178,7 @@
                         }
                         if (isset($_GET['search_name2'])) {
                             $search_name2 = $_GET['search_name2']; //検索名前取得
-                        }else{
+                        } else {
                             $search_name2 = null;
                         }
                         

@@ -40,7 +40,8 @@
   
   
       border: 1px solid #ddd;
-    border-top: 0;
+      border-top: 0;
+      border-bottom: 0;
       background-color: #fff;
       /*padding: 7px;*/
       width: 100%;
@@ -85,10 +86,9 @@
       transition: all 200ms;
   /*   border-right: 0.125rem solid #16a085; */
       border-top: 1px solid #ddd;
+      border-bottom: 1px solid rgb(110, 110, 110);
       border-right: 1px solid #ddd;
       border-left: 1px solid #ddd;
-  
-  
   }
   
   .tab:hover {
@@ -124,10 +124,10 @@
   .group-table {
       border-top: 1px solid #ddd;	
       width:100%;
-      /* 	border:1px solid #ddd; */
-  /* 	  border-top: none;	 */
+      border:1px solid #ddd;
+      /* 	  border-top: none;	 */
       border-collapse:collapse;
-          padding:5px;
+      padding:5px;
       text-align: center;
       }
       .group-table th {
