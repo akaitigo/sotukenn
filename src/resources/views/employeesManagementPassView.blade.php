@@ -18,7 +18,7 @@
     </div>
     <div id="search2">
         <form action="employeesManagementPassView" method="GET">
-            <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" value="" />
+            <input id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
             <input id="sbtn5" type="submit" value="検索" />
         </form>
     </div>
