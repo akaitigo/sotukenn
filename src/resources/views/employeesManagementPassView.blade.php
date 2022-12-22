@@ -18,9 +18,10 @@
         </form>
     </div>
     <div id="search2">
-        <form action="employeesManagementPassView" method="GET">
-            <input id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
-            <input id="sbtn5" type="submit" value="検索" />
+        <form action="employeesManagementPassView" method="GET" >
+            <input type="text" name="tab" value="2" style="display: none;"/>
+            <input  id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
+            <input  id="sbtn5" type="submit" value="検索" />
         </form>
     </div>
 
@@ -89,9 +90,12 @@
                                     $count_loop = $count_loop + 1;
                                     continue; ?>
                                 @endif
-                                @if ($search_name1 != $emp->name && $search_name1 != null)
-                                    <?php continue; ?>
+                                @if ($search_name1 != null)
+                                    @if (preg_match("/$search_name1/", $emp->name) == 0 )
+                                        <?php continue; ?>
+                                    @endif
                                 @endif
+                                
                                 <tr>
                                     <td>{{ $emp->id }}</td>
                                     <td>{{ $emp->email }}</td>
@@ -207,8 +211,10 @@
                                     $count_loop = $count_loop + 1;
                                     continue; ?>
                                 @endif
-                                @if ($search_name2 != $emp->name && $search_name2 != null)
-                                    <?php continue; ?>
+                                @if ($search_name2 != null)
+                                    @if (preg_match("/$search_name2/", $part->name) == 0 )
+                                        <?php continue; ?>
+                                    @endif
                                 @endif
                                 <tr id="<?php echo $count_loop; ?>">
                                     <td>{{ $part->id }}</td>
@@ -248,10 +254,12 @@
                         </tbody>
                     </table>
                 @endif
-                <?php for ($x=1; $x <= $pagination2 ; $x++) { ?>
-                <a class='pagetab2_<?php echo $x; ?>'
-                    href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a>
-                <?php } ?>
+                <ul class="pagination">
+                    <?php for ($x=1; $x <= $pagination2 ; $x++) { ?>
+                    <li><a class='pagetab2_<?php echo $x; ?>'
+                            href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a></li>
+                    <?php } ?>
+                </ul>
             </div>
 
         </div>

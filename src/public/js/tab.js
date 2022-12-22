@@ -43,6 +43,15 @@ $(document).ready(function () {
 			$(this).appendTo(".new-widget",);
 		});
 		$(".tab").click(function () {
+			if(ele1.style.display=="block"){
+				// noneで非表示
+				ele2.style.display = 'block';
+				ele1.style.display = 'none';
+			}else{
+				// blockで表示
+				ele1.style.display = 'block';
+				ele2.style.display = 'none';
+			};
 			$(".new-widget > div").hide();
 			$('#' + $(this).text()).show();
 			$(".tab").removeClass("active-tab");
