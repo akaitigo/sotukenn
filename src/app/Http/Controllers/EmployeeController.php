@@ -22,7 +22,7 @@ class EmployeeController extends Controller
         $adminid=Auth::guard('admin')->id();
         $storeid = admin::where('id',$adminid)->value('store_id');
         $parttimers = Parttimer::where('store_id',$storeid)->get();
-
+        //ここリダイレクトにするとページが開かなくなる。
         return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
 
@@ -98,7 +98,8 @@ class EmployeeController extends Controller
         $storeid = admin::where('id',$adminid)->value('store_id');
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
-        return view('employeesManagementPassView', compact('employees', 'parttimers'));
+        // return redirect('employeesManagementPassView', compact('employees', 'parttimers'));
+        return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
 
     public function partDelete(Request $request)
@@ -117,7 +118,7 @@ class EmployeeController extends Controller
         $storeid = admin::where('id',$adminid)->value('store_id');
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
-        return view('employeesManagementPassView', compact('employees', 'parttimers'));
+        return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
 
     //削除->
@@ -212,7 +213,7 @@ class EmployeeController extends Controller
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
 
-        return view('employeesManagementPassView', compact('employees', 'parttimers'));
+        return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
 
     public function partUpdate(Request $request)
@@ -304,8 +305,7 @@ class EmployeeController extends Controller
         $storeid = admin::where('id',$adminid)->value('store_id');
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
-
-        return view('employeesManagementPassView', compact('employees', 'parttimers'));
+        return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
 
     //<--上書き更新
