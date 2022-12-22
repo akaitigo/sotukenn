@@ -82,7 +82,7 @@
       /* line-height: 2.0em; */
       cursor: pointer;
       list-style: none!important;
-    transition: all 200ms;
+      transition: all 200ms;
   /*   border-right: 0.125rem solid #16a085; */
       border-top: 1px solid #ddd;
       border-right: 1px solid #ddd;
@@ -180,4 +180,8 @@
   
   #weekend .group-table td:nth-child(2) {
     background: #fff;
+  }
+
+  .hidden {
+    display: none;
   }
