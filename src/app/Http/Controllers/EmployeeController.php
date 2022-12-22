@@ -93,7 +93,7 @@ class EmployeeController extends Controller
             $del->statuses()->detach();
         }
         Employee::where('id', '=', $getId)->delete(); //削除
-        
+
         $adminid=Auth::guard('admin')->id();
         $storeid = admin::where('id',$adminid)->value('store_id');
         $employees = Employee::where('store_id',$storeid)->get();
@@ -117,7 +117,7 @@ class EmployeeController extends Controller
         $storeid = admin::where('id',$adminid)->value('store_id');
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
-        return view('employeesManagement', compact('employees', 'parttimers'));
+        return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
 
     //削除->
