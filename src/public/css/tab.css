@@ -5,15 +5,15 @@
   body{
       background-color: #fff;
       text-align: center;
-    font-family: 'Source Sans Pro', Helvetica;
+      font-family: 'Source Sans Pro', Helvetica;
   }
   
   #container{
-    margin: 0px 60px;
+    margin: -20px 60px;
     width: 90%;
-    text-align: left;
-    position: relative;
+    /* position: relative; */
     font-weight: bold;
+    z-index: 1;
   }
   
   .widget{

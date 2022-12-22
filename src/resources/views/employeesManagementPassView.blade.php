@@ -18,10 +18,10 @@
         </form>
     </div>
     <div id="search2">
-        <form action="employeesManagementPassView" method="GET" >
-            <input type="text" name="tab" value="2" style="display: none;"/>
-            <input  id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
-            <input  id="sbtn5" type="submit" value="検索" />
+        <form action="employeesManagementPassView" method="GET">
+            <input type="text" name="tab" value="2" style="display: none;" />
+            <input id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
+            <input id="sbtn5" type="submit" value="検索" />
         </form>
     </div>
 
@@ -91,11 +91,11 @@
                                     continue; ?>
                                 @endif
                                 @if ($search_name1 != null)
-                                    @if (preg_match("/$search_name1/", $emp->name) == 0 )
+                                    @if (preg_match("/$search_name1/", $emp->name) == 0)
                                         <?php continue; ?>
                                     @endif
                                 @endif
-                                
+
                                 <tr>
                                     <td>{{ $emp->id }}</td>
                                     <td>{{ $emp->email }}</td>
@@ -136,9 +136,12 @@
                         </tbody>
                     </table>
                 @endif
+                <?php
+                $pagination1 = ceil($count_loop / 4);
+                ?>
                 <ul class="pagination">
                     <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
-                    <li><a class='pagetab' href="?page1=<?php echo $x; ?>"><?php echo $x; ?></a></li>
+                    <li><a class='pagetab' href="?page1=<?php echo $x; ?>&search_name1=<?php echo $search_name1; ?>"><?php echo $x; ?></a></li>
                     <?php } ?>
                 </ul>
             </div>
@@ -165,16 +168,7 @@
                                 <th>change</th>
                             </tr>
                         </thead>
-                        <?php $count = 0; ?>
-                        @foreach ($parttimers as $part)
-                            <?php $count = $count + 1; ?>
-                        @endforeach
                         <?php
-                        $pagination2 = ceil($count / 4);
-                        $count_loop = 1; //現在の表示件数
-                        ?>
-                        <?php
-                        $pagination = ceil($count / 4);
                         if (isset($_GET['page2'])) {
                             $page2 = (int) $_GET['page2']; //ページの取得
                         } else {
@@ -212,7 +206,7 @@
                                     continue; ?>
                                 @endif
                                 @if ($search_name2 != null)
-                                    @if (preg_match("/$search_name2/", $part->name) == 0 )
+                                    @if (preg_match("/$search_name2/", $part->name) == 0)
                                         <?php continue; ?>
                                     @endif
                                 @endif
@@ -254,10 +248,14 @@
                         </tbody>
                     </table>
                 @endif
+                <?php
+                $pagination2 = ceil($count_loop / 4);
+                ?>
                 <ul class="pagination">
                     <?php for ($x=1; $x <= $pagination2 ; $x++) { ?>
                     <li><a class='pagetab2_<?php echo $x; ?>'
-                            href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a></li>
+                            href="?tab=2&page2=<?php echo $x; ?>&search_name2=<?php echo $search_name2; ?>"><?php echo $x; ?></a>
+                    </li>
                     <?php } ?>
                 </ul>
             </div>
