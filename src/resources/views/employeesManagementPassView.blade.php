@@ -50,7 +50,7 @@
                             <?php $count = $count + 1; ?>
                         @endforeach
                         <?php
-                        $pagination = ceil($count / 4);
+                        $pagination1 = ceil($count / 4);
                         if (isset($_GET['page1'])) {
                             $page1 = (int) $_GET['page1']; //ページの取得
                         } else {
@@ -131,7 +131,7 @@
                         </tbody>
                     </table>
                 @endif
-                <?php for ($x=1; $x <= $pagination ; $x++) { ?>
+                <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
                 <a class='pagetab' href="?page1=<?php echo $x; ?>"><?php echo $x; ?></a>
                 <?php } ?>
             </div>
@@ -159,11 +159,11 @@
                             </tr>
                         </thead>
                         <?php $count = 0; ?>
-                        @foreach ($employees as $emp)
+                        @foreach ($parttimers as $part)
                             <?php $count = $count + 1; ?>
                         @endforeach
                         <?php
-                        $pagination = ceil($count / 4);
+                        $pagination2 = ceil($count / 4);
                         $count_loop = 1; //現在の表示件数
                         ?>
                         <?php
@@ -245,7 +245,7 @@
                         </tbody>
                     </table>
                 @endif
-                <?php for ($x=1; $x <= $pagination ; $x++) { ?>
+                <?php for ($x=1; $x <= $pagination2 ; $x++) { ?>
                 <a class='pagetab2_<?php echo $x; ?>'
                     href="?tab=2&page2=<?php echo $x; ?>"><?php echo $x; ?></a>
                 <?php } ?>
