@@ -112,7 +112,7 @@
                         <form method="post" action="{{ route('partManagementDelete') }}"
                             onsubmit="return DeleteCheck();">
                             @csrf
-                            <td><button type="submit" name="delete" value="{{ $emp->id }}"
+                            <td><button type="submit" name="delete" value="{{ $part->id }}"
                                     class="deleteButton">削　除</td>
                         </form>
                         </tr>

@@ -110,8 +110,10 @@ class EmployeeController extends Controller
             $del->statuses()->detach();
         }
         Parttimer::where('id', '=', $getId)->delete();
-        $parttimers = Parttimer::all();
-        $employees = Employee::all();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
 
@@ -202,8 +204,10 @@ class EmployeeController extends Controller
                 }
             }
         }
-        $employees = Employee::all();
-        $parttimers = Parttimer::all();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
 
         return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
@@ -293,8 +297,10 @@ class EmployeeController extends Controller
                 }
             }
         }
-        $employees = Employee::all();
-        $parttimers = Parttimer::all();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
 
         return view('employeesManagementPassView', compact('employees', 'parttimers'));
     }
