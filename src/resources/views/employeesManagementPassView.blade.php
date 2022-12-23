@@ -48,6 +48,7 @@
                             </tr>
                         </thead>
                         <?php $count = 0; ?>
+                        {{-- データ件数の取得 --}}
                         @foreach ($employees as $emp)
                             <?php $count = $count + 1; ?>
                         @endforeach
@@ -59,17 +60,17 @@
                             $page1 = 1; //始めのページ
                         }
                         if (isset($_GET['search_name1'])) {
-                            $search_name1 = $_GET['search_name1']; //検索名前取得
+                            $search_name1 = $_GET['search_name1']; //検索内容取得
                         } else {
                             $search_name1 = null;
                         }
                         
-                        // スタートのポジションを計算する
+                        // 表示するデータのスタートのポジションを計算する
                         if ($page1 > 1) {
                             // 例：２ページ目の場合は、(2 × 4) - 4 = 4
                             $start = $page1 * 4 - 4;
                         } else {
-                            $start = 0;
+                            $start = 0; //1ページ目
                         }
                         $start_loop = $start + 1; //1ページの表示の始め　例8件目からとか
                         $count_loop = 1; //現在の表示件数
@@ -80,18 +81,21 @@
                         <tbody>
                             @foreach ($employees as $emp)
                                 {{-- 表示件数の処理 --}}
+                                {{-- 2ページ以降は（4×ページ数 - 1）件スキップする --}}
                                 @if ($start_loop > $count_loop)
                                     <?php
                                     $count_loop = $count_loop + 1;
                                     continue; ?>
                                 @endif
+                                {{-- (4×ページ数)件以上はスキップ --}}
                                 @if ($end_loop < $count_loop)
                                     <?php
                                     $count_loop = $count_loop + 1;
                                     continue; ?>
                                 @endif
+                                {{-- 検索内容と一致しなかったらスキップする --}}
                                 @if ($search_name1 != null)
-                                    @if (preg_match("/$search_name1/", $emp->name) == 0)
+                                    @if (preg_match("/$search_name1/", $emp->name) == 0 && preg_match("/$search_name1/", $emp->id) == 0)
                                         <?php continue; ?>
                                     @endif
                                 @endif
@@ -136,10 +140,12 @@
                         </tbody>
                     </table>
                 @endif
+                {{-- 件数に対するページ数計算 --}}
                 <?php
                 $pagination1 = ceil($count_loop / 4);
                 ?>
                 <ul class="pagination">
+                    {{-- ページ数分ループで表示 --}}
                     <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
                     <li><a class='pagetab' href="?page1=<?php echo $x; ?>&search_name1=<?php echo $search_name1; ?>"><?php echo $x; ?></a></li>
                     <?php } ?>
