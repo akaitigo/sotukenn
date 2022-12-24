@@ -9,7 +9,7 @@
   }
   
   #container{
-    margin: -20px 60px;
+    margin: -10px 60px;
     width: 90%;
     /* position: relative; */
     font-weight: bold;
@@ -37,9 +37,7 @@
   
   .new-widget{
       margin: 0px;
-  
-  
-      border: 1px solid #ddd;
+      /* border: 1px solid #ddd; */
       border-top: 0;
       border-bottom: 0;
       background-color: #fff;
@@ -122,9 +120,9 @@
   }
   
   .group-table {
-      border-top: 1px solid #ddd;	
+      border-top: 1px solid rgb(200, 200, 200);	
       width:100%;
-      border:1px solid #ddd;
+      border:1px solid rgb(200, 200, 200);
       /* 	  border-top: none;	 */
       border-collapse:collapse;
       padding:5px;
@@ -136,7 +134,7 @@
       padding: 10px 5px;
       font-weight: normal;
       background:#1aa1ff;
-      color: #fff;
+      color: rgb(255, 255, 255);
       font-weight: bold;
       }
       .group-table td {
