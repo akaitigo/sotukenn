@@ -22,19 +22,23 @@ class ShiftController extends Controller
         $adminid=Auth::guard('admin')->id();
         $storeid = admin::where('id',$adminid)->value('store_id');
         $employees = Employee::where('store_id',$storeid)->get();
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
         $parttimers = Parttimer::where('store_id',$storeid)->get();
 
+        $allempid = [];
         $allempname = [];
+        $submitcompempid = [];
         $submitcompempname = [];
+        $allpartid = [];
         $allpartname = [];
+        $submitcomppartid = [];
         $submitcomppartname = [];
 
         foreach($employees as $emp){
+            $allempid[] = $emp->id;
             $allempname[] = $emp->name;
             foreach($emp-> Statuses as $status){
                     if($status->id == 4){
+                        $submitcompempid[] = $emp->id;
                         $submitcompempname[] = $emp->name;
                     }
             }
@@ -43,6 +47,7 @@ class ShiftController extends Controller
             $allpartname[] = $part->name;
             foreach($part-> Statuses as $status){
                     if($status->id == 4){
+                        $submitcomppartid[] = $part->id;
                         $submitcomppartname[] = $part->name;
                     }
             }
@@ -51,7 +56,7 @@ class ShiftController extends Controller
         $notsubmitempname = array_diff($allempname,$submitcompempname);
         $notsubmitpartname = array_diff($allpartname,$submitcomppartname);
 
-        return view('submittedShift', compact('employees', 'parttimers','submitcompempname','notsubmitempname','submitcomppartname','notsubmitpartname'));
+        return view('submittedShift', compact('employees', 'parttimers','submitcompempid','submitcomppartid','submitcompempname','notsubmitempname','submitcomppartname','notsubmitpartname'));
     }
 
     /* シフト設定 */

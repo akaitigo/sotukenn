@@ -12,21 +12,30 @@
             <table class="tablesubcomp">
                 <thead>
                     <tr>
-                        <th colspan="2">提出済み</th>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>提出状況</th>
+                        <th>view</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($submitcompempname as $subcompempname)
-                        <tr>
-                            <td class="subcompempname">{{$subcompempname}}</td>
-                            <td class="subcompempname_btn"><button>確認</button></td>
-                        </tr>
-                    @endforeach
-                    @foreach ($submitcomppartname as $subcomppartname)
-                        <tr>
-                            <td class="subcomppartname">{{$subcomppartname}}</td>
-                            <td class="subcompempname_btn"><button>確認</button></td>
-                        </tr>
+                    @foreach ($employees as $emp)
+                        <?php $i = 0; ?>
+                            <tr>
+                                <td class="subcompempname">{{$emp->id}}</td>
+                                <td class="subcompempname">{{$emp->name}}</td>
+                                @foreach($submitcompempid as $subcompempid)
+                                    @if($subcompempid == $emp->id)
+                                    <td style="background-color:#55f;">済</td>
+                                    <td class="subcompempname_btn"><button style="background-color:#55f;">確認</button></td>
+                                    <?php $i = 1; ?>
+                                    @endif
+                                @endforeach
+                                @if($i == 0)
+                                    <td style="background-color:#f55;">未</td>
+                                    <td class="subcompempname_btn"><button style="background-color:#f55;">通知</button></td>
+                                @endif
+                            </tr>
                     @endforeach
                 </tbody>
             </table><br>
@@ -34,21 +43,30 @@
             <table class="tablenotsub">
                 <thead>
                     <tr>
-                        <th colspan="2">未提出</th>
+                        <th>id</th>
+                        <th>name</th>
+                        <th>提出状況</th>
+                        <th>view</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($notsubmitempname as $notsubempname)
-                    <tr>
-                        <td class="notsubempname">{{$notsubempname}}</td>
-                        <td><button>通知を送る</button></td>
-                    </tr>
-                    @endforeach
-                    @foreach ($notsubmitpartname as $notsubpartname)
-                    <tr>
-                        <td class="notsubpartname">{{$notsubpartname}}</td>
-                        <td><button>通知を送る</button></td>
-                    </tr>
+                    @foreach ($parttimers as $part)
+                        <?php $i = 0; ?>
+                            <tr>
+                                <td class="subcomppartname">{{$part->id}}</td>
+                                <td class="subcomppartname">{{$part->name}}</td>
+                                @foreach($submitcomppartid as $subcomppartid)
+                                    @if($subcomppartid == $part->id)
+                                    <td style="background-color:#55f;">済</td>
+                                    <td class="subcomppartname_btn"><button style="background-color:#55f;">確認</button></td>
+                                    <?php $i = 1; ?>
+                                    @endif
+                                @endforeach
+                                @if($i == 0)
+                                    <td style="background-color:#f55;">未</td>
+                                    <td class="subcomppartname_btn"><button style="background-color:#f55;">通知</button></td>
+                                @endif
+                            </tr>
                     @endforeach
                 </tbody>
             </table>
