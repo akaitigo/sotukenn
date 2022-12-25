@@ -9,7 +9,7 @@
     @csrf
     <div id='container'>
         <div class='widget'>
-            <div id='正社員' class="tab-content" href="#tab1">
+            <div id='変更' class="tab-content" href="#tab1">
 
                 <table class="group-table">
                     <caption>変更</caption>
