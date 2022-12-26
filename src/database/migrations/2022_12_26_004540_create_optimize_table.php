@@ -17,12 +17,12 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('store_id')->default('1');
             $table->foreign('store_id')->references('id')->on('stores');
-            $table->double('main_attendance');->nullable();
-            $table->double('main_leaving');->nullable();
-            $table->double('sub1_attendance');->nullable();
-            $table->double('sub1_leaving');->nullable();
-            $table->double('sub2_attendance');->nullable();
-            $table->double('sub2_leaving');->nullable();
+            $table->double('main_attendance')->nullable();
+            $table->double('main_leaving')->nullable();
+            $table->double('sub1_attendance')->nullable();
+            $table->double('sub1_leaving')->nullable();
+            $table->double('sub2_attendance')->nullable();
+            $table->double('sub2_leaving')->nullable();
         });
     }
 
