@@ -84,11 +84,11 @@ body {
     cursor: pointer;
     text-decoration: none;
 }
-input[type="checkbox"]:checked ~ #sidebarMenu {
+.openSidebarMenu[type="checkbox"]:checked ~ #sidebarMenu {
     transform: translateX(0);
 }
 
-input[type=checkbox] {
+.openSidebarMenu[type=checkbox] {
     transition: all 0.3s;
     box-sizing: border-box;
     display: none;

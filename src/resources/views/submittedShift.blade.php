@@ -9,15 +9,24 @@
    @include('new_header')
    <div id="scale">
        <div id="search1">
-           <form action="employeesManagementPassView" method="GET">
-               <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" />
+           <form action="submittedShift" method="GET">
+               <input type="text" name="refinement1" value="1" style="display: none;" />
                <input id="sbtn5" type="submit" value="提出済" />
+           </form>
+           <form action="submittedShift" method="GET">
+               <input type="text" name="refinement1" value="2" style="display: none;" />
+               <input id="sbtn5" type="submit" value="未提出" />
            </form>
        </div>
        <div id="search2">
-           <form action="employeesManagementPassView" method="GET">
+           <form action="submittedShift" method="GET">
                <input type="text" name="tab" value="2" style="display: none;" />
+               <input type="text" name="refinement2" value="1" style="display: none;" />
+               <input id="sbtn5" type="submit" value="提出済" />
+           </form>
+           <form action="submittedShift" method="GET">
                <input type="text" name="tab" value="2" style="display: none;" />
+               <input type="text" name="refinement2" value="2" style="display: none;" />
                <input id="sbtn5" type="submit" value="未提出" />
            </form>
        </div>
@@ -52,6 +61,11 @@
                            } else {
                                $search_name1 = null;
                            }
+                           if (isset($_GET['refinement1'])) {
+                               $refinement = $_GET['refinement1']; //検索内容取得
+                           } else {
+                               $refinement = null;
+                           }
                            
                            // 表示するデータのスタートのポジションを計算する
                            if ($page1 > 1) {
@@ -68,9 +82,15 @@
 
                            <tbody>
                                @foreach ($employees as $emp)
-                                    {{-- 提出済みを押している＋提出した人が存在しない場合 --}}
-                                   @if (in_array($emp->id, $submitcompempid) == false  )
-                                       <?php continue; ?>
+                                   {{-- 提出済みを押している＋提出した人が存在しない場合 --}}
+                                   @if ($refinement == 1)
+                                       @if (in_array($emp->id, $submitcompempid) == false)
+                                           <?php continue; ?>
+                                       @endif
+                                   @elseif($refinement == 2)
+                                       @if (in_array($emp->id, $submitcompempid))
+                                           <?php continue; ?>
+                                       @endif
                                    @endif
                                    {{-- 表示件数の処理 --}}
                                    {{-- 2ページ以降は（4×ページ数 - 1）件スキップする --}}
@@ -156,6 +176,11 @@
                            } else {
                                $search_name2 = null;
                            }
+                           if (isset($_GET['refinement2'])) {
+                               $refinement = $_GET['refinement2']; //検索内容取得
+                           } else {
+                               $refinement = null;
+                           }
                            
                            // スタートのポジションを計算する
                            if ($page2 > 1) {
@@ -171,6 +196,16 @@
                            ?>
                            <tbody>
                                @foreach ($parttimers as $part)
+                                   {{-- 提出済みを押している＋提出した人が存在しない場合 --}}
+                                   @if ($refinement == 1)
+                                       @if (in_array($emp->id, $submitcompempid) == false)
+                                           <?php continue; ?>
+                                       @endif
+                                   @elseif($refinement == 2)
+                                       @if (in_array($emp->id, $submitcompempid))
+                                           <?php continue; ?>
+                                       @endif
+                                   @endif
                                    {{-- 表示件数の処理 --}}
                                    @if ($start_loop > $count_loop)
                                        <?php

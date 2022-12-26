@@ -9,6 +9,8 @@ $(document).ready(function () {
 	// 現在の display プロパティの値を保持
 	const displayOriginal1 = ele1.style.display;
 	const displayOriginal2 = ele2.style.display;
+
+
 	if (params.get('tab') != 2) {
 		var newWidget = "<div class='widget-wrapper'> <ul class='tab-wrapper'></ul> <div class='new-widget'></div></div>";
 		$(".widget").hide();
@@ -23,6 +25,7 @@ $(document).ready(function () {
 				// noneで非表示
 				ele2.style.display = 'block';
 				ele1.style.display = 'none';
+			
 			}else{
 				// blockで表示
 				ele1.style.display = 'block';
@@ -47,10 +50,12 @@ $(document).ready(function () {
 				// noneで非表示
 				ele2.style.display = 'block';
 				ele1.style.display = 'none';
+			
 			}else{
 				// blockで表示
 				ele1.style.display = 'block';
 				ele2.style.display = 'none';
+			
 			};
 			$(".new-widget > div").hide();
 			$('#' + $(this).text()).show();
