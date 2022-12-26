@@ -198,11 +198,11 @@
                                @foreach ($parttimers as $part)
                                    {{-- 提出済みを押している＋提出した人が存在しない場合 --}}
                                    @if ($refinement == 1)
-                                       @if (in_array($emp->id, $submitcompempid) == false)
+                                       @if (in_array($part->id, $submitcomppartid) == false)
                                            <?php continue; ?>
                                        @endif
                                    @elseif($refinement == 2)
-                                       @if (in_array($emp->id, $submitcompempid))
+                                       @if (in_array($part->id, $submitcomppartid))
                                            <?php continue; ?>
                                        @endif
                                    @endif
@@ -226,17 +226,13 @@
                                    <tr id="<?php echo $count_loop; ?>">
                                        <td class="subcomppartname">{{ $part->id }}</td>
                                        <td class="subcomppartname">{{ $part->name }}</td>
-                                       @foreach ($submitcomppartid as $subcomppartid)
-                                           @if ($subcomppartid == $part->id)
-                                               <td style="background-color:#55f;">済</td>
-                                               <td class="subcomppartname_btn"><button
-                                                       style="background-color:#55f;">確認</button></td>
-                                               <?php $i = 1; ?>
-                                           @endif
-                                       @endforeach
-                                       @if ($i == 0)
+                                       @if (in_array($part->id, $submitcomppartid))
+                                           <td style="background-color:#55f;">済</td>
+                                           <td class="subcompempname_btn"><button
+                                                   style="background-color:#55f;">確認</button></td>
+                                       @else
                                            <td style="background-color:#f55;">未</td>
-                                           <td class="subcomppartname_btn"><button
+                                           <td class="subcompempname_btn"><button
                                                    style="background-color:#f55;">通知</button>
                                            </td>
                                        @endif
