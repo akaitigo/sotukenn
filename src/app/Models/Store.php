@@ -30,4 +30,9 @@ class Store extends Model
     {
         return $this->hasMany(Notice::class);
     }
+
+    public function optimize()
+    {
+        return $this->hasMany(Optimize::class);
+    }
 }
