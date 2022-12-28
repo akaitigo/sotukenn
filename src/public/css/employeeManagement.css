@@ -12,6 +12,16 @@ h2 {
     transition: 0.3s;
 }
 
+.sharetitle {
+    font-family: Yu Gothic;
+    text-align: center;
+    color: rebeccapurple;
+    font-size: 1.2vw;
+    margin-top: 130px;
+    transition: 0.3s;
+
+}
+
 button {
     font-family: Yu Gothic;
     font-weight: bold;

@@ -104,6 +104,10 @@ class MessageController extends Controller
                     $text = "認証に成功しました";
                     $textMessageBuilder = new TextMessageBuilder($text);
                     $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
+                }else{
+                    $text = "認証に失敗しました";
+                    $textMessageBuilder = new TextMessageBuilder($text);
+                    $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
                 }
             }
         }
@@ -117,8 +121,15 @@ class MessageController extends Controller
                     $text = "認証に成功しました";
                     $textMessageBuilder = new TextMessageBuilder($text);
                     $response = $bot->pushMessage($part->lineUserId, $textMessageBuilder);
+                }else{
+                    $text = "認証に失敗しました";
+                    $textMessageBuilder = new TextMessageBuilder($text);
+                    $response = $bot->pushMessage($part->lineUserId, $textMessageBuilder);
+
                 }
             }
         }
+
+        
     }
 }
