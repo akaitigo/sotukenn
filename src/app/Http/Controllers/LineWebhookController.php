@@ -82,9 +82,8 @@ class LineWebhookController extends Controller
 
 
                 break;
-            }
 
-            if (strpos($inputText, '@') !== false) { //メールアドレスか検査
+            }else if (strpos($inputText, '@') !== false) { //メールアドレスか検査
                 $forcheck = true;
                 $employeeNullCheck = Employee::where('email', '=', $inputText)->get();
                 $partNullCheck = Parttimer::where('email', '=', $inputText)->get();
@@ -144,11 +143,13 @@ class LineWebhookController extends Controller
                     $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                     break;
                 }
+            }else{
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("コマンドが確認できませんでした。");
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("ヘルプと送信したら利用できるコマンドを確認することができます。\nスマホでご利用の方は、下部のメニューから操作をお願いします");
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
             } //アカウントの連携
-            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("コマンドが確認できませんでした。");
-            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("ヘルプと送信したら利用できるコマンドを確認することができます。\nスマホでご利用の方は、下部のメニューから操作をお願いします");
-            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+
         }
     }
 }
