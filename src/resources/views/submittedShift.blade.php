@@ -10,24 +10,21 @@
    <div id="scale">
        <div id="search1">
            <form action="submittedShift" method="GET">
-               <input type="text" name="refinement1" value="1" style="display: none;" />
-               <input id="sbtn5" type="submit" value="提出済" />
-           </form>
-           <form action="submittedShift" method="GET">
-               <input type="text" name="refinement1" value="2" style="display: none;" />
-               <input id="sbtn5" type="submit" value="未提出" />
+               <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
+               <input type="checkbox" class="check_line" name="line_refinement" value="2" />未携済
+               <input type="checkbox" class="check" name="refinement1" value="1" />提出済
+               <input type="checkbox" class="check" name="refinement1" value="2" />未提出
+               <input id="sbtn5" type="submit" value="絞り込み" />
            </form>
        </div>
        <div id="search2">
            <form action="submittedShift" method="GET">
                <input type="text" name="tab" value="2" style="display: none;" />
-               <input type="text" name="refinement2" value="1" style="display: none;" />
-               <input id="sbtn5" type="submit" value="提出済" />
-           </form>
-           <form action="submittedShift" method="GET">
-               <input type="text" name="tab" value="2" style="display: none;" />
-               <input type="text" name="refinement2" value="2" style="display: none;" />
-               <input id="sbtn5" type="submit" value="未提出" />
+               <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
+               <input type="checkbox" class="check_line" name="line_refinement" value="2" />未携済
+               <input type="checkbox" class="check" name="refinement2" value="1" />提出済
+               <input type="checkbox" class="check" name="refinement2" value="2" />未提出
+               <input id="sbtn5" type="submit" value="絞り込み" />
            </form>
        </div>
        <div id='container'>
@@ -66,6 +63,12 @@
                            } else {
                                $refinement = null;
                            }
+                           //LINE連携絞り込みボタン取得
+                           if (isset($_GET['line_refinement'])) {
+                               $line_refinement = $_GET['line_refinement']; //検索内容取得
+                           } else {
+                               $line_refinement = null;
+                           }
                            
                            // 表示するデータのスタートのポジションを計算する
                            if ($page1 > 1) {
@@ -77,12 +80,23 @@
                            $start_loop = $start + 1; //1ページの表示の始め　例8件目からとか
                            $count_loop = 1; //現在の表示件数
                            $end_loop = 4 * $page1; //1ページあたりの表示の終わり
-                           
                            ?>
+
 
                            <tbody>
                                @foreach ($employees as $emp)
-                                   {{-- 提出済みを押している＋提出した人が存在しない場合 --}}
+                                   {{-- 表示絞り込み関連 --}}
+                                   {{-- lineIDを連携判定 --}}
+                                   @if ($line_refinement == 1)
+                                       @if (is_null($emp->lineUserId))
+                                           <?php continue; ?>
+                                       @endif
+                                   @elseif($line_refinement == 2)
+                                       @if (!is_null($emp->lineUserId))
+                                           <?php continue; ?>
+                                       @endif
+                                   @endif
+                                   {{-- シフト提出判定 --}}
                                    @if ($refinement == 1)
                                        @if (in_array($emp->id, $submitcompempid) == false)
                                            <?php continue; ?>
@@ -181,6 +195,17 @@
                            } else {
                                $refinement = null;
                            }
+                           if (isset($_GET['refinement2'])) {
+                               $refinement = $_GET['refinement2']; //検索内容取得
+                           } else {
+                               $refinement = null;
+                           }
+                           //LINE連携絞り込みボタン取得
+                           if (isset($_GET['line_refinement'])) {
+                               $line_refinement = $_GET['line_refinement']; //検索内容取得
+                           } else {
+                               $line_refinement = null;
+                           }
                            
                            // スタートのポジションを計算する
                            if ($page2 > 1) {
@@ -196,6 +221,17 @@
                            ?>
                            <tbody>
                                @foreach ($parttimers as $part)
+                                   {{-- 表示絞り込み関連 --}}
+                                   {{-- lineIDを連携判定 --}}
+                                   @if ($line_refinement == 1)
+                                       @if (is_null($emp->lineUserId))
+                                           <?php continue; ?>
+                                       @endif
+                                   @elseif($line_refinement == 2)
+                                       @if (!is_null($emp->lineUserId))
+                                           <?php continue; ?>
+                                       @endif
+                                   @endif
                                    {{-- 提出済みを押している＋提出した人が存在しない場合 --}}
                                    @if ($refinement == 1)
                                        @if (in_array($part->id, $submitcomppartid) == false)
@@ -268,4 +304,5 @@
 
 
    <script type="text/javascript" src="/js/tab.js"></script>
+   <script type="text/javascript" src="/js/checkbox.js"></script>
    <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
