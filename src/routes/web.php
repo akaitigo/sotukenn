@@ -13,9 +13,19 @@ use App\Models\Store;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('setting');
+//googleapi
+Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+Route::get('/api/index', [App\Http\Controllers\GoogleApi\TokenController::class, 'test']);
+Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+// Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
+// Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
+// Route::get('/api/index', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'handleGoogleCallback']);
+// Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
+Route::get('/api/callbuck', [App\Http\Controllers\GoogleApi\TokenController::class, 'saveRefreshToken']);
+Route::get('/submittedShiftEdit', function () {
+    $stores = Store::find(Auth::guard('admin')->user()->store_id);
+    return view('submittedShiftEdit', compact('stores'));
 });
 
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
@@ -65,9 +75,9 @@ Route::middleware('auth:admin')->group(function () {
     // Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
 });
 //adminかemployeeしか使えないroute
-Route::middleware('auth:employee,admin')->group(function () {
-    Route::get('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
-    Route::post('parttimer/register', [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
+Route::middleware('auth:employee,admin')->group(function  ()  {
+    Route::get('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
+    Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
     
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
@@ -151,7 +161,6 @@ Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
 
-Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
 
 Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
 
