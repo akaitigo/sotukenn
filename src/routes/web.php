@@ -164,3 +164,4 @@ Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting
 
 Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
 Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
+

@@ -22,8 +22,36 @@ class EmployeeController extends Controller
         $adminid=Auth::guard('admin')->id();
         $storeid = admin::where('id',$adminid)->value('store_id');
         $parttimers = Parttimer::where('store_id',$storeid)->get();
+
+        $emp_jobkind[] = null;
+        $part_jobkind[] = null;
+
+        // アルバイトのバイト種類を取得
+        foreach ($parttimers as $part) {
+            foreach ($part->jobs as $job) {
+                if(in_array(null,$part_jobkind)){
+                    $part_jobkind[0] = $job->name;
+                }elseif(in_array($job->name,$part_jobkind) == false){
+                    $part_jobkind[] = $job->name;
+                }else{
+                    continue;
+                }
+            }
+        }
+        foreach ($employees as $emp) {
+            foreach ($emp->jobs as $job) {
+                if(in_array(null,$emp_jobkind)){
+                    $emp_jobkind[0] = $job->name;
+                }elseif(in_array($job->name,$emp_jobkind) == false){
+                    $emp_jobkind[] = $job->name;
+                }else{
+                    continue;
+                }
+            }
+        }
+
         //ここリダイレクトにするとページが開かなくなる。
-        return view('employeesManagementPassView', compact('employees', 'parttimers'));
+        return view('employeesManagementPassView', compact('employees', 'parttimers','part_jobkind','emp_jobkind'));
     }
 
     //パスワード非表示にする
@@ -309,5 +337,47 @@ class EmployeeController extends Controller
     }
 
     //<--上書き更新
+
+    // post受け取り
+    public function empsearchView(Request $request)
+    {
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
+
+        $emp_jobkind[] = null;
+        $part_jobkind[] = null;
+
+        // アルバイトのバイト種類を取得
+        foreach ($parttimers as $part) {
+            foreach ($part->jobs as $job) {
+                if(in_array(null,$part_jobkind)){
+                    $part_jobkind[0] = $job->name;
+                }elseif(in_array($job->name,$part_jobkind) == false){
+                    $part_jobkind[] = $job->name;
+                }else{
+                    continue;
+                }
+            }
+        }
+        foreach ($employees as $emp) {
+            foreach ($emp->jobs as $job) {
+                if(in_array(null,$emp_jobkind)){
+                    $emp_jobkind[0] = $job->name;
+                }elseif(in_array($job->name,$emp_jobkind) == false){
+                    $emp_jobkind[] = $job->name;
+                }else{
+                    continue;
+                }
+            }
+        }
+
+        //ここリダイレクトにするとページが開かなくなる。
+        return view('employeesManagementPassView', compact('employees', 'parttimers','part_jobkind','emp_jobkind'),['search_name1'=>$request->search_name1],['search_name2'=>$request->search_name2]);
+    }
+
 
 }

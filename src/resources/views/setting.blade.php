@@ -142,3 +142,5 @@ $stores = json_decode($data);
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/jquery.ui.min.js"></script>
 
 <script type="text/javascript" src="/js/setting.js"></script>
+
+{{-- 戻した --}}
