@@ -104,79 +104,24 @@ $('.open-overlay').click(function () {
     nav_item_2.removeClass('slide-in-nav-item-delay-1').addClass('slide-in-nav-item-delay-1-reverse');
     nav_item_3.removeClass('slide-in-nav-item-delay-2').addClass('slide-in-nav-item-delay-2-reverse');
     nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
-    nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
-  }
-})
-
-$('.open-overlay2').click(function () {
-  var overlay_navigation = $('.overlay-navigation'),
-    nav_item_1 = $('.navigation_li:nth-of-type(1)'),
-    nav_item_2 = $('.navigation_li:nth-of-type(2)'),
-    nav_item_3 = $('.navigation_li:nth-of-type(3)'),
-    nav_item_4 = $('.navigation_li:nth-of-type(4)'),
-    nav_item_5 = $('.navigation_li  :nth-of-type(5)'),
-    top_bar = $('.bar-top'),
-    middle_bar = $('.bar-middle'),
-    bottom_bar = $('.bar-bottom');
-
-  overlay_navigation.toggleClass('overlay-active');
-
-  if (overlay_navigation.hasClass('overlay-active')) {
-    top_bar.removeClass('animate-out-top-bar').addClass('animate-top-bar');
-    middle_bar.removeClass('animate-out-middle-bar').addClass('animate-middle-bar');
-    bottom_bar.removeClass('animate-out-bottom-bar').addClass('animate-bottom-bar');
-    overlay_navigation.removeClass('overlay-slide-up').addClass('overlay-slide-down')
-    nav_item_1.removeClass('slide-in-nav-item-reverse').addClass('slide-in-nav-item');
-    nav_item_2.removeClass('slide-in-nav-item-delay-1-reverse').addClass('slide-in-nav-item-delay-1');
-    nav_item_3.removeClass('slide-in-nav-item-delay-2-reverse').addClass('slide-in-nav-item-delay-2');
-    nav_item_4.removeClass('slide-in-nav-item-delay-3-reverse').addClass('slide-in-nav-item-delay-3');
-    nav_item_5.removeClass('slide-in-nav-item-delay-4-reverse').addClass('slide-in-nav-item-delay-4');
-  } else {
-
-    top_bar.removeClass('animate-top-bar').addClass('animate-out-top-bar');
-    middle_bar.removeClass('animate-middle-bar').addClass('animate-out-middle-bar');
-    bottom_bar.removeClass('animate-bottom-bar').addClass('animate-out-bottom-bar');
-    overlay_navigation.removeClass('overlay-slide-down').addClass('overlay-slide-up')
-    nav_item_1.removeClass('slide-in-nav-item').addClass('slide-in-nav-item-reverse');
-    nav_item_2.removeClass('slide-in-nav-item-delay-1').addClass('slide-in-nav-item-delay-1-reverse');
-    nav_item_3.removeClass('slide-in-nav-item-delay-2').addClass('slide-in-nav-item-delay-2-reverse');
-    nav_item_4.removeClass('slide-in-nav-item-delay-3').addClass('slide-in-nav-item-delay-3-reverse');
-    nav_item_5.removeClass('slide-in-nav-item-delay-4').addClass('slide-in-nav-item-delay-4-reverse');
 
     $(function () { // 遅延処理
-      $('#setting2').click(
-        function () {
           $.ajax({
             headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             type: 'POST',
-            url: "/", // url: は読み込むURLを表す
-            timeout: 5000,
+            url: "settingupdate", // url: は読み込むURLを表す
             datatype: "json",
             data: {
               // valueをセット
-              "workstarttime" : $('#workstarttime').val(),
-              "workendtime" : $('#workendtime').val(),
-              "submissionlimit" : $('#submissionlimit').val(),
-              "vote" : $('#cheap').val()
+              "workstarttime": $('#WorkTimeStart').val(),
+              "workendtime": $('#WorkTimeEnd').val(),
+              "submissionlimit": $('#SubmissionLimit').val(),
+              "vote": $('#cheap').prop('checked')
             }
-          }).done(function (data) {
-            // 通信成功時の処理
-            alert('ファイルの取得に成功しました。');
-          }).fail(function (err) {
-            // 通信失敗時の処理
-            alert('ファイルの取得に失敗しました。');
-          }).always(function() {
-            // 成否に関わらず実行されるコールバック
-            alert('とりあえず確認');
-        });
-        }
-      );
+          });
     });
-    
-
-
   }
 })
 
