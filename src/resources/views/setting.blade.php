@@ -2,7 +2,7 @@
 $stores = json_decode($data);
 ?>
 <link rel="stylesheet" href="/css/setting.css" type="text/css">
-<form  method="post" >
+<form id="form_ajax" method="post" >
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <div class="overlay-navigation">
         <nav role="navigation">
@@ -12,6 +12,7 @@ $stores = json_decode($data);
                     <a class="WorkText">勤務時間</a><br><br><br><br>
                     <div class="selectdiv">
                         <select id="WorkTimeStart" name="WorkTimeStart" class="WorkTimeStart">
+                            <option selected hidden></option>
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -37,8 +38,9 @@ $stores = json_decode($data);
                             <option value="22">22</option>
                             <option value="23">23</option>
                         </select>
-                        <a>～</a>
-                        <select id="WorkTimeEnd" name="WorkTimeEnd" class="WorkTimeEnd">
+                        <a class="Character">～</a>
+                        <select name="WorkTimeEnd" class="WorkTimeEnd">
+
                             <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -102,7 +104,8 @@ $stores = json_decode($data);
                 <li class="navigation_li">
                     <a class="WorkText">シフト提出期限</a><br><br><br><br>
                     <div class="selectdiv">
-                        <select id="SubmissionLimit" name="SubmissionLimit" class="SubmissionLimit">
+                        <select name="SubmissionLimit" class="SubmissionLimit">
+
                             <option value="4">4</option>
                             <option value="5">5</option>
                             <option value="6">6</option>
@@ -118,21 +121,23 @@ $stores = json_decode($data);
                 <li class="navigation_li">
                     <a class="WorkText">投票機能</a><br><br><br><br>
                     <div class="block">
-                        <input value="vote" class="votecheck" id="cheap" type="checkbox"/>
-                        <label for="cheap" class="vote">投票機能を使いますか？</label>
+                        <input data-index="0" id="cheap" type="checkbox" />
+                        <label for="cheap">投票機能を使いますか？</label>
                     </div>
                 </li>
             </ul>
-        </nav>
+            <div id="setting2" class="open-overlay2" style="display: none">
+                <img type=submit src="/img_submit/setting.png" width="100%">
+            </div>
+        </form>
+    </nav>
+</div>
+
+<section class="home">
+    <div id="setting" class="open-overlay">
+        <img src="/img_submit/setting.png" width="100%">
     </div>
-    <section class="home">
-        <div id="setting" class="open-overlay">
-            <img type=submit name="add" src="/img_submit/setting2.png" width="110%">
-        </div>
-    </section>
-</form>
-
-
+</section>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.min.js"></script>
 
