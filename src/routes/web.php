@@ -13,19 +13,9 @@ use App\Models\Store;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//googleapi
-Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
-Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
-Route::get('/api/index', [App\Http\Controllers\GoogleApi\TokenController::class, 'test']);
-Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
-// Route::get('/api', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'test']);
-// Route::get('/api/redirect', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'redirectToGoogle']);
-// Route::get('/api/index', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'handleGoogleCallback']);
-// Route::get('/api/saveToken', [App\Http\Controllers\ryu_test\CalendarApiController::class, 'saveToken']);
-Route::get('/api/callbuck', [App\Http\Controllers\GoogleApi\TokenController::class, 'saveRefreshToken']);
-Route::get('/submittedShiftEdit', function () {
-    $stores = Store::find(Auth::guard('admin')->user()->store_id);
-    return view('submittedShiftEdit', compact('stores'));
+
+Route::get('/', function () {
+    return view('setting');
 });
 
 Route::get('/', [App\Http\Controllers\tokuchan\MainController::class, 'main']);
@@ -63,6 +53,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/employeesManegement', [App\Http\Controllers\EmployeeController::class, 'partDelete'])->name('partManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
     Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
     Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
+
+    Route::post('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empsearchView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
     //line
     // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
     // Route::get('/messages', 'App\Http\Controllers\MessageController@index1')->name('message.index1'); //通知管理
@@ -159,6 +151,7 @@ Route::get('/submittedShiftDetail', [App\Http\Controllers\ShiftController::class
 Route::get('/candidacyShiftChoice', [App\Http\Controllers\ShiftController::class, 'choice'])->name('candidacyShiftChoice');              //シフト候補表示---→シフト候補詳細
 
 
+Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
 
 Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting.update');
 
