@@ -16,3 +16,12 @@ $(function () {
         }
     });
 });
+// $(function () {
+//     $('.check_kind').on('click', function () {
+//         if ($(this).prop('checked')) {
+//             // 一旦全てをクリアして再チェックする
+//             $('.check_kind').prop('checked', false);
+//             $(this).prop('checked', true);
+//         }
+//     });
+// });

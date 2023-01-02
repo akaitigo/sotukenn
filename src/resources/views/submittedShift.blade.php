@@ -153,7 +153,7 @@
                    ?>
                    <ul class="pagination">
                        {{-- ページ数分ループで表示 --}}
-                       <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
+                       <?php for ($x=1; $x < $pagination1 ; $x++) { ?>
                        <li><a class='pagetab'
                                href="?page1=<?php echo $x; ?>&search_name1=<?php echo $search_name1; ?>"><?php echo $x; ?></a>
                        </li>
@@ -284,7 +284,7 @@
                    $pagination2 = ceil($count_loop / 4);
                    ?>
                    <ul class="pagination">
-                       <?php for ($x=1; $x <= $pagination2 ; $x++) { ?>
+                       <?php for ($x=1; $x < $pagination2 ; $x++) { ?>
                        <li><a class='pagetab2_<?php echo $x; ?>'
                                href="?tab=2&page2=<?php echo $x; ?>&search_name2=<?php echo $search_name2; ?>"><?php echo $x; ?></a>
                        </li>
