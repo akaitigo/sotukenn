@@ -28,7 +28,7 @@
             <input id="sbtn5" type="submit" value="検索" />
         </form>
     </div>
-    
+
     <div id="search1">
         <form action="employeesManagementPassView" method="GET">
             <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
@@ -65,8 +65,8 @@
                             </tr>
                         </thead>
                         <?php
-                            $count = 0;
-                            $pass = 1234;
+                        $count = 0;
+                        $pass = 1234;
                         ?>
                         {{-- データ件数の取得 --}}
                         @foreach ($employees as $emp)
@@ -83,7 +83,7 @@
                             $search_name1 = $_POST['search_name1']; //検索内容取得
                         } elseif (isset($_GET['search_name1'])) {
                             $search_name1 = $_GET['search_name1']; //検索内容取得
-                            $search_name1   = openssl_decrypt($search_name1, 'AES-128-ECB', $pass);
+                            $search_name1 = openssl_decrypt($search_name1, 'AES-128-ECB', $pass);
                         } else {
                             $search_name1 = null;
                         }
@@ -100,8 +100,11 @@
                             if (isset($_GET['job' . '' . $i])) {
                                 $job_refinement[] = $_GET['job' . '' . strval($i)]; //検索内容取得
                             } else {
-                                $job_refinement[] = null;
+                                continue;
                             }
+                        }
+                        if (isset($job_refinement)==false) {
+                            $job_refinement[] = null;
                         }
                         
                         // 表示するデータのスタートのポジションを計算する
@@ -121,82 +124,85 @@
                             @foreach ($employees as $emp)
                                 {{-- 表示絞り込み関連 --}}
                                 {{-- ポジション関連 --}}
-                                {{-- @if (array_intersect($job_refinement, $emp_jobkind) != null)
+                                @if (array_intersect($job_refinement, $emp_jobkind) != null)
+                                    <?php $job_name = []; ?>
                                     @foreach ($emp->Jobs as $job)
+                                        <?php $job_name[] = $job->name; ?> 
                                     @endforeach
-                                    @if (array_intersect($job_refinement, $test) == '')
-                                        
-                                    @endif
-                                @endif --}}
-                                {{-- lineIDを連携判定 --}}
-                                @if ($line_refinement == 1)
-                                    @if (is_null($emp->lineUserId))
+                                    @if ($job_refinement != $job_name)
                                         <?php continue; ?>
-                                    @endif
-                                @elseif($line_refinement == 2)
-                                    @if (!is_null($emp->lineUserId))
-                                        <?php continue; ?>
-                                    @endif
+                                    @endif    
                                 @endif
-                                {{-- 表示件数の処理 --}}
-                                {{-- 2ページ以降は（4×ページ数 - 1）件スキップする --}}
-                                @if ($start_loop > $count_loop)
-                                    <?php
-                                    $count_loop = $count_loop + 1;
-                                    continue; ?>
+        
+                            {{-- lineIDを連携判定 --}}
+                            @if ($line_refinement == 1)
+                                @if (is_null($emp->lineUserId))
+                                    <?php continue; ?>
                                 @endif
-                                {{-- (4×ページ数)件以上はスキップ --}}
-                                @if ($end_loop < $count_loop)
-                                    <?php
-                                    $count_loop = $count_loop + 1;
-                                    continue; ?>
+                            @elseif($line_refinement == 2)
+                                @if (!is_null($emp->lineUserId))
+                                    <?php continue; ?>
                                 @endif
-                                {{-- 検索内容と一致しなかったらスキップする --}}
-                                @if ($search_name1 != null)
-                                    @if (preg_match("/$search_name1/", $emp->name) == 0 && preg_match("/$search_name1/", $emp->id) == 0)
-                                        <?php continue; ?>
-                                    @endif
-                                @endif
-
-                                <tr>
-                                    <td>{{ $emp->id }}</td>
-                                    <td>{{ $emp->email }}</td>
-                                    <td>{{ $emp->name }}</td>
-                                    <td>{{ $emp->age }}</td>
-                                    <td>{{ $emp->weight }}</td>
-                                    <td>
-                                        @foreach ($emp->Jobs as $job)
-                                            {{ $job->name }}
-                                        @endforeach
-                                    </td>
-
-                                    @if (!is_null($emp->lineUserId))
-                                        <form method="get" action="{{ route('messagessent') }}">
-                                            @csrf
-                                            <td><button type="submit" name="noticeId" value="{{ $emp->id }}"
-                                                    class="noticeButton">通知</button></td>
-                                        </form>
-                                    @endif
-                                    @if (is_null($emp->lineUserId))
-                                        <td>
-                                            <p>未登録</p>
-                                        </td>
-                                    @endif
-
-
-                                    <form method="get" action="{{ route('employeesManagementChange') }}">
-                                        @csrf
-                                        <td><button type="submit" name="empChange"
-                                                value="{{ $emp->id }}">変　更</button>
-                                        </td>
-                                    </form>
-                                </tr>
+                            @endif
+                            {{-- 表示件数の処理 --}}
+                            {{-- 2ページ以降は（4×ページ数 - 1）件スキップする --}}
+                            @if ($start_loop > $count_loop)
                                 <?php
                                 $count_loop = $count_loop + 1;
-                                ?>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                continue; ?>
+                            @endif
+                            {{-- (4×ページ数)件以上はスキップ --}}
+                            @if ($end_loop < $count_loop)
+                                <?php
+                                $count_loop = $count_loop + 1;
+                                continue; ?>
+                            @endif
+                            {{-- 検索内容と一致しなかったらスキップする --}}
+                            @if ($search_name1 != null)
+                                @if (preg_match("/$search_name1/", $emp->name) == 0 && preg_match("/$search_name1/", $emp->id) == 0)
+                                    <?php continue; ?>
+                                @endif
+                            @endif
+
+                            <tr>
+                                <td>{{ $emp->id }}</td>
+                                <td>{{ $emp->email }}</td>
+                                <td>{{ $emp->name }}</td>
+                                <td>{{ $emp->age }}</td>
+                                <td>{{ $emp->weight }}</td>
+                                <td>
+                                    @foreach ($emp->Jobs as $job)
+                                        {{ $job->name }}
+                                    @endforeach
+                                </td>
+
+                                @if (!is_null($emp->lineUserId))
+                                    <form method="get" action="{{ route('messagessent') }}">
+                                        @csrf
+                                        <td><button type="submit" name="noticeId" value="{{ $emp->id }}"
+                                                class="noticeButton">通知</button></td>
+                                    </form>
+                                @endif
+                                @if (is_null($emp->lineUserId))
+                                    <td>
+                                        <p>未登録</p>
+                                    </td>
+                                @endif
+
+
+                                <form method="get" action="{{ route('employeesManagementChange') }}">
+                                    @csrf
+                                    <td><button type="submit" name="empChange"
+                                            value="{{ $emp->id }}">変　更</button>
+                                    </td>
+                                </form>
+                            </tr>
+                            <?php
+                            $count_loop = $count_loop + 1;
+                            ?>
+                @endforeach
+                </tbody>
+                </table>
                 @endif
                 {{-- 件数に対するページ数計算 --}}
                 <?php
@@ -207,7 +213,8 @@
                 <ul class="pagination">
                     {{-- ページ数分ループで表示 --}}
                     <?php for ($x=1; $x <= $pagination1 ; $x++) { ?>
-                    <li><a class='pagetab' href="?page1=<?php echo $x; ?>&search_name1=<?php echo $search_name1; ?>"><?php echo $x; ?></a>
+                    <li><a class='pagetab'
+                            href="?page1=<?php echo $x; ?>&search_name1=<?php echo $search_name1; ?>"><?php echo $x; ?></a>
                     </li>
                     <?php } ?>
                 </ul>
@@ -245,7 +252,7 @@
                             $search_name2 = $_POST['search_name2']; //検索内容取得
                         } elseif (isset($_GET['search_name2'])) {
                             $search_name2 = $_GET['search_name2']; //検索内容取得
-                            $search_name2   = openssl_decrypt($search_name2, 'AES-128-ECB', $pass);
+                            $search_name2 = openssl_decrypt($search_name2, 'AES-128-ECB', $pass);
                         } else {
                             $search_name2 = null;
                         }
@@ -338,9 +345,9 @@
             <div id='アルバイト' class="tab-content">
             </div>
         </div>
-
     </div>
 </div>
+
 <script type="text/javascript" src="/js/tab.js"></script>
 <script type="text/javascript" src="/js/checkbox.js"></script>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
