@@ -14,7 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('informationshare', function (Blueprint $table) {
-            // $table->foreign('store_id')->references('id')->on('stores');
+            $table->unsignedInteger('store_id')->default('1');
+            $table->foreign('store_id')->references('id')->on('stores');
             $table->string('shareName');
             $table->string('shareContent');
             $table->integer('shareTarget');

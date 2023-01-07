@@ -65,23 +65,19 @@ class LineWebhookController extends Controller
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
                 $empNullBool=false;
                 $partNullBool=false;
-
-
-                
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('情報共有ですね！情報共有では、従業員各位に情報を共有することが可能です。');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("※注意：MARUOKUNに表示される期間は最大15日間です。\n通知は一度しか行われません。他者を不快にさせるような通知は行わないようお願いいたします。\n本通知は管理者が確認することができます。");
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('下記のテンプレートの例を削除して必要事項の記入をお願いします。');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("NOTICE\n表示期間：例10\n通知対象：例キッチン(全体の場合は’ALL’)\n通知内容：例〇時に▽があります。");
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("NOTICE\n表示期間：例10（最大15日まで）\n｜通知対象：例キッチン(全体の場合は’ALL’)\n｜通知内容：例〇時に▽があります。");
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-
-
-
-
-
                 break;
+            }else if(strpos($inputText, 'NOTICE') !== false){//情報共有
+
+
+
 
             }else if (strpos($inputText, '@') !== false) { //メールアドレスか検査
                 $forcheck = true;

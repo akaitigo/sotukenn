@@ -238,3 +238,25 @@ th {
     font-family: Yu Gothic;
     font-weight: bold;
 }
+
+.registerButton {
+    background-color: #1aa1ff;
+    width: auto;
+    margin: 5;
+    color: #FFF;
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    border-radius: 3px;
+    text-align: left;
+    font-family: Yu Gothic;
+    font-weight: bold;
+    transition: 0.3s;
+    white-space: nowrap;
+}
+
+.registerButton:hover {
+    background-color: rgb(100, 219, 255);
+}

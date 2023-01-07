@@ -10,6 +10,10 @@ class informationShareController extends Controller
 
     }
 
+    public function informationShareRegister(){
+        
+    }
+
     
     
 
