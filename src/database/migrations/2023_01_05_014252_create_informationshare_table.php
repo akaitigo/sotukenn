@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreign('store_id')->references('id')->on('stores');
             $table->string('shareName');
             $table->string('shareContent');
-            $table->integer('shareTarget');
             $table->string('registerUser');
             $table->date('registrationDate');
         });
