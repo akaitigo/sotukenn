@@ -4,9 +4,7 @@
 <title>通知管理</title>
 @include('new_header')
 <div id="scale">
-<div>
     <a href="{{ route('noticeAdd') }}" class="">追加</a>
-</div>
     @if (!$notices->isEmpty())
         <div id='container'>
             <div class='widget'>
