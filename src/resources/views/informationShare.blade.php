@@ -17,9 +17,9 @@
                     <thead>
                         <tr>
                             <th>登録日</th>
+                            <th>提示名</th>
                             <th>掲示内容</th>
                             <th>掲示登録者</th>
-                            <th>掲示対象</th>
                             <th>残り掲示日数</th>
                             <th>削除</th>
 
@@ -27,13 +27,16 @@
                     </thead>
                     <tbody>
 
+                        @foreach ($information as $info)
+
                         <tr>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
-                            <td>test</td>
+                            <td>{{$info->registrationDate}}</td>
+                            <td>{{$info->shareContent}}</td>
+                            <td>{{$info->shareText}}</td>
+                            <td>{{$info->registerUser}}</td>
+                            <td>{{$info->registrationDay}}</td>
                             <td>deleteButton</td>
                         </tr>
+                              @endforeach
                     </tbody>
                 </table>

@@ -42,7 +42,7 @@ class MultiAuthTableSeeder extends Seeder
             ],
             [
                 'name' => '田中花子',
-                'email' => 'test2@test.com',
+                'email' => '11@gmail.com',
                 'password' => 'testtest',
                 'weight' => '5',
                 'store_id' => '1',
@@ -600,7 +600,7 @@ class MultiAuthTableSeeder extends Seeder
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
             ],
-            
+
 
         ];
         foreach ($init_parttimers as $init_parttimer) {

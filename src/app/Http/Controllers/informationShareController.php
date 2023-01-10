@@ -15,7 +15,11 @@ class informationShareController extends Controller
     public function informationShareView()
     {
 
-        return view('informationShare');
+        $user = Auth::user();
+        $userStore = $user->store_id;
+        $information = InformationShare::where('store_id', '=', $userStore)->get();
+        dump($information);
+        return view('informationShare', compact('information'));
     }
 
     public function informationShareRegister()
@@ -29,8 +33,29 @@ class informationShareController extends Controller
         $getEmail = $request->input('registerUser');
         $getUserEmp = Employee::where('email', '=', $getEmail)->get();
         $getUserPart = Parttimer::where('email', '=', $getEmail)->get();
+        $inputSpan = $request->input('days');
+        $inputShareContent = $request->input('sharename');
+        $inputText = $request->input('massage');
+        foreach ($getUserEmp as $emp) {
+            \DB::table('informationshares')->insert([
+                'shareSpan' => $inputSpan, //表示期間
+                'shareContent' => $inputShareContent, //掲示明
+                'registerUser' => $emp->name, //登録者
+                'shareText' => $inputText,
+                'registrationDate' => $today = date("Y-m-d H:i:s")
 
-        $information = new InformationShare;
-        $information->shareName('test');
+            ]);
+        }
+
+        foreach ($getUserPart as $part) {
+            \DB::table('informationshares')->insert([
+                'shareSpan' => $inputSpan, //表示期間
+                'shareContent' => $inputShareContent, //掲示明
+                'registerUser' => $emp->name, //登録者
+                'shareText' => $inputText,
+                'registrationDate' => $today = date("Y-m-d H:i:s")
+
+            ]);
+        }
     }
 }

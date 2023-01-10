@@ -16,8 +16,8 @@ h2 {
     font-family: Yu Gothic;
     text-align: center;
     color: rebeccapurple;
-    font-size: 1.2vw;
-    margin-top: 130px;
+    font-size: 2em;
+    margin-top: 10px;
     transition: 0.3s;
 
 }
@@ -278,5 +278,5 @@ th {
 }
 
 .inputText {
-    padding: 10 10 10 10 ;
+    padding: 10 10 10 10;
 }

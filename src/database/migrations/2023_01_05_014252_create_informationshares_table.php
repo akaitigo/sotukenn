@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('informationshares', function (Blueprint $table) {
             $table->unsignedInteger('store_id')->default('1');
             $table->foreign('store_id')->references('id')->on('stores');
-            $table->string('shareName')->nullable();
-            $table->string('shareContent')->nullable();
-            $table->string('registerUser')->nullable();
-            $table->date('registrationDate')->nullable();
+            $table->integer('shareSpan')->nullable(); //表示期間
+            $table->string('shareContent')->nullable(); //掲示明
+            $table->string('registerUser')->nullable(); //登録者
+            $table->string('shareText')->nullable(); //掲示内容
+            $table->date('registrationDate')->nullable(); //登録日
         });
     }
 

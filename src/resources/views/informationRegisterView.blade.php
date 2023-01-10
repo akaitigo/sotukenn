@@ -11,7 +11,7 @@
     <title>業務情報共有掲示板</title>
     <div id='container'>
         <div class='widget'>
-            <h2>掲示内容登録</h2>
+            <h2 class="sharetitle">掲示内容登録</h2>
             <h3>こちらで掲示板に掲載する内容を登録することができます。下記注意事項をお読みになってご利用ください。</h3><br />
             <h3 class="attention">掲示板に登録される期間は最大で15日となっております。<br />
                 登録と同時にMARUOKUN公式ラインに登録している対象者に通知されます。通知は一度のみ行われます<br />
@@ -25,12 +25,8 @@
                 @csrf
             <h2 class="label-title">掲示内容登録</p>
                 <div class="inforForm">
-                    <p class="form-label">氏名</p>
-                    <input type="text" class="form-input" name="username" required placeholder="例）鈴木一郎">
-                </div>
-                <div class="inforForm">
                     <p class="form-label">掲示期間</p>
-                    <input type="text" class="form-input" name="deys" required placeholder="例）10(最大15日まで)">
+                    <input type="text" class="form-input" name="days" required placeholder="例）10(最大15日まで)">
                 </div>
                 <div class="inforForm">
                     <p class="form-label">掲示名</p>
@@ -39,7 +35,7 @@
                 </div>
                 <div class="inforForm">
                     <p class="form-label">掲示内容</p>
-                    <textarea class="inputText" name="message" name="sharetext" maxlength="250" rows="10" placeholder="(最大250文字まで)"
+                    <textarea class="inputText" name="massage" maxlength="250" rows="10" placeholder="(最大250文字まで)"
                         style="font-family:Yu Gothic"></textarea>
                 </div>
 
