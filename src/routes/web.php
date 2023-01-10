@@ -67,6 +67,9 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
     Route::get('/informationShareRegister',  [App\Http\Controllers\informationShareController::class, 'informationShareRegister'])->name('informationShare-register');
     Route::post('/informationShareRegisterInput',  [App\Http\Controllers\informationShareController::class, 'informationSave'])->name('informationRegisterInput');
+    Route::post('/informationShareDelete',  [App\Http\Controllers\informationShareController::class, 'informationDelete'])->name('informationDelete');
+
+
     Route::post('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empsearchView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
     //line
     // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');

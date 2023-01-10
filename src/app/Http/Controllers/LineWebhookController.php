@@ -71,7 +71,7 @@ class LineWebhookController extends Controller
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('下記のリンクより登録、参照を行うことができます。');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("route('informationShare)");
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(route('informationShare'));
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 break;
             } else if (strpos($inputText, 'NOTICE') !== false) { //情報共有
