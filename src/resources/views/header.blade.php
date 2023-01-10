@@ -48,6 +48,11 @@ use App\Models\Parttimer;
                         </ul>
                     </nav>
                 </li>
+
+                <!-- 情報共有 -->
+                <li class="nav-item">
+                    <a href="{{ route('informationShare') }}" class="nav-link"><span>情報共有</span></a>
+                </li>
                 <li class="nav-item">
                 </li>
 

@@ -11,7 +11,7 @@
     <div id='container'>
         <div class='widget'>
             <div id='正社員' class="tab-content" href="?tab1">
-
+                <a href="{{ route('informationShare-register') }}" class="registerButton">通知登録</a>
                 <table class="group-table">
                     <caption>掲示一覧</caption>
                     <thead>
