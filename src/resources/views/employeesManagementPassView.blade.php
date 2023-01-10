@@ -18,6 +18,7 @@
             @csrf
             <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" />
             <input id="sbtn5" type="submit" value="検索" />
+            <button id="sbtn5"  href="{{ route('employeesManegementAdd') }}">追加</button>
         </form>
         <form action="employeesManagementPassView" method="GET">
             <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
@@ -28,6 +29,7 @@
             @endforeach
             <input id="sbtn" type="submit" value="絞り込み" />
         </form>
+
     </div>
     <div id="search2">
         <form action="employeesManagementPassView?tab=2" method="post">
@@ -36,6 +38,7 @@
             <input id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
             <input id="sbtn5" type="submit" value="検索" />
         </form>
+        <a href="{{ route('employeesManegementAdd') }}" class="addbtn">追加</a>
         <form action="employeesManagementPassView" method="GET">
             <input type="text" name="tab" value="2" style="display: none;" />
             <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
@@ -46,10 +49,6 @@
             @endforeach
             <input id="sbtn" type="submit" value="絞り込み" />
         </form>
-    </div>
-        
-    <div>
-    <a href="{{ route('employeesManegementAdd') }}" class="">追加</a>
     </div>
 
     <title>従業員管理</title>

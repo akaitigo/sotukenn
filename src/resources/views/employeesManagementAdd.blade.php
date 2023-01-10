@@ -51,7 +51,7 @@
                                         <td class="emptext">
                                             @foreach ($allJob as $alljob)
                                                 <input  type="checkbox" name="{{ $loop->iteration }}"
-                                                    value="{{ $loop->iteration }}" required>
+                                                    value="{{ $loop->iteration }}">
                                                 {{ $alljob->name }}
                                                 <br>
                                                 {{-- {{$loop->iteration}}で現在のループ回数 --}}
