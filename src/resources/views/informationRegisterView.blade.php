@@ -23,7 +23,7 @@
 
             <form method="post" action="{{ route('informationRegisterInput') }}">
                 @csrf
-            <h2 class="label-title">掲示内容登録</p>
+            <h2 class="label-title">掲示内容登録</p>   
                 <div class="inforForm">
                     <p class="form-label">掲示期間</p>
                     <input type="text" class="form-input" name="days" required placeholder="例）10(最大15日まで)">
