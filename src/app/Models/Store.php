@@ -10,7 +10,7 @@ class Store extends Model
     use HasFactory;
 
     protected $fillable=['name'];
-    
+
     public function admin()
     {
         return $this->hasOne(Admin::class,'store_id');
@@ -34,5 +34,10 @@ class Store extends Model
     public function optimize()
     {
         return $this->hasMany(Optimize::class);
+    }
+
+    public function informations()
+    {
+        return $this->hasMany(Information::class);
     }
 }

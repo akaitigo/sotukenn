@@ -29,10 +29,11 @@ class DatabaseSeeder extends Seeder
         $this->call(MultiAuthTableSeeder::class);
         $this->call(EmployeeJobSeeder::class);
         $this->call(ParttimerJobSeeder::class);
-        $this->call(ParttimerStatusSeeder::class);    
-        $this->call(UsersSeeder::class);  
+        $this->call(ParttimerStatusSeeder::class);
+        $this->call(UsersSeeder::class);
         $this->call(EmployeeStatusSeeder::class);
         $this->call(NoticeSeeder::class);
         $this->call(OptimizeSeeder::class);
+        $this->call(InformationShareSeeder::class);
     }
 }
