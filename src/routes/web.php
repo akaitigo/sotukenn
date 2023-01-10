@@ -144,6 +144,8 @@ Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar
 
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
+Route::get('/noticeAdd', [App\Http\Controllers\NoticeManagementController::class, 'add'])->name('noticeAdd');           //通知追加
+Route::post('/noticeAdd', [App\Http\Controllers\NoticeManagementController::class, 'dbadd'])->name('noticedbAdd');  //従業員管理パスワード表示・管理-->従業員情報変更(追加)
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
 Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
 Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeManagementDelete');                       //通知削除

@@ -5,7 +5,7 @@
 
 <button class="backButton" onclick="history.back()">戻　る</button>
 @csrf
-<h2>通知変更</h2>
+<h2>通知追加</h2>
 
 <table class="table" border="2">
     <thead>
@@ -14,27 +14,18 @@
             <th>対象</th>
             <th class="noticeManagementmessage">メッセージ</th>
             <th>&nbsp;通知日&nbsp;</th>
-            <th>更新</th>
-            <th>削除</th>
+            <th>追加</th>
         </tr>
     </thead>
 
     <tbody>
-        <form method="post" action="{{route('noticeUpdate')}}">
+        <form method="post" action="{{route('noticedbAdd')}}">
         @csrf
-        @foreach ($notices as $noti)
             <tr>
-                <td><input type="text" name="newNotiContent" placeholder="{{ $noti->content}}"></td>
-                <td><input type="text" name="newNotiTarget" placeholder="{{$noti->target}}"></td>
-                <td><input type="text" name="newNotiMessage" placeholder="{{$noti->message}}" class="noticeManagementmessage"></td>
+                <td><input type="text" name="newNotiContent" placeholder="content" require></td>
+                <td><input type="text" name="newNotiTarget" placeholder="target" require></td>
+                <td><input type="text" name="newNotiMessage" placeholder="message" class="noticeManagementmessage" require></td>
                 <td><select id="slc" name="newNotiDay" class="notiday">
-                        <option selected hidden>
-                            @if(($noti->noticeday) == 0)
-                                手動
-                            @else
-                                {{($noti->noticeday)}}
-                            @endif
-                        </option>
                         <option value="0">手動</option>
                         <option value="1">1日</option>
                         <option value="2">2日</option>
@@ -84,14 +75,8 @@
                     elm.currentTarget.blur();
                 }, false)
                 </script>
-                <td><button type="submit" name="updateId" value="{{$noti->id}}" class="updateButton">更　新</button></td>
-                </form>
-
-                <form method="post"  action="{{route('noticeManagementDelete')}}" onSubmit="return DeleteCheck()">
-                    @csrf
-                    <td><button id="deleteid" type="submit" name="deleteid" value="{{$noti->id}}" class="deleteButton">削　除</td>
+                <td><button type="submit" name="updateId" class="updateButton">追 加</button></td>
                 </form>
             </tr>
-        @endforeach
     </tbody>
 
