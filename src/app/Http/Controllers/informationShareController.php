@@ -89,8 +89,10 @@ class informationShareController extends Controller
         }
         foreach($linePart as $part){
             if($part->store_id == $userStore){
-                $textMessageBuilder = new TextMessageBuilder("test");
-                $response = $bot->pushMessage($part->lineUserId, $textMessageBuilder);
+                $textMessageBuilder = new TextMessageBuilder("新規の掲示が登録されました。\n確認をお願いします");
+                $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
+                $textMessageBuilder = new TextMessageBuilder("掲示名：".$inputShareContent."\n掲示内容：".$inputText."\n\n登録者：".$emp->name);
+                $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
             }
         }
         $information = InformationShare::where('store_id', '=', $userStore)->get();
