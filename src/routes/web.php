@@ -66,6 +66,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
     Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
     Route::get('/informationShareRegister',  [App\Http\Controllers\informationShareController::class, 'informationShareRegister'])->name('informationShare-register');
+    Route::post('/informationShareRegisterInput',  [App\Http\Controllers\informationShareController::class, 'informationSave'])->name('informationRegisterInput');
     Route::post('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empsearchView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
     //line
     // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
@@ -81,7 +82,7 @@ Route::middleware('auth:employee,admin')->group(function  ()  {
     Route::get('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
 
-    
+
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 

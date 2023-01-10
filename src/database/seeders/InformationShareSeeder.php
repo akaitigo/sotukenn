@@ -16,7 +16,7 @@ class InformationShareSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('informationshare')->insert([
+        DB::table('informationshares')->insert([
             'store_id'=>'1',
         ]);
 
