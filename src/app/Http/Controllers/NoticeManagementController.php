@@ -28,6 +28,34 @@ class NoticeManagementController extends Controller
         $noticemessagelength = mb_strwidth($noticemessage);
         return view('noticeEdit',compact('notices', 'noticemessagelength'));
     }
+
+    public function add(Request $request)
+    {
+        return view('noticeAdd');
+    }
+    public function dbadd(Request $request)
+    {
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+
+        $inputContent = $request->input('newNotiContent');
+        $inputTarget = $request->input('newNotiTarget');
+        $inputMessage = $request->input('newNotiMessage');
+        $selectNotiDay = $_POST['newNotiDay'];
+            \DB::table('notices')->insert([
+                'store_id'=>$storeid,
+                'content'=>$inputContent,
+                'target'=>$inputTarget,
+                'message' =>$inputMessage,
+                'noticeday' => $selectNotiDay,
+            ]);
+        
+            $adminid=Auth::guard('admin')->id();
+            $storeid = admin::where('id',$adminid)->value('store_id');
+            $notices = Notice::where('store_id',$storeid)->get();
+        return redirect()->route('noticeManagement')->with(compact('notices'));
+    }
+
     /* 通知更新 */
     public function update(Request $request)
     {

@@ -57,7 +57,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/informationShare', [App\Http\Controllers\informationShareController::class, 'informationShareView'])->name('informationShare');
     Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
     Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
-    Route::get('/employeesManegementAdd', [App\Http\Controllers\EmployeeController::class, 'empAdd'])->name('employeesManegementAdd'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
+    Route::get('/employeesManegementAdd', [App\Http\Controllers\EmployeeController::class, 'empAdd'])->name('employeesManegementAdd'); //従業員管理パスワード表示・管理-->従業員情報変更(追加)
+    Route::post('/employeesManagementAdd', [App\Http\Controllers\EmployeeController::class, 'empdbAdd'])->name('employeesManegementdbAdd');  //従業員管理パスワード表示・管理-->従業員情報変更(追加)
     Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
     Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(part)
     Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
@@ -65,6 +66,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::post('/employeesManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'empUpdate'])->name('employeesManegementUpdate'); //従業員情報変更-->情報上書き更新(emp)
     Route::post('/parttimersManegementUpdate', [App\Http\Controllers\EmployeeController::class, 'partUpdate'])->name('parttimersManegementUpdate'); //従業員情報変更-->情報上書き更新(part)
     Route::get('/informationShareRegister',  [App\Http\Controllers\informationShareController::class, 'informationShareRegister'])->name('informationShare-register');
+    Route::post('/informationShareRegisterInput',  [App\Http\Controllers\informationShareController::class, 'informationSave'])->name('informationRegisterInput');
     Route::post('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empsearchView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
     //line
     // Route::post('/line/webhook', 'App\Http\Controllers\LineWebhookController@message')->name('line.webhook.message');
@@ -80,7 +82,7 @@ Route::middleware('auth:employee,admin')->group(function  ()  {
     Route::get('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
 
-    
+
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
@@ -143,6 +145,8 @@ Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar
 
 
 Route::get('/noticeManagement', [App\Http\Controllers\NoticeManagementController::class, 'management'])->name('noticeManagement');           //通知管理
+Route::get('/noticeAdd', [App\Http\Controllers\NoticeManagementController::class, 'add'])->name('noticeAdd');           //通知追加
+Route::post('/noticeAdd', [App\Http\Controllers\NoticeManagementController::class, 'dbadd'])->name('noticedbAdd');  //従業員管理パスワード表示・管理-->従業員情報変更(追加)
 Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::class, 'edit'])->name('noticeEdit');                       //通知編集
 Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
 Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeManagementDelete');                       //通知削除

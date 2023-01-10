@@ -3,8 +3,8 @@
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 <title>通知管理</title>
 @include('new_header')
-
 <div id="scale">
+    <a href="{{ route('noticeAdd') }}" class="">追加</a>
     @if (!$notices->isEmpty())
         <div id='container'>
             <div class='widget'>

@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('informationshare', function (Blueprint $table) {
+        Schema::create('informationshares', function (Blueprint $table) {
             $table->unsignedInteger('store_id')->default('1');
             $table->foreign('store_id')->references('id')->on('stores');
-            $table->string('shareName');
-            $table->string('shareContent');
-            $table->string('registerUser');
-            $table->date('registrationDate');
+            $table->string('shareName')->nullable();
+            $table->string('shareContent')->nullable();
+            $table->string('registerUser')->nullable();
+            $table->date('registrationDate')->nullable();
         });
     }
 
