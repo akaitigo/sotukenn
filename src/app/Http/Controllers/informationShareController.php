@@ -23,12 +23,6 @@ class informationShareController extends Controller
         $user = Auth::user();
         $userStore = $user->store_id;
         $information = InformationShare::where('store_id', '=', $userStore)->get();
-        $today= new Carbon(Carbon::now());
-        foreach($information as $info){
-            if($info->daysRemaining->isPast()){
-                $info->delete();//過去の日付であれば削除
-            }
-        }
         return view('informationShare', compact('information'));
     }
 
