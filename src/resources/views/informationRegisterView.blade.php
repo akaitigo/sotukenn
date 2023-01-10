@@ -22,6 +22,7 @@
 
 
             <form method="post" action="{{ route('informationRegisterInput') }}">
+                @csrf
             <h2 class="label-title">掲示内容登録</p>
                 <div class="inforForm">
                     <p class="form-label">氏名</p>

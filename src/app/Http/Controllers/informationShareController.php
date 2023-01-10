@@ -30,8 +30,7 @@ class informationShareController extends Controller
         $getUserEmp = Employee::where('email', '=', $getEmail)->get();
         $getUserPart = Parttimer::where('email', '=', $getEmail)->get();
 
-        $information = InformationShare::get();
-
-        $information->name('test');
+        $information = new InformationShare;
+        $information->shareName('test');
     }
 }

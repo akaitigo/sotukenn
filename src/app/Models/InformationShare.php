@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class InformationShare extends Model
 {
     use HasFactory;
+    protected $table = 'informationshares'; 
     public function stores()
     {
         return $this->belongsTo(Store::class);
