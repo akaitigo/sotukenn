@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class InformationShare extends Model
 {
     use HasFactory;
+    public function stores()
+    {
+        return $this->belongsTo(Store::class);
+    }
 }
