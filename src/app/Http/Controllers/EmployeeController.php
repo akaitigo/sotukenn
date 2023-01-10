@@ -67,6 +67,12 @@ class EmployeeController extends Controller
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
 
+    //-->変更対象受け渡し
+    public function empAdd()
+    {
+        $allJob = Job::get();
+        return view('employeesManagementAdd',compact('allJob'));
+    }
 
     //-->変更対象受け渡し
     public function empChange(Request $request) //変更ボタン押下の際呼び出し
@@ -151,6 +157,47 @@ class EmployeeController extends Controller
 
     //削除->
 
+    //<-追加処理
+    public  function empdbAdd(Request $request)
+    {
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+
+        $inputName = $request->input('newEmpName');
+        $inputEmail = $request->input('newEmpEmail');
+        $selectweight = $_POST['newweight'];
+        $inputPassword = $request->input('newEmpPassword');
+        $inputAge = $request->input('newEmpAge');
+        $selectemp = $_POST['newemp'];
+        if($selectemp == 1) {
+            \DB::table('employees')->insert([
+                'name' => $inputName,
+                'email' => $inputEmail,
+                'password' => $inputPassword,
+                'weight' => $selectweight,
+                'store_id' => $storeid,
+                'age' => $inputAge
+            ]);
+
+        }else {
+            \DB::table('parttimers')->insert([
+                'name' => $inputName,
+                'email' => $inputEmail,
+                'password' => $inputPassword,
+                'weight' => $selectweight,
+                'store_id' => $storeid,
+                'age' => $inputAge
+            ]);
+
+        }
+        
+        $adminid=Auth::guard('admin')->id();
+        $storeid = admin::where('id',$adminid)->value('store_id');
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
+
+        return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
+    }
 
     //<-上書き更新↓
     public  function empUpdate(Request $request)
