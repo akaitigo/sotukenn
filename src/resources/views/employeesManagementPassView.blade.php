@@ -47,7 +47,10 @@
             <input id="sbtn" type="submit" value="絞り込み" />
         </form>
     </div>
-
+        
+    <div>
+    <a href="{{ route('employeesManegementAdd') }}" class="">追加</a>
+    </div>
 
     <title>従業員管理</title>
     <div id='container'>
