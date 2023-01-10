@@ -57,6 +57,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/informationShare', [App\Http\Controllers\informationShareController::class, 'informationShareView'])->name('informationShare');
     Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
     Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
+    Route::get('/employeesManegementAdd', [App\Http\Controllers\EmployeeController::class, 'empAdd'])->name('employeesManegementAdd'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
     Route::get('/employeesManegementChange', [App\Http\Controllers\EmployeeController::class, 'empChange'])->name('employeesManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(emp)
     Route::get('/partManegementChange', [App\Http\Controllers\EmployeeController::class, 'partChange'])->name('partManagementChange'); //従業員管理パスワード表示・管理-->従業員情報変更(part)
     Route::post('/employeesManagementDelete', [App\Http\Controllers\EmployeeController::class, 'empDelete'])->name('employeesManagementDelete'); //従業員管理パスワード表示・管理-->従業員情報変更(削除)
