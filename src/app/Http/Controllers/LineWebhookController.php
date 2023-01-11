@@ -10,6 +10,7 @@ use App\Models\Message;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use Carbon\Carbon;
+use App\Models\CompleteShift;
 
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
@@ -41,17 +42,12 @@ class LineWebhookController extends Controller
             $inputLineId = $event['source']['userId'];
 
             if ($inputText === "シフト確認") {
-
-
                 //JSONデータを取得
                 $jsonAry = json_decode(file_get_contents('php://input'), true);
                 //メッセージ取得(配列)
                 $message = $jsonAry['events'][0]['message'];
                 //返信用トークン
                 $replyToken = $jsonAry['events'][0]['replyToken'];
-
-
-
                 define('TOKEN', '58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
 
                 $messageData = [
@@ -92,17 +88,78 @@ class LineWebhookController extends Controller
             } else if ($inputText === '>次のシフト') {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
-                $empforCheck = false;
-
-
-
-                foreach ($employeeNullCheck as $emp) {
-                    $empforCheck = true;
-                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("次回のシフトを送信します");
-                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                $now = Carbon::now()->format('d');
+                $count=$now;
+                $countDays=0;
+                foreach($employeeNullCheck as $emp){
+                    $userId=$emp->id;
+                $shift=CompleteShift::where('emppartid','=',$userId)->where('judge','=',true)->get();
+                foreach($shift as $shi){
+                    for($i=0;$i<=31;$i++){
+                        $days=$now+$i;
+                        $daysTemp='day'.$days;
+                        if($shi->$daysTemp==='×'){
+                        }else if($shi->$daysTemp==='-'){
+                        }else{
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name.'さんの次の勤務は'.$shi->month.'月'.$days.'日'.$shi->$daysTemp."です！\n頑張りましょう！！");
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
+                        }
+                    }
+                }
+                }
+                foreach($partNullCheck as $part){
+                    $userId=$emp->id;
+                $shift=CompleteShift::where('emppartid','=',$userId)->where('judge','=',false)->get();
+                foreach($shift as $shi){
+                    for($i=0;$i<=31;$i++){
+                        $days=$now+$i;
+                        $daysTemp='day'.$days;
+                        if($shi->$daysTemp==='×'){
+                        }else if($shi->$daysTemp==='-'){
+                        }else{
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($part->name.'さんの次の勤務は'.$shi->month.'月'.$days.'日'.$shi->$daysTemp."です！\n頑張りましょう！！");
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
+                        }
+                    }
+                }
                 }
             } else if ($inputText === '>すべてのシフト') {
-                //すべてのシフト
+                $text="";
+                $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
+                $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                foreach($employeeNullCheck as $emp){
+                    $userId=$emp->id;
+                    $shift=CompleteShift::where('emppartid','=',$userId)->where('judge','=',true)->get();
+                foreach($shift as $shi){
+                    for($i=0;$i<=31;$i++){
+                        $daysTemp='day'.$i;
+                        if(!($i===0)){
+                            $text=$text.$shi->month."月".$i."日".$shi->$daysTemp."\n";
+                        }
+                    }
+                    }
+
+                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name."さんの".$shi->month."月のシフトは\n".$text);
+                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                }
+                foreach($partNullCheck as $part){
+                    $userId=$emp->id;
+                    $shift=CompleteShift::where('emppartid','=',$userId)->where('judge','=',false)->get();
+                foreach($shift as $shi){
+                    for($i=0;$i<=31;$i++){
+                        $daysTemp='day'.$i;
+                        if(!($i===0)){
+                            $text=$text.$shi->month."月".$i."日".$shi->$daysTemp."\n";
+                        }
+                    }
+                    }
+
+                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
+                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                }
+                
             } else if ($inputText === "シフト提出") {
                 $text = "未実装です";
                 $response = $bot->replyText($event['replyToken'], $text);
@@ -139,11 +196,6 @@ class LineWebhookController extends Controller
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder(route('informationShare'));
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 break;
-            } else if (strpos($inputText, 'NOTICE') !== false) { //情報共有
-
-
-
-
             } else if (strpos($inputText, '@') !== false) { //メールアドレスか検査
                 $forcheck = true;
                 $employeeNullCheck = Employee::where('email', '=', $inputText)->get();
