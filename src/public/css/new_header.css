@@ -1,14 +1,18 @@
 @import url('https://fonts.googleapis.com/css?family=Varela+Round');
-html, body {
+
+html,
+body {
     overflow-x: hidden;
     height: 100%;
 }
+
 body {
     background: #fff;
     padding: 0;
     margin: 0;
     font-family: 'Varela Round', sans-serif;
 }
+
 .header {
     display: block;
     margin: 0 auto;
@@ -16,37 +20,42 @@ body {
     max-width: 100%;
     box-shadow: none;
     background-color: #4c46fc;
-    height: 60px!important;
+    height: 60px !important;
     overflow: hidden;
     z-index: 10;
     text-align: center;
     position: fixed;
 }
+
 .brand {
     font-family: Yu Gothic;
     font-size: 2.3vw;
     color: rgb(255, 255, 255);
     font-weight: bold;
 }
+
 .main {
     margin: 0 auto;
     display: block;
     height: 100%;
     margin-top: 60px;
 }
-.mainInner{
+
+.mainInner {
     display: table;
     height: 100%;
     width: 100%;
     text-align: center;
 }
-.mainInner div{
-    display:table-cell;
+
+.mainInner div {
+    display: table-cell;
     vertical-align: middle;
     font-size: 3em;
     font-weight: bold;
     letter-spacing: 1.25px;
 }
+
 #sidebarMenu {
     height: 100%;
     left: 0;
@@ -58,12 +67,14 @@ body {
     background: linear-gradient(180deg, #4655fc 0%, #3fb9fb 100%);
     position: fixed;
 }
-.sidebarMenuInner{
-    margin:0;
-    padding:0;
+
+.sidebarMenuInner {
+    margin: 0;
+    padding: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
-.sidebarMenuInner li{
+
+.sidebarMenuInner li {
     list-style: none;
     color: #fff;
     text-transform: uppercase;
@@ -72,19 +83,22 @@ body {
     cursor: pointer;
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
 }
-.sidebarMenuInner li span{
+
+.sidebarMenuInner li span {
     display: block;
     font-size: 14px;
     color: rgba(255, 255, 255, 0.50);
 }
-.sidebarMenuInner li a{
+
+.sidebarMenuInner li a {
     color: #fff;
     text-transform: uppercase;
     font-weight: bold;
     cursor: pointer;
     text-decoration: none;
 }
-.openSidebarMenu[type="checkbox"]:checked ~ #sidebarMenu {
+
+.openSidebarMenu[type="checkbox"]:checked~#sidebarMenu {
     transform: translateX(0);
 }
 
@@ -93,6 +107,7 @@ body {
     box-sizing: border-box;
     display: none;
 }
+
 .sidebarIconToggle {
     transition: all 0.3s;
     box-sizing: border-box;
@@ -106,6 +121,7 @@ body {
     height: 22px;
     width: 22px;
 }
+
 .spinner {
     transition: all 0.3s;
     box-sizing: border-box;
@@ -114,6 +130,7 @@ body {
     width: 100%;
     background-color: #fff;
 }
+
 .horizontal {
     transition: all 0.3s;
     box-sizing: border-box;
@@ -121,12 +138,14 @@ body {
     float: left;
     margin-top: 3px;
 }
+
 .diagonal.part-1 {
     position: relative;
     transition: all 0.3s;
     box-sizing: border-box;
     float: left;
 }
+
 .diagonal.part-2 {
     transition: all 0.3s;
     box-sizing: border-box;
@@ -134,20 +153,28 @@ body {
     float: left;
     margin-top: 3px;
 }
-input[type=checkbox]:checked ~ .sidebarIconToggle > .horizontal {
+
+input[type=checkbox]:checked~.sidebarIconToggle>.horizontal {
     transition: all 0.3s;
     box-sizing: border-box;
     opacity: 0;
 }
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-1 {
+
+input[type=checkbox]:checked~.sidebarIconToggle>.diagonal.part-1 {
     transition: all 0.3s;
     box-sizing: border-box;
     transform: rotate(135deg);
     margin-top: 8px;
 }
-input[type=checkbox]:checked ~ .sidebarIconToggle > .diagonal.part-2 {
+
+input[type=checkbox]:checked~.sidebarIconToggle>.diagonal.part-2 {
     transition: all 0.3s;
     box-sizing: border-box;
     transform: rotate(-135deg);
     margin-top: -9px;
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
 }
