@@ -18,7 +18,7 @@
             @csrf
             <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" />
             <input id="sbtn5" type="submit" value="検索" />
-            <button id="sbtn5"  href="{{ route('employeesManegementAdd') }}">追加</button>
+            <a id="sbtn_a"  href="{{ route('employeesManegementAdd') }}" style="display:inline-block;">追加</a>
         </form>
         <form action="employeesManagementPassView" method="GET">
             <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
@@ -50,7 +50,6 @@
             <input id="sbtn" type="submit" value="絞り込み" />
         </form>
     </div>
-
     <title>従業員管理</title>
     <div id='container'>
         <div class='widget'>

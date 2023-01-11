@@ -40,4 +40,9 @@ class Store extends Model
     {
         return $this->hasMany(Information::class);
     }
+
+    public function completeshift()
+    {
+        return $this->hasMany(CompleteShift::class);
+    }
 }

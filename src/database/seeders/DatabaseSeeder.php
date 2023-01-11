@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NoticeSeeder::class);
         $this->call(OptimizeSeeder::class);
         $this->call(InformationShareSeeder::class);
+        $this->call(CompleteShiftSeeder::class);
     }
 }
