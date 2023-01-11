@@ -1,95 +1,85 @@
-<<<<<<< HEAD
-<form method="POST" action="{{ route('setting.update') }}">
-    @csrf
-    <ul class="navigation_ui">
-        <!-- 勤務時間 -->
-        <li class="navigation_li">
-            <a class="WorkText">勤務時間</a><br>
-            <div class="selectdiv">
-                <select name="workstarttime" class="WorkTimeStart">
-                    <option selected hidden></option>
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22">22</option>
-                    <option value="23">23</option>
-                </select>
-                <a class="Character">～</a>
-                <select name="workendtime" class="WorkTimeEnd">
+<!DOCTYPE html>
+<html lang="ja">
 
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                    <option value="13">13</option>
-                    <option value="14">14</option>
-                    <option value="15">15</option>
-                    <option value="16">16</option>
-                    <option value="17">17</option>
-                    <option value="18">18</option>
-                    <option value="19">19</option>
-                    <option value="20">20</option>
-                    <option value="21">21</option>
-                    <option value="22" selected>22</option>
-                    <option value="23">23</option>
-                </select>
-            </div>
-        </li>
-        <!-- シフト提出期限 -->
-        <li class="navigation_li">
-            <a class="WorkText">シフト提出期限</a><br>
-            <div class="selectdiv">
-                <select name="submissionlimit" class="SubmissionLimit">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="description" content="ホームページサンプル株式会社のサイトです">
+    <title>ホームページサンプル株式会社 | ホームページサンプル株式会社のサイトです</title>
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="stylesheet" href="/css/test.css" type="text/css">
+    <link rel="stylesheet" href="/css/test1.css" type="text/css">
+    <link rel="stylesheet" href="/css/test2.css" type="text/css">
+    <script type="text/javascript" src="/js/jquery1.4.4.min.js"></script>
+    <script type="text/javascript" src="/js/script.js"></script>
+    <link rel="stylesheet" href="/css/title_loading.css" type="text/css">
+</head>
 
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>
-                <a class="Character">日前まで</a>
+<body>
+    <div class="loader-bg js-loader-bg">
+        <div class="loader js-loader">
+            @include('loading')
+        </div>
+    </div>
+    <header id="header" role="banner">
+        <div class="inner">
+            <div class="logo">
+                <a href="index.html" title="ホームページサンプル株式会社" rel="home">MARUO
+                    KUN<br /><span>自動シフト作成アプリ</span></a>
             </div>
-        </li>
-        <!-- 投票機能 -->
-        <li class="navigation_li" >
-            <a class="WorkText">投票機能</a>
-            <div class="block">
-                <input name="vote" value="vote" id="cheap" type="checkbox" />
-                <label for="cheap">投票機能を使いますか？</label>
+            <nav id="mainNav">
+                <div class="inner">
+                    <a class="menu" id="menu"><span>MENU</span></a>
+                    <div class="panel">
+                        <ul id="topnav">
+                            <li class="current-menu-item"><a
+                                    href="index.html"><strong>トップページ</strong><br /><span>Top</span></a></li>
+                            <li><a href="sample.html"><strong>LINE追加</strong><br /><span>Greeting</span></a>
+                            <li><a href="sample.html"><strong>お問い合わせ</strong><br /><span>Contact</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="person1">
+        <div class="person">
+            <div class="container">
+                <div class="container-inner">
+                    <img class="circle1" src="/img_submit/sample3.jpg" />
+                    <img class="img img1" src="/img_submit/emp.png">
+                    <a href="{{ route('employee.login') }}" class="Link"></a>
+                </div>
             </div>
-        </li>
-    </ul>
-    <button type="submit" >
-        {{ __('次へ') }}
-    </button>
-</form>
+            <div class="divider"></div>
+            <div class="title">会社員はこちら</div>
+        </div>
+        <div class="person">
+            <div class="container">
+                <div class="container-inner">
+                    <img class="circle1" src="/img_submit/sample1.jpg" />
+                    <img class="img img2" src="/img_submit/part.png">
+                    <a href="{{ route('parttimer.login') }}" class="Link"></a>
+                </div>
+            </div>
+            <div class="divider"></div>
+            <div class="title">アルバイトはこちら</div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.ui.min.js"></script>
+    <script type="text/javascript" src="b.js"></script>
+
+    <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+    <script type="text/javascript" src="a.js"></script>
+
+    <script type="text/javascript" src="/js/loading.js"></script>
+    <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM="
+        crossorigin="anonymous"></script>
+    <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+</body>
+
+</html>

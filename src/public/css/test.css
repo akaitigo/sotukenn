@@ -1,0 +1,693 @@
+@charset "utf-8";
+
+/* =Reset default browser CSS.
+Based on work by Eric Meyer:http://meyerweb.com/eric/tools/css/reset/index.html
+-------------------------------------------------------------- */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td{border:0;font-family:inherit;font-size:100%;font-style:inherit;font-weight:inherit;margin:0;outline:0;padding:0;vertical-align:baseline;}
+:focus{outline:0;}
+
+ol, ul{list-style:none;}
+table{border-collapse:separate;border-spacing:0;}
+caption, th, td{font-weight:normal;text-align:left;}
+blockquote:before, blockquote:after,q:before, q:after{content:"";}
+blockquote, q{quotes:"" "";}
+a img{border:0;}
+figure{margin:0}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section{display:block;}
+/* -------------------------------------------------------------- */
+
+body{
+color:#555;
+font:12px verdana,"ヒラギノ丸ゴ ProN W4","Hiragino Maru Gothic ProN","メイリオ","Meiryo","ＭＳ Ｐゴシック","MS PGothic",Sans-Serif;
+line-height:1.5;
+background:#fff;
+-webkit-text-size-adjust:100%;
+align-items: center;
+}
+/* リンク設定
+------------------------------------------------------------*/
+a{color:#358de0;text-decoration:none;}
+a:hover{color:#429bef;}
+a:active, a:focus{outline:0;}
+
+
+/* 全体
+------------------------------------------------------------*/
+#wrapper{
+margin:20px auto 0;
+padding:0 1%;
+width:98%;
+position:relative;
+}
+
+.inner{
+margin:0 auto;
+width:100%;
+}
+
+
+/*************
+/* ヘッダー
+*************/
+#header{
+z-index:100;
+margin:20px 0 28px;
+}
+
+#header:after{
+content:"";
+display: block;   
+clear:both; 
+visibility:hidden;
+}
+
+#header h1{
+font-size:12px;
+font-weight:normal;
+}
+
+/*************
+/* ロゴ
+*************/
+#header .logo{
+float:left;
+padding:10px 0 0;
+}
+
+.logo a{
+font-size:20px;
+color:#444;
+font-weight:bold;
+line-height:1;
+}
+
+.logo span{
+font-size:12px;
+font-weight:normal;
+}
+
+#header h1{
+font-size:11px;
+color:#444;
+margin:10px 0 0;
+}
+
+
+/**************************
+/* メイン画像（トップページ）
+**************************/
+#mainBanner{
+margin:0 auto;
+padding:0;
+width:100%;
+line-height:0;
+}
+
+#mainBanner .inner{position:relative;}
+
+#mainBanner img{
+max-width:100%;
+height:auto;
+}
+
+.slogan{
+position:absolute;
+max-width:100%;
+height:auto;
+bottom:0;
+left:0;
+padding:5px 10px;
+line-height:1.4;
+z-index:100;
+}
+
+.slogan h2{
+padding-bottom:5px;
+color:#333;
+font-size:20px;
+}
+
+.slogan h3{
+font-size:14px;
+color:#666;
+}
+
+
+/**************************
+/* グリッド
+**************************/
+.gridWrapper{
+padding-bottom:20px;
+clear:both;
+overflow:hidden;
+}
+
+.grid h3{
+padding:13px 0;
+margin-bottom:5px;
+font-weight:bold;
+border-top:1px solid #ccc;
+border-bottom:1px solid #ccc;
+}
+
+.grid p{padding:5px 0;}
+
+.grid p.img{
+float:left;
+margin:3px 0 0 0;
+}
+
+.readmore{clear:both;}
+
+.readmore a{
+padding:3px 5px;
+border-radius:3px;
+color:#fff;
+background:#999;
+}
+
+.readmore a:hover{background:#ccc;}
+
+
+/* フッター内のグリッド(3カラム) */
+#footer .grid{
+border:0;
+background:transparent;
+}
+
+#footer .grid p{padding:0;}
+
+
+/*************
+メイン コンテンツ
+*************/
+section.content{
+padding:10px 0;
+margin-bottom:20px;
+border-radius:6px;
+overflow:hidden;
+font-size:14px;
+}
+
+section.content p{margin-bottom:5px;}
+
+
+/* アーカイブページ */
+section.content .archive{
+padding:20px 0 0;
+border-bottom:1px dotted #ccc;
+}
+
+section.content p{margin-bottom:5px;}
+
+h3.heading{
+padding:3px 0 13px;
+margin-bottom:30px;
+font-size:16px;
+border-bottom:2px solid #ccc;
+}
+
+section.content img{
+max-width:90%;
+height:auto;
+}
+
+.alignleft{
+float:left;
+clear:left;
+margin:3px 10px 10px 0;
+}
+
+.alignright{
+float:right;
+clear:right;
+margin:3px 0 10px 10px;
+}
+
+.border,ul.list img{border:4px solid #ebebeb;}
+
+
+
+/*************
+/* フッター
+*************/
+#footer{
+clear:both;
+padding:20px 0;
+overflow:hidden;
+}
+
+.tel strong{
+font-size:20px;
+font-weight:bold;
+}
+
+#footer .copyright{font-size:11px;}
+
+
+/*************
+サブ（フッター前）コンテンツ
+*************/
+#sub ul{padding:10px;}
+
+#sub li{
+margin-bottom:10px;
+padding-bottom:10px;
+border-bottom:1px dashed #ebebeb;
+}
+
+#sub li:last-child{
+border:0;
+margin-bottom:0;
+}
+
+#sub li a{
+color:#555;
+display:block;
+}
+
+#sub li a:hover{
+color:#a5a5a5;
+}
+
+#sub ul.list{padding-bottom:7px;}
+
+#sub ul.list li{
+clear:both;
+margin-bottom:5px;
+padding:5px 0;
+overflow:hidden;
+}
+
+#sub ul.list li img{
+float:left;
+margin-right:10px;
+}
+
+#sub ul.list li{
+font-size:12px;
+line-height:1.35;
+}
+
+#sub .grid h3{border-radius:0;}
+
+
+/* page navigation
+------------------------------------------------------------*/
+.pagenav{
+clear:both;
+width:100%;
+height:30px;
+margin:5px 0 20px;
+}
+
+.pagenav a{
+color:#555;
+}
+
+.pagenav a:hover{
+color:#a5a5a5;
+}
+
+.prev{float:left}
+.next{float:right;}
+
+#pageLinks{
+clear:both;
+text-align:center;
+}
+
+
+/* タイポグラフィ
+*****************************************************/
+.dateLabel{
+margin:0 0 10px;
+text-align:right;
+font:italic 1em "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.post p{padding-bottom:15px;}
+
+.post ul{margin:0 0 10px 10px;}
+
+.post ul li{
+margin-bottom:5px;
+padding-left:15px;
+background:url(images/bullet.png) no-repeat 0 8px;
+}
+
+.post ol{margin:0 0 10px 30px;}
+
+.post ol li{list-style:decimal;}
+
+.post h1{
+margin:20px 0;
+padding:5px 0;
+font-size:150%;
+color:#000;
+border-bottom:3px solid #f0f0f0;
+}
+
+.post h2{
+margin:10px 0;
+padding-bottom:2px;
+font-size:130%;
+font-weight:normal;
+color:#333;
+border-bottom:2px solid #f0f0f0;
+}
+
+.post h3{
+margin:10px 0 30px;
+padding-bottom:10px;
+font-size:110%;
+font-weight:normal;
+color:#777;
+border-bottom:2px solid #f0f0f0;
+}
+
+.post blockquote{
+clear:both;
+padding:10px 0 10px 15px;
+margin:10px 0 25px 30px;
+border-left:5px solid #ccc;
+}
+ 
+.post blockquote p{padding:5px 0;}
+
+.post table{
+border-collapse:collapse;
+margin:10px 0;
+}
+
+.post table th,.post table td{
+padding:12px;
+border:1px solid #ccc;
+}
+
+.post table th{
+text-align:right;
+font-weight:bold;
+letter-spacing:1px;
+white-space:nowrap;
+background:#eee;
+}
+
+.post dt{font-weight:bold;}
+
+.post dd{padding-bottom:10px;}
+
+.post img{max-width:100%;height:auto;}
+
+img.aligncenter{
+display:block;
+margin:5px auto;
+}
+
+img.alignright, img.alignleft{
+padding:4px;
+margin:0 0 2px 7px;
+display:inline;
+}
+
+img.alignleft{margin:0 7px 2px 0;}
+
+.alignright{float:right;}
+.alignleft{float:left;}
+
+
+/* PC用
+------------------------------------------------------------*/
+@media only screen and (min-width:960px){
+#wrapper,.inner{
+width:940px;
+padding:0;
+}
+
+#wrapper{padding-bottom:20px;}
+
+/* グリッド全体 */
+.gridWrapper{
+display:table;
+border-collapse:separate;
+border-spacing:20px;
+margin-left:-20px;
+width:980px;
+}
+
+/* グリッド共通 ベース:トップページ4カラム */
+.grid{
+width:220px;
+display:table-cell;
+}
+
+#sub.gridWrapper{width:980px;}
+
+/* サブコンテンツ + フッター グリッド(3カラム) */
+#sub .grid, #footer .grid{width:300px;}
+
+/* トップナビゲーション */
+nav div.panel{display:block !important;}
+
+a#menu{display:none;}
+
+#topnav{
+float:right;
+margin-top:-5px;
+
+}
+
+#topnav li{
+float:left;
+margin:13px 5px 0;
+text-align:center;
+position:relative;
+}
+
+#topnav a{
+color:#555;
+font-size:13px;
+display:block;
+padding:25px 10px;
+line-height:1.2;
+}
+
+#topnav span{
+font-size:10px;
+color:#a5a5a5;
+}
+
+#topnav li.current-menu-item a,#topnav a:hover{
+background:#f5f5f5;
+}
+
+#topnav ul{
+width:160px;
+display:none;
+}
+
+#topnav li:hover ul{
+display:block;
+position:absolute;
+top:80px;
+left:0;
+z-index:500;
+}
+
+#topnav li li{
+margin:0;
+float:none;
+width:160px;
+text-align:left;
+background:#f4f4f4;
+}
+
+#topnav li li a{
+padding:10px;
+border:0;
+}
+
+#topnav li.current-menu-item li a,#topnav li li a{
+border-bottom-width:1px;
+}
+
+#topnav li li.current-menu-item a,#topnav li li a:hover{
+padding-bottom:10px;
+border-bottom-width:3px;
+background:#eee;
+}
+}
+
+@media only screen and (max-width:959px){
+*{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+         -o-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+#header h1{text-align:center;}
+
+#header .logo,#footer .logo{
+float:none;
+text-align:center;
+padding:10px 5px;
+}
+
+/* トップナビゲーション */
+nav#mainNav{
+clear:both;
+width:100%;
+margin:0 auto;
+padding:0;
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1, #f4f4f4), color-stop(0.00, #f4f4f4));
+background: -webkit-linear-gradient(top, #f4f4f4 0%, #f4f4f4 100%);
+background: -moz-linear-gradient(top, #f4f4f4 0%, #f4f4f4 100%);
+background: -o-linear-gradient(top, #f4f4f4 0%, #f4f4f4 100%);
+background: -ms-linear-gradient(top, #f4f4f4 0%, #f4f4f4 100%);
+background: linear-gradient(top, #f4f4f4 0%, #f4f4f4 100%);
+}
+
+nav#mainNav a.menu{
+width:100%;
+display:block;
+height:40px;
+line-height:40px;
+font-weight: bold;
+text-align:left;
+color:#555;
+}
+
+nav#mainNav a#menu span{padding-left:10px;}
+nav#mainNav a span:before{content:"≡ ";}
+nav#mainNav a.menuOpen span:before{content:"× ";}
+
+nav#mainNav a#menu:hover{cursor:pointer;}
+
+nav .panel{
+display:none;
+width:100%;
+position:relative;
+right:0;
+top:0;
+z-index:1;
+}
+
+nav#mainNav ul{margin:0;padding:0;}
+
+  nav#mainNav ul li{
+float:none;
+clear:both;
+width:100%;
+height:auto;
+line-height:1.2;
+}
+
+nav#mainNav ul li a,nav#mainNav ul li.current-menu-item li a{
+display: block;
+padding:15px 10px;
+text-align:left;
+border-bottom:1px dashed #e8e8e8;
+color:#555;
+}
+
+nav#mainNav ul li a span{padding-left:10px;}
+nav#mainNav ul li:first-child a{border-top:1px dashed #e8e8e8;}
+
+nav#mainNav ul li:last-child a{border:0;}
+nav#mainNav ul li li:last-child a{border:0;}
+nav#mainNav ul li li:last-child a{border-bottom:1px dashed #e8e8e8;}
+ 
+nav#mainNav ul li.current-menu-item a,nav#mainNav ul li a:hover,nav#mainNav ul li.current-menu-item a,nav#mainNav ul li a:active, nav#mainNav ul li li.current-menu-item a, nav#mainNav ul li.current-menu-item li a:hover, nav#mainNav ul li.current-menu-item li a:active{
+background:#eee;
+}
+
+nav div.panel{float:none;}
+
+nav#mainNav ul li li{
+float:left;
+border:0;
+}
+
+nav#mainNav ul li li a, nav#mainNav ul li.current-menu-item li a, nav#mainNav ul li li.current-menu-item a{
+padding-left:40px;
+background:url(images/sub1.png) no-repeat 20px -62px;
+}
+
+nav#mainNav ul li li.current-menu-item a,nav#mainNav ul li li a:hover, nav#mainNav ul li.current-menu-item li a:hover{background:#eee url(images/sub1.png) no-repeat 20px -62px;}
+
+nav#mainNav ul li li:last-child a{background:#f4f4f4 url(images/subLast.png) no-repeat 20px -65px;}
+nav#mainNav ul li li:last-child.current-menu-item a,nav#mainNav ul li li:last-child a:hover,nav#mainNav ul li.current-menu-item li:last-child a:hover{background:#eee url(images/subLast.png) no-repeat 20px -65px;}
+
+.grid{
+float:left;
+width:48%;
+margin:10px 2% 0 0;
+}
+
+.grid img{
+float:left;
+margin-right:5px;
+}
+
+#sub .grid{
+width:32%;
+margin:10px 1%;
+}
+
+#sub .grid:first-child{
+margin-left:0;
+}
+
+#sub .grid:last-child{
+margin-right:0;
+}
+
+#footer .grid, #footer .grid p{
+float:none;
+width:100%;
+text-align:center;
+border:0;
+}
+
+#footer .grid:last-child{padding-top:20px;}
+}
+
+@media only screen and (max-width:768px){
+  #header{padding-bottom:0;}
+#header h1{text-align:center;}
+
+#header .logo{
+float:none;
+text-align:center;
+padding:10px 5px 20px;
+}
+
+#sub ul.list{padding:10px 10px 11px;}
+
+#sub ul.list li{padding-bottom:10px;margin-bottom:8px;}
+}
+
+
+@media only screen and (max-width:640px){
+#footer .grid p{text-align:center;}
+
+.grid img{float:none;margin:20px auto 10px;max-width:100%;height:auto;}
+
+.grid p,#sub .grid li{text-align:left;}
+
+  .alignleft,.alignright{float:none;display:block;margin:0 auto 10px;}
+}
+
+
+@media only screen and (max-width:480px){
+#mainBanner h2,#mainBanner h3{font-size:80%;}
+
+#sub .grid{
+float:none;
+width:98%;
+}
+
+#sub .grid h3{padding:10px 5px;}
+}
