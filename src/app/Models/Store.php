@@ -31,9 +31,9 @@ class Store extends Model
         return $this->hasMany(Notice::class);
     }
 
-    public function optimize()
+    public function shiftdivider()
     {
-        return $this->hasMany(Optimize::class);
+        return $this->hasMany(Shiftdivider::class);
     }
 
     public function informations()

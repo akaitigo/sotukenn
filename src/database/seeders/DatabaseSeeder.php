@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersSeeder::class);
         $this->call(EmployeeStatusSeeder::class);
         $this->call(NoticeSeeder::class);
-        $this->call(OptimizeSeeder::class);
+        $this->call(ShiftdividerSeeder::class);
         $this->call(InformationShareSeeder::class);
         $this->call(CompleteShiftSeeder::class);
     }
