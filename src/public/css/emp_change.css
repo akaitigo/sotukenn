@@ -180,3 +180,77 @@
   .emptext{
     width: 10%;
   }
+
+  
+
+  /* 完成シフト閲覧のテーブル */
+  
+  .month_table caption {
+    background:#1aa1ff;
+    color: #fff;
+    padding: 4px;
+    font-size: 1.4em;
+    font-weight: bold;
+  }
+  
+  .compshift_table {
+      border-top: 1px solid #ddd;	
+      width: 3000px;;
+      height: auto;
+      border:1px solid #ddd;
+  /* 	  border-top: none;	 */
+      border-collapse:collapse;
+      padding:5px;
+      text-align: center;
+      }
+      .compshift_table th {
+      /* 	border:1px solid #ddd;
+      border-top: none; */
+      padding: 10px 5px;
+      font-weight: normal;
+      background:#1aa1ff;
+      color: #fff;
+      font-weight: bold;
+      }
+      .compshift_table td {
+      /* 	border:1px solid #ddd; */
+          padding:10px 2px;
+      }
+  
+  
+  .compshift_table th, .compshift_table td {
+    border-right: 1px solid #ddd;
+  }
+  
+  .compshift_table th:last-child, .compshift_table td:last-child {
+    border-right: none;
+  }
+  
+  .compshift_table tr:nth-child(odd) {
+    background: #f0f0f0;
+  }
+  
+  #morning .compshift_table td:nth-child(3) {
+    background: #fff;
+  }
+  
+  .compshift_table td.align-bottom {
+    vertical-align: bottom;
+    padding: 0;
+  }
+  
+  .compshift_table td.align-top {
+    vertical-align: top;
+    padding: 0;  
+  }
+  
+  #morning .compshift_table td:nth-child(3), #afternoon .compshift_table td:nth-child(3), #evening .compshift_table td:nth-child(3) {
+    background: #fff;
+  } 
+
+.scrollbox {
+    width: auto;                
+    height: auto;               
+    border: 1px solid #000;      /* 枠にボーダーを引く */
+    overflow-x: scroll;          /* 横方向にスクロール可能にする */
+}

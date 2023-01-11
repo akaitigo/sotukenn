@@ -7,6 +7,7 @@ use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
 use App\Models\Status;
+use App\Models\CompleteShift;
 use Illuminate\Http\Request;
 
 
@@ -93,13 +94,49 @@ class ShiftController extends Controller
     /* シフト閲覧 */
     public function view()
     {
+
+
         return view('shiftView');
     }
 
     /* シフト編集 */
     public function edit()
     {
-        return view('shiftEdit');
+        $adminid=Auth::guard('admin')->id();
+        $employeeid=Auth::guard('employee')->id();
+        $parttimerid=Auth::guard('parttimer')->id();
+        $loginid = 0;
+        $empjudge = 0;
+        if(isset($adminid)) {
+            $storeid = admin::where('id',$adminid)->value('store_id');
+        }elseif(isset($employeeid)) {
+            $storeid = Employee::where('id',$employeeid)->value('store_id');
+            $loginid = $employeeid;
+            $empjudge = true;
+        }elseif(isset($parttimerid)) {
+            $storeid = Parttimer::where('id',$parttimerid)->value('store_id');
+            $loginid = $parttimerid;
+            $empjudge = false;
+        }
+
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $completeshift = CompleteShift::where('store_id',$storeid)->get();
+
+        $empname = [];
+        $partname = [];
+
+        foreach($completeshift as $compshift) {
+            if($compshift->judge == true) {
+                $empname[] = Employee::where('id',$compshift->emppartid)->value('name');
+            }else {
+                $partname[] = Parttimer::where('id',$compshift->emppartid)->value('name');
+            }
+        }
+
+        $week = ['日','月','火','水','木','金','土'];
+
+        return view('shiftEdit',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','week'));
     }
 
     /* シフト作成メニュー */
