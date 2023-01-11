@@ -9,6 +9,12 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use App\Models\Message;
 use App\Models\Employee;
 use App\Models\Parttimer;
+use Carbon\Carbon;
+
+use LINE\LINEBot\Constant\HTTPHeader;
+use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 
 use function PHPUnit\Framework\isEmpty;
 
@@ -35,9 +41,68 @@ class LineWebhookController extends Controller
             $inputLineId = $event['source']['userId'];
 
             if ($inputText === "シフト確認") {
-                $text = "未実装です";
-                $response = $bot->replyText($event['replyToken'], $text);
-                break;
+
+
+                //JSONデータを取得
+                $jsonAry = json_decode(file_get_contents('php://input'), true);
+                //メッセージ取得(配列)
+                $message = $jsonAry['events'][0]['message'];
+                //返信用トークン
+                $replyToken = $jsonAry['events'][0]['replyToken'];
+
+
+
+                define('TOKEN', '58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+
+                $messageData = [
+                    'type' => 'template',
+                    'altText' => '確認メッセージ', //PCでこのテンプレートは使用できないため、その場合にこのテキスが表示される
+                    'template' => [
+                        'type' => 'confirm',
+                        'text' => 'どのシフトを確認しますか？', //確認ボタンの上部のメッセージ部分
+                        'actions' => [
+                            [
+                                'type' => 'message',
+                                'label' => '>次のシフト', //確認ボタンに表示させたい文字
+                                'text' => '>次のシフト', //ボタンを押した際に送信させる文字(ボタンを押したタイミングLINE上に表示)
+                            ],
+                            [
+                                'type' => 'message',
+                                'label' => '>すべてのシフト',
+                                'text' => '>すべてのシフト',
+                            ],
+                        ],
+                    ],
+                ];
+
+                $response = [
+                    'replyToken' => $replyToken,
+                    'messages' => [
+                        $messageData,
+                    ],
+                ];
+                $ch = curl_init('https://api.line.me/v2/bot/message/reply');
+                curl_setopt($ch, CURLOPT_POST, true);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json; charser=UTF-8', 'Authorization:  Bearer ' . TOKEN));
+                $result = curl_exec($ch);
+                curl_close($ch);
+            } else if ($inputText === '>次のシフト') {
+                $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
+                $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $empforCheck = false;
+
+
+
+                foreach ($employeeNullCheck as $emp) {
+                    $empforCheck = true;
+                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("次回のシフトを送信します");
+                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                }
+            } else if ($inputText === '>すべてのシフト') {
+                //すべてのシフト
             } else if ($inputText === "シフト提出") {
                 $text = "未実装です";
                 $response = $bot->replyText($event['replyToken'], $text);
