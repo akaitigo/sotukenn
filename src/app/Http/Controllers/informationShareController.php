@@ -21,6 +21,7 @@ class informationShareController extends Controller
     {
 
         $user = Auth::user();
+
         $userStore = $user->store_id;
         $information = InformationShare::where('store_id', '=', $userStore)->get();
         return view('informationShare', compact('information'));
@@ -40,16 +41,18 @@ class informationShareController extends Controller
         $inputSpan = $request->input('days');
         $inputShareContent = $request->input('sharename');
         $inputText = $request->input('massage');
+        $now = Carbon::now();
+        $time = Carbon::now();
+
+
         foreach ($getUserEmp as $emp) {
             \DB::table('informationshares')->insert([
                 'shareSpan' => $inputSpan, //表示期間
                 'shareContent' => $inputShareContent, //掲示明
                 'registerUser' => $emp->name, //登録者
                 'shareText' => $inputText,
-                'registrationDate' => $time = new Carbon(Carbon::now()),
-                'daysRemaining'=> $time->addDays($inputSpan)//残り日数
-                
-
+                'registrationDate' => $now,
+                'daysRemaining' => $time->addDays($inputSpan) //残り日数
             ]);
         }
 
@@ -59,8 +62,8 @@ class informationShareController extends Controller
                 'shareContent' => $inputShareContent, //掲示明
                 'registerUser' => $emp->name, //登録者
                 'shareText' => $inputText,
-                'registrationDate' => $time = new Carbon(Carbon::now())
-
+                'registrationDate' => $now,
+                'daysRemaining' => $time->addDays($inputSpan) //残り日数
             ]);
         }
 
@@ -71,21 +74,21 @@ class informationShareController extends Controller
         $httpClient = new CurlHTTPClient(config('services.line.message.channel_token'));
         $bot = new LINEBot($httpClient, ['channelSecret' => config('services.line.message.channel_secret')]);
 
-        $lineEmp=Employee::where('lineRegister','=','3')->get();
-        $linePart=Parttimer::where('lineRegister','=','3')->get();
-        foreach($lineEmp as $emp){
-            if($emp->store_id == $userStore){
+        $lineEmp = Employee::where('lineRegister', '=', '3')->get();
+        $linePart = Parttimer::where('lineRegister', '=', '3')->get();
+        foreach ($lineEmp as $emp) {
+            if ($emp->store_id == $userStore) {
                 $textMessageBuilder = new TextMessageBuilder("新規の掲示が登録されました。\n確認をお願いします");
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
-                $textMessageBuilder = new TextMessageBuilder("掲示名：".$inputShareContent."\n掲示内容：".$inputText."\n\n登録者：".$emp->name);
+                $textMessageBuilder = new TextMessageBuilder("掲示名：" . $inputShareContent . "\n掲示内容：" . $inputText . "\n\n登録者：" . $emp->name);
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
             }
         }
-        foreach($linePart as $part){
-            if($part->store_id == $userStore){
+        foreach ($linePart as $part) {
+            if ($part->store_id == $userStore) {
                 $textMessageBuilder = new TextMessageBuilder("新規の掲示が登録されました。\n確認をお願いします");
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
-                $textMessageBuilder = new TextMessageBuilder("掲示名：".$inputShareContent."\n掲示内容：".$inputText."\n\n登録者：".$emp->name);
+                $textMessageBuilder = new TextMessageBuilder("掲示名：" . $inputShareContent . "\n掲示内容：" . $inputText . "\n\n登録者：" . $emp->name);
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
             }
         }
@@ -94,15 +97,13 @@ class informationShareController extends Controller
     }
 
 
-    public function informationDelete(Request $request){
-        $getDeleteId=$request->input('delete');
+    public function informationDelete(Request $request)
+    {
+        $getDeleteId = $request->input('delete');
         $information = InformationShare::where('shareId', '=', $getDeleteId)->delete();
         $user = Auth::user();
         $userStore = $user->store_id;
         $information = InformationShare::where('store_id', '=', $userStore)->get();
         return view('informationShare', compact('information'));
-
-
-
     }
 }
