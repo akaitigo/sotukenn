@@ -109,7 +109,7 @@ class ShiftController extends Controller
         $empjudge = 0;
         if(isset($adminid)) {
             $storeid = admin::where('id',$adminid)->value('store_id');
-        }elseif(isset($employeeid)) {
+         }elseif(isset($employeeid)) {             //従業員のログインは動かない(アルバイトはいける)logincontrollerに原因あり
             $storeid = Employee::where('id',$employeeid)->value('store_id');
             $loginid = $employeeid;
             $empjudge = true;
