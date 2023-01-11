@@ -7,9 +7,8 @@
     <meta name="description" content="ホームページサンプル株式会社のサイトです">
     <title>ホームページサンプル株式会社 | ホームページサンプル株式会社のサイトです</title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
-    <link rel="stylesheet" href="/css/test.css" type="text/css">
-    <link rel="stylesheet" href="/css/test1.css" type="text/css">
-    <link rel="stylesheet" href="/css/test2.css" type="text/css">
+    <link rel="stylesheet" href="/css/title_emp.css" type="text/css">
+    <link rel="stylesheet" href="/css/title_emp2.css" type="text/css">
     <script type="text/javascript" src="/js/jquery1.4.4.min.js"></script>
     <script type="text/javascript" src="/js/script.js"></script>
     <link rel="stylesheet" href="/css/title_loading.css" type="text/css">
