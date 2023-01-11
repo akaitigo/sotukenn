@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="/css/pagenation.css" type="text/css">
 <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
+<script type="text/javascript" src="/js/registerpopup.js"></script>
 @include('new_header')
 
 <div id="scale">
@@ -21,25 +22,26 @@
 
 
 
-            <form method="post" action="{{ route('informationRegisterInput') }}">
+            <form method="post" action="{{ route('informationRegisterInput') }}" onsubmit="return registerCheck();">
                 @csrf
-            <h2 class="label-title">掲示内容登録</p>
-                <div class="inforForm">
-                    <p class="form-label">掲示期間</p>
-                    <input type="text" class="form-input" name="days" required placeholder="例）10(最大15日まで)">
-                </div>
-                <div class="inforForm">
-                    <p class="form-label">掲示名</p>
-                    <input type="text" class="form-input-name" name="sharename" required maxlength="30"
-                        placeholder="(最大30文字まで)">
-                </div>
-                <div class="inforForm">
-                    <p class="form-label">掲示内容</p>
-                    <textarea class="inputText" name="massage" maxlength="250" rows="10" placeholder="(最大250文字まで)"
-                        style="font-family:Yu Gothic"></textarea>
-                </div>
+                <h2 class="label-title">掲示内容登録</p>
+                    <div class="inforForm">
+                        <p class="form-label">掲示期間</p>
+                        <input type="text" class="form-input" name="days" required placeholder="例）10(最大15日まで)">
+                    </div>
+                    <div class="inforForm">
+                        <p class="form-label">掲示名</p>
+                        <input type="text" class="form-input-name" name="sharename" required maxlength="30"
+                            placeholder="(最大30文字まで)">
+                    </div>
+                    <div class="inforForm">
+                        <p class="form-label">掲示内容</p>
+                        <textarea class="inputText" name="massage" maxlength="250" rows="10" placeholder="(最大250文字まで)"
+                            style="font-family:Yu Gothic"></textarea>
+                    </div>
 
-                <button type="submit" name="registerUser" value="{{$user->email}}" class="updateButton">登録</button>
+                    <button type="submit" name="registerUser"
+                        value="{{ $user->email }}"class="updateButton">登録</button>
 
 
-                </form>
+            </form>
