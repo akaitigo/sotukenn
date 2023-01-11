@@ -41,12 +41,12 @@ use App\Models\Parttimer;
                 @csrf
             </form>
         </li>
-        <li><a href="{{ route('calendar') }}">カレンダー</a></li>
-        <li><a href="{{ route('employeesManagementPassView') }}">従業員管理</a></li>
-        <li><a href="{{ route('noticeManagement') }}">通知管理</a></li>
-        <li><a href="{{ route('submittedShift') }}">提出シフト管理</a></li>
-        <li><a href="#">シフト操作</a></li>
-        <li><a href="{{ route('informationShare') }}">情報共有</a></li>
+        <a href="{{ route('calendar') }}"><li>カレンダー</li></a>
+        <a href="{{ route('employeesManagementPassView') }}"><li>従業員管理</li></a>
+        <a href="{{ route('noticeManagement') }}"><li>通知管理</li></a>
+        <a href="{{ route('submittedShift') }}"><li>提出シフト管理</li></a>
+        <a href="#"><li>シフト操作</li></a>
+        <a href="{{ route('informationShare') }}"><li>情報共有</li></a>
     </ul>
 </div>
 <div>

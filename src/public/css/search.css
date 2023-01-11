@@ -10,7 +10,7 @@
 #sbox5 {
     outline: 0;
     height: 8%;
-    padding: 0 10px;
+    padding: 24 10px;
     left: 0;
     top: 0;
     max-width: 270px;
@@ -24,7 +24,7 @@
     left: 280px;
     top: 0;
     border-radius: 2px;
-    background: #7fbfff;
+    background: #52a9ff;
     color: #fff;
     font-weight: bold;
     font-size: 16px;

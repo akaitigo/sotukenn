@@ -42,8 +42,12 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('title');
+    return view('emp_calendar');
 });
+
+Route::get('/emp_calendar', function () {
+    return view('emp_calendar');
+})->name('emp_calendar');
 
 Route::get('home', function () {
     return view('header');
