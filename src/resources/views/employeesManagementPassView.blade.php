@@ -18,14 +18,14 @@
             @csrf
             <input id="sbox5" type="text" name="search_name1" placeholder="キーワードを入力" />
             <input id="sbtn5" type="submit" value="検索" />
-            <button id="sbtn5"  href="{{ route('employeesManegementAdd') }}">追加</button>
+            <a id="sbtn_a"  href="{{ route('employeesManegementAdd') }}" style="display:inline-block;">追加</a>
         </form>
         <form action="employeesManagementPassView" method="GET">
-            <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
-            <input type="checkbox" class="check_line" name="line_refinement" value="2" />未携済
+            <label for="check_box"><input type="checkbox" class="check_line" name="line_refinement" value="1" id="check_box"/>連携済</label>
+            <label for="check_box2"><input type="checkbox" class="check_line" name="line_refinement" value="2" id="check_box2"/>未携済</label>
             @foreach ($emp_jobkind as $index_kind => $kind1)
-                <input type="checkbox" class="check_kind" name="job{{ $index_kind }}"
-                    value="{{ $kind1 }}" />{{ $kind1 }}
+                <label for="{{ $kind1 }}"><input type="checkbox" class="check_kind" name="job{{ $index_kind }}"
+                    value="{{ $kind1 }}" id="{{ $kind1 }}"/>{{ $kind1 }}</label>
             @endforeach
             <input id="sbtn" type="submit" value="絞り込み" />
         </form>
@@ -50,7 +50,6 @@
             <input id="sbtn" type="submit" value="絞り込み" />
         </form>
     </div>
-
     <title>従業員管理</title>
     <div id='container'>
         <div class='widget'>
@@ -96,14 +95,14 @@
                         } else {
                             $search_name1 = null;
                         }
-                        
+
                         //LINE連携絞り込みボタン取得
                         if (isset($_GET['line_refinement'])) {
                             $line_refinement = $_GET['line_refinement']; //検索内容取得
                         } else {
                             $line_refinement = null;
                         }
-                        
+
                         //ポジション絞り込みボタン取得
                         for ($i = 0; $i < $index_kind + 1; $i++) {
                             if (isset($_GET['job' . '' . $i])) {
@@ -115,7 +114,7 @@
                         if (isset($job_refinement) == false) {
                             $job_refinement[] = null;
                         }
-                        
+
                         // 表示するデータのスタートのポジションを計算する
                         if ($page1 > 1) {
                             // 例：２ページ目の場合は、(2 × 4) - 4 = 4
@@ -126,7 +125,7 @@
                         $start_loop = $start + 1; //1ページの表示の始め　例8件目からとか
                         $count_loop = 1; //現在の表示件数
                         $end_loop = 4 * $page1; //1ページあたりの表示の終わり
-                        
+
                         ?>
 
                         <tbody>
@@ -277,7 +276,7 @@
                         } else {
                             $line_refinement = null;
                         }
-                        
+
                         //ポジション絞り込みボタン取得
                         for ($i = 0; $i < $index_kind2 + 1; $i++) {
                             if (isset($_GET['job' . '' . $i])) {
@@ -289,7 +288,7 @@
                         if (isset($job_refinement2) == false) {
                             $job_refinement2[] = null;
                         }
-                        
+
                         // スタートのポジションを計算する
                         if ($page2 > 1) {
                             // 例：２ページ目の場合は、(2 × 4) - 4 = 4
@@ -300,7 +299,7 @@
                         $start_loop = $start + 1; //1ページの表示の始め　例8件目からとか
                         $count_loop = 1; //現在の表示件数
                         $end_loop = 4 * $page2; //1ページあたりの表示の終わり
-                        
+
                         ?>
                         <tbody>
                             @foreach ($parttimers as $part)

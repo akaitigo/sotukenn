@@ -1,10 +1,10 @@
 <link rel="stylesheet" href="/css/scale.css" type="text/css">
 <link rel="stylesheet" href="/css/emp_change.css" type="text/css">
+<link rel="stylesheet" href="/css/search.css" type="text/css">
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 <title>通知管理</title>
 @include('new_header')
 <div id="scale">
-    <a href="{{ route('noticeAdd') }}" class="">追加</a>
     @if (!$notices->isEmpty())
         <div id='container'>
             <div class='widget'>
@@ -44,6 +44,10 @@
                     </table>
                 </div>
             </div>
+            <div class="center">
+                <a href="{{ route('noticeAdd') }}" id="sbtn_a" style="display:inline-block;">追加</a>
+            </div>
         </div>
     @endif
 </div>
+
