@@ -251,9 +251,11 @@ th {
     margin: 5;
     color: #FFF;
     display: inline-block;
-    padding: 0.5em 1em;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding:0em 1em ;
+    padding-bottom: 9px;
+    padding-top: 5px;
+    margin-top: 15px;
+    margin-bottom: 15px;
     font-size: 1.4em;
     border-radius: 3px;
     text-align: left;
