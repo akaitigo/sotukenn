@@ -30,8 +30,8 @@
                                     <th>{{ $i }} 日({{$week[$date]}})</th>
                                 @endif
                             @endfor
-                            <th class="headkisu">労働日数</th>
-                            <th class="headkisu">労働時間</th>
+                            <th class="workday">労働日数</th>
+                            <th class="worktime">労働時間</th>
                         </thead>
                         <tbody>
                             <?php
@@ -67,6 +67,7 @@
                                         @endfor
                                     @endif
                                 </tr>
+                                <?php $rowcolor++ ?>
                             @endforeach
                         </tbody>
                         </table>
