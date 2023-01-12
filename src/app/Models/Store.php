@@ -50,4 +50,14 @@ class Store extends Model
     {
         return $this->hasMany(StaffShift::class);
     }
+
+    public function nextdivider()
+    {
+        return $this->hasMany(Nextdivider::class);
+    }
+
+    public function needshift()
+    {
+        return $this->hasMany(NeedShift::class);
+    }
 }

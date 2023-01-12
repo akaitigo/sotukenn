@@ -36,5 +36,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ShiftdividerSeeder::class);
         $this->call(InformationShareSeeder::class);
         $this->call(CompleteShiftSeeder::class);
+        $this->call(NextdividerSeeder::class);
+        $this->call(StaffShiftSeeder::class);
+        $this->call(NeedShiftSeeder::class);
     }
 }

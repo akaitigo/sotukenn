@@ -13,7 +13,7 @@
                 </table>
                     <div class="scrollbox">
                         <table class="compshift_table">
-                        <thead>
+                        <thead class="thead">
                             <th class="thname">&nbsp;名前&nbsp;</th>
                             @for($i= 1;$i <= 31; $i++)
                                 <?php 
