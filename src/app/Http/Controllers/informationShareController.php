@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
-use App\Models\StaffShift;
+
 use App\Models\InformationShare;
 use Carbon\Carbon;
 use App\Models\Message;
@@ -26,8 +26,7 @@ class informationShareController extends Controller
     {
 
         $user = Auth::user();
-        $shift = StaffShift::all();
-        dump($shift);
+
         $userStore = $user->store_id;
         $information = InformationShare::where('store_id', '=', $userStore)->get();
         return view('informationShare', compact('information'));
