@@ -119,9 +119,9 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
         if (Auth::guard('employee')->attempt(['email' => $request->email, 'password' => $request->password])) {
-            dump(Auth::guard('employee')->user());
-            dump(Auth::guard('employee')->user()->getTable());
-            return ;
+            // dump(Auth::guard('employee')->user());
+            // dump(Auth::guard('employee')->user()->getTable());
+            // return ;
             return redirect(route('home'));
         }
         // If the login attempt was unsuccessful we will increment the number of attempts

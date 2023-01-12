@@ -45,4 +45,9 @@ class Store extends Model
     {
         return $this->hasMany(CompleteShift::class);
     }
+
+    public function staffshift()
+    {
+        return $this->hasMany(StaffShift::class);
+    }
 }
