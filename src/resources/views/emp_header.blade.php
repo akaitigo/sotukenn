@@ -25,7 +25,7 @@
                     <li><a href="#sec01">使い方</a></li>
                     <li><a href="#sec02">シフト提出</a></li>
                     <li><a href="#sec03">シフト閲覧</a></li>
-                    <li><a href="#sec04">情報共有掲示板</a></li>
+                    <li><a href="{{ route('emp_informationShare') }}">情報共有掲示板</a></li>
                 </ul>
                 <ul id="sns">
                     <li><a href="#" target="_blank"><img src="/img_submit/iconTw.png" width="20"

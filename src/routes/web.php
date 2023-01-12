@@ -42,12 +42,14 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('emp_calendar');
+    return view('emp_header');
 });
 
 Route::get('/emp_calendar', function () {
     return view('emp_calendar');
 })->name('emp_calendar');
+
+
 
 Route::get('home', function () {
     return view('header');
@@ -88,6 +90,9 @@ Route::middleware('auth:admin')->group(function () {
 Route::middleware('auth:employee,admin')->group(function  ()  {
     Route::get('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
+    Route::get('/emp_informationShareRegister',  [App\Http\Controllers\emp_informationShareController::class, 'informationShareRegister'])->name('emp_informationShare-register');
+    Route::post('/emp_informationShareRegisterInput',  [App\Http\Controllers\emp_informationShareController::class, 'informationSave'])->name('emp_informationRegisterInput');
+    Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');    
 
 
 });
