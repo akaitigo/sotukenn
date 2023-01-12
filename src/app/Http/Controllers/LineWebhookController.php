@@ -9,22 +9,15 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use App\Models\Message;
 use App\Models\Employee;
 use App\Models\Parttimer;
+use App\Models\StaffShift;
 use Carbon\Carbon;
 use App\Models\CompleteShift;
-
 use LINE\LINEBot\Constant\HTTPHeader;
-
-
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
-
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
-
-
-
-
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
 use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
@@ -173,10 +166,23 @@ class LineWebhookController extends Controller
             } else if ($inputText === "シフト提出") {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $nullDay=0;
                 foreach ($employeeNullCheck as $emp) {
 
+                    $userId = $emp->id;
+                    $shift = StaffShift::where('emppartid', '=', $userId)->where('judge', '=', true)->get();
+                    if(empty($shift)){
+                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ｋら');
+                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                    }
+
+
+
+
+
+
                     //お気に入りが登録されているかされてないか判別
-                    if ($emp->favoriteShiftRegister == 'false') { //登録されていない
+                    if ($emp->favoriteShiftRegister === false) { //登録されていない
 
                         $text = "シフトの提出ですね！\nよく使うシフトをお気に入りとして登録をすることで、シフト提出を簡単に行うことができます！\n登録を行いますか？？";
                         $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
@@ -249,23 +255,25 @@ class LineWebhookController extends Controller
 
 
                         $categories = [
-                            '×',
-                            $emp->favoriteShhift1,
-                            $emp->favoriteShhift2
+                            '×'.'勤務不可',
+                            '△'.$emp->favoriteShhift1,
+                            '〇'.$emp->favoriteShhift2
                         ];
 
                         foreach ($categories as $category) {
                             // 1、表示する文言と押下時に送信するメッセージをセット
-                            $message_template_action_builder = new MessageTemplateActionBuilder($category, $category . 'を選択したよ！');
+                            $message_template_action_builder = new MessageTemplateActionBuilder($category, $category );
                             // 2、1をボタンに組み込む
                             $quick_reply_button_builder = new QuickReplyButtonBuilder($message_template_action_builder);
                             // 3、ボタンを配列に格納する(12個まで)
                             $quick_reply_buttons[] = $quick_reply_button_builder;
                         }
                         $quick_reply_message_builder = new QuickReplyMessageBuilder($quick_reply_buttons);
-                        $text_message_builder = new TextMessageBuilder('下の選択肢から選択をしてください', $quick_reply_message_builder);
+                        $text_message_builder = new TextMessageBuilder('下の選択肢から選択をしてください'."\n選択肢にない場合は、先頭文字に*を入力しハイフン区切りで送信してください。\n例）*10-15", $quick_reply_message_builder);
                         $bot->replyMessage($reply_token, $text_message_builder);
                         //シフトの提出処理
+
+                        
 
 
                     }
@@ -346,9 +354,10 @@ class LineWebhookController extends Controller
                     $result = curl_exec($ch);
                     curl_close($ch);
                 }
-            } else if ($inputText === ">1") {
+            } else if ($inputText === '>1') {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                
                 foreach ($employeeNullCheck as $emp) {
 
                     if ($emp->favoriteShiftRegisterCheck1 === 1) {
@@ -387,8 +396,6 @@ class LineWebhookController extends Controller
 
                     if ($emp->favoriteShhift1 != '-' && $emp->favoriteShhift2 != '-') {
                         $emp->favoriteShiftRegister = true;
-                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShiftRegister);
-                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                     }
                 }
             } else if ($inputText === ">2") {
