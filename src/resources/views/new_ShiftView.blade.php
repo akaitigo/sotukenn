@@ -85,6 +85,7 @@
                         </tbody>
                         </table>
                     </div>
+                    {{$staffshiftcover}}
                 </div>
             </div>
         </div>
