@@ -195,7 +195,7 @@
   
   .compshift_table {
       border-top: 1px solid #ddd;	
-      width: 3000px;;
+      width: 3000px;
       height: auto;
       border:1px solid #ddd;
   /* 	  border-top: none;	 */
@@ -248,11 +248,17 @@
 
 .scrollbox {
     width: auto;                
-    height: auto;               
+    height: 500px;               
     border: 1px solid #000;      /* 枠にボーダーを引く */
-    overflow-x: scroll;          /* 横方向にスクロール可能にする */
+    overflow: scroll;          /* 縦横方向にスクロール可能にする */
 }
 
+.thead, th {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
 
 .holiday {
   background-color: #efd54f;      /* 祝日の色(thead) */

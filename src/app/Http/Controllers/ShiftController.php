@@ -94,14 +94,6 @@ class ShiftController extends Controller
     /* シフト閲覧 */
     public function view()
     {
-
-
-        return view('shiftView');
-    }
-
-    /* シフト編集 */
-    public function edit()
-    {
         $adminid=Auth::guard('admin')->id();
         $employeeid=Auth::guard('employee')->id();
         $parttimerid=Auth::guard('parttimer')->id();
@@ -109,7 +101,7 @@ class ShiftController extends Controller
         $empjudge = 0;
         if(isset($adminid)) {
             $storeid = admin::where('id',$adminid)->value('store_id');
-         }elseif(isset($employeeid)) {             //従業員のログインは動かない(アルバイトはいける)logincontrollerに原因あり
+         }elseif(isset($employeeid)) {             
             $storeid = Employee::where('id',$employeeid)->value('store_id');
             $loginid = $employeeid;
             $empjudge = true;
@@ -125,6 +117,7 @@ class ShiftController extends Controller
 
         $empname = [];
         $partname = [];
+        $i = 0;
 
         foreach($completeshift as $compshift) {
             if($compshift->judge == true) {
@@ -132,11 +125,94 @@ class ShiftController extends Controller
             }else {
                 $partname[] = Parttimer::where('id',$compshift->emppartid)->value('name');
             }
+
+            (double)$StaffTime = 0;
+            (double)$StaffsumTime = 0;
+            $Staffworkday = 0;
+
+            for($day= 1; $day <= 31; $day++) {
+                $hentai="day".$day;
+
+                if($compshift->$hentai != "×" && $compshift->$hentai != "-") {
+                    (int)$num1 = strpos($compshift->$hentai,"-");//出勤、退勤抜き出しに使用
+                    (double)$in1 =  (double) substr($compshift->$hentai,0,$num1);//提出シフトの出勤時間抜き出し
+                    (double)$out1 =  (double) substr($compshift->$hentai,$num1 + 1);//提出シフトの退勤時間抜き出し
+                    $StaffTime = $out1 - $in1;
+                    $StaffsumTime = $StaffsumTime + $StaffTime;
+                    $Staffworkday ++;
+                }
+            }
+
+            $StaffTimes[$i] = $StaffsumTime;
+            $Staffworkdays[$i] = $Staffworkday;
+            $i++;
         }
 
         $week = ['日','月','火','水','木','金','土'];
 
-        return view('shiftEdit',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','week'));
+        return view('new_shiftView',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','week'));
+    }
+
+    /* シフト編集 */
+    public function edit()
+    {
+        $adminid=Auth::guard('admin')->id();
+        $employeeid=Auth::guard('employee')->id();
+        $parttimerid=Auth::guard('parttimer')->id();
+        $loginid = 0;
+        $empjudge = 0;
+        if(isset($adminid)) {
+            $storeid = admin::where('id',$adminid)->value('store_id');
+         }elseif(isset($employeeid)) {             
+            $storeid = Employee::where('id',$employeeid)->value('store_id');
+            $loginid = $employeeid;
+            $empjudge = true;
+        }elseif(isset($parttimerid)) {
+            $storeid = Parttimer::where('id',$parttimerid)->value('store_id');
+            $loginid = $parttimerid;
+            $empjudge = false;
+        }
+
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $completeshift = CompleteShift::where('store_id',$storeid)->get();
+
+        $empname = [];
+        $partname = [];
+        $i = 0;
+
+        foreach($completeshift as $compshift) {
+            if($compshift->judge == true) {
+                $empname[] = Employee::where('id',$compshift->emppartid)->value('name');
+            }else {
+                $partname[] = Parttimer::where('id',$compshift->emppartid)->value('name');
+            }
+
+            (double)$StaffTime = 0;
+            (double)$StaffsumTime = 0;
+            $Staffworkday = 0;
+
+            for($day= 1; $day <= 31; $day++) {
+                $hentai="day".$day;
+
+                if($compshift->$hentai != "×" && $compshift->$hentai != "-") {
+                    (int)$num1 = strpos($compshift->$hentai,"-");//出勤、退勤抜き出しに使用
+                    (double)$in1 =  (double) substr($compshift->$hentai,0,$num1);//提出シフトの出勤時間抜き出し
+                    (double)$out1 =  (double) substr($compshift->$hentai,$num1 + 1);//提出シフトの退勤時間抜き出し
+                    $StaffTime = $out1 - $in1;
+                    $StaffsumTime = $StaffsumTime + $StaffTime;
+                    $Staffworkday ++;
+                }
+            }
+
+            $StaffTimes[$i] = $StaffsumTime;
+            $Staffworkdays[$i] = $Staffworkday;
+            $i++;
+        }
+
+        $week = ['日','月','火','水','木','金','土'];
+
+        return view('shiftEdit',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','week'));
     }
 
     /* シフト作成メニュー */

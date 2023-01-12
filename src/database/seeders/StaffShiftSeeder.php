@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CompleteShiftSeeder extends Seeder
+class StaffShiftSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,12 +15,12 @@ class CompleteShiftSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'1',
             'store_id'=>'1',
             'judge'=>true,
             'month'=>'1',
-            'day1'=>'×',
+            'day1'=>'10-23',
             'day2'=>'×',
             'day3'=>'×',
             'day4'=>'15-23',
@@ -52,7 +52,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'2',
             'store_id'=>'1',
             'judge'=>true,
@@ -89,7 +89,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'3',
             'store_id'=>'1',
             'judge'=>true,
@@ -126,7 +126,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'4',
             'store_id'=>'1',
             'judge'=>true,
@@ -163,7 +163,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'5',
             'store_id'=>'1',
             'judge'=>true,
@@ -200,7 +200,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'6',
             'judge'=>true,
             'month'=>'1',
@@ -236,7 +236,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'1',
             'store_id'=>'1',
             'judge'=>false,
@@ -273,7 +273,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'2',
             'store_id'=>'1',
             'judge'=>false,
@@ -310,7 +310,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'3',
             'store_id'=>'1',
             'judge'=>false,
@@ -347,7 +347,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'4',
             'store_id'=>'1',
             'judge'=>false,
@@ -384,7 +384,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'5',
             'store_id'=>'1',
             'judge'=>false,
@@ -421,7 +421,7 @@ class CompleteShiftSeeder extends Seeder
             'day30'=>'18-23',
             'day31'=>'18-23'
         ]);
-        DB::table('complete_shifts')->insert([
+        DB::table('staffshift')->insert([
             'emppartid'=>'6',
             'judge'=>false,
             'month'=>'1',
