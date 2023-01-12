@@ -36,8 +36,12 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('lineUserId')->nullable();
-            $table->integer('lineRegister')->default('1');//1が未登録２が仮保存３が登録済み
-            
+            $table->integer('lineRegister')->default('1'); //1が未登録２が仮保存３が登録済み
+            $table->string('favoriteShhift1')->default('-');
+            $table->string('favoriteShhift2')->default('-');
+            $table->boolean('favoriteShiftRegister')->default(false);
+            $table->integer('favoriteShiftRegisterCheck1')->default('1'); //1の時は変更不可2の時は変更可能
+            $table->integer('favoriteShiftRegisterCheck2')->default('1'); //1の時は変更不可2の時は変更可能
         });
     }
 
