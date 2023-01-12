@@ -85,7 +85,9 @@
                         </tbody>
                         </table>
                     </div>
-                    {{$staffshiftcover}}
+                    @if($loginid != 0)
+                        {{$staffshiftcover}}
+                    @endif
                 </div>
             </div>
         </div>
