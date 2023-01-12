@@ -37,8 +37,8 @@
             {{-- <input type="text" name="tab" value="2" style="display: none;" /> --}}
             <input id="sbox5" type="text" name="search_name2" placeholder="キーワードを入力" value="" />
             <input id="sbtn5" type="submit" value="検索" />
+            <a id="sbtn_a"  href="{{ route('employeesManegementAdd') }}" style="display:inline-block;">追加</a>
         </form>
-        <a href="{{ route('employeesManegementAdd') }}" class="addbtn">追加</a>
         <form action="employeesManagementPassView" method="GET">
             <input type="text" name="tab" value="2" style="display: none;" />
             <input type="checkbox" class="check_line" name="line_refinement" value="1" />連携済
