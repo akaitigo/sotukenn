@@ -153,7 +153,7 @@ class ShiftController extends Controller
 
         $staffshiftcompleteworkday = 0;
         $staffshiftworkday = 0;
-        (double)$staffshiftcover = 0;
+        (int)$staffshiftcover = 0;
 
         foreach($staffcompleteshift as $staffcompshift) {
             for($day= 1; $day <= 31; $day++) {
@@ -174,8 +174,11 @@ class ShiftController extends Controller
         }
 
         if($loginid != 0) {                               //これないとバグる
-            (double)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) *100;
+            (int)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) *100;
             $staffshiftcover = round($staffshiftcover,0);
+            if($staffshiftcover >= 100) {
+                $staffshiftcover = 100;
+            }
         }
 
         // $staffshiftcover = strval(round($staffshiftcover,2));
