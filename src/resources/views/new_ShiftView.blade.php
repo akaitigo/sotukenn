@@ -42,13 +42,31 @@
                             ?>
                             @foreach($completeshift as $compshift)
                                 <tr>
+                                @if($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
                                     @if($compshift->judge)
-                                    <td class="empcolor">{{$empname[$empnameid]}}</td>
+                                    <td class="loginrow">{{$empname[$empnameid]}}</td>
                                     <?php $empnameid++ ?>
                                     @else
-                                    <td class="partcolor">{{$partname[$partnameid]}}</td>
+                                    <td class="loginrow">{{$partname[$partnameid]}}</td>
                                     <?php $partnameid++ ?>
                                     @endif
+                                @elseif($rowcolor % 2 == 0)
+                                    @if($compshift->judge)
+                                    <td class="gusuemprow">{{$empname[$empnameid]}}</td>
+                                    <?php $empnameid++ ?>
+                                    @else
+                                    <td class="gusupartrow">{{$partname[$partnameid]}}</td>
+                                    <?php $partnameid++ ?>
+                                    @endif
+                                @else
+                                    @if($compshift->judge)
+                                    <td class="kisuemprow">{{$empname[$empnameid]}}</td>
+                                    <?php $empnameid++ ?>
+                                    @else
+                                    <td class="kisupartrow">{{$partname[$partnameid]}}</td>
+                                    <?php $partnameid++ ?>
+                                    @endif
+                                @endif
 
                                     
                                     @if($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
@@ -59,12 +77,20 @@
                                     @elseif($rowcolor % 2 == 0)
                                         @for($day= 1; $day <= 31; $day++)
                                         <?php $hentai="day".$day?>
-                                            <td class="gusurow">{{$compshift->$hentai}}</td>
+                                            @if($compshift->judge == false)
+                                                <td class="gusupartrow">{{$compshift->$hentai}}</td>
+                                            @else
+                                                <td class="gusuemprow">{{$compshift->$hentai}}</td>
+                                            @endif
                                         @endfor
                                     @else
                                         @for($day= 1; $day <= 31; $day++)
                                         <?php $hentai="day".$day?>
-                                            <td class="kisurow">{{$compshift->$hentai}}</td>
+                                            @if($compshift->judge == false)
+                                                <td class="kisupartrow">{{$compshift->$hentai}}</td>
+                                            @else
+                                                <td class="kisuemprow">{{$compshift->$hentai}}</td>
+                                            @endif
                                         @endfor
                                     @endif
 
