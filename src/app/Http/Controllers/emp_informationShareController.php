@@ -36,6 +36,8 @@ class emp_informationShareController extends Controller
 
     public function informationSave(Request $request)
     {
+        $user = Auth::user();
+        $userEmail=$user->email;
         $getEmail = $request->input('registerUser');
         $getUserEmp = Employee::where('email', '=', $getEmail)->get();
         $getUserPart = Parttimer::where('email', '=', $getEmail)->get();
@@ -93,7 +95,7 @@ class emp_informationShareController extends Controller
             }
         }
         $information = InformationShare::where('store_id', '=', $userStore)->get();
-        return view('emp_informationShare', compact('information'));
+        return view('emp_informationShare', compact('information','userEmail'));
     }
 
 
