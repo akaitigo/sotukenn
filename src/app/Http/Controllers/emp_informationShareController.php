@@ -23,8 +23,9 @@ class emp_informationShareController extends Controller
         $user = Auth::user();
 
         $userStore = $user->store_id;
+        $userEmail=$user->email;
         $information = InformationShare::where('store_id', '=', $userStore)->get();
-        return view('emp_informationShare', compact('information'));
+        return view('emp_informationShare', compact('information','userEmail'));
     }
 
     public function informationShareRegister()
@@ -44,26 +45,25 @@ class emp_informationShareController extends Controller
         $now = Carbon::now();
         $time = Carbon::now();
 
-
         foreach ($getUserEmp as $emp) {
             \DB::table('informationshares')->insert([
-                'shareSpan' => $inputSpan, //表示期間
                 'shareContent' => $inputShareContent, //掲示明
                 'registerUser' => $emp->name, //登録者
                 'shareText' => $inputText,
                 'registrationDate' => $now,
-                'daysRemaining' => $time->addDays($inputSpan) //残り日数
+                'daysRemaining' => $inputSpan, //残り日数
+                'email'=>$emp->email
             ]);
         }
 
         foreach ($getUserPart as $part) {
             \DB::table('informationshares')->insert([
-                'shareSpan' => $inputSpan, //表示期間
                 'shareContent' => $inputShareContent, //掲示明
                 'registerUser' => $emp->name, //登録者
                 'shareText' => $inputText,
                 'registrationDate' => $now,
-                'daysRemaining' => $time->addDays($inputSpan) //残り日数
+                'daysRemaining' => $inputSpan, //残り日数
+                'email'=>$part->email
             ]);
         }
 
