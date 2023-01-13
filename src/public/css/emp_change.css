@@ -186,7 +186,7 @@
   /* 完成シフト閲覧のテーブル */
   
   .month_table caption {
-    background:#1aa1ff;
+    background:#0084e0;
     color: #fff;
     padding: 4px;
     font-size: 1.4em;
@@ -261,23 +261,23 @@
 }
 
 .holiday {
-  background-color: #efd54f;      /* 祝日の色(thead) */
+  background-color: #efd44f88;      /* 祝日の色(thead) */
 }
 
 .saturday {
-  background-color: #1aa1ff;      /* 土曜日の色(thead) */
+  background-color: #1aa0ff88;      /* 土曜日の色(thead) */
 }
 
 .sunday {
-  background-color: #f4255f;      /* 日曜日の色(thead) */
+  background-color: #f4256092;      /* 日曜日の色(thead) */
 }
 
 .empcolor {
-  background-color: #86f09d;      /* 従業員の名前の色(name) */
+  background-color: #a3ffb7cf;      /* 従業員の名前の色(name) */
 }
 
 .partcolor {
-  background-color: #82ecec;      /* アルバイトの色(name) */
+  background-color: #7fffffb9;      /* アルバイトの色(name) */
 }
 
 .loginrow {
@@ -289,5 +289,33 @@
 }
 
 .kisurow {
+  background-color: #ffffff;      /* 奇数行の色 */
+}
+.colorbox {
+  margin-top: 3px;
+  width        : 15px;
+  height       : 15px;
+  border-radius: 5px;
+}
+.colorbox_flex{
+  display: flex;
+}
+.colorbox_text{
+  padding-left: 4px;
+  padding-right: 10px;
+}
+
+.gusuemprow {
+  background-color: #97ff85b5;      /* 偶然行の色 */
+}
+
+.kisuemprow {
+  background-color: #ffffff;      /* 奇数行の色 */
+}
+.gusupartrow {
+  background-color: #73e8fdb8;      /* 偶然行の色 */
+}
+
+.kisupartrow {
   background-color: #ffffff;      /* 奇数行の色 */
 }
