@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('shareText')->nullable(); //掲示内容
             $table->date('registrationDate')->nullable(); //登録日
             $table->date('daysRemaining')->nullable(); //残り日数
+            $table->string('email')->nullable(); //mail
 
         });
     }
