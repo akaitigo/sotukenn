@@ -306,16 +306,30 @@
 }
 
 .gusuemprow {
-  background-color: #97ff85b5;      /* 偶然行の色 */
+  background-color: #97ff85b5;      /* 従業員の偶然行の色 */
 }
 
 .kisuemprow {
-  background-color: #ffffff;      /* 奇数行の色 */
+  background-color: #ffffff;      /* 従業員の奇数行の色 */
 }
 .gusupartrow {
-  background-color: #73e8fdb8;      /* 偶然行の色 */
+  background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
 }
 
 .kisupartrow {
-  background-color: #ffffff;      /* 奇数行の色 */
+  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+}
+
+.loginrow_border {
+  background-color: #ab4de9;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+.gusupartrow_border {
+  background-color: #73e8fdb8;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+#name {
+  border-right: 1px solid #000;      /* 名名の縦線 */
 }

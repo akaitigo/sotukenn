@@ -174,15 +174,16 @@ class ShiftController extends Controller
         }
 
         if($loginid != 0) {                               //これないとバグる
-            (int)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) *100;
-            $staffshiftcover = round($staffshiftcover,0);
-            if($staffshiftcover >= 100) {
-                $staffshiftcover = 100;
+            if($staffshiftcompleteworkday == 0 || $staffshiftworkday == 0){
+                $staffshiftcover = 0;
+            }else{
+                (int)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) *100;
+                $staffshiftcover = round($staffshiftcover,0);
+                if($staffshiftcover >= 100) {
+                    $staffshiftcover = 100;
+                }
             }
         }
-
-        // $staffshiftcover = strval(round($staffshiftcover,2));
-        
 
         $week = ['日','月','火','水','木','金','土'];
 

@@ -54,43 +54,67 @@
                             ?>
                             @foreach ($completeshift as $compshift)
                                 <tr>
+                                <!-- 名前の処理 -->
                                 @if($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
                                     @if($compshift->judge)
-                                    <td class="loginrow">{{$empname[$empnameid]}}</td>
-                                    <?php $empnameid++ ?>
+                                        <td class="loginrow" id="name">{{$empname[$empnameid]}}</td>
+                                        <?php $empnameid++ ?>
                                     @else
-                                    <td class="loginrow">{{$partname[$partnameid]}}</td>
-                                    <?php $partnameid++ ?>
+                                        <!-- 太線の処理 -->
+                                        @if($compshift->emppartid == 1 && $compshift->judge == false)
+                                            <td class="loginrow_border" id="name">{{$partname[$partnameid]}}</td>
+                                            <?php $partnameid++ ?>
+                                        @else
+                                            <td class="loginrow" id="name">{{$partname[$partnameid]}}</td>
+                                            <?php $partnameid++ ?>
+                                        @endif
                                     @endif
                                 @elseif($rowcolor % 2 == 0)
                                     @if($compshift->judge)
-                                    <td class="gusuemprow">{{$empname[$empnameid]}}</td>
-                                    <?php $empnameid++ ?>
+                                        <td class="gusuemprow" id="name">{{$empname[$empnameid]}}</td>
+                                        <?php $empnameid++ ?>
                                     @else
-                                    <td class="gusupartrow">{{$partname[$partnameid]}}</td>
-                                    <?php $partnameid++ ?>
+                                    <!-- 太線の処理 -->
+                                        @if($compshift->emppartid == 1 && $compshift->judge == false)
+                                            <td class="gusupartrow_border" id="name">{{$partname[$partnameid]}}</td>
+                                            <?php $partnameid++ ?>
+                                        @else
+                                            <td class="gusupartrow" id="name">{{$partname[$partnameid]}}</td>
+                                            <?php $partnameid++ ?>
+                                        @endif
                                     @endif
                                 @else
                                     @if($compshift->judge)
-                                    <td class="kisuemprow">{{$empname[$empnameid]}}</td>
-                                    <?php $empnameid++ ?>
+                                        <td class="kisuemprow" id="name">{{$empname[$empnameid]}}</td>
+                                        <?php $empnameid++ ?>
                                     @else
-                                    <td class="kisupartrow">{{$partname[$partnameid]}}</td>
-                                    <?php $partnameid++ ?>
+                                        <td class="kisupartrow" id="name">{{$partname[$partnameid]}}</td>
+                                        <?php $partnameid++ ?>
                                     @endif
                                 @endif
 
 
+                                <!-- １～３１日の処理 -->
                                     @if ($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
                                         @for ($day = 1; $day <= 31; $day++)
                                             <?php $hentai = 'day' . $day; ?>
-                                            <td class="loginrow">{{ $compshift->$hentai }}</td>
+                                            <!-- 太線の処理 -->
+                                            @if($compshift->emppartid == 1 && $compshift->judge == false)
+                                                <td class="loginrow_border">{{ $compshift->$hentai }}</td>
+                                            @else
+                                                <td class="loginrow">{{ $compshift->$hentai }}</td>
+                                            @endif
                                         @endfor
                                     @elseif($rowcolor % 2 == 0)
                                         @for($day= 1; $day <= 31; $day++)
                                         <?php $hentai="day".$day?>
                                             @if($compshift->judge == false)
-                                                <td class="gusupartrow">{{$compshift->$hentai}}</td>
+                                                <!-- 太線の処理 -->
+                                                @if($compshift->emppartid == 1 && $compshift->judge == false)
+                                                    <td class="gusupartrow_border">{{$compshift->$hentai}}</td>
+                                                @else
+                                                    <td class="gusupartrow">{{$compshift->$hentai}}</td>
+                                                @endif
                                             @else
                                                 <td class="gusuemprow">{{$compshift->$hentai}}</td>
                                             @endif
@@ -106,15 +130,39 @@
                                         @endfor
                                     @endif
 
+
+                                    <!-- 労働日数と労働時間 -->
                                     @if ($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
-                                        <td class="loginrow">{{ $Staffworkdays[$i] }}</td>
-                                        <td class="loginrow">{{ $StaffTimes[$i] }}</td>
+                                        <!-- 太線の処理 -->
+                                        @if($compshift->emppartid == 1 && $compshift->judge == false)
+                                            <td class="loginrow_border">{{ $Staffworkdays[$i] }}</td>
+                                            <td class="loginrow_border">{{ $StaffTimes[$i] }}</td>
+                                        @else
+                                            <td class="loginrow">{{ $Staffworkdays[$i] }}</td>
+                                            <td class="loginrow">{{ $StaffTimes[$i] }}</td>
+                                        @endif
                                     @elseif($rowcolor % 2 == 0)
-                                        <td class="gusurow">{{ $Staffworkdays[$i] }}</td>
-                                        <td class="gusurow">{{ $StaffTimes[$i] }}</td>
+                                        @if($compshift->judge == false)
+                                            <!-- 太線の処理 -->
+                                            @if($compshift->emppartid == 1 && $compshift->judge == false)
+                                                <td class="gusupartrow_border">{{ $Staffworkdays[$i] }}</td>
+                                                <td class="gusupartrow_border">{{ $StaffTimes[$i] }}</td>
+                                            @else
+                                                <td class="gusupartrow">{{ $Staffworkdays[$i] }}</td>
+                                                <td class="gusupartrow">{{ $StaffTimes[$i] }}</td>
+                                            @endif
+                                        @else
+                                            <td class="gusuemprow">{{ $Staffworkdays[$i] }}</td>
+                                            <td class="gusuemprow">{{ $StaffTimes[$i] }}</td>
+                                        @endif
                                     @else
-                                        <td class="kisurow">{{ $Staffworkdays[$i] }}</td>
-                                        <td class="kisurow">{{ $StaffTimes[$i] }}</td>
+                                        @if($compshift->judge == false)
+                                            <td class="kisupartrow">{{ $Staffworkdays[$i] }}</td>
+                                            <td class="kisupartrow">{{ $StaffTimes[$i] }}</td>
+                                        @else
+                                            <td class="kisuemprow">{{ $Staffworkdays[$i] }}</td>
+                                            <td class="kisuemprow">{{ $StaffTimes[$i] }}</td>
+                                        @endif
                                     @endif
                                 </tr>
                                 <?php $rowcolor++;
