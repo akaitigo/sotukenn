@@ -163,17 +163,46 @@ class LineWebhookController extends Controller
                     $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
                     $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 }
+
+
+
             } else if ($inputText === "シフト提出") {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
                 $nullDay=0;
+                $day=0;
+                $now = Carbon::now()->format('m');
                 foreach ($employeeNullCheck as $emp) {
 
                     $userId = $emp->id;
-                    $shift = StaffShift::where('emppartid', '=', $userId)->where('judge', '=', true)->get();
-                    if(empty($shift)){
-                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ｋら');
-                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+
+                    $nullCheck=false;//null
+                    foreach($shift as $shi){
+                        $nullCheck=true;//notnull
+                    }
+
+                    if($nullCheck){//notnullの時
+                        foreach($shift as $shi){
+                        for($i=0;$i<=31;$i++){
+                            $daysTemp='day'.$i;
+                            if(!($i==0)){
+                                if($shi->$daysTemp==='*'){
+                                    $day=$i;
+                                    break;
+                                }
+                            }
+
+                        }
+                    }
+                    }else{//nullの時
+                        \DB::table('staffshift')->insert([
+                            'emppartid'=>$emp->id,
+                            'store_id'=>$emp->store_id,
+                            'judge'=>true,
+                            'month'=>$now,
+                        ]);
+                        $day=1;
                     }
 
 
@@ -181,10 +210,11 @@ class LineWebhookController extends Controller
 
 
 
-                    //お気に入りが登録されているかされてないか判別
-                    if ($emp->favoriteShiftRegister === false) { //登録されていない
 
-                        $text = "シフトの提出ですね！\nよく使うシフトをお気に入りとして登録をすることで、シフト提出を簡単に行うことができます！\n登録を行いますか？？";
+                    //お気に入りが登録されているかされてないか判別
+                    if (!($emp->favoriteShiftRegister)) { //登録されていない
+
+                        $text = "よく使うシフトをお気に入りとして登録をすることで、シフト提出を簡単に行うことができます！\n登録を行いますか？？";
                         $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
                         $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                         //JSONデータを取得
@@ -230,7 +260,7 @@ class LineWebhookController extends Controller
                         $result = curl_exec($ch);
                         curl_close($ch);
                     } else { //登録されている
-                        $text = "シフトの提出ですね！";
+                        $text = $now."月".$day."日のシフトの提出ですね！";
                         $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
                         $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);                        //JSONデータを取得
 
@@ -269,7 +299,7 @@ class LineWebhookController extends Controller
                             $quick_reply_buttons[] = $quick_reply_button_builder;
                         }
                         $quick_reply_message_builder = new QuickReplyMessageBuilder($quick_reply_buttons);
-                        $text_message_builder = new TextMessageBuilder('下の選択肢から選択をしてください'."\n選択肢にない場合は、先頭文字に*を入力しハイフン区切りで送信してください。\n例）*10-15", $quick_reply_message_builder);
+                        $text_message_builder = new TextMessageBuilder('希望する時間を下の選択肢から選択をしてください'."\n選択肢にない場合は、先頭文字に*を入力しハイフン区切りで送信してください。\n例）*10-15", $quick_reply_message_builder);
                         $bot->replyMessage($reply_token, $text_message_builder);
                         //シフトの提出処理
 
@@ -301,7 +331,287 @@ class LineWebhookController extends Controller
 
 
 
-            } else if ($inputText === ">登録する") {
+
+
+            }else if(strpos($inputText, '△') !== false){
+                $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
+                $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $nullDay=0;
+                $day=0;
+                $now = Carbon::now()->format('m');
+                foreach ($employeeNullCheck as $emp) {
+
+                    $userId = $emp->id;
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                        foreach($shift as $shi){
+                            $registerCheck=false;
+                        for($i=0;$i<=31;$i++){ 
+                            $daysTemp='day'.$i;
+                            if(!($i==0)){
+                                if($shi->$daysTemp==='*'){
+                                    $day=$i;
+                                    $registerCheck=true;
+                                    break;
+                                }
+                            }
+                        }
+                        if($registerCheck){
+                            $shi->$daysTemp=$emp->favoriteShhift1;
+                            $shi->timestamps = false;
+                            $shi->save();
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift1."で登録しました。");
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        }else{
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出が終了しました");
+                            $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                        }
+              
+                        $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                        for($i=0;$i<=31;$i++){ 
+                            $daysTemp='day'.$i;
+                            if(!($i==0)){
+                                if($shi->$daysTemp==='*'){
+                                    $day=$i;
+                                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("続けてシフトを登録します！");
+                                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                                    $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($shi->month.'月'.$day.'日のシフトを提出してください！');
+                                    $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                                                 //JSONデータを取得
+                        $jsonAry = json_decode(file_get_contents('php://input'), true);
+                        //メッセージ取得(配列)
+                        $message = $jsonAry['events'][0]['message'];
+                        //返信用トークン
+                        $replyToken = $jsonAry['events'][0]['replyToken'];
+                        define('TOKEN', '58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+
+
+                        $http_client = new CurlHTTPClient('58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+                        $bot = new LINEBot($http_client, ['channelSecret' => 'a14576e5515cdd04d92f4c371275cba8']);
+                        $signature = $_SERVER['HTTP_' . HTTPHeader::LINE_SIGNATURE];
+                        $http_request_body = file_get_contents('php://input');
+                        $events = $bot->parseEventRequest($http_request_body, $signature);
+                        $event = $events[0];
+                        $reply_token = $event->getReplyToken();
+
+
+                        $categories = [
+                            '×'.'勤務不可',
+                            '△'.$emp->favoriteShhift1,
+                            '〇'.$emp->favoriteShhift2
+                        ];
+
+                        foreach ($categories as $category) {
+                            // 1、表示する文言と押下時に送信するメッセージをセット
+                            $message_template_action_builder = new MessageTemplateActionBuilder($category, $category );
+                            // 2、1をボタンに組み込む
+                            $quick_reply_button_builder = new QuickReplyButtonBuilder($message_template_action_builder);
+                            // 3、ボタンを配列に格納する(12個まで)
+                            $quick_reply_buttons[] = $quick_reply_button_builder;
+                        }
+                        $quick_reply_message_builder = new QuickReplyMessageBuilder($quick_reply_buttons);
+                        $text_message_builder = new TextMessageBuilder('希望する時間を下の選択肢から選択をしてください'."\n選択肢にない場合は、先頭文字に*を入力しハイフン区切りで送信してください。\n例）*10-15", $quick_reply_message_builder);
+                        $bot->replyMessage($reply_token, $text_message_builder);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            
+                    
+                    
+
+
+
+            }else if(strpos($inputText, '〇') !== false){
+                    $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
+                    $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                    $nullDay=0;
+                    $day=0;
+                    $now = Carbon::now()->format('m');
+                    foreach ($employeeNullCheck as $emp) {
+    
+                        $userId = $emp->id;
+                        $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+    
+    
+    
+                            foreach($shift as $shi){
+                                $registerCheck=false;
+                            for($i=0;$i<=31;$i++){ 
+                                $daysTemp='day'.$i;
+                                if(!($i==0)){
+                                    if($shi->$daysTemp==='*'){
+                                        $day=$i;
+                                        $registerCheck=true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if($registerCheck){
+                                $shi->$daysTemp=$emp->favoriteShhift2;
+                                $shi->timestamps = false;
+                                $shi->save();
+                                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift2."で登録しました。");
+                                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            }else{
+                                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出が終了しました");
+                                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            }
+                  
+                            $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                            for($i=0;$i<=31;$i++){ 
+                                $daysTemp='day'.$i;
+                                if(!($i==0)){
+                                    if($shi->$daysTemp==='*'){
+                                        $day=$i;
+                                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("続けてシフトを登録します！");
+                                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($shi->month.'月'.$day.'日のシフトを提出してください！');
+                                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                         //JSONデータを取得
+                        $jsonAry = json_decode(file_get_contents('php://input'), true);
+                        //メッセージ取得(配列)
+                        $message = $jsonAry['events'][0]['message'];
+                        //返信用トークン
+                        $replyToken = $jsonAry['events'][0]['replyToken'];
+                        define('TOKEN', '58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+
+
+                        $http_client = new CurlHTTPClient('58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+                        $bot = new LINEBot($http_client, ['channelSecret' => 'a14576e5515cdd04d92f4c371275cba8']);
+                        $signature = $_SERVER['HTTP_' . HTTPHeader::LINE_SIGNATURE];
+                        $http_request_body = file_get_contents('php://input');
+                        $events = $bot->parseEventRequest($http_request_body, $signature);
+                        $event = $events[0];
+                        $reply_token = $event->getReplyToken();
+
+
+                        $categories = [
+                            '×'.'勤務不可',
+                            '△'.$emp->favoriteShhift1,
+                            '〇'.$emp->favoriteShhift2
+                        ];
+
+                        foreach ($categories as $category) {
+                            // 1、表示する文言と押下時に送信するメッセージをセット
+                            $message_template_action_builder = new MessageTemplateActionBuilder($category, $category );
+                            // 2、1をボタンに組み込む
+                            $quick_reply_button_builder = new QuickReplyButtonBuilder($message_template_action_builder);
+                            // 3、ボタンを配列に格納する(12個まで)
+                            $quick_reply_buttons[] = $quick_reply_button_builder;
+                        }
+                        $quick_reply_message_builder = new QuickReplyMessageBuilder($quick_reply_buttons);
+                        $text_message_builder = new TextMessageBuilder('希望する時間を下の選択肢から選択をしてください'."\n選択肢にない場合は、先頭文字に*を入力しハイフン区切りで送信してください。\n例）*10-15", $quick_reply_message_builder);
+                        $bot->replyMessage($reply_token, $text_message_builder);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                
+                        
+                        
+    
+    
+    
+
+
+
+                }else if(strpos($inputText, '×') !== false){
+                    $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
+                    $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                    $nullDay=0;
+                    $day=0;
+                    $now = Carbon::now()->format('m');
+                    foreach ($employeeNullCheck as $emp) {
+    
+                        $userId = $emp->id;
+                        $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+    
+    
+    
+                            foreach($shift as $shi){
+                                $registerCheck=false;
+                            for($i=0;$i<=31;$i++){ 
+                                $daysTemp='day'.$i;
+                                if(!($i==0)){
+                                    if($shi->$daysTemp==='*'){
+                                        $day=$i;
+                                        $registerCheck=true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if($registerCheck){
+                                $shi->$daysTemp=$emp->favoriteShhift2;
+                                $shi->timestamps = false;
+                                $shi->save();
+                                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift2."で登録しました。");
+                                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            }else{
+                                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出が終了しました");
+                                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            }
+                  
+                            $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                            for($i=0;$i<=31;$i++){ 
+                                $daysTemp='day'.$i;
+                                if(!($i==0)){
+                                    if($shi->$daysTemp==='*'){
+                                        $day=$i;
+                                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("続けてシフトを登録します！");
+                                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($shi->month.'月'.$day.'日のシフトを提出してください！');
+                                        $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                         //JSONデータを取得
+                        $jsonAry = json_decode(file_get_contents('php://input'), true);
+                        //メッセージ取得(配列)
+                        $message = $jsonAry['events'][0]['message'];
+                        //返信用トークン
+                        $replyToken = $jsonAry['events'][0]['replyToken'];
+                        define('TOKEN', '58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+
+
+                        $http_client = new CurlHTTPClient('58lQH4owjr8z/cqqGenWkktXMNmsP7m5l3ymC3lxbsapeEiV8o5vw+awBUm76lBQd0YeDA7UsZcozPR9J1Tp36NksdsCYcLjy1Ilnz0TmWLLB2YOrZUAWGFjO9Hqk1JTgQ59Vzz/WW77cJtINtc1QwdB04t89/1O/w1cDnyilFU=');
+                        $bot = new LINEBot($http_client, ['channelSecret' => 'a14576e5515cdd04d92f4c371275cba8']);
+                        $signature = $_SERVER['HTTP_' . HTTPHeader::LINE_SIGNATURE];
+                        $http_request_body = file_get_contents('php://input');
+                        $events = $bot->parseEventRequest($http_request_body, $signature);
+                        $event = $events[0];
+                        $reply_token = $event->getReplyToken();
+
+
+                        $categories = [
+                            '×'.'勤務不可',
+                            '△'.$emp->favoriteShhift1,
+                            '〇'.$emp->favoriteShhift2
+                        ];
+
+                        foreach ($categories as $category) {
+                            // 1、表示する文言と押下時に送信するメッセージをセット
+                            $message_template_action_builder = new MessageTemplateActionBuilder($category, $category );
+                            // 2、1をボタンに組み込む
+                            $quick_reply_button_builder = new QuickReplyButtonBuilder($message_template_action_builder);
+                            // 3、ボタンを配列に格納する(12個まで)
+                            $quick_reply_buttons[] = $quick_reply_button_builder;
+                        }
+                        $quick_reply_message_builder = new QuickReplyMessageBuilder($quick_reply_buttons);
+                        $text_message_builder = new TextMessageBuilder('希望する時間を下の選択肢から選択をしてください'."\n選択肢にない場合は、先頭文字に*を入力しハイフン区切りで送信してください。\n例）*10-15", $quick_reply_message_builder);
+                        $bot->replyMessage($reply_token, $text_message_builder);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                
+                        
+
+
+
+            }else if ($inputText === ">登録する") {
                 $text = "お気に入りシフトの登録ですね！";
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
@@ -396,6 +706,7 @@ class LineWebhookController extends Controller
 
                     if ($emp->favoriteShhift1 != '-' && $emp->favoriteShhift2 != '-') {
                         $emp->favoriteShiftRegister = true;
+                        $emp->save();
                     }
                 }
             } else if ($inputText === ">2") {
