@@ -283,6 +283,7 @@
 
 .loginrow {
   background-color: #cc7fff;      /* ログイン中の人の行の色 */
+  cursor: pointer;
 }
 
 .gusurow {
@@ -324,6 +325,7 @@
 .loginrow_border {
   background-color: #cc7fffac;      /* ログイン中の最初のアルバイトの行の色 */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  cursor: pointer;
 }
 
 .gusupartrow_border {
@@ -349,6 +351,11 @@
   background-color: #ffffff;      /* アルバイトの奇数行の色 */
 }
 
+.loginrow_name {
+  background-color: #cc7fff;      /* ログイン中の人の行の色 */
+}
+
+
 .loginrow_name_border {
   background-color: #cc7fff;      /* ログイン中の最初のアルバイトの行の色 */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
@@ -370,4 +377,9 @@
 
 .thname {
   border-right: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+.shifttext {
+  text-align: center;
+  font-size: 1em;
 }
