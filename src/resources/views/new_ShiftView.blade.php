@@ -57,38 +57,38 @@
                                 <!-- 名前の処理 -->
                                 @if($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
                                     @if($compshift->judge)
-                                        <td class="loginrow" id="name">{{$empname[$empnameid]}}</td>
+                                        <td class="loginrow_name" id="name">{{$empname[$empnameid]}}</td>
                                         <?php $empnameid++ ?>
                                     @else
                                         <!-- 太線の処理 -->
                                         @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                            <td class="loginrow_border" id="name">{{$partname[$partnameid]}}</td>
+                                            <td class="loginrow_name_border" id="name">{{$partname[$partnameid]}}</td>
                                             <?php $partnameid++ ?>
                                         @else
-                                            <td class="loginrow" id="name">{{$partname[$partnameid]}}</td>
+                                            <td class="loginrow_name" id="name">{{$partname[$partnameid]}}</td>
                                             <?php $partnameid++ ?>
                                         @endif
                                     @endif
                                 @elseif($rowcolor % 2 == 0)
                                     @if($compshift->judge)
-                                        <td class="gusuemprow" id="name">{{$empname[$empnameid]}}</td>
+                                        <td class="gusuemprow_name" id="name">{{$empname[$empnameid]}}</td>
                                         <?php $empnameid++ ?>
                                     @else
                                     <!-- 太線の処理 -->
                                         @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                            <td class="gusupartrow_border" id="name">{{$partname[$partnameid]}}</td>
+                                            <td class="gusupartrow_name_border" id="name">{{$partname[$partnameid]}}</td>
                                             <?php $partnameid++ ?>
                                         @else
-                                            <td class="gusupartrow" id="name">{{$partname[$partnameid]}}</td>
+                                            <td class="gusupartrow_name" id="name">{{$partname[$partnameid]}}</td>
                                             <?php $partnameid++ ?>
                                         @endif
                                     @endif
                                 @else
                                     @if($compshift->judge)
-                                        <td class="kisuemprow" id="name">{{$empname[$empnameid]}}</td>
+                                        <td class="kisuemprow_name" id="name">{{$empname[$empnameid]}}</td>
                                         <?php $empnameid++ ?>
                                     @else
-                                        <td class="kisupartrow" id="name">{{$partname[$partnameid]}}</td>
+                                        <td class="kisupartrow_name" id="name">{{$partname[$partnameid]}}</td>
                                         <?php $partnameid++ ?>
                                     @endif
                                 @endif
