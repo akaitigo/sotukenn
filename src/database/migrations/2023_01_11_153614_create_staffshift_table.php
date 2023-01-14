@@ -6,12 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    false    falseRun the migrations.
-    false    false@return void
-    false
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
     public function up()
     {
-
         Schema::create('staffshift', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('emppartid');
@@ -19,38 +20,38 @@ return new class extends Migration
             $table->foreign('store_id')->references('id')->on('stores');
             $table->boolean('judge');
             $table->integer('month');
-            $table->string('day1')->default('*');
-            $table->string('day2')->default('*');
-            $table->string('day3')->default('*');
-            $table->string('day4')->default('*');
-            $table->string('day5')->default('*');
-            $table->string('day6')->default('*');
-            $table->string('day7')->default('*');
-            $table->string('day8')->default('*');
-            $table->string('day9')->default('*');
-            $table->string('day10')->default('*');
-            $table->string('day11')->default('*');
-            $table->string('day12')->default('*');
-            $table->string('day13')->default('*');
-            $table->string('day14')->default('*');
-            $table->string('day15')->default('*');
-            $table->string('day16')->default('*');
-            $table->string('day17')->default('*');
-            $table->string('day18')->default('*');
-            $table->string('day19')->default('*');
-            $table->string('day20')->default('*');
-            $table->string('day21')->default('*');
-            $table->string('day22')->default('*');
-            $table->string('day23')->default('*');
-            $table->string('day24')->default('*');
-            $table->string('day25')->default('*');
-            $table->string('day26')->default('*');
-            $table->string('day27')->default('*');
-            $table->string('day28')->default('*');
-            $table->string('day29')->default('*');
-            $table->string('day30')->default('*');
-            $table->string('day31')->default('*');
-
+            $table->string('day1')->default('-1');
+            $table->string('day2')->default('-1');
+            $table->string('day3')->default('-1');
+            $table->string('day4')->default('-1');
+            $table->string('day5')->default('-1');
+            $table->string('day6')->default('-1');
+            $table->string('day7')->default('-1');
+            $table->string('day8')->default('-1');
+            $table->string('day9')->default('-1');
+            $table->string('day10')->default('-1');
+            $table->string('day11')->default('-1');
+            $table->string('day12')->default('-1');
+            $table->string('day13')->default('-1');
+            $table->string('day14')->default('-1');
+            $table->string('day15')->default('-1');
+            $table->string('day16')->default('-1');
+            $table->string('day17')->default('-1');
+            $table->string('day18')->default('-1');
+            $table->string('day19')->default('-1');
+            $table->string('day20')->default('-1');
+            $table->string('day21')->default('-1');
+            $table->string('day22')->default('-1');
+            $table->string('day23')->default('-1');
+            $table->string('day24')->default('-1');
+            $table->string('day25')->default('-1');
+            $table->string('day26')->default('-1');
+            $table->string('day27')->default('-1');
+            $table->string('day28')->default('-1');
+            $table->string('day29')->default('-1');
+            $table->string('day30')->default('-1');
+            $table->string('day31')->default('-1');
+            $table->boolean('registerCheck0')->default(true);
             $table->boolean('registerCheck1')->default(false);
             $table->boolean('registerCheck2')->default(false);
             $table->boolean('registerCheck3')->default(false);
@@ -85,9 +86,12 @@ return new class extends Migration
         });
     }
 
-    false    falseReverse the migrations.
-    false    false@return void
-    false
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
         Schema::dropIfExists('staffshift');
