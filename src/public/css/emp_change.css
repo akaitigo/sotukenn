@@ -273,26 +273,6 @@
   background-color: #f4256092;      /* 日曜日の色(thead) */
 }
 
-.empcolor {
-  background-color: #a3ffb7cf;      /* 従業員の名前の色(name) */
-}
-
-.partcolor {
-  background-color: #7fffffb9;      /* アルバイトの色(name) */
-}
-
-.loginrow {
-  background-color: #cc7fff;      /* ログイン中の人の行の色 */
-  cursor: pointer;
-}
-
-.gusurow {
-  background-color: #e9e9e9;      /* 偶然行の色 */
-}
-
-.kisurow {
-  background-color: #ffffff;      /* 奇数行の色 */
-}
 .colorbox {
   margin-top: 3px;
   width        : 15px;
@@ -307,19 +287,30 @@
   padding-right: 10px;
 }
 
+
+/* １から31日のカラム */
 .gusuemprow {
   background-color: #97ff85b5;      /* 従業員の偶然行の色 */
+  cursor: pointer;
 }
 
 .kisuemprow {
   background-color: #ffffff;      /* 従業員の奇数行の色 */
+  cursor: pointer;
 }
 .gusupartrow {
   background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
+  cursor: pointer;
 }
 
 .kisupartrow {
   background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  cursor: pointer;
+}
+
+.loginrow {
+  background-color: #cc7fffac;      /* ログイン中の人の行の色 */
+  cursor: pointer;
 }
 
 .loginrow_border {
@@ -331,6 +322,7 @@
 .gusupartrow_border {
   background-color: #73e8fdb8;      /* 最初のアルバイト */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  cursor: pointer;
 }
 
 
@@ -382,4 +374,35 @@
 .shifttext {
   text-align: center;
   font-size: 1em;
+}
+
+/* 右端の日数、時間カラム */
+.gusuemprow_work {
+  background-color: #97ff85b5;      /* 従業員の偶然行の色 */
+}
+
+.kisuemprow_work {
+  background-color: #ffffff;      /* 従業員の奇数行の色 */
+}
+.gusupartrow_work {
+  background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
+}
+
+.kisupartrow_work {
+  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+}
+
+.loginrow_work {
+  background-color: #cc7fffac;      /* ログイン中の人の行の色 */
+}
+
+
+.loginrow_work_border {
+  background-color: #cc7fffac;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+.gusupartrow_work_border {
+  background-color: #73e8fdb8;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
 }

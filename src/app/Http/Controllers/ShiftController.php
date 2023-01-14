@@ -247,10 +247,19 @@ class ShiftController extends Controller
             $i++;
         }
 
+        $emppartcount = $i + 1;
         $week = ['日','月','火','水','木','金','土'];
 
-        return view('shiftEdit',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','week'));
+        return view('shiftEdit',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','week','emppartcount'));
     }
+
+    /* シフト編集上書き処理 */
+    public function update()
+    {
+        return view('shiftupdate');
+    }
+
+
 
     /* シフト作成メニュー */
     public function menu()
