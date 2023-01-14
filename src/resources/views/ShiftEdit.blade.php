@@ -34,6 +34,7 @@
                             <th class="worktime">労働時間</th>
                         </thead>
                         <tbody>
+                        
                             <?php
                             $empnameid = 0;
                             $partnameid = 0;
@@ -41,6 +42,10 @@
                             $i = 0;
                             $empcount = $emppartcount;
                             ?>
+
+                            <form method="post" action="{{ route('shiftupdate') }}">
+                            @csrf
+
                             @foreach ($completeshift as $compshift)
                                 <tr>
                                 <!-- 名前の処理 -->
@@ -84,8 +89,7 @@
 
 
                                 <!-- １～３１日の処理 -->
-                                <form method="post" action="{{ route('shiftupdate') }}">
-                                @csrf
+                                
                                     @if ($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
                                         @for ($day = 1; $day <= 31; $day++)
                                             <?php $hentai = 'day' . $day; 
@@ -93,9 +97,9 @@
                                                   $javascripttd = $compshift->id . '*' . $day; ?>
                                             <!-- 太線の処理 -->
                                             @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                                <td class="loginrow_border" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{ $compshift->$hentai }}</td>
+                                                <td class="loginrow_edit_border" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{ $compshift->$hentai }}</td>
                                             @else
-                                                <td class="loginrow" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{ $compshift->$hentai }}</td>
+                                                <td class="loginrow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{ $compshift->$hentai }}</td>
                                             @endif
 
                                         @endfor
@@ -107,12 +111,12 @@
                                             @if($compshift->judge == false)
                                                 <!-- 太線の処理 -->
                                                 @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                                    <td class="gusupartrow_border" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                    <td class="gusupartrow_edit_border" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
                                                 @else
-                                                    <td class="gusupartrow" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                    <td class="gusupartrow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
                                                 @endif
                                             @else
-                                                <td class="gusuemprow" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                <td class="gusuemprow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
                                             @endif
                                         @endfor
                                     @else
@@ -121,13 +125,13 @@
                                                   $javascriptid = $compshift->id . '-' . $day;
                                                   $javascripttd = $compshift->id . '*' . $day; ?>
                                             @if($compshift->judge == false)
-                                                <td class="kisupartrow" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                <td class="kisupartrow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
                                             @else
-                                                <td class="kisuemprow" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="shifttext" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}"/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                <td class="kisuemprow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
                                             @endif
                                         @endfor
                                     @endif
-                                    </form>
+                
 
 
                                     <!-- 労働日数と労働時間 -->
@@ -170,6 +174,8 @@
                         </tbody>
                     </table>
                     </div>
+                    <button type="submit" name="updateId" class="updateButton">更新</button>
+                    </form>
                 </div>
             </div>
         </div>
