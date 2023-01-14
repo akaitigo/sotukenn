@@ -291,40 +291,69 @@
 /* １から31日のカラム */
 .gusuemprow {
   background-color: #97ff85b5;      /* 従業員の偶然行の色 */
-  cursor: pointer;
 }
 
 .kisuemprow {
   background-color: #ffffff;      /* 従業員の奇数行の色 */
-  cursor: pointer;
 }
 .gusupartrow {
   background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
-  cursor: pointer;
 }
 
 .kisupartrow {
   background-color: #ffffff;      /* アルバイトの奇数行の色 */
-  cursor: pointer;
 }
 
 .loginrow {
   background-color: #cc7fffac;      /* ログイン中の人の行の色 */
-  cursor: pointer;
 }
 
 .loginrow_border {
   background-color: #cc7fffac;      /* ログイン中の最初のアルバイトの行の色 */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
-  cursor: pointer;
 }
 
 .gusupartrow_border {
   background-color: #73e8fdb8;      /* 最初のアルバイト */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+/* シフト編集の１から31日のカラム */
+.gusuemprow_edit {
+  background-color: #97ff85b5;      /* 従業員の偶然行の色 */
   cursor: pointer;
 }
 
+.kisuemprow_edit {
+  background-color: #ffffff;      /* 従業員の奇数行の色 */
+  cursor: pointer;
+}
+.gusupartrow_edit {
+  background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
+  cursor: pointer;
+}
+
+.kisupartrow_edit {
+  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  cursor: pointer;
+}
+
+.loginrow_edit {
+  background-color: #cc7fffac;      /* ログイン中の人の行の色 */
+  cursor: pointer;
+}
+
+.loginrow_edit_border {
+  background-color: #cc7fffac;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  cursor: pointer;
+}
+
+.gusupartrow_edit_border {
+  background-color: #73e8fdb8;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  cursor: pointer;
+}
 
 
 /* 左端の名前カラム */
