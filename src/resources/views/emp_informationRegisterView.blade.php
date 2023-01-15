@@ -42,5 +42,5 @@
     <link rel="stylesheet" href="/css/emp_info.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
     <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
-    <script type="text/javascript" src="/js/test.js"></script>
+    <script type="text/javascript" src="/js/emp_info.js"></script>
 </div>

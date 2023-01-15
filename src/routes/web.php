@@ -42,7 +42,7 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('test2');
+    return view('emp_shift_add');
 });
 
 Route::get('/emp_calendar', function () {
