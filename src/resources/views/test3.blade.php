@@ -54,8 +54,8 @@
                             </tbody>
                         </table>
                     </div>
-                    <button class="button" id="add-button">Add Event</button>
-                    <button class="button" id="delete-button">delet Event</button>
+                    <button class="button" id="add-button">登録・更新</button>
+                    <button class="button" id="delete-button">予定の削除</button>
                 </div>
             </div>
             <div class="events-container">
@@ -82,7 +82,6 @@
                 </form>
             </div>
         </div>
-
 </body>
 
 </html>
@@ -102,4 +101,3 @@
 {{-- <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.core.min.js"></script>
 <script type="text/javascript" src="/js/test3.js"></script>
-

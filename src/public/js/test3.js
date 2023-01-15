@@ -171,16 +171,32 @@ function new_event(event) {
   // Event handler for ok button
   $("#ok-button").unbind().click({ date: event.data.date }, function () {
     var date = event.data.date;
-    var name = $("#name").val().trim();
-    var count =$("#count").val().trim();
+    var name =parseInt($("#name").val().trim());
+    var count =parseInt($("#count").val().trim());
     var day = parseInt($(".active-date").html());
     console.log(date);
     // Basic form validation
-    if (name.length === 0) {
+    if (isNaN(name)) {
       $("#name").addClass("error-input");
+      alert("開始時間がありません");
     }
-    else if (count.length === 0) {
+    else if(name >24){
+      $("#name").addClass("error-input");
+      alert("24時を超えています。");
+
+    }
+    else if (isNaN(count)) {
       $("#count").addClass("error-input");
+      alert("終了時間がありません");
+    }
+    else if(count >24){
+      $("#count").addClass("error-input");
+      alert("24時を超えています。");
+    }
+    else if(name>=count){
+      $("#name").addClass("error-input");
+      $("#count").addClass("error-input");
+      alert("開始時間が終了時間を超えています。");
     }
     else {
       $("#dialog").hide(250);
@@ -254,10 +270,42 @@ function check_events(day, month, year) {
   return events;
 }
 
+// データの設定
 // Given data for events in JSON format
 var event_data = {
   "events": [
     {
+      "occasion": 10,
+      "invited_count": 12,
+      "year": 2023,
+      "month": 1,
+      "day": 10,
+      // "cancelled": true
+    },
+    {
+      "occasion": 14,
+      "invited_count": 16,
+      "year": 2023,
+      "month": 1,
+      "day": 11,
+      // "cancelled": true
+    },
+    {
+      "occasion": 20,
+      "invited_count": 24,
+      "year": 2023,
+      "month": 1,
+      "day": 8,
+      // "cancelled": true
+    },
+    {
+      "occasion":1,
+      "invited_count": 12,
+      "year": 2023,
+      "month": 1,
+      "day": 19
+    },
+    {
       "occasion": " Repeated Test Event ",
       "invited_count": 120,
       "year": 2017,
@@ -266,39 +314,8 @@ var event_data = {
       "cancelled": true
     },
     {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10,
-      "cancelled": true
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10,
-      "cancelled": true
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10,
-      "cancelled": true
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
+      "occasion": 1,
+      "invited_count": 12,
       "year": 2023,
       "month": 1,
       "day": 13
@@ -342,6 +359,21 @@ var event_data = {
     }
   ]
 };
+$(function () { // 遅延処理
+  events = event_data["events"];
+  $.ajax({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    type: 'POST',
+    url: "test3", // url: は読み込むURLを表す
+    datatype: "json",
+    data: {
+      events
+    }
+  });
+  console.log(events);
+});
 
 const months = [
   "1月",
