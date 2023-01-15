@@ -33,9 +33,9 @@ function show_events(events, month, day) {
   else {
     // Go through and add each event as a card to the events container
     for (var i = 0; i < events.length; i++) {
-      var event_card = $("<div class='event-card' onclick='new_event()'></div>");
-      var event_name = $("<div class='event-name'>" + events[i]["occasion"] + ":</div>");
-      var event_count = $("<div class='event-count'>" + events[i]["invited_count"] + " Invited</div>");
+      var event_card = $("<div class='event-card'></div>");
+      var event_name = $("<div class='event-name'>希望予定：</div>");
+      var event_count = $("<div class='event-count'>"+ events[i]["occasion"]  +"～"+ events[i]["invited_count"] + "時間</div>");
       if (events[i]["cancelled"] === true) {
         $(event_card).css({
           "border-left": "10px solid #FF1744"
@@ -158,7 +158,7 @@ function new_event(event) {
   })
   // empty inputs and hide events
   $("#dialog input[type=text]").val('');
-  $("#dialog input[type=number]").val('');
+  $("#dialog input[type=time][id=count]").val('');
   $(".events-container").hide(250);
   $("#dialog").show(250);
   // Event handler for cancel button
@@ -172,14 +172,14 @@ function new_event(event) {
   $("#ok-button").unbind().click({ date: event.data.date }, function () {
     var date = event.data.date;
     var name = $("#name").val().trim();
-    var count = parseInt($("#count").val().trim());
+    var count =$("#count").val().trim();
     var day = parseInt($(".active-date").html());
     console.log(date);
     // Basic form validation
     if (name.length === 0) {
       $("#name").addClass("error-input");
     }
-    else if (isNaN(count)) {
+    else if (count.length === 0) {
       $("#count").addClass("error-input");
     }
     else {
