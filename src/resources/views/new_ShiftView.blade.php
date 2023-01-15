@@ -7,12 +7,12 @@
 <div id="scale">
     <div id='container'>
         <div class="colorbox_flex">
-            <div class="colorbox empcolor">
+            <div class="colorbox gusuemprow">
             </div>
             <div class="colorbox_text">
                 従業員
             </div>
-            <div class="colorbox partcolor" id="makeImg">
+            <div class="colorbox gusupartrow" id="makeImg">
             </div>
             <div class="colorbox_text">
                 アルバイト

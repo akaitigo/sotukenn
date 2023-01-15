@@ -6,6 +6,18 @@
 @include('new_header')
 <div id="scale">
 <div id='container'>
+        <div class="colorbox_flex">
+            <div class="colorbox gusuemprow">
+            </div>
+            <div class="colorbox_text">
+                従業員
+            </div>
+            <div class="colorbox gusupartrow" id="makeImg">
+            </div>
+            <div class="colorbox_text">
+                アルバイト
+            </div>
+        </div>
             <div class='widget'>
                 <div class="tab-content" href="#tab1">
                 <table class="month_table">
@@ -97,9 +109,15 @@
                                                   $javascripttd = $compshift->id . '*' . $day; ?>
                                             <!-- 太線の処理 -->
                                             @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                                <td class="loginrow_edit_border" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{ $compshift->$hentai }}</td>
+                                                <td class="loginrow_edit_border" onclick="test({{$compshift->id}},{{$day}})">
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                    <p id="{{$javascripttd}}">{{ $compshift->$hentai }}</P>
+                                                </td>
                                             @else
-                                                <td class="loginrow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{ $compshift->$hentai }}</td>
+                                                <td class="loginrow_edit" onclick="test({{$compshift->id}},{{$day}})">
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                    <p id="{{$javascripttd}}">{{ $compshift->$hentai }}</P>
+                                                </td>
                                             @endif
 
                                         @endfor
@@ -107,27 +125,65 @@
                                         @for($day= 1; $day <= 31; $day++)
                                         <?php $hentai = 'day' . $day; 
                                                   $javascriptid = $compshift->id . '-' . $day;
-                                                  $javascripttd = $compshift->id . '*' . $day; ?>
+                                                  $javascripttd = $compshift->id . '*' . $day;
+                                                  (string)$returnshift = $compshift->$hentai ;
+                                                  $chengebtn = $compshift->id . '-' . $day .'chenge';
+                                                  $returnbtn = $compshift->id . '-' . $day .'return';
+                                                  $batsubtn = $compshift->id . '-' . $day .'batsu'; ?>
                                             @if($compshift->judge == false)
                                                 <!-- 太線の処理 -->
                                                 @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                                    <td class="gusupartrow_edit_border" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                    <td class="gusupartrow_edit_border">
+                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                        <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                        <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                        <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                        <button type="button"  id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    </td>
                                                 @else
-                                                    <td class="gusupartrow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                    <td class="gusupartrow_edit">
+                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                        <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                        <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                        <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                        <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    </td>
                                                 @endif
                                             @else
-                                                <td class="gusuemprow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                    <td class="gusuemprow_edit">
+                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                        <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                        <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                        <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                        <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    </td>
                                             @endif
                                         @endfor
                                     @else
                                         @for($day= 1; $day <= 31; $day++)
                                         <?php $hentai = 'day' . $day; 
                                                   $javascriptid = $compshift->id . '-' . $day;
-                                                  $javascripttd = $compshift->id . '*' . $day; ?>
+                                                  $javascripttd = $compshift->id . '*' . $day;
+                                                  (string)$returnshift = $compshift->$hentai ;
+                                                  $chengebtn = $compshift->id . '-' . $day .'chenge';
+                                                  $returnbtn = $compshift->id . '-' . $day .'return';
+                                                  $batsubtn = $compshift->id . '-' . $day .'batsu'; ?>
                                             @if($compshift->judge == false)
-                                                <td class="kisupartrow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                <td class="kisupartrow_edit">
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                    <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                    <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                    <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                    <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                </td>
                                             @else
-                                                <td class="kisuemprow_edit" onclick="test({{$compshift->id}},{{$day}})"><input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/><p id="{{$javascripttd}}">{{$compshift->$hentai}}</td>
+                                                <td class="kisuemprow_edit">
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                    <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                    <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                    <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                    <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                </td>
                                             @endif
                                         @endfor
                                     @endif
@@ -188,6 +244,10 @@
         for (let i = 1; i <= 31; i++){
             let jsid = id + "-" + i;
             let jstd = id + "*" + i;
+            let batsubtn = id + "-" + i + "batsu";
+            let returnbtn = id + "-" + i + "return";
+            document.getElementById(returnbtn).style.visibility ="hidden";
+            document.getElementById(batsubtn).style.visibility ="hidden";
             document.getElementById(jsid).style.visibility ="hidden";
             document.getElementById(jstd).style.visibility ="visible";
         }
