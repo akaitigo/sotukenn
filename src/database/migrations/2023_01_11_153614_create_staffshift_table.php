@@ -83,6 +83,37 @@ return new class extends Migration
             $table->boolean('registerCheck29')->default(false);
             $table->boolean('registerCheck30')->default(false);
             $table->boolean('registerCheck31')->default(false);
+            $table->boolean('editFlag1')->default(false);
+            $table->boolean('editFlag2')->default(false);
+            $table->boolean('editFlag3')->default(false);
+            $table->boolean('editFlag4')->default(false);
+            $table->boolean('editFlag5')->default(false);
+            $table->boolean('editFlag6')->default(false);
+            $table->boolean('editFlag7')->default(false);
+            $table->boolean('editFlag8')->default(false);
+            $table->boolean('editFlag9')->default(false);
+            $table->boolean('editFlag10')->default(false);
+            $table->boolean('editFlag11')->default(false);
+            $table->boolean('editFlag12')->default(false);
+            $table->boolean('editFlag13')->default(false);
+            $table->boolean('editFlag14')->default(false);
+            $table->boolean('editFlag15')->default(false);
+            $table->boolean('editFlag16')->default(false);
+            $table->boolean('editFlag17')->default(false);
+            $table->boolean('editFlag18')->default(false);
+            $table->boolean('editFlag19')->default(false);
+            $table->boolean('editFlag20')->default(false);
+            $table->boolean('editFlag21')->default(false);
+            $table->boolean('editFlag22')->default(false);
+            $table->boolean('editFlag23')->default(false);
+            $table->boolean('editFlag24')->default(false);
+            $table->boolean('editFlag25')->default(false);
+            $table->boolean('editFlag26')->default(false);
+            $table->boolean('editFlag27')->default(false);
+            $table->boolean('editFlag28')->default(false);
+            $table->boolean('editFlag29')->default(false);
+            $table->boolean('editFlag30')->default(false);
+            $table->boolean('editFlag31')->default(false);
         });
     }
 
