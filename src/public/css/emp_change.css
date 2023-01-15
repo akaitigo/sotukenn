@@ -321,7 +321,6 @@
 /* シフト編集の１から31日のカラム */
 .gusuemprow_edit {
   background-color: #97ff85b5;      /* 従業員の偶然行の色 */
-  /* cursor: pointer; */
 }
 
 .kisuemprow_edit {
@@ -434,4 +433,166 @@
 .gusupartrow_work_border {
   background-color: #73e8fdb8;      /* 最初のアルバイト */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+/* 編集シフトテーブル */
+.compshift_edit_table {
+  border-top: 1px solid #ddd;	
+  width: 6500px;
+  height: auto;
+  border:1px solid #ddd;
+/* 	  border-top: none;	 */
+  border-collapse:separate;
+  padding:0;
+  text-align: center;
+  }
+  .compshift_edit_table th {
+    /* 	border:1px solid #ddd;
+    border-top: none; */
+    padding: 10px 5px;
+    font-weight: normal;
+    font-weight: bold;
+    }
+    .compshift_edit_table td {
+    /* 	border:1px solid #ddd; */
+        padding:10px 2px;
+    }
+
+
+.compshift_edit_table th, .compshift_edit_table td {
+  border-right: 1px solid #ddd;
+}
+
+.compshift_edit_table th:last-child, .compshift_edit_table td:last-child {
+  border-right: none;
+}
+
+.compshift_edit_table tr:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+#morning .compshift_edit_table td:nth-child(3) {
+  background: #fff;
+}
+
+.compshift_edit_table td.align-bottom {
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.compshift_edit_table td.align-top {
+  vertical-align: top;
+  padding: 0;  
+}
+
+#morning .compshift_edit_table td:nth-child(3), #afternoon .compshift_edit_table td:nth-child(3), #evening .compshift_edit_table td:nth-child(3) {
+  background: #fff;
+} 
+
+.compshift_edit_table .gusuemprow_edit,
+.compshift_edit_table .kisuemprow_edit,
+.compshift_edit_table .gusupartrow_edit,
+.compshift_edit_table .kisupartrow_edit,
+.compshift_edit_table .gusupartrow_edit_border {
+    width: 191px;
+    height: 6.5rem;
+    padding: 0;
+  }
+
+/* tdの中のテキストやボタンたち */
+/* 必要ならviewのほうを入れ替え */
+.compshift_edit_table td {
+  position: relative;
+  text-align: center;
+}
+td.shifttext,
+td.shiftp,
+td.hihunp{
+  text-align: center;
+}
+ .shifttext {
+  cursor: pointer;      /* 入力されるテキスト*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 11.9rem;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+}
+
+.shiftp {
+  cursor: pointer;      /* 最初に表示されてるシフト */
+  position: relative;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+}
+
+.starttimepull {
+  cursor: pointer;      /* スタート時間変更のプルダウン */
+  position: absolute;
+  top: 2rem;
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+  width: 47%;
+}
+
+.hihunp {
+  cursor: pointer;      /* 時間変更の間のハイフン */
+  position: absolute;
+  top: 2rem;
+  left: 5.7rem;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+}
+
+.endtimepull {
+  cursor: pointer;      /* エンド時間変更のプルダウン */
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+  width: 47%;
+}
+
+.chengebtn {
+  cursor: pointer;      /* 変更ボタン */
+  position: relative;
+  font-weight: bold;
+}
+
+.returnbtn {
+  cursor: pointer;      /* 元に戻るボタン */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  font-weight: bold;
+}
+
+.batsubtn {
+  cursor: pointer;      /* バツ入力ボタン */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0;
+  font-weight: bold;
+  font-family: Arial;
 }

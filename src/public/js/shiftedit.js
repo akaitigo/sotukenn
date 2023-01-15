@@ -7,14 +7,14 @@ function chenge(id,day) {
     let starttimepull = id + "-" + day + "start";
     let endtimepull = id + "-" + day + "end";
     let haihunpull = id + "-" + day + "haihun";
+    document.getElementById(chengebtn).style.visibility="hidden";
+    document.getElementById(jstd).style.visibility="hidden";
     document.getElementById(starttimepull).style.visibility="visible";
     document.getElementById(endtimepull).style.visibility="visible";
     document.getElementById(haihunpull).style.visibility="visible";
     document.getElementById(returnbtn).style.visibility="visible";
     document.getElementById(batsubtn).style.visibility="visible";
     document.getElementById(jstext).style.visibility="visible";
-    document.getElementById(chengebtn).style.visibility="hidden";
-    document.getElementById(jstd).style.visibility="hidden";
 }
 
 function shiftreturn(id,day,shift) {
