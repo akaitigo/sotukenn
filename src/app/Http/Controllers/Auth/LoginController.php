@@ -89,7 +89,7 @@ class LoginController extends Controller
             if(is_null($submitlimit)) {
                 return view('submittedShiftEdit',compact('stores'));
             }else {
-                return redirect(route('home'));
+                return redirect(route('calendar'));
             }
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
@@ -122,7 +122,7 @@ class LoginController extends Controller
             // dump(Auth::guard('employee')->user());
             // dump(Auth::guard('employee')->user()->getTable());
             // return ;
-            return redirect(route('home'));
+            return redirect(route('calendar'));
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
