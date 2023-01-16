@@ -7,7 +7,7 @@
 <div id="scale">
 <div id='container'>
         <div class="colorbox_flex">
-            <div class="colorbox gusuemprow">
+            <div class="colorbox gusuemprow_name">
             </div>
             <div class="colorbox_text">
                 従業員
