@@ -24,15 +24,31 @@ class CalendarController extends Controller
     }
     public function foovar()
     {
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
-        
+        $userid;
+        $guard;
+        $userShift=null;
+        $storeid;
         $carbonNow = Carbon::now();
         $thisMonth = $carbonNow->month;
         $firstDay = $carbonNow->firstOfMonth()->day;
         $lastDate = $carbonNow->lastOfMonth()->day;
+        if(Auth::guard('admin')->id()!=null){
+            $userid = Auth::guard('admin')->id();
+            $guard = "admin";
+            $storeid = admin::where('id',$userid)->value('store_id');
+        }else if(Auth::guard('employee')->id()!=null){
+            $userid = Auth::guard('employee')->id();
+            $guard = "employee";
+            $storeid = Employee::where('id',$userid)->value('store_id');
+            $userShift = CompleteShift::where('store_id',$storeid)->where('month',$thisMonth)->where('emppartid',$userid)->where('judge',true)->first();
+        }else if(Auth::guard('parttimer')->id()!=null){
+            $userid = Auth::guard('parttimer')->id();
+            $guard = "parttimer";
+            $storeid = Parrttimer::where('id',$userid)->value('store_id');
+            $userShift = CompleteShift::where('store_id',$storeid)->where('month',$thisMonth)->where('emppartid',$userid)->where('judge',false)->first();
+        }
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
         // echo $lastDate;
         // echo("<br>"); 
         // echo $thisMonth;
@@ -52,7 +68,7 @@ class CalendarController extends Controller
         $dateArrayHinagata = [
             "memberCount" => 0,
             "holiday" =>"-",
-            "event"=>[""],
+            "shift"=>"-",
         ];
         for($i=1;$i<=$lastDate;$i++){
             array_push($calendarData,$dateArrayHinagata);
@@ -76,7 +92,15 @@ class CalendarController extends Controller
         foreach($holidaysInBetweenDays as $holiday) {
             $calendarData[$holiday->format('j')]['holiday'] = $holiday->getName();
         }
-        //イベントを入れる
-        return view('calendar',compact('calendarData'));
+        if($userShift!=null){
+            for($i=1;$i<=$lastDate;$i++){
+                $str="day".$i;
+                
+                if($userShift->$str!="×"&&$userShift->$str!="-"){
+                    $calendarData[$i]["shift"] = $userShift->$str;
+                }
+            }
+        }
+        return view('calendar',compact('calendarData','guard'));
     }
 }
