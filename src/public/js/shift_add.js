@@ -456,7 +456,7 @@ var event_data = {
       'comment': "挨拶",
       'kind': "ok",
       'day': 3,
-      'month': 1,
+      'month': 2,
       'year': 2023,
     },
   ]

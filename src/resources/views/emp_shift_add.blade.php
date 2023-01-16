@@ -59,7 +59,8 @@
                     <button class="button" id="comment-button">コメント</button>
                 </div>
             </div>
-            <form action="{{route('emp')}}" method="post">
+            {{-- <form action="{{route('emp')}}" method="post"> --}}
+            <form action="title" method="post">
                 @csrf
                 <div class="events-container">
                 </div>
@@ -103,31 +104,41 @@
         </div>
         {{-- 確認終わったら消して良し --}}
         <?php
+        use Carbon\Carbon;  
+        // 来月の取得
+        $data = new Carbon('+1 month');
+        $month = $data->month;
+
         //POST受け取り名前
         $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
         $test_list = [];
         $test = [];
         $data_list = [];
         $work = [];
-        // 今の月+1の配列だけに絞り込み
-
-        //commentの保存
-
-        
+        //commentの保存 未定
         
         //31日ループ
         for ($x = 0; $x < 31; $x++) {
             $test = [];
             //データの種類でループ
-            for ($i = 0; $i < count($data_name); $i++) {
-                if (isset($_POST[$data_name[$i] . strval($x)])) {
+            for ($i = 0; $i < count($data_name); $i++) {        //取得したmonthとmonth_dataの比較
+                if (isset($_POST[$data_name[$i] . strval($x)]) && $_POST['month'. strval($x)] == strval($month) ) {
+                    //連想配列を作成+月の絞り込み
                     $test += [$data_name[$i] => $_POST[$data_name[$i] . strval($x)]];
                 }
                 // dump($data_name[$i].":".$x.":".$test);
             }
-            $work[$x] = '-'; 
+            //一旦全ての値を-に設定
+            $work[$x] = '-';
+            // 多重連想配列の作成
             $test_list[$x] = $test;
+            dump($test_list[$x]);
+            dump($month);
+
         }
+
+
+        
         // if (isset($_POST['year1'])) {
         //     // ソート処理(月＞日：昇順)
         //     $month = array_column($test_list, 'month');
@@ -137,12 +148,12 @@
         // } else {
         //     $test = 'なし';
         // }
-
+        
         // 31日ループ
         for ($x = 0; $x < 31; $x++) {
             if (isset($test_list[$x]['day'])) {
                 // 値が入ってる配列を格納
-                $work[$test_list[$x]['day']] = $test_list[$x]['start'] .'-' .$test_list[$x]['end'];
+                $work[$test_list[$x]['day']] = $test_list[$x]['start'] . '-' . $test_list[$x]['end'];
             }
         }
         dump($work);
