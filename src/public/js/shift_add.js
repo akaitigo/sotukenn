@@ -342,6 +342,7 @@ function check_events(day, month, year) {
 var event_data = {
   "events": [
     {
+      "name" : "田中花子",
       "occasion": 10,
       "invited_count": 12,
       "year": 2023,
@@ -351,6 +352,7 @@ var event_data = {
       "kind": "ok",
     },
     {
+      "name" : "田中花子",
       "occasion": 14,
       "invited_count": 16,
       "year": 2023,
@@ -360,6 +362,7 @@ var event_data = {
       "kind": "ok"
     },
     {
+      "name" : "田中花子",
       "occasion": 20,
       "invited_count": 24,
       "year": 2023,
@@ -369,6 +372,7 @@ var event_data = {
       "kind": "ok"
     },
     {
+      "name" : "田中花子",
       "occasion": 1,
       "invited_count": 12,
       "year": 2023,
@@ -377,11 +381,13 @@ var event_data = {
       "kind": "ok"
     },
     {
+      "name" : "田中花子",
       "occasion": 1,
       "invited_count": 12,
       "year": 2023,
       "month": 1,
-      "day": 13
+      "day": 13,
+      "kind": "ok"
     }
   ]
 };
