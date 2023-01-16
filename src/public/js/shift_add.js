@@ -13,15 +13,16 @@ $(document).ready(function () {
   $(".month").click({ date: date }, month_click);
   $("#add-button").click({ date: date }, new_event);
   $("#delete-button").click({ date: date }, delete_event);
+  $("#comment-button").click({ date: date }, comment_event);
 });
 
 // Display all events of the selected date in card views
 function show_events(events, month, day) {
   console.log("events");
+  console.log(events);
   // Clear the dates container
   $(".events-container").empty();
   $(".events-container").show(250);
-  console.log(event_data["events"]);
   // If there are no events for this date, notify the user
   if (events.length === 0) {
     var event_card = $("<div class='event-card'></div>");
@@ -29,13 +30,14 @@ function show_events(events, month, day) {
     $(event_card).css({ "border-left": "10px solid #FF1744" });
     $(event_card).append(event_name);
     $(".events-container").append(event_card);
+
   }
-  else {
-    // Go through and add each event as a card to the events container
-    for (var i = 0; i < events.length; i++) {
+  // Go through and add each event as a card to the events container
+  for (var i = 0; i < events.length; i++) {
+    if (events[i]["kind"] == "ok") {
       var event_card = $("<div class='event-card'></div>");
       var event_name = $("<div class='event-name'>希望予定：</div>");
-      var event_count = $("<div class='event-count'>"+ events[i]["occasion"]  +"～"+ events[i]["invited_count"] + "時間</div>");
+      var event_count = $("<div class='event-count'>" + events[i]["occasion"] + "～" + events[i]["invited_count"] + "時間</div>");
       if (events[i]["cancelled"] === true) {
         $(event_card).css({
           "border-left": "10px solid #FF1744"
@@ -43,6 +45,17 @@ function show_events(events, month, day) {
         event_count = $("<div class='event-cancelled'>Cancelled</div>");
       }
       $(event_card).append(event_name).append(event_count);
+      $(".events-container").append(event_card);
+    } else {
+      var event_card = $("<div class='comment-card'></div>");
+      var event_comment = $("<div class='event-name'>" + events[i]["comment"] + "</div>");
+      if (events[i]["cancelled"] === true) {
+        $(event_card).css({
+          "border-left": "10px solid #FF1744"
+        });
+        event_count = $("<div class='event-cancelled'>Cancelled</div>");
+      }
+      $(event_card).append(event_comment);
       $(".events-container").append(event_card);
     }
   }
@@ -168,11 +181,12 @@ function new_event(event) {
     $("#dialog").hide(250);
     $(".events-container").show(250);
   });
+  // OKボタン
   // Event handler for ok button
   $("#ok-button").unbind().click({ date: event.data.date }, function () {
     var date = event.data.date;
-    var name =parseInt($("#name").val().trim());
-    var count =parseInt($("#count").val().trim());
+    var name = parseInt($("#name").val().trim());
+    var count = parseInt($("#count").val().trim());
     var day = parseInt($(".active-date").html());
     console.log(date);
     // Basic form validation
@@ -180,7 +194,7 @@ function new_event(event) {
       $("#name").addClass("error-input");
       alert("開始時間がありません");
     }
-    else if(name >24){
+    else if (name > 24) {
       $("#name").addClass("error-input");
       alert("24時を超えています。");
 
@@ -189,24 +203,63 @@ function new_event(event) {
       $("#count").addClass("error-input");
       alert("終了時間がありません");
     }
-    else if(count >24){
+    else if (count > 24) {
       $("#count").addClass("error-input");
       alert("24時を超えています。");
     }
-    else if(name>=count){
+    else if (name > count) {
       $("#name").addClass("error-input");
       $("#count").addClass("error-input");
       alert("開始時間が終了時間を超えています。");
     }
+    else if (name == count) {
+      $("#name").addClass("error-input");
+      $("#count").addClass("error-input");
+      alert("開始時間と終了時間が同じです。");
+    }
     else {
       $("#dialog").hide(250);
       console.log("new event");
-      new_event_json(name, count, date, day);
+      button = 'ok';
+      new_event_json(name, count, date, day, button);
       date.setDate(day);
       init_calendar(date);
     }
+
+
   });
 }
+
+function comment_event(event) {
+  // remove red error input on click
+  $("input").click(function () {
+    $(this).removeClass("error-input");
+  })
+  // empty inputs and hide events
+  $("#dialog2 input[type=text]").val('');
+  $(".events-container").hide(250);
+  $("#dialog2").show(250);
+  // Event handler for cancel button
+  $("#cancel-button2").click(function () {
+    $("#comment").removeClass("error-input");
+    $("#dialog2").hide(250);
+    $(".events-container").show(250);
+  });
+  $("#ok-button2").unbind().click({ date: event.data.date }, function () {
+    var date = event.data.date;
+    var comment = $("#comment").val().trim();
+    var day = parseInt($(".active-date").html());
+
+    $("#dialog2").hide(250);
+    console.log("comment");
+    console.log(comment);
+    button = 'comment';
+    comment_event_json(comment,date, day, button);
+    date.setDate(day);
+    init_calendar(date);
+  });
+}
+
 
 //削除ボタン処理
 // Event handler for clicking the new event button
@@ -230,7 +283,7 @@ function delete_event_json(date, day) {
       console.log("削除");
       console.log(i);
       console.log(event_data['events'][i]);
-      event_data['events'].splice( i, 1 );
+      event_data['events'].splice(i, 1);
       console.log(event_data['events']);
       return;
     }
@@ -238,21 +291,35 @@ function delete_event_json(date, day) {
 }
 
 // Adds a json event to event_data
-function new_event_json(name, count, date, day) {
+function new_event_json(name,count, date, day, button) {
+  console.log(comment);
   var event = {
     "occasion": name,
     "invited_count": count,
     "year": date.getFullYear(),
     "month": date.getMonth() + 1,
-    "day": day
+    "day": day,
+    "kind": button,
   };
+
   for (let i = 0; i < event_data["events"].length; i++) {
-    if (event_data["events"][i]["year"] == event["year"] && event_data["events"][i]["month"] == event["month"] && event_data["events"][i]["day"] == event["day"]) {
+    if (event_data["events"][i]["year"] == event["year"] && event_data["events"][i]["month"] == event["month"] && event_data["events"][i]["day"] == event["day"] && event["kind"] == "ok") {
       console.log("OK");
       event_data["events"][i] = event;
       return;
     }
   }
+  event_data["events"].push(event);
+}
+
+function comment_event_json(comment,date, day, button) {
+  var event = {
+    "comment": comment,
+    "year": date.getFullYear(),
+    "month": date.getMonth() + 1,
+    "day": day,
+    "kind": button
+  };
   event_data["events"].push(event);
 }
 
@@ -281,6 +348,7 @@ var event_data = {
       "month": 1,
       "day": 10,
       // "cancelled": true
+      "kind": "ok",
     },
     {
       "occasion": 14,
@@ -289,6 +357,7 @@ var event_data = {
       "month": 1,
       "day": 11,
       // "cancelled": true
+      "kind": "ok"
     },
     {
       "occasion": 20,
@@ -297,21 +366,15 @@ var event_data = {
       "month": 1,
       "day": 8,
       // "cancelled": true
+      "kind": "ok"
     },
     {
-      "occasion":1,
+      "occasion": 1,
       "invited_count": 12,
       "year": 2023,
       "month": 1,
-      "day": 19
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10,
-      "cancelled": true
+      "day": 19,
+      "kind": "ok"
     },
     {
       "occasion": 1,
@@ -319,43 +382,6 @@ var event_data = {
       "year": 2023,
       "month": 1,
       "day": 13
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10,
-      "cancelled": true
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10,
-      "cancelled": true
-    },
-    {
-      "occasion": " Repeated Test Event ",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 10
-    },
-    {
-      "occasion": " Test Event",
-      "invited_count": 120,
-      "year": 2017,
-      "month": 5,
-      "day": 11
     }
   ]
 };

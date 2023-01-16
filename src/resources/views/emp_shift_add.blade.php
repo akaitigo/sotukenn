@@ -56,6 +56,7 @@
                     </div>
                     <button class="button" id="add-button">登録・更新</button>
                     <button class="button" id="delete-button">予定の削除</button>
+                    <button class="button" id="comment-button">コメント</button>
                 </div>
             </div>
             <div class="events-container">
@@ -78,6 +79,20 @@
                                 maxlength="7"> --}}
                         <input type="button" value="Cancel" class="button" id="cancel-button">
                         <input type="button" value="OK" class="button" id="ok-button">
+                    </div>
+                </form>
+            </div>
+            <div class="dialog" id="dialog2">
+                <h2 class="dialog-header">シフト予定を入力してね</h2>
+                <form class="form" id="form">
+                    <div class="form-container" align="center">
+                        <label class="form-label" id="valueFromMyButton" for="count">コメント</label>
+                        <input class="input" type="text" id="comment" maxlength="8">
+                        <datalist id="data-list">
+                            {{-- お気に入り --}}
+                        </datalist>
+                        <input type="button" value="Cancel" class="button" id="cancel-button2">
+                        <input type="button" value="OK" class="button" id="ok-button2">
                     </div>
                 </form>
             </div>
