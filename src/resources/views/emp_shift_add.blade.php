@@ -63,7 +63,7 @@
                 @csrf
                 <div class="events-container">
                 </div>
-                <button type="submit" name="1" value="1"></button>
+                <button type='submit' class="button" id="add-button">送信</button>
             </form>
             <div class="dialog" id="dialog">
                 <h2 class="dialog-header">シフト予定を入力してね</h2>
@@ -101,6 +101,7 @@
                 </form>
             </div>
         </div>
+        {{-- 確認終わったら消して良し --}}
         <?php
         //POST受け取り名前
         $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
@@ -108,6 +109,12 @@
         $test = [];
         $data_list = [];
         $work = [];
+        // 今の月+1の配列だけに絞り込み
+
+        //commentの保存
+
+        
+        
         //31日ループ
         for ($x = 0; $x < 31; $x++) {
             $test = [];
@@ -130,8 +137,11 @@
         // } else {
         //     $test = 'なし';
         // }
+
+        // 31日ループ
         for ($x = 0; $x < 31; $x++) {
             if (isset($test_list[$x]['day'])) {
+                // 値が入ってる配列を格納
                 $work[$test_list[$x]['day']] = $test_list[$x]['start'] .'-' .$test_list[$x]['end'];
             }
         }
