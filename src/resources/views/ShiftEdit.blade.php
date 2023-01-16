@@ -24,7 +24,7 @@
                     <caption>１ 月</caption>
                 </table>
                 <div class="scrollbox">
-                    <table class="compshift_table">
+                    <table class="compshift_edit_table">
                         <thead class="thead">
                             <th class="thname">&nbsp;名前&nbsp;</th>
                             @for ($i = 1; $i <= 31; $i++)
@@ -53,9 +53,10 @@
                             $rowcolor = 0;
                             $i = 0;
                             $empcount = $emppartcount;
+                            $json_emppartname = json_encode($emppartname);
                             ?>
 
-                            <form method="post" action="{{ route('shiftupdate') }}">
+                            <form method="post" onsubmit="return update({{$empcount}},{{$json_emppartname}})" action="{{ route('shiftupdate') }}">
                             @csrf
 
                             @foreach ($completeshift as $compshift)
@@ -110,12 +111,12 @@
                                             <!-- 太線の処理 -->
                                             @if($compshift->emppartid == 1 && $compshift->judge == false)
                                                 <td class="loginrow_edit_border" onclick="test({{$compshift->id}},{{$day}})">
-                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5"/>
                                                     <p id="{{$javascripttd}}">{{ $compshift->$hentai }}</P>
                                                 </td>
                                             @else
                                                 <td class="loginrow_edit" onclick="test({{$compshift->id}},{{$day}})">
-                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5"/>
                                                     <p id="{{$javascripttd}}">{{ $compshift->$hentai }}</P>
                                                 </td>
                                             @endif
@@ -127,6 +128,9 @@
                                                   $javascriptid = $compshift->id . '-' . $day;
                                                   $javascripttd = $compshift->id . '*' . $day;
                                                   (string)$returnshift = $compshift->$hentai ;
+                                                  $workstarttimepull = $compshift->id . '-' . $day .'start';
+                                                  $workendtimepull = $compshift->id . '-' . $day .'end';
+                                                  $haihunpull = $compshift->id . '-' . $day .'haihun';
                                                   $chengebtn = $compshift->id . '-' . $day .'chenge';
                                                   $returnbtn = $compshift->id . '-' . $day .'return';
                                                   $batsubtn = $compshift->id . '-' . $day .'batsu'; ?>
@@ -134,28 +138,37 @@
                                                 <!-- 太線の処理 -->
                                                 @if($compshift->emppartid == 1 && $compshift->judge == false)
                                                     <td class="gusupartrow_edit_border">
-                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
-                                                        <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
-                                                        <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
-                                                        <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                        <button type="button"  id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="9" readonly="readonly"/>
+                                                        <p class="shiftp" id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                        <input class="starttimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workstarttimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="出勤"/>
+                                                        <p class="hihunp" id="{{$haihunpull}}">-</p>
+                                                        <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
+                                                        <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                        <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                        <button class="batsubtn" type="button"  id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
                                                     </td>
                                                 @else
                                                     <td class="gusupartrow_edit">
-                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
-                                                        <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
-                                                        <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
-                                                        <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                        <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="9" readonly="readonly"/>
+                                                        <p class="shiftp" id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                        <input class="starttimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workstarttimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="出勤"/>
+                                                        <p class="hihunp" id="{{$haihunpull}}">-</p>
+                                                        <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
+                                                        <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                        <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                        <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
                                                     </td>
                                                 @endif
                                             @else
                                                     <td class="gusuemprow_edit">
-                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
-                                                        <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
-                                                        <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
-                                                        <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                        <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                        <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="9" readonly="readonly"/>
+                                                        <p class="shiftp" id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                        <input class="starttimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workstarttimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="出勤"/>
+                                                        <p class="hihunp" id="{{$haihunpull}}">-</p>
+                                                        <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
+                                                        <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                        <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                        <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
                                                     </td>
                                             @endif
                                         @endfor
@@ -165,24 +178,33 @@
                                                   $javascriptid = $compshift->id . '-' . $day;
                                                   $javascripttd = $compshift->id . '*' . $day;
                                                   (string)$returnshift = $compshift->$hentai ;
+                                                  $workstarttimepull = $compshift->id . '-' . $day .'start';
+                                                  $workendtimepull = $compshift->id . '-' . $day .'end';
+                                                  $haihunpull = $compshift->id . '-' . $day .'haihun';
                                                   $chengebtn = $compshift->id . '-' . $day .'chenge';
                                                   $returnbtn = $compshift->id . '-' . $day .'return';
                                                   $batsubtn = $compshift->id . '-' . $day .'batsu'; ?>
                                             @if($compshift->judge == false)
                                                 <td class="kisupartrow_edit">
-                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
-                                                    <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
-                                                    <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
-                                                    <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                    <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="9" readonly="readonly"/>
+                                                    <p class="shiftp" id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                    <input class="starttimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workstarttimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="出勤"/>
+                                                    <p class="hihunp" id="{{$haihunpull}}">-</p>
+                                                    <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
+                                                    <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                    <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                    <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
                                                 </td>
                                             @else
                                                 <td class="kisuemprow_edit">
-                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="5" required/>
-                                                    <p id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
-                                                    <button type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
-                                                    <button type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                    <button type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    <input class="shifttext" type="text" name="{{$javascriptid}}" value="{{ $compshift->$hentai }}" id="{{$javascriptid}}" maxLength="9" readonly="readonly"/>
+                                                    <p class="shiftp" id="{{$javascripttd}}">{{$compshift->$hentai}}</P>
+                                                    <input class="starttimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workstarttimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="出勤"/>
+                                                    <p class="hihunp" id="{{$haihunpull}}">-</p>
+                                                    <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
+                                                    <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
+                                                    <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
+                                                    <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
                                                 </td>
                                             @endif
                                         @endfor
@@ -194,33 +216,33 @@
                                     @if ($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
                                         <!-- 太線の処理 -->
                                         @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                            <td class="loginrow_work_border">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="loginrow_work_border">{{ $StaffTimes[$i] }}</td>
+                                            <td class="loginrow_work_border">{{ $Staffworkdays[$i] }} 日</td>
+                                            <td class="loginrow_work_border">{{ $StaffTimes[$i] }} 時間</td>
                                         @else
-                                            <td class="loginrow_work">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="loginrow_work">{{ $StaffTimes[$i] }}</td>
+                                            <td class="loginrow_work">{{ $Staffworkdays[$i] }} 日</td>
+                                            <td class="loginrow_work">{{ $StaffTimes[$i] }} 時間</td>
                                         @endif
                                     @elseif($rowcolor % 2 == 0)
                                         @if($compshift->judge == false)
                                             <!-- 太線の処理 -->
                                             @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                                <td class="gusupartrow_border_work">{{ $Staffworkdays[$i] }}</td>
-                                                <td class="gusupartrow_border_work">{{ $StaffTimes[$i] }}</td>
+                                                <td class="gusupartrow_border_work">{{ $Staffworkdays[$i] }} 日</td>
+                                                <td class="gusupartrow_border_work">{{ $StaffTimes[$i] }} 時間</td>
                                             @else
-                                                <td class="gusupartrow_work">{{ $Staffworkdays[$i] }}</td>
-                                                <td class="gusupartrow_work">{{ $StaffTimes[$i] }}</td>
+                                                <td class="gusupartrow_work">{{ $Staffworkdays[$i] }} 日</td>
+                                                <td class="gusupartrow_work">{{ $StaffTimes[$i] }} 時間</td>
                                             @endif
                                         @else
-                                            <td class="gusuemprow_work">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="gusuemprow_work">{{ $StaffTimes[$i] }}</td>
+                                            <td class="gusuemprow_work">{{ $Staffworkdays[$i] }} 日</td>
+                                            <td class="gusuemprow_work">{{ $StaffTimes[$i] }} 時間</td>
                                         @endif
                                     @else
                                         @if($compshift->judge == false)
-                                            <td class="kisupartrow_work">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="kisupartrow_work">{{ $StaffTimes[$i] }}</td>
+                                            <td class="kisupartrow_work">{{ $Staffworkdays[$i] }} 日</td>
+                                            <td class="kisupartrow_work">{{ $StaffTimes[$i] }} 時間</td>
                                         @else
-                                            <td class="kisuemprow_work">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="kisuemprow_work">{{ $StaffTimes[$i] }}</td>
+                                            <td class="kisuemprow_work">{{ $Staffworkdays[$i] }} 日</td>
+                                            <td class="kisuemprow_work">{{ $StaffTimes[$i] }} 時間</td>
                                         @endif
                                     @endif
                                 </tr>
@@ -240,16 +262,24 @@
 
 <script>
     let emppartcountid = @json($empcount);
+    let judge = 0;
     for(let id = 1; id <= emppartcountid; id++){
         for (let i = 1; i <= 31; i++){
             let jsid = id + "-" + i;
             let jstd = id + "*" + i;
+            let starttimepull = id + "-" + i + "start";
+            let endtimepull = id + "-" + i + "end";
+            let haihunpull = id + "-" + i + "haihun";
             let batsubtn = id + "-" + i + "batsu";
             let returnbtn = id + "-" + i + "return";
             document.getElementById(returnbtn).style.visibility ="hidden";
             document.getElementById(batsubtn).style.visibility ="hidden";
             document.getElementById(jsid).style.visibility ="hidden";
             document.getElementById(jstd).style.visibility ="visible";
+            document.getElementById(starttimepull).style.visibility ="hidden";
+            document.getElementById(endtimepull).style.visibility ="hidden";
+            document.getElementById(haihunpull).style.visibility ="hidden";
         }
     }
+
 </script>

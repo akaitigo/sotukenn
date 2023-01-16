@@ -212,17 +212,22 @@ class ShiftController extends Controller
 
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $workstarttime = Store::where('id',$storeid)->value('workstarttime'); 
+        $workendtime = Store::where('id',$storeid)->value('workendtime');
         $completeshift = CompleteShift::where('store_id',$storeid)->get();
 
         $empname = [];
         $partname = [];
+        $emppartname = [];
         $i = 0;
 
         foreach($completeshift as $compshift) {
             if($compshift->judge == true) {
                 $empname[] = Employee::where('id',$compshift->emppartid)->value('name');
+                $emppartname[] = Employee::where('id',$compshift->emppartid)->value('name');
             }else {
                 $partname[] = Parttimer::where('id',$compshift->emppartid)->value('name');
+                $emppartname[] = Parttimer::where('id',$compshift->emppartid)->value('name');
             }
 
             (double)$StaffTime = 0;
@@ -250,7 +255,7 @@ class ShiftController extends Controller
         $emppartcount = $i + 1;
         $week = ['日','月','火','水','木','金','土'];
 
-        return view('shiftEdit',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','week','emppartcount'));
+        return view('shiftEdit',compact('employees','parttimers','empname','partname','emppartname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','week','workstarttime','workendtime','emppartcount'));
     }
 
 
