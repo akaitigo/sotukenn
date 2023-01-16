@@ -145,7 +145,7 @@
                                                         <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
                                                         <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
                                                         <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                        <button class="batsubtn" type="button"  id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                        <button class="batsubtn" type="button"  id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">欠勤</button>
                                                     </td>
                                                 @else
                                                     <td class="gusupartrow_edit">
@@ -156,7 +156,7 @@
                                                         <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
                                                         <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
                                                         <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                        <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                        <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">欠勤</button>
                                                     </td>
                                                 @endif
                                             @else
@@ -168,7 +168,7 @@
                                                         <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
                                                         <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
                                                         <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                        <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                        <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">欠勤</button>
                                                     </td>
                                             @endif
                                         @endfor
@@ -193,7 +193,7 @@
                                                     <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
                                                     <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
                                                     <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                    <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">欠勤</button>
                                                 </td>
                                             @else
                                                 <td class="kisuemprow_edit">
@@ -204,7 +204,7 @@
                                                     <input class="endtimepull" type="number" oninput="addshifttime({{$compshift->id}},{{$day}})" id="{{$workendtimepull}}" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5" placeholder="退勤"/>
                                                     <button class="chengebtn" type="button" id="{{$chengebtn}}" onclick="chenge({{$compshift->id}},{{$day}})">変更</button>
                                                     <button class="returnbtn" type="button" id="{{$returnbtn}}" onclick="shiftreturn({{$compshift->id}},{{$day}},'{{$returnshift}}')">元に戻す</button>
-                                                    <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">×</button>
+                                                    <button class="batsubtn" type="button" id="{{$batsubtn}}" onclick="addbatsu({{$compshift->id}},{{$day}})">欠勤</button>
                                                 </td>
                                             @endif
                                         @endfor

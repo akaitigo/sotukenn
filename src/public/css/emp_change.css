@@ -495,7 +495,7 @@
 .compshift_edit_table .kisupartrow_edit,
 .compshift_edit_table .gusupartrow_edit_border {
     width: 191px;
-    height: 6.5rem;
+    height: 6rem;
     padding: 0;
   }
 
@@ -526,8 +526,7 @@ td.hihunp{
 .shiftp {
   cursor: pointer;      /* 最初に表示されてるシフト */
   position: relative;
-  top: 0;
-  margin: 0;
+  margin: 0.9rem 0 0 0;
   padding: 0;
   font-weight: bold;
   font-family: Arial;
@@ -576,23 +575,37 @@ td.hihunp{
   cursor: pointer;      /* 変更ボタン */
   position: relative;
   font-weight: bold;
+  font-family: Arial;
+  font-size: 0.8rem;
+  transition:0ms;
 }
 
 .returnbtn {
   cursor: pointer;      /* 元に戻るボタン */
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: 0;
-  margin: 0;
+  margin: 0 0 0.2rem 0.2rem;
   font-weight: bold;
+  font-family: Arial;
+  font-size: 0.7rem;
+  transition:0ms;
 }
 
 .batsubtn {
   cursor: pointer;      /* バツ入力ボタン */
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
-  margin: 0;
+  margin: 0 0.3rem 0.2rem 0;
   font-weight: bold;
   font-family: Arial;
+  font-size: 0.7rem;
+  transition:0ms;
+  background-color: #ff3737;
+}
+
+.batsubtn:hover {
+  background:#d51111;
+  color: #fff;
 }
