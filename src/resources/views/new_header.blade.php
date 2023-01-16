@@ -24,14 +24,17 @@ use App\Models\Parttimer;
                 @if (Auth::guard('admin')->check())
                     <?php $adminid = Auth::guard('admin')->id();
                     $storeid = admin::where('id', $adminid)->value('store_id');
+                    $role="admin";
                     echo Store::where('id', $storeid)->value('store_name');
                     ?>
                 @elseif(Auth::guard('employee')->check())
                     <?php $empid = Auth::guard('employee')->id();
+                    $role="employee";
                     echo Employee::where('id', $empid)->value('name');
                     ?>
                 @elseif(Auth::guard('parttimer')->check())
                     <?php $partid = Auth::guard('parttimer')->id();
+                    $role="parttimer";
                     echo Parttimer::where('id', $partid)->value('name');
                     ?>
                 @endif
@@ -41,6 +44,7 @@ use App\Models\Parttimer;
                 @csrf
             </form>
         </li>
+        @if($role=="admin")
         <a href="{{ route('calendar') }}"><li>カレンダー</li></a>
         <a href="{{ route('employeesManagementPassView') }}"><li>従業員管理</li></a>
         <a href="{{ route('noticeManagement') }}"><li>通知管理</li></a>
@@ -48,6 +52,15 @@ use App\Models\Parttimer;
         <a href="{{ route('new_shiftView') }}"><li>シフト閲覧</li></a>
         <a href="{{ route('shiftEdit') }}"><li>シフト編集</li></a>
         <a href="{{ route('informationShare') }}"><li>情報共有</li></a>
+        @elseif($role=="employee")
+        <a href="{{ route('calendar') }}"><li>カレンダー</li></a>
+        <a href="{{ route('employeesManagementPassView') }}"><li>従業員管理</li></a>
+        <a href="{{ route('new_shiftView') }}"><li>シフト閲覧</li></a>
+        <a href="{{ route('informationShare') }}"><li>情報共有</li></a>
+        @elseif($role=="parttimer")
+        <a href="{{ route('calendar') }}"><li>カレンダー</li></a>
+        <a href="{{ route('shiftEdit') }}"><li>シフト編集</li></a>
+        @endif
     </ul>
 </div>
 <div>
