@@ -13,8 +13,6 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
 
-use Carbon\Carbon;  
-
 
 class ShiftController extends Controller
 {
