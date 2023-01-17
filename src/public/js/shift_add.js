@@ -20,24 +20,69 @@ $(document).ready(function () {
 function show_events(events, month, day) {
   console.log("events");
   console.log(events);
+  console.log(event_data);
   // Clear the dates container
   $(".events-container").empty();
+  var year_date = [];
+  var month_date = [];
+  var day_date = [];
+  var comment_date = [];
+  var kind_date = [];
+  var start_date = [];
+  var end_date = [];
+  for (var i = 0; i < event_data['events'].length; i++) {
+    // input作成
+      year_date[i] = $("<input class='day-date' id='day_date' name='year" + i + "' value='" + event_data['events'][i]['year'] + "'></input>");
+      month_date[i] = $("<input class='day-date' id='day_date' name='month" + i + "' value='" + event_data['events'][i]['month'] + "'></input>");
+      day_date[i] = $("<input class='day-date' id='day_date' name='day" + i + "' value='" + event_data['events'][i]['day'] + "'></input>");
+      comment_date[i] = $("<input class='day-date' id='day_date' name='comment" + i + "' value='" + event_data['events'][i]['comment'] + "'></input>");
+      kind_date[i] = $("<input class='day-date' id='day_date' name='kind" + i + "' value='" + event_data['events'][i]['kind'] + "'></input>");
+      start_date[i] = $("<input class='day-date' id='day_date' name='start" + i + "' value='" + event_data['events'][i]['start'] + "'></input>");
+      end_date[i] = $("<input class='day-date' id='day_date' name='end" + i + "' value='" + event_data['events'][i]['end'] + "'></input>");
+      //css追加処理
+      $(year_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+      $(month_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+      $(day_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+      $(comment_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+      $(kind_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+      $(start_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+      $(end_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+
+      console.log("ok");
+  }
+  $(".events-container").append(year_date);
+  $(".events-container").append(month_date);
+  $(".events-container").append(day_date);
+  $(".events-container").append(start_date);
+  $(".events-container").append(end_date);
+  $(".events-container").append(kind_date);
+  $(".events-container").append(comment_date);
+  console.log(month);
   $(".events-container").show(250);
+
+
   // If there are no events for this date, notify the user
   if (events.length === 0) {
     var event_card = $("<div class='event-card'></div>");
-    var event_name = $("<div class='event-name'>予定は無いよ： " + month + " " + day + "日</div>");
+    var event_name = $("<div class='event-name'>予定は無いよ： " + month + "月 " + day + "日</div>");
     $(event_card).css({ "border-left": "10px solid #FF1744" });
     $(event_card).append(event_name);
     $(".events-container").append(event_card);
 
+    $(".events-container").append(year_date);
+    $(".events-container").append(month_date);
+    $(".events-container").append(day_date);
+    $(".events-container").append(start_date);
+    $(".events-container").append(end_date);
+    $(".events-container").append(kind_date);
+    $(".events-container").append(comment_date);
   }
   // Go through and add each event as a card to the events container
   for (var i = 0; i < events.length; i++) {
     if (events[i]["kind"] == "ok") {
       var event_card = $("<div class='event-card'></div>");
       var event_name = $("<div class='event-name'>希望予定：</div>");
-      var event_count = $("<div class='event-count'>" + events[i]["occasion"] + "～" + events[i]["invited_count"] + "時間</div>");
+      var event_count = $("<div class='event-count'>" + events[i]["start"] + "～" + events[i]["end"] + "時間</div>");
       if (events[i]["cancelled"] === true) {
         $(event_card).css({
           "border-left": "10px solid #FF1744"
@@ -46,6 +91,14 @@ function show_events(events, month, day) {
       }
       $(event_card).append(event_name).append(event_count);
       $(".events-container").append(event_card);
+      // inputの作成
+      $(".events-container").append(year_date);
+      $(".events-container").append(month_date);
+      $(".events-container").append(day_date);
+      $(".events-container").append(start_date);
+      $(".events-container").append(end_date);
+      $(".events-container").append(kind_date);
+      $(".events-container").append(comment_date);
     } else {
       var event_card = $("<div class='comment-card'></div>");
       var event_comment = $("<div class='event-name'>" + events[i]["comment"] + "</div>");
@@ -56,6 +109,13 @@ function show_events(events, month, day) {
         event_count = $("<div class='event-cancelled'>Cancelled</div>");
       }
       $(event_card).append(event_comment);
+      $(".events-container").append(year_date);
+      $(".events-container").append(month_date);
+      $(".events-container").append(day_date);
+      $(".events-container").append(start_date);
+      $(".events-container").append(end_date);
+      $(".events-container").append(kind_date);
+      $(".events-container").append(comment_date);
       $(".events-container").append(event_card);
     }
   }
@@ -107,6 +167,7 @@ function init_calendar(date) {
   }
   // Append the last row and set the current year
   calendar_days.append(row);
+  console.log(row);
   $(".year").text(year);
 }
 
@@ -171,13 +232,13 @@ function new_event(event) {
   })
   // empty inputs and hide events
   $("#dialog input[type=text]").val('');
-  $("#dialog input[type=time][id=count]").val('');
+  $("#dialog input[type=time][id=end]").val('');
   $(".events-container").hide(250);
   $("#dialog").show(250);
   // Event handler for cancel button
   $("#cancel-button").click(function () {
-    $("#name").removeClass("error-input");
-    $("#count").removeClass("error-input");
+    $("#start").removeClass("error-input");
+    $("#end").removeClass("error-input");
     $("#dialog").hide(250);
     $(".events-container").show(250);
   });
@@ -185,45 +246,46 @@ function new_event(event) {
   // Event handler for ok button
   $("#ok-button").unbind().click({ date: event.data.date }, function () {
     var date = event.data.date;
-    var name = parseInt($("#name").val().trim());
-    var count = parseInt($("#count").val().trim());
+    var start = parseInt($("#start").val().trim());
+    var end = parseInt($("#end").val().trim());
     var day = parseInt($(".active-date").html());
     console.log(date);
     // Basic form validation
-    if (isNaN(name)) {
-      $("#name").addClass("error-input");
+    if (isNaN(start)) {
+      $("#start").addClass("error-input");
       alert("開始時間がありません");
     }
-    else if (name > 24) {
-      $("#name").addClass("error-input");
+    else if (start > 24) {
+      $("#start").addClass("error-input");
       alert("24時を超えています。");
 
     }
-    else if (isNaN(count)) {
-      $("#count").addClass("error-input");
+    else if (isNaN(end)) {
+      $("#end").addClass("error-input");
       alert("終了時間がありません");
     }
-    else if (count > 24) {
-      $("#count").addClass("error-input");
+    else if (end > 24) {
+      $("#end").addClass("error-input");
       alert("24時を超えています。");
     }
-    else if (name > count) {
-      $("#name").addClass("error-input");
-      $("#count").addClass("error-input");
+    else if (start > end) {
+      $("#start").addClass("error-input");
+      $("#end").addClass("error-input");
       alert("開始時間が終了時間を超えています。");
     }
-    else if (name == count) {
-      $("#name").addClass("error-input");
-      $("#count").addClass("error-input");
+    else if (start == end) {
+      $("#start").addClass("error-input");
+      $("#end").addClass("error-input");
       alert("開始時間と終了時間が同じです。");
     }
     else {
       $("#dialog").hide(250);
       console.log("new event");
       button = 'ok';
-      new_event_json(name, count, date, day, button);
+      new_event_json(start, end, date, day, button);
       date.setDate(day);
       init_calendar(date);
+      $(".events-container").show(250);
     }
 
 
@@ -254,7 +316,7 @@ function comment_event(event) {
     console.log("comment");
     console.log(comment);
     button = 'comment';
-    comment_event_json(comment,date, day, button);
+    comment_event_json(comment, date, day, button);
     date.setDate(day);
     init_calendar(date);
   });
@@ -291,11 +353,11 @@ function delete_event_json(date, day) {
 }
 
 // Adds a json event to event_data
-function new_event_json(name,count, date, day, button) {
+function new_event_json(start, end, date, day, button) {
   console.log(comment);
   var event = {
-    "occasion": name,
-    "invited_count": count,
+    "start": start,
+    "end": end,
     "year": date.getFullYear(),
     "month": date.getMonth() + 1,
     "day": day,
@@ -312,8 +374,10 @@ function new_event_json(name,count, date, day, button) {
   event_data["events"].push(event);
 }
 
-function comment_event_json(comment,date, day, button) {
+function comment_event_json(comment, date, day, button) {
   var event = {
+    "start":'',
+    "end":'',
     "comment": comment,
     "year": date.getFullYear(),
     "month": date.getMonth() + 1,
@@ -342,82 +406,77 @@ function check_events(day, month, year) {
 var event_data = {
   "events": [
     {
-      "name" : "田中花子",
-      "occasion": 10,
-      "invited_count": 12,
-      "year": 2023,
-      "month": 1,
-      "day": 10,
-      // "cancelled": true
-      "kind": "ok",
+      'start': 10,
+      'end': 12,
+      'comment': "挨拶",
+      'kind': "ok",
+      'day': 13,
+      'month': 1,
+      'year': 2023,
     },
     {
-      "name" : "田中花子",
-      "occasion": 14,
-      "invited_count": 16,
-      "year": 2023,
-      "month": 1,
-      "day": 11,
-      // "cancelled": true
-      "kind": "ok"
+      'start': 11,
+      'end': 12,
+      'comment': "挨拶",
+      'kind': "comment",
+      'day': 15,
+      'month': 1,
+      'year': 2023,
     },
     {
-      "name" : "田中花子",
-      "occasion": 20,
-      "invited_count": 24,
-      "year": 2023,
-      "month": 1,
-      "day": 8,
-      // "cancelled": true
-      "kind": "ok"
+      'start': 14,
+      'end': 19,
+      'comment': "挨拶",
+      'kind': "ok",
+      'day': 16,
+      'month': 1,
+      'year': 2023,
     },
     {
-      "name" : "田中花子",
-      "occasion": 1,
-      "invited_count": 12,
-      "year": 2023,
-      "month": 1,
-      "day": 19,
-      "kind": "ok"
+      'start': 10,
+      'end': 12,
+      'comment': "挨拶",
+      'kind': "ok",
+      'day': 1,
+      'month': 1,
+      'year': 2023,
     },
     {
-      "name" : "田中花子",
-      "occasion": 1,
-      "invited_count": 12,
-      "year": 2023,
-      "month": 1,
-      "day": 13,
-      "kind": "ok"
-    }
+      'start': '',
+      'end': '',
+      'comment': "挨拶",
+      'kind': "comment",
+      'day': 8,
+      'month': 1,
+      'year': 2023,
+    },
+    {
+      'start': 14,
+      'end': 19,
+      'comment': "挨拶",
+      'kind': "ok",
+      'day': 3,
+      'month': 2,
+      'year': 2023,
+    },
   ]
 };
-$(function () { // 遅延処理
-  events = event_data["events"];
-  $.ajax({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    },
-    type: 'POST',
-    url: "test3", // url: は読み込むURLを表す
-    datatype: "json",
-    data: {
-      events
-    }
-  });
-  console.log(events);
-});
+
+
+
+
 
 const months = [
-  "1月",
-  "2月",
-  "3月",
-  "4月",
-  "5月",
-  "6月",
-  "7月",
-  "8月",
-  "9月",
-  "10月",
-  "11月",
-  "12月"
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  10,
+  11,
+  12
 ];

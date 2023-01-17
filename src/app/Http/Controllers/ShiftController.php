@@ -379,6 +379,121 @@ class ShiftController extends Controller
         return redirect()->route('new_shiftView')->with(compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week'));
     }
 
+    public function shift_add(Request $request)
+    {
+        $adminid=Auth::guard('admin')->id();
+        $employeeid=Auth::guard('employee')->id();
+        $parttimerid=Auth::guard('parttimer')->id();
+        $loginid = 0;
+        $judge = 0;
+        if(isset($adminid)) {
+            $storeid = admin::where('id',$adminid)->value('store_id');
+         }elseif(isset($employeeid)) {             
+            $storeid = Employee::where('id',$employeeid)->value('store_id');
+            $loginid = $employeeid;
+            $judge = true;
+        }elseif(isset($parttimerid)) {
+            $storeid = Parttimer::where('id',$parttimerid)->value('store_id');
+            $loginid = $parttimerid;
+            $judge = false;
+        }
+
+        $employees = Employee::where('store_id',$storeid)->get();
+        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $completeshift = CompleteShift::where('store_id',$storeid)->get();
+        $staffcompleteshift = CompleteShift::where('emppartid',$loginid)->where('judge',$judge)->get();
+        $privatestaffshift = StaffShift::where('emppartid',$loginid)->where('judge',$judge)->get();
+
+        $empname = [];
+        $partname = [];
+        $i = 0;
+        $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
+        $shift_data_list = [];
+        $shift_data = [];
+        $day_list = [];
+
+
+        //31日ループ
+        for ($x = 0; $x < 31; $x++) {
+            $shift_data = [];
+            //データの種類でループ
+            for ($i = 0; $i < count($data_name); $i++) {
+                // 受け取り判定
+                if (isset($_POST[$data_name[$i] . strval($x)])) {
+                    // 連想配列作成
+                    $shift_data += [$data_name[$i] => $_POST[$data_name[$i] . strval($x)]];
+                }
+                // dump($data_name[$i].":".$x.":".$test);
+            }
+            //連想配列を配列に格納(多次元配列にしてる)
+            $shift_data_list[$x] = $shift_data;
+            $work[$x] = '-'; 
+        }
+
+        // ソート処理(月＞日：昇順)
+        // $month = array_column($shift_data_list, 'month');
+        // $day = array_column($shift_data_list, 'day');
+        // array_multisort($month, SORT_ASC, $day, SORT_ASC, $shift_data_list);    
+
+        for ($x = 0; $x < 31; $x++) {
+            if (isset($shift_data_list[$x]['day'])) {
+                $work[$shift_data_list[$x]['day']] = $shift_data_list[$x]['start'] .'-' .$shift_data_list[$x]['end'];
+            }
+        }
+
+        // $privatestaffshift = StaffShift::where('emppartid',$loginid)->where('judge',$empjudge)->get();
+
+        // foreach($privatestaffshift as $staffshift) {
+        //     for($day= 1; $day <= 31; $day++) {
+        //         $hentai="day".$day;
+        //         if($staffshift->$hentai != "-1") {
+        //             $staffshiftworkday++;
+        //         }
+        //     }
+        // }
+
+        // 送信された月の数だけinsertを行う
+            \DB::table('staffshift')->insert([
+                'store_id'=>$storeid,
+                'emppartid'=>$loginid,
+                'judge' => $judge,
+                'month'=> 1,
+                'day1'=> $work[0],
+                'day2' => $work[1],
+                'day3' => $work[2],
+                'day4' => $work[3],
+                'day5' => $work[4],
+                'day6' => $work[5],
+                'day7' => $work[6],
+                'day8' => $work[7],
+                'day9' => $work[8],
+                'day10' => $work[9],
+                'day11' => $work[10],
+                'day12' => $work[11],
+                'day13' => $work[12],
+                'day14' => $work[13],
+                'day15' => $work[14],
+                'day16' => $work[15],
+                'day17' => $work[16],
+                'day18' => $work[17],
+                'day19' => $work[18],
+                'day20' => $work[19],
+                'day21' => $work[20],
+                'day22' => $work[21],
+                'day23' => $work[22],
+                'day24' => $work[23],
+                'day25' => $work[24],
+                'day26' => $work[25],
+                'day27' => $work[26],
+                'day28' => $work[27],
+                'day29' => $work[28],
+                'day30' => $work[29],
+                'day31' => $work[30],
+            ]);
+        
+        return view('shiftCreate');
+    }
+
 
 
     /* シフト作成メニュー */

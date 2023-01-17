@@ -59,17 +59,22 @@
                     <button class="button" id="comment-button">コメント</button>
                 </div>
             </div>
-            <div class="events-container">
-            </div>
+            {{-- <form action="{{route('emp')}}" method="post"> --}}
+            <form action="title" method="post">
+                @csrf
+                <div class="events-container">
+                </div>
+                <button type='submit' class="button" id="add-button">送信</button>
+            </form>
             <div class="dialog" id="dialog">
                 <h2 class="dialog-header">シフト予定を入力してね</h2>
                 <form class="form" id="form">
                     <div class="form-container" align="center">
                         <label class="form-label" id="valueFromMyButton" for="name">希望開始時間</label>
-                        <input class="input" type="number" id="name" min="0" max="24"
+                        <input class="input" type="number" id="start" min="0" max="24"
                             maxlength="5">
                         <label class="form-label" id="valueFromMyButton" for="count">希望終了時間</label>
-                        <input class="input" type="number" id="count" min="0" max="24"
+                        <input class="input" type="number" id="end" min="0" max="24"
                             maxlength="5">
                         <datalist id="data-list">
                             {{-- お気に入り --}}
@@ -97,6 +102,71 @@
                 </form>
             </div>
         </div>
+        {{-- 確認終わったら消して良し --}}
+        <?php
+        use Carbon\Carbon;  
+        // 来月の取得
+        $data = new Carbon('+1 month');
+        $month = $data->month;
+
+        //POST受け取り名前
+        $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
+        $test_list = [];
+        $test = [];
+        $data_list = [];
+        $work = [];
+        //commentの保存 未定
+        
+        //31日ループ
+        for ($x = 0; $x < 31; $x++) {
+            $test = [];
+            //データの種類でループ
+            for ($i = 0; $i < count($data_name); $i++) {        //取得したmonthとmonth_dataの比較
+                if (isset($_POST[$data_name[$i] . strval($x)]) && $_POST['month'. strval($x)] == strval($month) ) {
+                    //連想配列を作成+月の絞り込み
+                    $test += [$data_name[$i] => $_POST[$data_name[$i] . strval($x)]];
+                }
+                // dump($data_name[$i].":".$x.":".$test);
+            }
+            //一旦全ての値を-に設定
+            $work[$x] = '-';
+            // 多重連想配列の作成
+            $test_list[$x] = $test;
+            dump($test_list[$x]);
+            dump($month);
+
+        }
+
+
+        
+        // if (isset($_POST['year1'])) {
+        //     // ソート処理(月＞日：昇順)
+        //     $month = array_column($test_list, 'month');
+        //     $day = array_column($test_list, 'day');
+        //     array_multisort($month, SORT_ASC, $day, SORT_ASC, $test_list);
+        //     dump($test_list);
+        // } else {
+        //     $test = 'なし';
+        // }
+        
+        // 31日ループ
+        for ($x = 0; $x < 31; $x++) {
+            if (isset($test_list[$x]['day'])) {
+                // 値が入ってる配列を格納
+                $work[$test_list[$x]['day']] = $test_list[$x]['start'] . '-' . $test_list[$x]['end'];
+            }
+        }
+        dump($work);
+        
+        //送信の簡易確認
+        if (isset($_POST['year1'])) {
+            $test1 = '送信確認';
+        } else {
+            $test1 = 'なし';
+        }
+        dump($test1);
+        ?>
+
 </body>
 
 </html>
