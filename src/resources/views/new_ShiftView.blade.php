@@ -17,22 +17,41 @@
             <div class="colorbox_text">
                 アルバイト
             </div>
+            @if ($loginid != 0)
+            <div class="colorbox loginrow_name" id="makeImg">
+            </div>
+            <div class="colorbox_text">
+                ログイン中
+            </div>
+            @endif
         </div>
         <div class='widget'>
             <div class="tab-content" href="#tab1">
                 <table class="month_table">
-                    <caption>１ 月</caption>
+                    <caption>{{$calendarData[0]["month"]}} 月</caption>
                 </table>
                 <div class="scrollbox">
                     <table class="compshift_table">
                         <thead class="thead">
                             <th class="thname">&nbsp;名前&nbsp;</th>
-                            @for ($i = 1; $i <= 31; $i++)
+                            <?php $count=$calendarData[0]['day'];?>
+                            @for ($i = 1; $i <= $calendarData[0]['lastDay']; $i++)
                                 <?php
-                                $timestamp = mktime(0, 0, 0, 1, $i, 2023);
+                                $timestamp = mktime(0, 0, 0, $calendarData[0]['month'], $i, 2023);
                                 $date = date('w', $timestamp);
                                 ?>
-                                @if ($i == 9)
+                                @if($count==0)
+                                <th class="sunday">{{ $i }} 日({{ $week[$count] }})</th>
+                                @elseif($count==6)
+                                <th class="saturday">{{ $i }} 日({{ $week[$count] }})</th>
+                                <?php $count=-1;?>
+                                @elseif($array[$i]!='-')
+                                <th class="holiday">{{ $i }} 日({{ $week[$count] }})</th>
+                                @else
+                                <th>{{ $i }} 日({{ $week[$count] }})</th>
+                                @endif
+                                <?php $count++;?>
+                                {{-- @if ($i == 9)
                                     <th class="holiday">{{ $i }} 日({{ $week[$date] }})</th>
                                 @elseif($date == 6)
                                     <th class="saturday">{{ $i }} 日({{ $week[$date] }})</th>
@@ -40,7 +59,7 @@
                                     <th class="sunday">{{ $i }} 日({{ $week[$date] }})</th>
                                 @else
                                     <th>{{ $i }} 日({{ $week[$date] }})</th>
-                                @endif
+                                @endif --}}
                             @endfor
                             <th class="workday">労働日数</th>
                             <th class="worktime">労働時間</th>

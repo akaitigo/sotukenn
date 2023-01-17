@@ -10,6 +10,8 @@ use App\Models\Status;
 use App\Models\CompleteShift;
 use App\Models\StaffShift;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Yasumi\Yasumi;
 
 use Carbon\Carbon;  
 
@@ -37,6 +39,7 @@ class ShiftController extends Controller
         $submitcomppartid = [];
         $submitcomppartname = [];
 
+        
         foreach($employees as $emp){
             $allempid[] = $emp->id;
             $allempname[] = $emp->name;
@@ -94,31 +97,54 @@ class ShiftController extends Controller
     {
     }
 
-    /* シフト閲覧 */
+    /* シフト閲覧 変える*/
     public function view()
     {
-        $adminid=Auth::guard('admin')->id();
-        $employeeid=Auth::guard('employee')->id();
-        $parttimerid=Auth::guard('parttimer')->id();
-        $loginid = 0;
-        $empjudge = 0;
-        if(isset($adminid)) {
-            $storeid = admin::where('id',$adminid)->value('store_id');
-         }elseif(isset($employeeid)) {             
-            $storeid = Employee::where('id',$employeeid)->value('store_id');
-            $loginid = $employeeid;
+        $userId;
+        $storeid;
+        $empjudge=0;
+        if(Auth::guard('admin')->check()){
+            $userId = Auth::guard('admin')->id();
+            $storeid=admin::where('id',$userId)->value('store_id');
+        }else if(Auth::guard('employee')->check()){
+            $userId = Auth::guard('employee')->id();
+            $storeid=Employee::where('id',$userId)->value('store_id');
             $empjudge = true;
-        }elseif(isset($parttimerid)) {
-            $storeid = Parttimer::where('id',$parttimerid)->value('store_id');
-            $loginid = $parttimerid;
+        }else if(Auth::guard('parttimer')->check()){
+            $userId = Auth::guard('parttimer')->id();
+            $storeid=Parttimer::where('id',$userId)->value('store_id');
             $empjudge = false;
         }
-
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
         $completeshift = CompleteShift::where('store_id',$storeid)->get();
-        $staffcompleteshift = CompleteShift::where('emppartid',$loginid)->where('judge',$empjudge)->get();
-        $privatestaffshift = StaffShift::where('emppartid',$loginid)->where('judge',$empjudge)->get();
+        $staffcompleteshift = CompleteShift::where('emppartid',$userId)->where('judge',$empjudge)->get();
+        $privatestaffshift = StaffShift::where('emppartid',$userId)->where('judge',$empjudge)->get();
+
+        $carbonNow = Carbon::now();
+        $thisMonth = $carbonNow->month;
+        $firstDay = $carbonNow->firstOfMonth()->day;
+        $lastDate = $carbonNow->lastOfMonth()->day;
+        $calendarData = [
+            [
+                'day'=>Carbon::now()->firstOfMonth()->dayOfWeek,
+                'month'=>$thisMonth,
+                'lastDay'=>$lastDate,
+            ]
+        ];
+        //祝日を入れる
+        $holidays = Yasumi::create('Japan', '2023', 'ja_JP');
+        $holidaysInBetweenDays = $holidays->between(
+            Carbon::now()->firstOfMonth(),
+            Carbon::now()->lastOfMonth()
+        );
+        $array=['-'];
+        for($i=1;$i<=$lastDate;$i++){
+                array_push($array,'-');
+        }
+        foreach($holidaysInBetweenDays as $holiday) {
+            $array[$holiday->format('j')] = $holiday->getName();
+        }
 
         $empname = [];
         $partname = [];
@@ -136,8 +162,8 @@ class ShiftController extends Controller
             (double)$StaffsumTime = 0;
             $Staffworkday = 0;
 
-            for($day= 1; $day <= 31; $day++) {
-                $hentai="day".$day;
+            for($j= 1; $j <= 31; $j++) {
+                $hentai="day".$j;
 
                 if($compshift->$hentai != "×" && $compshift->$hentai != "-") {
                     (int)$num1 = strpos($compshift->$hentai,"-");//出勤、退勤抜き出しに使用
@@ -158,8 +184,8 @@ class ShiftController extends Controller
         (int)$staffshiftcover = 0;
 
         foreach($staffcompleteshift as $staffcompshift) {
-            for($day= 1; $day <= 31; $day++) {
-                $hentai="day".$day;
+            for($j= 1; $j <= $lastDate; $j++) {
+                $hentai="day".$j;
                 if($staffcompshift->$hentai != "×" && $staffcompshift->$hentai != "-") {
                     $staffshiftcompleteworkday++;
                 }
@@ -167,15 +193,15 @@ class ShiftController extends Controller
         }
 
         foreach($privatestaffshift as $staffshift) {
-            for($day= 1; $day <= 31; $day++) {
-                $hentai="day".$day;
+            for($j= 1; $j <= $lastDate; $j++) {
+                $hentai="day".$j;
                 if($staffshift->$hentai != "-1") {
                     $staffshiftworkday++;
                 }
             }
         }
 
-        if($loginid != 0) {                               //これないとバグる
+        if($userId != 0) {                               //これないとバグる
             if($staffshiftcompleteworkday == 0 || $staffshiftworkday == 0){
                 $staffshiftcover = 0;
             }else{
@@ -188,11 +214,11 @@ class ShiftController extends Controller
         }
 
         $week = ['日','月','火','水','木','金','土'];
-
-        return view('new_shiftView',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week'));
+        $loginid=$userId;
+        return view('new_shiftView',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week','calendarData','array'));
     }
 
-    /* シフト編集 */
+    /* シフト編集 変える*/
     public function edit()
     {
         $adminid=Auth::guard('admin')->id();
@@ -261,7 +287,7 @@ class ShiftController extends Controller
     }
 
 
-    /* シフト編集上書き処理 */
+    /* シフト編集上書き処理 変える*/
     public function update(Request $request)
     {
 
