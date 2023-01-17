@@ -65,16 +65,25 @@ function update(emppartcountid,emppartname) {
         let emppartnamearray = id -1;
         for (let day = 1; day <= 31; day++){
             let jstext = id + "-" + day;
+            let starttimepull = id + "-" + day + "start";
+            let endtimepull = id + "-" + day + "end";
             let inputshifttext = document.getElementById(jstext).value;
             var pattern = '-';
             let indexstarttext = inputshifttext.indexOf("-",0);
-            if(inputshifttext == "-"){
 
+            let indexstartnumber = parseFloat(document.getElementById(starttimepull).value);
+            let indexendnumber = parseFloat(document.getElementById(endtimepull).value);
+            let shifttime = indexendnumber - indexstartnumber;
+            
+            if(inputshifttext == "-" || inputshifttext == "×"){
             }else if (indexstarttext == 0) {
-                alert((emppartname[emppartnamearray]) + "さんの" + day + "日の開始時間を入力してください");
+                alert((emppartname[emppartnamearray]) + "さんの" + day + "日の出勤時間を入力してください");
                 return false;
             }else if(inputshifttext.lastIndexOf(pattern)+pattern.length===inputshifttext.length){
-                alert((emppartname[emppartnamearray]) + "さんの" + day + "日の終了時間を入力してください");
+                alert((emppartname[emppartnamearray]) + "さんの" + day + "日の退勤時間を入力してください");
+                return false;
+            }else if(shifttime <= 0){
+                alert((emppartname[emppartnamearray]) + "さんの" + day +"日に入力ミスがあります"+ shifttime);
                 return false;
             }
         }

@@ -44,6 +44,9 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 Route::get('/title', function () {
     return view('emp_shift_add');
 });
+Route::post('/title', function () {
+    return view('emp_shift_add');
+});
 
 Route::get('/emp_calendar', function () {
     return view('emp_calendar');
@@ -186,3 +189,6 @@ Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting
 
 Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
 Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
+
+//  test用
+Route::post('/emp', "App\Http\Controllers\ShiftController@shift_add")->name('emp');

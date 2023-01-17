@@ -248,7 +248,7 @@
 
 .scrollbox {
     width: auto;                
-    height: 500px;               
+    height: 68%;               
     border: 1px solid #000;      /* 枠にボーダーを引く */
     overflow: scroll;          /* 縦横方向にスクロール可能にする */
 }
@@ -262,15 +262,15 @@
 }
 
 .holiday {
-  background-color: #efd44f88;      /* 祝日の色(thead) */
+  color: #ffb300;      /* 祝日の色(thead) */
 }
 
 .saturday {
-  background-color: #1aa0ff88;      /* 土曜日の色(thead) */
+  color: #1aa0ff;      /* 土曜日の色(thead) */
 }
 
 .sunday {
-  background-color: #f4256092;      /* 日曜日の色(thead) */
+  color: #ff1d1df2;      /* 日曜日の色(thead) */
 }
 
 .colorbox {
@@ -290,11 +290,11 @@
 
 /* １から31日のカラム */
 .gusuemprow {
-  background-color: #97ff85b5;      /* 従業員の偶然行の色 */
+  background-color: rgb(253, 255, 115);      /* 従業員の偶然行の色 */
 }
 
 .kisuemprow {
-  background-color: #ffffff;      /* 従業員の奇数行の色 */
+  background-color: #fff;      /* 従業員の奇数行の色 */
 }
 .gusupartrow {
   background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
@@ -320,11 +320,11 @@
 
 /* シフト編集の１から31日のカラム */
 .gusuemprow_edit {
-  background-color: #97ff85b5;      /* 従業員の偶然行の色 */
+  background-color: rgb(253, 255, 115);      /* 従業員の偶然行の色 */
 }
 
 .kisuemprow_edit {
-  background-color: #ffffff;      /* 従業員の奇数行の色 */
+  background-color: #fff;      /* 従業員の奇数行の色 */
   /* cursor: pointer; */
 }
 .gusupartrow_edit {
@@ -333,7 +333,7 @@
 }
 
 .kisupartrow_edit {
-  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  background-color: #fff;      /* アルバイトの奇数行の色 */
   /* cursor: pointer; */
 }
 
@@ -357,33 +357,40 @@
 
 /* 左端の名前カラム */
 .gusuemprow_name {
-  background-color: #97ff85;      /* 従業員の偶然行の色 */
+  background-color: #fffc5d;      /* 従業員の偶然行の色 */
+  font-weight: bold;
 }
 
 .kisuemprow_name {
-  background-color: #ffffff;      /* 従業員の奇数行の色 */
+  background-color: #fff;      /* 従業員の奇数行の色 */
+  font-weight: bold;
 }
 .gusupartrow_name {
   background-color: #73e8fd;      /* アルバイトの偶然行の色 */
+  font-weight: bold;
 }
 
 .kisupartrow_name {
   background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  font-weight: bold;
 }
 
 .loginrow_name {
   background-color: #cc7fff;      /* ログイン中の人の行の色 */
+  font-weight: bold;
 }
 
 
 .loginrow_name_border {
   background-color: #cc7fff;      /* ログイン中の最初のアルバイトの行の色 */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
 }
 
 .gusupartrow_name_border {
   background-color: #73e8fd;      /* 最初のアルバイト */
   border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
 }
 
 #name {
@@ -406,11 +413,11 @@
 
 /* 右端の日数、時間カラム */
 .gusuemprow_work {
-  background-color: #97ff85b5;      /* 従業員の偶然行の色 */
+  background-color: rgb(253, 255, 115);      /* 従業員の偶然行の色 */
 }
 
 .kisuemprow_work {
-  background-color: #ffffff;      /* 従業員の奇数行の色 */
+  background-color: #fff;      /* 従業員の奇数行の色 */
 }
 .gusupartrow_work {
   background-color: #73e8fdb8;      /* アルバイトの偶然行の色 */
@@ -495,7 +502,7 @@
 .compshift_edit_table .kisupartrow_edit,
 .compshift_edit_table .gusupartrow_edit_border {
     width: 191px;
-    height: 6.5rem;
+    height: 6rem;
     padding: 0;
   }
 
@@ -511,7 +518,7 @@ td.hihunp{
   text-align: center;
 }
  .shifttext {
-  cursor: pointer;      /* 入力されるテキスト*/
+  cursor: default;      /* 入力されるテキスト*/
   position: absolute;
   top: 0;
   left: 0;
@@ -524,10 +531,9 @@ td.hihunp{
 }
 
 .shiftp {
-  cursor: pointer;      /* 最初に表示されてるシフト */
+  cursor: default;      /* 最初に表示されてるシフト */
   position: relative;
-  top: 0;
-  margin: 0;
+  margin: 0.9rem 0 0 0;
   padding: 0;
   font-weight: bold;
   font-family: Arial;
@@ -548,7 +554,7 @@ td.hihunp{
 }
 
 .hihunp {
-  cursor: pointer;      /* 時間変更の間のハイフン */
+  cursor: default;      /* 時間変更の間のハイフン */
   position: absolute;
   top: 2rem;
   left: 5.7rem;
@@ -576,23 +582,37 @@ td.hihunp{
   cursor: pointer;      /* 変更ボタン */
   position: relative;
   font-weight: bold;
+  font-family: Arial;
+  font-size: 0.8rem;
+  transition:0ms;
 }
 
 .returnbtn {
   cursor: pointer;      /* 元に戻るボタン */
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: 0;
-  margin: 0;
+  margin: 0 0 0.2rem 0.2rem;
   font-weight: bold;
+  font-family: Arial;
+  font-size: 0.7rem;
+  transition:0ms;
 }
 
 .batsubtn {
   cursor: pointer;      /* バツ入力ボタン */
   position: absolute;
-  left: 0;
+  right: 0;
   bottom: 0;
-  margin: 0;
+  margin: 0 0.3rem 0.2rem 0;
   font-weight: bold;
   font-family: Arial;
+  font-size: 0.7rem;
+  transition:0ms;
+  background-color: #ff3737;
+}
+
+.batsubtn:hover {
+  background:#d51111;
+  color: #fff;
 }
