@@ -17,6 +17,13 @@
             <div class="colorbox_text">
                 アルバイト
             </div>
+            @if ($loginid != 0)
+            <div class="colorbox loginrow_name" id="makeImg">
+            </div>
+            <div class="colorbox_text">
+                ログイン中
+            </div>
+            @endif
         </div>
         <div class='widget'>
             <div class="tab-content" href="#tab1">
