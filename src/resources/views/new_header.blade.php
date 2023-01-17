@@ -10,7 +10,22 @@ use App\Models\Parttimer;
     <a class="brand">M&nbsp;A&nbsp;R&nbsp;U&nbsp;O&nbsp;K&nbsp;U&nbsp;N</a>
     @include('setting')
 </div>
-<input type="checkbox" checked="checked" class="openSidebarMenu" id="openSidebarMenu">
+<script>
+function savesession() {
+    if (document.getElementById("openSidebarMenu").checked){
+        window.sessionStorage.setItem('checked','true');
+    }else{
+        window.sessionStorage.setItem('checked','false');
+    }
+
+}
+</script>
+<input type="checkbox" onclick="savesession()" class="openSidebarMenu" id="openSidebarMenu">
+<script>
+    if(window.sessionStorage.getItem('checked')=="true"){
+    document.getElementById("openSidebarMenu").setAttribute("checked","checked");
+    }
+</script>
 <label for="openSidebarMenu" class="sidebarIconToggle">
     <div class="spinner diagonal part-1"></div>
     <div class="spinner horizontal"></div>
