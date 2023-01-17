@@ -1,4 +1,21 @@
 // Setup the calendar with the current date
+function data_set(json_start, json_end, json_day, month, year, count) {
+  var date = new Date();
+  for (var i = 0; i < count; ++i) {
+    event_data['events'][i] =
+    {
+      'start': json_start[i],
+      'end': json_end[i],
+      'day': json_day[i],
+      'month': month,
+      'year': year,
+      'kind': 'ok',
+      'comment': '',
+    }
+  }
+  init_calendar(date);
+}
+
 $(document).ready(function () {
   var date = new Date();
   var today = date.getDate();
@@ -32,23 +49,23 @@ function show_events(events, month, day) {
   var end_date = [];
   for (var i = 0; i < event_data['events'].length; i++) {
     // input作成
-      year_date[i] = $("<input class='day-date' id='day_date' name='year" + i + "' value='" + event_data['events'][i]['year'] + "'></input>");
-      month_date[i] = $("<input class='day-date' id='day_date' name='month" + i + "' value='" + event_data['events'][i]['month'] + "'></input>");
-      day_date[i] = $("<input class='day-date' id='day_date' name='day" + i + "' value='" + event_data['events'][i]['day'] + "'></input>");
-      comment_date[i] = $("<input class='day-date' id='day_date' name='comment" + i + "' value='" + event_data['events'][i]['comment'] + "'></input>");
-      kind_date[i] = $("<input class='day-date' id='day_date' name='kind" + i + "' value='" + event_data['events'][i]['kind'] + "'></input>");
-      start_date[i] = $("<input class='day-date' id='day_date' name='start" + i + "' value='" + event_data['events'][i]['start'] + "'></input>");
-      end_date[i] = $("<input class='day-date' id='day_date' name='end" + i + "' value='" + event_data['events'][i]['end'] + "'></input>");
-      //css追加処理
-      $(year_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
-      $(month_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
-      $(day_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
-      $(comment_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
-      $(kind_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
-      $(start_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
-      $(end_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    year_date[i] = $("<input class='day-date' id='day_date' name='year" + i + "' value='" + event_data['events'][i]['year'] + "'></input>");
+    month_date[i] = $("<input class='day-date' id='day_date' name='month" + i + "' value='" + event_data['events'][i]['month'] + "'></input>");
+    day_date[i] = $("<input class='day-date' id='day_date' name='day" + i + "' value='" + event_data['events'][i]['day'] + "'></input>");
+    comment_date[i] = $("<input class='day-date' id='day_date' name='comment" + i + "' value='" + event_data['events'][i]['comment'] + "'></input>");
+    kind_date[i] = $("<input class='day-date' id='day_date' name='kind" + i + "' value='" + event_data['events'][i]['kind'] + "'></input>");
+    start_date[i] = $("<input class='day-date' id='day_date' name='start" + i + "' value='" + event_data['events'][i]['start'] + "'></input>");
+    end_date[i] = $("<input class='day-date' id='day_date' name='end" + i + "' value='" + event_data['events'][i]['end'] + "'></input>");
+    //css追加処理
+    $(year_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    $(month_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    $(day_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    $(comment_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    $(kind_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    $(start_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
+    $(end_date[i]).css({ "width": "1px", "height": "1px", "visibility": "hidden", "position": "absolute" });
 
-      console.log("ok");
+    console.log("ok");
   }
   $(".events-container").append(year_date);
   $(".events-container").append(month_date);
@@ -376,8 +393,8 @@ function new_event_json(start, end, date, day, button) {
 
 function comment_event_json(comment, date, day, button) {
   var event = {
-    "start":'',
-    "end":'',
+    "start": '',
+    "end": '',
     "comment": comment,
     "year": date.getFullYear(),
     "month": date.getMonth() + 1,
@@ -403,6 +420,8 @@ function check_events(day, month, year) {
 
 // データの設定
 // Given data for events in JSON format
+
+
 var event_data = {
   "events": [
     {
@@ -461,7 +480,6 @@ var event_data = {
     },
   ]
 };
-
 
 
 

@@ -9,8 +9,33 @@
     <meta name="description" content="Calendar">
     <meta name="author" content="Charles Anderson">
 </head>
+<?php
+    //ログインしてる人のシフト 全て
+    $month = $now_month;
+    $year=$now_year;
+    $count = 0 ;
+    foreach($privatestaffshift as $prv_shift){
+        // 月の最大日数でループ
+        for($i = 1; $i <= $last_data; $i++){
+            $nowday = 'day' . $i;
+            $today_shift = $prv_shift->$nowday;
+            if($today_shift != -1){
+                (int)$num1 = strpos($prv_shift->$nowday,"-");//出勤、退勤抜き出しに使用
+                (double)$in =  (double) substr($prv_shift->$nowday,0,$num1);//提出シフトの出勤時間抜き出し
+                (double)$out =  (double) substr($prv_shift->$nowday,$num1 + 1);//提出シフトの退勤時間抜き出し
+                $start[] = $in;
+                $end[] = $out;
+                $day[] = $i;   
+                $count +=1; 
+            }
+        }  
+    }
+    $json_start = json_encode($start);
+    $json_end = json_encode($end);
+    $json_day = json_encode($day);
+?>
 
-<body>
+<body onload="data_set({{$json_start}},{{$json_end}},{{$json_day}},{{$month}},{{$year}},{{$count}})">
     <div class="emp_box2">
         <div class="content">
             <div class="calendar-container">
@@ -102,70 +127,6 @@
                 </form>
             </div>
         </div>
-        {{-- 確認終わったら消して良し --}}
-        <?php
-        use Carbon\Carbon;  
-        // 来月の取得
-        $data = new Carbon('+1 month');
-        $month = $data->month;
-
-        //POST受け取り名前
-        $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
-        $test_list = [];
-        $test = [];
-        $data_list = [];
-        $work = [];
-        //commentの保存 未定
-        
-        //31日ループ
-        for ($x = 0; $x < 31; $x++) {
-            $test = [];
-            //データの種類でループ
-            for ($i = 0; $i < count($data_name); $i++) {        //取得したmonthとmonth_dataの比較
-                if (isset($_POST[$data_name[$i] . strval($x)]) && $_POST['month'. strval($x)] == strval($month) ) {
-                    //連想配列を作成+月の絞り込み
-                    $test += [$data_name[$i] => $_POST[$data_name[$i] . strval($x)]];
-                }
-                // dump($data_name[$i].":".$x.":".$test);
-            }
-            //一旦全ての値を-に設定
-            $work[$x] = '-';
-            // 多重連想配列の作成
-            $test_list[$x] = $test;
-            dump($test_list[$x]);
-            dump($month);
-
-        }
-
-
-        
-        // if (isset($_POST['year1'])) {
-        //     // ソート処理(月＞日：昇順)
-        //     $month = array_column($test_list, 'month');
-        //     $day = array_column($test_list, 'day');
-        //     array_multisort($month, SORT_ASC, $day, SORT_ASC, $test_list);
-        //     dump($test_list);
-        // } else {
-        //     $test = 'なし';
-        // }
-        
-        // 31日ループ
-        for ($x = 0; $x < 31; $x++) {
-            if (isset($test_list[$x]['day'])) {
-                // 値が入ってる配列を格納
-                $work[$test_list[$x]['day']] = $test_list[$x]['start'] . '-' . $test_list[$x]['end'];
-            }
-        }
-        dump($work);
-        
-        //送信の簡易確認
-        if (isset($_POST['year1'])) {
-            $test1 = '送信確認';
-        } else {
-            $test1 = 'なし';
-        }
-        dump($test1);
-        ?>
 
 </body>
 

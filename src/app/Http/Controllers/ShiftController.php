@@ -11,6 +11,8 @@ use App\Models\CompleteShift;
 use App\Models\StaffShift;
 use Illuminate\Http\Request;
 
+use Carbon\Carbon;  
+
 
 class ShiftController extends Controller
 {
@@ -494,7 +496,36 @@ class ShiftController extends Controller
         return view('shiftCreate');
     }
 
+    public function shift_show()
+    {
+        //月の最大日数の取得
+        $data = new Carbon();
+        $last_data = $data->daysInMonth;
+        $adminid=Auth::guard('admin')->id();
+        $employeeid=Auth::guard('employee')->id();
+        $parttimerid=Auth::guard('parttimer')->id();
+        $now_month = $data->month;
+        $now_year = $data->year;
+        $loginid = 0;
+        $judge = 0;
 
+        if(isset($adminid)) {
+            $storeid = admin::where('id',$adminid)->value('store_id');
+         }elseif(isset($employeeid)) {             
+            $storeid = Employee::where('id',$employeeid)->value('store_id');
+            $loginid = $employeeid;
+            $judge = true;
+        }elseif(isset($parttimerid)) {
+            $storeid = Parttimer::where('id',$parttimerid)->value('store_id');
+            $loginid = $parttimerid;
+            $judge = false;
+        }
+
+        $privatestaffshift = StaffShift::where('emppartid',$loginid)->where('judge',$judge)->get();
+
+
+        return view('emp_shift_add',compact('privatestaffshift','last_data','now_month','now_year'));
+    }
 
     /* シフト作成メニュー */
     public function menu()
