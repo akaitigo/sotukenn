@@ -192,3 +192,5 @@ Route::get('settingselect', "App\Http\Controllers\SettingController@select")->na
 
 //  test用
 Route::post('/emp', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
+
+Route::get('emp_shift_add', "App\Http\Controllers\ShiftController@shift_show")->name('shift_show');
