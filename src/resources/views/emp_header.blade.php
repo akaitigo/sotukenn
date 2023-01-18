@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="description" content="最新技術と自然との調和を目指す">
     <meta name="viewport" content="width=device-width">
-    <title>SAMPLE COMPANY | 最新技術と自然との調和を目指す</title>
+    <title>laravel</title>
     <link rel="stylesheet" media="all" href="css/style.css">
     <link rel="stylesheet" href="/css/emp_header.css" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>

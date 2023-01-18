@@ -9,33 +9,45 @@
     <meta name="description" content="Calendar">
     <meta name="author" content="Charles Anderson">
 </head>
+{{-- シフト表の取得 --}}
 <?php
     //ログインしてる人のシフト 全て
     $month = $now_month;
     $year=$now_year;
-    $count = 0 ;
+    $count_shift = 0 ;
     foreach($privatestaffshift as $prv_shift){
         // 月の最大日数でループ
         for($i = 1; $i <= $last_data; $i++){
             $nowday = 'day' . $i;
             $today_shift = $prv_shift->$nowday;
             if($today_shift != -1){
-                (int)$num1 = strpos($prv_shift->$nowday,"-");//出勤、退勤抜き出しに使用
-                (double)$in =  (double) substr($prv_shift->$nowday,0,$num1);//提出シフトの出勤時間抜き出し
-                (double)$out =  (double) substr($prv_shift->$nowday,$num1 + 1);//提出シフトの退勤時間抜き出し
+                (int)$num1 = strpos($prv_shift->$nowday,"-");
+                (double)$in =  (double) substr($prv_shift->$nowday,0,$num1);
+                (double)$out =  (double) substr($prv_shift->$nowday,$num1 + 1);
                 $start[] = $in;
                 $end[] = $out;
-                $day[] = $i;   
-                $count +=1; 
+                $day_shift[] = $i;   
+                $count_shift +=1; 
             }
         }  
     }
     $json_start = json_encode($start);
     $json_end = json_encode($end);
-    $json_day = json_encode($day);
-?>
+    $json_shiftday = json_encode($day_shift);
+    /* ここまでシフト表の処理*/
 
-<body onload="data_set({{$json_start}},{{$json_end}},{{$json_day}},{{$month}},{{$year}},{{$count}})">
+    //ログインしてる人のコメント 全て取得
+    $count_comment = 0 ; //month year は使いまわし
+
+    foreach(/*コメント情報の全て*/ as /*適当な変数名*/){
+        // 月の最大日数でループ
+        for($i = 1; $i <= $last_data; $i++){
+            // day1～day(last_data)まで入れてる
+            $nowday_comment = 'day' . $i;
+        }
+    }
+?>
+<body onload="comment_data_set({{$json_comment_data}},{{$json_cooment_day}},{{$month}},{{$year}},{{$count_comment}}),shift_data_set({{$json_start}},{{$json_end}},{{$json_shiftday}},{{$month}},{{$year}},{{$count_shift}})"> --}}
     <div class="emp_box2">
         <div class="content">
             <div class="calendar-container">
@@ -89,7 +101,7 @@
                 @csrf
                 <div class="events-container">
                 </div>
-                <button type='submit' class="button" id="add-button">送信</button>
+                <button type='submit' class="button" id="push-button">送信</button>
             </form>
             <div class="dialog" id="dialog">
                 <h2 class="dialog-header">シフト予定を入力してね</h2>
@@ -117,7 +129,7 @@
                 <form class="form" id="form">
                     <div class="form-container" align="center">
                         <label class="form-label" id="valueFromMyButton" for="count">コメント</label>
-                        <input class="input" type="text" id="comment" maxlength="8">
+                        <input class="input" type="text" id="comment" maxlength="20">
                         <datalist id="data-list">
                             {{-- お気に入り --}}
                         </datalist>
