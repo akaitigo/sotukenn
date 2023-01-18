@@ -60,4 +60,9 @@ class Store extends Model
     {
         return $this->hasMany(NeedShift::class);
     }
+
+    public function comment()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
