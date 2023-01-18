@@ -19,9 +19,9 @@
 			//$asa ini_get('max_execution_time');
 			//set_time_limit(3000);
 			$month = 1;//何月のシフトを作成するか
-			(int) $StaffStatus = 6;
-			(int) $MaxWeight = 4;
-			(int) $LowestWeight = 1;
+			(int) $StaffStatus = 6;//固定値
+			(int) $MaxWeight = 4;//固定値
+			(int) $LowestWeight = 1;//固定値
 			$month;
 			// int $NeedShift[][] = new int[days][2]要な人数
 			//$ShiftDivider = [];
@@ -86,7 +86,7 @@
 				
 				$ShiftDivider = array_values($ShiftDivider);
 			}
-			print_r($ShiftDivider);
+			//print_r($ShiftDivider);
 			$ShiftDividerCount = count($ShiftDivider);
 			//store1の必要なシフトを取得
 			
@@ -269,12 +269,29 @@
 					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
 					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
 				}while($Bsc->Stoper2($staff));
-			print_r($EndShift);
+			//print_r($EndShift);
 			//完成したシフトの登録
-			$CompleteShiftdb = CompleteShiftdb::where('store_id',$storeid)->get();
-			foreach(){
-
+			$CompleteShiftdb = CompleteShift::where('store_id',$storeid)->where('month',$month)->get();
+			$CounterX = 0;
+			foreach($CompleteShiftdb as $csd){
+				for($i = 1; count($EndShift[$CounterX]) > $i; $i++){
+					$dayIs = "day".(String)$i;
+					$csd->$dayIs = $EndShift[$CounterX][$i];
+				}
+				$csd->timestamps = false;
+				$csd->save();
+				$CounterX++;
 			}
+			$CounterX = 0;
+			foreach($CompleteShiftdb as $csd){
+				for($i = 1; count($EndShift[$CounterX]) > $i; $i++){
+					$dayIs = "day".(String)$i;
+					echo $csd->$dayIs;
+				}
+				echo '<br>';
+				$CounterX++;
+			}
+
 			//return view('shiftView', compact('EndShift','StaffShift','staff'));
         }
 	}
