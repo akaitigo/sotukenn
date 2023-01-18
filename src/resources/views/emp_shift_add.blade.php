@@ -26,10 +26,10 @@
                 (double)$out =  (double) substr($prv_shift->$nowday,$num1 + 1);
                 $start[] = $in;
                 $end[] = $out;
-                $day_shift[] = $i;   
-                $count_shift +=1; 
+                $day_shift[] = $i;
+                $count_shift +=1;
             }
-        }  
+        }
     }
     $json_start = json_encode($start);
     $json_end = json_encode($end);
@@ -48,7 +48,7 @@
             if($nowday_comment == '') {
                 $comment[] = $nowday_comment;
                 $day_comment[] = $i;
-                $count_comment += 1 ; 
+                $count_comment += 1 ;
             }
         }
     }
@@ -104,8 +104,8 @@
                     <button class="button" id="comment-button">コメント</button>
                 </div>
             </div>
-            {{-- <form action="{{route('emp')}}" method="post"> --}}
-            <form action="title" method="post">
+            <form action="{{route('emp')}}" method="post">
+            {{-- <form action="title" method="post"> --}}
                 @csrf
                 <div class="events-container">
                 </div>
