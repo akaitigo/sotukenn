@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Nextdivider extends Model
 {
     use HasFactory;
+    protected $table = 'nextdivider';
 
     public function stores()
     {

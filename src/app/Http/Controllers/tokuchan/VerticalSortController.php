@@ -88,7 +88,7 @@ use App\Http\Controllers\Controller;
             
             for($i = 0; count($SortStaff) > $i; $i++) {//重みごとのスタッフの人数をカウント
                 if((int) $SortStaff[$i][1] == $MaW) {
-                    $DeNum[$LoW-1][$counter] = (int) $SortStaff[$i][8];
+                    $DeNum[$LoW-1][$counter] = (int) $SortStaff[$i][4];
                     $counter++;
                 }else if((int) $SortStaff[$i][1] == $MaW-1){
                     $MaW--;
@@ -175,7 +175,7 @@ use App\Http\Controllers\Controller;
                                         continue;
                                     }*/
                                 }
-                                else if((int) $staff[$DeNum[$k2][$l]][2] > (int) $staff[$CanKey[$i][$j+1]][2]) {//提出率を比較
+                                else if((int) $staff[$DeNum[$k2][$l]][5] > (int) $staff[$CanKey[$i][$j+1]][5]) {//提出率を比較
                                     /*if(inCount[DeNum[k2][l]][1] < inCount[CanKey[i][j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)*/
                                         $CanKey[$i][$j+1] = $DeNum[$k2][$l];
                                     /*}else if(inCount[DeNum[k2][l]][1] > inCount[CanKey[i][j+1]][1]) {//現在の出勤日数を比較
@@ -210,7 +210,7 @@ use App\Http\Controllers\Controller;
                 
                 for($j = 1; count($CanKey[$i]) > $j; $j++) {//出勤シフトを反映
                     for($kk = 0; count($staff) > $kk; $kk++) {
-                        if((int) $CanKey[$i][$j] == (int) $staff[$kk][8]) {
+                        if((int) $CanKey[$i][$j] == (int) $staff[$kk][4]) {
                             $StaffShiftClone[$kk][$i + 1] = $ShiftDivider;
                         }
                     }

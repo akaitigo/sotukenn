@@ -14,7 +14,7 @@ class OtherSortController extends Controller
 
 			(double) $StaffDays = $Ycounter[$i];
 			(int) $result = floor(($StaffDays / $days) * 100); //提出率を算出
-			$staff[$i][2] = (String) $result;
+			$staff[$i][5] = (String) $result;
 		}
 
 
@@ -201,12 +201,11 @@ class OtherSortController extends Controller
 					}
 
 				}
+				
 
 				
 				for ($i = 0; count($NeedShift) > $i; $i++) {
-					for ($j = 0; count($NeedShift[$i]) - 1 > $j; $j++) {
-
-
+					for ($j = 0; count($NeedShift[$i]) > $j; $j++) {//-1??
 
 						/*int num1 = ResultShift[i][j + 1].indexOf("-");//出勤、退勤抜き出しに使用
 						double in1 =  Double.parseDouble(ResultShift[i][j + 1].substring(0,num1));//提出シフトの出勤時間抜き出し
@@ -221,7 +220,10 @@ class OtherSortController extends Controller
 						if(in2 >= in1 && out2 <= out1) {
 						ResultShiftCount[i]++;
 						}*/
-						if (0 == strcmp($NeedShift[$i][$j + 1],$NextDivider[$h][$g])) {
+						if($j == 0){
+							continue;
+						}
+						if (0 == strcmp($NeedShift[$i][$j],$NextDivider[$h][$g])) {
 							$ResultShiftCount[$i]++;
 						}
 					}
@@ -261,6 +263,7 @@ class OtherSortController extends Controller
 					$ResultShiftCount[$f] = 0;
 					$StaffShiftCount[$f] = 0;
 				}
+
 				/*
 				for(int i = 0; ResultShift.length > i; i++) {//確認用
 				for(int j = 0; ResultShift[i].length > j; j++) {

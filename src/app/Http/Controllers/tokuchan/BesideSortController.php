@@ -29,11 +29,11 @@
 	 	}
 		
 	 	for($i = 0; count($staff) > $i; $i++) {//static変数たちのセット
-			BesideSortController::$MaxOut[$i][0] = $staff[$i][8];
-			BesideSortController::$MinOut[$i][0] = $staff[$i][8];
-			BesideSortController::$MaxTime[$i][0] = $staff[$i][8];
-			BesideSortController::$MinTime[$i][0] = $staff[$i][8];
-			BesideSortController::$CompStaff[$i][0] = $staff[$i][8];
+			BesideSortController::$MaxOut[$i][0] = $staff[$i][4];
+			BesideSortController::$MinOut[$i][0] = $staff[$i][4];
+			BesideSortController::$MaxTime[$i][0] = $staff[$i][4];
+			BesideSortController::$MinTime[$i][0] = $staff[$i][4];
+			BesideSortController::$CompStaff[$i][0] = $staff[$i][4];
 	 	}
 	 }
 	
@@ -70,8 +70,8 @@
 		
 		for($i = 0; count($staff) > $i; $i++) {
 				(double) $times = $StaffTimes[$i][1];
-				BesideSortController::$MaxTime[$i][1] = (double) $staff[$i][10]  / $ShiftRatio;//最高労働時間取得
-				BesideSortController::$MinTime[$i][1] = (double) $staff[$i][9]  / $ShiftRatio;//最低労働時間取得
+				BesideSortController::$MaxTime[$i][1] = (double) $staff[$i][3]  / $ShiftRatio;//最高労働時間取得
+				BesideSortController::$MinTime[$i][1] = (double) $staff[$i][2]  / $ShiftRatio;//最低労働時間取得
 				
 				if(BesideSortController::$MaxTime[$i][1] == -1 && BesideSortController::$MinTime[$i][1] == -1) {//どちらも制限がなければ次のスタッフへ
 					continue;
@@ -100,7 +100,7 @@
 		(int) $ConseWork = [[]]; //最大連勤数と何日から連勤か
 		$CanChange = [[]];
 
-		for ($i = 0; 30 > $i; $i++) {
+		for ($i = 0; 31 > $i; $i++) {
 			for ($j = 0; 2 > $j; $j++) {
 				$ConseWork[$i][$j] = 0;
 			}
@@ -118,7 +118,7 @@
 
 		for ($i = 0; count($staff) > $i; $i++) { //従業員一人ずつ最低労働時間などを参考に時間を調整していく
 
-			$CanChange[$i][0] = $staff[$i][8]; //ついでにキー値を代入しておく
+			$CanChange[$i][0] = $staff[$i][4]; //ついでにキー値を代入しておく
 
 			/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
 			continue;
@@ -128,13 +128,17 @@
 				BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
 				continue;
 			}
-			if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
+			if(0 == strcmp(BesideSortController::$CompStaff[$i][1],"YN")){
+			}
+			else if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
 				BesideSortController::$CompStaff[$i][1] = "Y"; //調整の必要があるためYを代入
 				$MaxCounter++;
 			} else {
 				BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
 			}
-			if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
+			if(0 == strcmp(BesideSortController::$CompStaff[$i][2],"YN")){
+			}
+			else if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
 				BesideSortController::$CompStaff[$i][2] = "Y"; //調整の必要があるためYを代入
 				$MinCounter++;
 			} else {
@@ -333,7 +337,7 @@
 			(int) $ConseWork = [[]]; //最大連勤数と何日から連勤か
 			$CanChange = [[]];
 
-			for ($i = 0; 30 > $i; $i++) {
+			for ($i = 0; 31 > $i; $i++) {
 				for ($j = 0; 2 > $j; $j++) {
 					$ConseWork[$i][$j] = 0;
 				}
@@ -351,7 +355,7 @@
 
 			for ($i = 0; count($staff) > $i; $i++) { //従業員一人ずつ最低労働時間などを参考に時間を調整していく
 
-				$CanChange[$i][0] = $staff[$i][8]; //ついでにキー値を代入しておく
+				$CanChange[$i][0] = $staff[$i][4]; //ついでにキー値を代入しておく
 
 				/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
 				continue;
@@ -361,11 +365,15 @@
 					BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
 					continue;
 				}
+				if(0 == strcmp(BesideSortController::$CompStaff[$i][1],"YN")){
+				}
 				if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
 					BesideSortController::$CompStaff[$i][1] = "Y"; //調整の必要があるためYを代入
 					$MaxCounter++;
 				} else {
 					BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
+				}
+				if(0 == strcmp(BesideSortController::$CompStaff[$i][2],"YN")){
 				}
 				if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
 					BesideSortController::$CompStaff[$i][2] = "Y"; //調整の必要があるためYを代入
@@ -373,6 +381,7 @@
 				} else {
 					BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
 				}
+
 
 			}
 
@@ -592,9 +601,6 @@
 			for ($i = 0; count($staff) > $i; $i++) { //従業員一人ずつ最低労働時間などを参考に時間を調整していく
 
 
-				/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
-				continue;
-				}*/
 				if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
 					$MaxCounter++;
 				}
@@ -623,15 +629,12 @@
 
 		for ($i = 0; count($staff) > $i; $i++) { //従業員一人ずつ最低労働時間などを参考に時間を調整していく
 
-			/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
-			continue;
-			}*/
 			if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
 				$MaxCounter++;
-			}
+			} 
 			if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
 				$MinCounter++;
-			} 
+			}
 
 		}
 
