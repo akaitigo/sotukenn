@@ -43,6 +43,7 @@
   -webkit-box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   position: relative;
 }
+
 .comment-card {
   padding: 20px 0;
   width: 330px;
@@ -176,6 +177,7 @@
   background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
   background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
 }
+
 #delete-button {
   box-shadow: -1px 10px 20px #FF7DAE;
   background: #FF1744;
@@ -187,12 +189,21 @@
   right: 20px;
   bottom: 20px;
 }
+
+#push-button {
+  display: block;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
 #delete-button {
   display: block;
   position: absolute;
   left: 10px;
   bottom: 20px;
 }
+
 #comment-button {
   display: block;
   position: absolute;
@@ -283,8 +294,22 @@
   box-shadow: 0 2px 6px RGBA(255, 50, 120, .9);
 }
 
+.comment-date {
+  border-color: #42c914;
+  box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
+}
+
 .event-date {
   border-color: #52A0FD;
+  box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
+}
+
+.all-date {
+  /* border-color: #42c914; */
+  border-right-color:#42c914;
+  border-left-color:#52A0FD;
+  border-top-color:#52A0FD;
+  border-bottom-color:#42c914;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
@@ -292,6 +317,11 @@
   background: #FF1744;
   box-shadow: 0 2px 8px RGBA(255, 50, 120, .9);
   color: #fff;
+}
+
+.comment-date.active-date {
+  background: #42c914;
+  box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
 .event-date.active-date {
@@ -403,6 +433,11 @@
     -moz-box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     -webkit-box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
+  #push-button {
+    display: block;
+    position:initial;
+    margin-left: auto;
+  }
 }
 
 
@@ -447,10 +482,19 @@
     -moz-box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     -webkit-box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
+  #push-button {
+    display: block;
+    position:initial;
+    margin-left: auto;
+  }
 }
 
 /* Small phone screens */
 @media only screen and (max-width: 400px) {
+
+  .content{
+    height: 150%;
+  }
 
   .content,
   .events-container,
@@ -470,6 +514,10 @@
   }
 
   .event-card {
+    width: 300px;
+  }
+
+  .comment-card {
     width: 300px;
   }
 
@@ -500,6 +548,13 @@
     right: 10px;
     padding: 0.5rem 1.5rem;
   }
+  #push-button {
+    display: block;
+    position:initial;
+    
+    
+    margin-left: auto;
+  }
 }
 
 .event-card button {
@@ -516,8 +571,8 @@
   padding: 0;
   appearance: none;
 }
-.day-date{
+
+.day-date {
   visibility: hidden;
-  width: ;
 
 }
