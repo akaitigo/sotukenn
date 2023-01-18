@@ -39,15 +39,23 @@
     //ログインしてる人のコメント 全て取得
     $count_comment = 0 ; //month year は使いまわし
 
-    foreach(/*コメント情報の全て*/ as /*適当な変数名*/){
+    foreach($privatecomment as $prv_comment){
         // 月の最大日数でループ
         for($i = 1; $i <= $last_data; $i++){
             // day1～day(last_data)まで入れてる
-            $nowday_comment = 'day' . $i;
+            $nowday = 'comment' . $i;
+            $nowday_comment = $prv_comment->$nowday;
+            if($nowday_comment == '') {
+                $comment[] = $nowday_comment;
+                $day_comment[] = $i;
+                $count_comment += 1 ; 
+            }
         }
     }
+    $json_comment_data = json_encode($comment);
+    $json_comment_day = json_encode($day_comment);
 ?>
-<body onload="comment_data_set({{$json_comment_data}},{{$json_cooment_day}},{{$month}},{{$year}},{{$count_comment}}),shift_data_set({{$json_start}},{{$json_end}},{{$json_shiftday}},{{$month}},{{$year}},{{$count_shift}})"> --}}
+<body onload="comment_data_set({{$json_comment_data}},{{$json_comment_day}},{{$month}},{{$year}},{{$count_comment}}),shift_data_set({{$json_start}},{{$json_end}},{{$json_shiftday}},{{$month}},{{$year}},{{$count_shift}})"> --}}
     <div class="emp_box2">
         <div class="content">
             <div class="calendar-container">

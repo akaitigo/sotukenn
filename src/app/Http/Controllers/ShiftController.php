@@ -9,6 +9,7 @@ use App\Models\Parttimer;
 use App\Models\Status;
 use App\Models\CompleteShift;
 use App\Models\StaffShift;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
@@ -546,11 +547,12 @@ class ShiftController extends Controller
         }
         //シフト表の情報全て
         $privatestaffshift = StaffShift::where('emppartid',$loginid)->where('judge',$judge)->get();
+        $privatecomment = Comment::where('emppartid',$loginid)->where('judge',$judge)->get();
 
         // コメント情報のすべて まだテーブルできてない
         // $privatestaffcomment = StaffComment::where('emppartid',$loginid)->where('judge',$judge)->get();
 
-        return view('emp_shift_add',compact('privatestaffshift','last_data','now_month','now_year'));
+        return view('emp_shift_add',compact('privatestaffshift','last_data','now_month','now_year','privatecomment'));
     }
 
     
