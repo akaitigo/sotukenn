@@ -421,7 +421,11 @@ class ShiftController extends Controller
         $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
         $shift_data_list = [];
         $shift_data = [];
-        $day_list = [];
+        $day_list = []; 
+
+        $comment_data_name = ['comment_year', 'comment_month', 'comment_day', 'comment_comment', 'comment_kind', 'comment_start', 'comment_end'];
+        $comment_data_list = [];
+        $comment_data = [];
 
 
         //31日ループ
@@ -439,15 +443,41 @@ class ShiftController extends Controller
             //連想配列を配列に格納(多次元配列にしてる)
             $shift_data_list[$x] = $shift_data;
             $work[$x] = '-';
+            dump($shift_data);
         }
 
         for ($x = 0; $x < 31; $x++) {
-            if (isset($shift_data_list[$x]['day']) && $shift_data_list[$x]['month'] == $month) {
+            if (isset($shift_data_list[$x]['day'])) {
                 $work[$shift_data_list[$x]['day']] = $shift_data_list[$x]['start'] . '-' . $shift_data_list[$x]['end'];
             }
         }
+        dump($work);
 
+        for ($x = 0; $x < 31; $x++) {
+            $comment_data = [];
+            //データの種類でループ
+            for ($i = 0; $i < count($comment_data_name); $i++) {
+                // 受け取り判定
+                if (isset($_POST[$comment_data_name[$i] . strval($x)])) {
+                    // 連想配列作成
+                    $comment_data += [$comment_data_name[$i] => $_POST[$comment_data_name[$i] . strval($x)]];
+                }
+                // dump($data_name[$i].":".$x.":".$test);
+            }
+            //連想配列を配列に格納(多次元配列にしてる)
+            $comment_data_list[$x] = $comment_data;
+            $comment_work[$x] = null;
+            dump($comment_data);
+        }
 
+        for ($x = 0; $x < 31; $x++) {
+            if (isset($comment_data_list[$x]['comment_day'])) {
+                $comment_work[$comment_data_list[$x]['comment_day']] = $comment_data_list[$x]['comment_comment'];
+            }
+        }
+        dump($comment_work);
+
+        //ここまで正常
 
         if (!(is_null($employee->email))) { //ログイン中のユーザ情報の取得
             $empuserEmail = $employee->email;
@@ -473,10 +503,6 @@ class ShiftController extends Controller
             foreach ($shift as $shi) {
                 for ($i = 0; $i < 31; $i++) {
                     $dayTemp = 'day' . $i;
-
-
-
-
                     if ($i == 0) {
                         if (!($shi->$i === '-')) {
                             $dayTemp = 'day' . $i + 1;
@@ -524,8 +550,8 @@ class ShiftController extends Controller
             $judge = false;
         }
         //シフト表の情報全て
-        $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->get();
-        $privatecomment = Comment::where('emppartid', $loginid)->where('judge', $judge)->get();
+        $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $privatecomment = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
 
         // コメント情報のすべて まだテーブルできてない
         // $privatestaffcomment = StaffComment::where('emppartid',$loginid)->where('judge',$judge)->get();

@@ -305,11 +305,7 @@
 }
 
 .all-date {
-  /* border-color: #42c914; */
-  border-right-color:#42c914;
-  border-left-color:#52A0FD;
-  border-top-color:#52A0FD;
-  border-bottom-color:#42c914;
+  border-color: #ff8400;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
