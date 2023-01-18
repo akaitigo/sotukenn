@@ -598,7 +598,6 @@ class ShiftController extends Controller
         //シフト表の情報全て
         $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
         $privatecomment = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
-
         $privatestaffshift_next = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
         $privatecomment_next = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
 

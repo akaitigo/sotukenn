@@ -58,23 +58,22 @@ foreach ($privatecomment as $prv_comment) {
 }
 $json_comment_data = json_encode($comment);
 $json_comment_day = json_encode($day_comment);
-dump($count_comment);
+dump($privatestaffshift_next);
 ?>
 <?php
 //ログインしてる人のシフト 全て
 $next_count_shift = 0;
-
 foreach ($privatestaffshift_next as $prv_shift_next) {
     // 月の最大日数でループ
     for ($i = 1; $i <= $next_last_data; $i++) {
         $nowday = 'day' . $i;
         $today_shift = $prv_shift_next->$nowday;
         if ($today_shift != -1) {
-            (int) ($num1 = strpos($prv_shift_next->$nowday, '-'));
-            (float) ($in = (float) substr($prv_shift_next->$nowday, 0, $num1));
-            (float) ($out = (float) substr($prv_shift_next->$nowday, $num1 + 1));
-            $next_start[] = $in;
-            $next_end[] = $out;
+            (int) ($num1_next = strpos($prv_shift_next->$nowday, '-'));
+            (float) ($in_next = (float) substr($prv_shift_next->$nowday, 0, $num1_next));
+            (float) ($out_next = (float) substr($prv_shift_next->$nowday, $num1_next + 1));
+            $next_start[] = $in_next;
+            $next_end[] = $out_next;
             $next_day_shift[] = $i;
             $next_count_shift += 1;
         }
@@ -83,6 +82,7 @@ foreach ($privatestaffshift_next as $prv_shift_next) {
 $json_next_start = json_encode($next_start);
 $json_next_end = json_encode($next_end);
 $json_next_shiftday = json_encode($next_day_shift);
+
 /* ここまでシフト表の処理*/
 
 //ログインしてる人のコメント 全て取得
@@ -95,7 +95,7 @@ foreach ($privatecomment_next as $prv_comment_next) {
     for ($i = 1; $i <= $next_last_data; $i++) {
         // day1～day(last_data)まで入れてる
         $nowday = 'comment' . $i;
-        $today =$prv_comment_next->$nowday;
+        $today = $prv_comment_next->$nowday;
         if ($today != null) {
             $next_comment[] = $today;
             $next_day_comment[] = $i;
@@ -107,10 +107,10 @@ $json_next_comment_data = json_encode($next_comment);
 $json_next_comment_day = json_encode($next_day_comment);
 ?>
 
-<body 
+<body
     onload="shift_data_set(
         {{ $json_start }},{{ $json_end }},{{ $json_shiftday }},{{ $month }},{{ $year }},{{ $count_shift }},{{ $json_comment_data }},{{ $json_comment_day }},{{ $count_comment }},
-        {{ $json_next_start }},{{ $json_next_end }},{{ $json_next_shiftday }},{{ $next_month }},{{ $next_year }},{{ $next_count_shift }},{{ $json_next_comment_data }},{{ $json_next_comment_day}},{{$next_count_comment}}
+        {{ $json_next_start }},{{ $json_next_end }},{{ $json_next_shiftday }},{{ $next_month }},{{ $next_year }},{{ $next_count_shift }},{{ $json_next_comment_data }},{{ $json_next_comment_day }},{{ $next_count_comment }}
         )">
     <div class="emp_box2">
         <div class="content">
