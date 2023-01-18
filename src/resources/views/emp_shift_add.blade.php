@@ -11,56 +11,107 @@
 </head>
 {{-- シフト表の取得 --}}
 <?php
-    //ログインしてる人のシフト 全て
-    $month = $now_month;
-    $year=$now_year;
-    $count_shift = 0 ;
-    foreach($privatestaffshift as $prv_shift){
-        // 月の最大日数でループ
-        for($i = 1; $i <= $last_data; $i++){
-            $nowday = 'day' . $i;
-            $today_shift = $prv_shift->$nowday;
-            if($today_shift != -1){
-                (int)$num1 = strpos($prv_shift->$nowday,"-");
-                (double)$in =  (double) substr($prv_shift->$nowday,0,$num1);
-                (double)$out =  (double) substr($prv_shift->$nowday,$num1 + 1);
-                $start[] = $in;
-                $end[] = $out;
-                $day_shift[] = $i;
-                $count_shift +=1;
-            }
+//ログインしてる人のシフト 全て
+$month = $now_month;
+$year = $now_year;
+$count_shift = 0;
+foreach ($privatestaffshift as $prv_shift) {
+    // 月の最大日数でループ
+    for ($i = 1; $i <= $last_data; $i++) {
+        $nowday = 'day' . $i;
+        $today_shift = $prv_shift->$nowday;
+        dump($today_shift);
+        if ($today_shift != -1) {
+            (int) ($num1 = strpos($prv_shift->$nowday, '-'));
+            (float) ($in = (float) substr($prv_shift->$nowday, 0, $num1));
+            (float) ($out = (float) substr($prv_shift->$nowday, $num1 + 1));
+            $start[] = $in;
+            $end[] = $out;
+            $day_shift[] = $i;
+            $count_shift += 1;
         }
     }
-    $json_start = json_encode($start);
-    $json_end = json_encode($end);
-    $json_shiftday = json_encode($day_shift);
-    /* ここまでシフト表の処理*/
+}
+$json_start = json_encode($start);
+$json_end = json_encode($end);
+$json_shiftday = json_encode($day_shift);
+/* ここまでシフト表の処理*/
 
-    //ログインしてる人のコメント 全て取得
-    $count_comment = 0 ; //month year は使いまわし
-    $comment = [];
-    $day_comment = [];
-    foreach($privatecomment as $prv_comment){
-        // 月の最大日数でループ
-        for($i = 1; $i <= $last_data; $i++){
-            // day1～day(last_data)まで入れてる
-            $nowday = 'comment' . $i;
-            $today =  $prv_comment->$nowday;
-            if($today != null) {
-                $comment[] = $today;
-                $day_comment[] = $i;
-                $count_comment += 1 ;
-            }
-            dump($today);
+//ログインしてる人のコメント 全て取得
+$count_comment = 0; //month year は使いまわし
+$comment = [];
+$day_comment = [];
+foreach ($privatecomment as $prv_comment) {
+    // 月の最大日数でループ
+    for ($i = 1; $i <= $last_data; $i++) {
+        // day1～day(last_data)まで入れてる
+        $nowday = 'comment' . $i;
+        $today = $prv_comment->$nowday;
+        if ($today != null) {
+            $comment[] = $today;
+            $day_comment[] = $i;
+            $count_comment += 1;
         }
+        dump($today);
+    }
     dump($prv_comment);
-    }
-    $json_comment_data = json_encode($comment);
-    $json_comment_day = json_encode($day_comment);
-    dump($count_comment);
+}
+$json_comment_data = json_encode($comment);
+$json_comment_day = json_encode($day_comment);
+dump($count_comment);
 ?>
-<body onload="shift_data_set({{$json_start}},{{$json_end}},{{$json_shiftday}},{{$month}},{{$year}},{{$count_shift}},{{$json_comment_data}},{{$json_comment_day}},{{$count_comment}})">
+<?php
+//ログインしてる人のシフト 全て
+$next_count_shift = 0;
 
+foreach ($privatestaffshift_next as $prv_shift_next) {
+    // 月の最大日数でループ
+    for ($i = 1; $i <= $next_last_data; $i++) {
+        $nowday = 'day' . $i;
+        $today_shift = $prv_shift_next->$nowday;
+        if ($today_shift != -1) {
+            (int) ($num1 = strpos($prv_shift_next->$nowday, '-'));
+            (float) ($in = (float) substr($prv_shift_next->$nowday, 0, $num1));
+            (float) ($out = (float) substr($prv_shift_next->$nowday, $num1 + 1));
+            $next_start[] = $in;
+            $next_end[] = $out;
+            $next_day_shift[] = $i;
+            $next_count_shift += 1;
+        }
+    }
+}
+$json_next_start = json_encode($next_start);
+$json_next_end = json_encode($next_end);
+$json_next_shiftday = json_encode($next_day_shift);
+/* ここまでシフト表の処理*/
+
+//ログインしてる人のコメント 全て取得
+$next_count_comment = 0; //month year は使いまわし
+$next_comment = [];
+$next_day_comment = [];
+
+foreach ($privatecomment_next as $prv_comment_next) {
+    // 月の最大日数でループ
+    for ($i = 1; $i <= $next_last_data; $i++) {
+        // day1～day(last_data)まで入れてる
+        $nowday = 'comment' . $i;
+        $today =$prv_comment_next->$nowday;
+        if ($today != null) {
+            $next_comment[] = $today;
+            $next_day_comment[] = $i;
+            $next_count_comment += 1;
+        }
+    }
+}
+$json_next_comment_data = json_encode($next_comment);
+$json_next_comment_day = json_encode($next_day_comment);
+?>
+
+<body 
+    onload="shift_data_set(
+        {{ $json_start }},{{ $json_end }},{{ $json_shiftday }},{{ $month }},{{ $year }},{{ $count_shift }},{{ $json_comment_data }},{{ $json_comment_day }},{{ $count_comment }},
+        {{ $json_next_start }},{{ $json_next_end }},{{ $json_next_shiftday }},{{ $next_month }},{{ $next_year }},{{ $next_count_shift }},{{ $json_next_comment_data }},{{ $json_next_comment_day}},{{$next_count_comment}}
+        )">
     <div class="emp_box2">
         <div class="content">
             <div class="calendar-container">
@@ -109,8 +160,8 @@
                     <button class="button" id="comment-button">コメント</button>
                 </div>
             </div>
-            <form action="{{route('emp')}}" method="post">
-            {{-- <form action="title" method="post"> --}}
+            <form action="{{ route('emp') }}" method="post">
+                {{-- <form action="title" method="post"> --}}
                 @csrf
                 <div class="events-container">
                 </div>

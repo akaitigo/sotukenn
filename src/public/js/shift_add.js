@@ -6,9 +6,10 @@ function test2() {
 }
 
 // シフト表のデータセット
-function shift_data_set(json_start, json_end, json_shiftday, month, year, count_shift, json_comment, json_comment_day, count_comment) {
+function shift_data_set(json_start, json_end, json_shiftday, month, year, count_shift, json_comment, json_comment_day, count_comment, json_next_start , json_next_end , json_next_shiftday , next_month , next_year , next_count_shift, json_next_comment_data , json_next_comment_day,next_count_comment) {
   var date = new Date();
   console.log("testtest2");
+  // 
   for (var i = 0; i < count_shift; ++i) {
     event_data['events'][i] =
     {
@@ -33,6 +34,45 @@ function shift_data_set(json_start, json_end, json_shiftday, month, year, count_
       'comment': json_comment[x],
     }
   }
+  console.log(i);
+  console.log(x);
+  console.log(y);
+  console.log(z);
+  console.log(i + x +y +z);
+
+  //
+  for (var y = 0; y < next_count_shift; ++y) {
+    event_data['events'][y + x + i] =
+    {
+      'start': json_next_start[y],
+      'end': json_next_end[y],
+      'day': json_next_shiftday[y],
+      'month': next_month,
+      'year': next_year,
+      'kind': 'ok',
+      'comment': '',
+    }
+  }
+  for (var z = 0; z < next_count_comment; ++z) {
+    event_data['events'][z + y + x + i] =
+    {
+      'start': '',
+      'end': '',
+      'day': json_next_comment_day[z],
+      'month': next_month,
+      'year': next_year,
+      'kind': 'comment',
+      'comment': json_next_comment_data[z],
+    }
+  }
+  console.log(i);
+  console.log(x);
+  console.log(y);
+  console.log(z);
+  console.log(i + x +y +z);
+  console.log('test2');
+  console.log(event_data['events']);
+
   init_calendar(date);
 }
 // コメントのデータセット
@@ -103,8 +143,8 @@ function show_events(events, month, day) {
   var shift_data_input = {
     "events": [
       {
-        'start': '',
-        'end': '',
+        'start': "",
+        'end': "",
         'comment': "",
         'kind': "",
         'day': '',
@@ -116,8 +156,8 @@ function show_events(events, month, day) {
   var comment_data_input = {
     "events": [
       {
-        'start': '',
-        'end': '',
+        'start': "",
+        'end': "",
         'comment': "",
         'kind': "",
         'day': '',
