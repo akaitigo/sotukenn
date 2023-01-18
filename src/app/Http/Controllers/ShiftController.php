@@ -104,6 +104,7 @@ class ShiftController extends Controller
         if(Auth::guard('admin')->check()){
             $userId = Auth::guard('admin')->id();
             $storeid=admin::where('id',$userId)->value('store_id');
+            $userId = 0;
         }else if(Auth::guard('employee')->check()){
             $userId = Auth::guard('employee')->id();
             $storeid=Employee::where('id',$userId)->value('store_id');
@@ -213,7 +214,7 @@ class ShiftController extends Controller
 
         $week = ['日','月','火','水','木','金','土'];
         $loginid=$userId;
-        return view('new_shiftView',compact('employees','parttimers','empname','partname','completeshift','loginid','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week','calendarData','array'));
+        return view('new_shiftView',compact('employees','parttimers','empname','partname','completeshift','userId','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week','calendarData','array'));
     }
 
     /* シフト編集 変える*/

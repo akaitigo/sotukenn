@@ -17,7 +17,7 @@
             <div class="colorbox_text">
                 アルバイト
             </div>
-            @if ($loginid != 0)
+            @if ($userId != 0)
             <div class="colorbox loginrow_name" id="makeImg">
             </div>
             <div class="colorbox_text">
@@ -74,7 +74,7 @@
                             @foreach ($completeshift as $compshift)
                                 <tr>
                                 <!-- 名前の処理 -->
-                                @if($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
+                                @if($compshift->emppartid == $userId && $compshift->judge == $empjudge)
                                     @if($compshift->judge)
                                         <td class="loginrow_name" id="name">{{$empname[$empnameid]}}</td>
                                         <?php $empnameid++ ?>
@@ -114,7 +114,7 @@
 
 
                                 <!-- １～３１日の処理 -->
-                                    @if ($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
+                                    @if ($compshift->emppartid == $userId && $compshift->judge == $empjudge)
                                         @for ($day = 1; $day <= 31; $day++)
                                             <?php $hentai = 'day' . $day; ?>
                                             <!-- 太線の処理 -->
@@ -151,7 +151,7 @@
 
 
                                     <!-- 労働日数と労働時間 -->
-                                    @if ($compshift->emppartid == $loginid && $compshift->judge == $empjudge)
+                                    @if ($compshift->emppartid == $userId && $compshift->judge == $empjudge)
                                         <!-- 太線の処理 -->
                                         @if($compshift->emppartid == 1 && $compshift->judge == false)
                                             <td class="loginrow_border">{{ $Staffworkdays[$i] }}</td>
@@ -190,7 +190,7 @@
                         </tbody>
                     </table>
                 </div>
-                @if ($loginid != 0)
+                @if ($userId != 0)
                     {{ $staffshiftcover }}
                 @endif
             </div>
