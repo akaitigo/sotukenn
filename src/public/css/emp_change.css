@@ -186,7 +186,7 @@
   /* 完成シフト閲覧のテーブル */
   
   .month_table caption {
-    background:#1aa1ff;
+    background:#0084e0;
     color: #fff;
     padding: 4px;
     font-size: 1.4em;
@@ -199,8 +199,8 @@
       height: auto;
       border:1px solid #ddd;
   /* 	  border-top: none;	 */
-      border-collapse:collapse;
-      padding:5px;
+      border-collapse:separate;
+      padding:0;
       text-align: center;
       }
       .compshift_table th {
@@ -248,7 +248,7 @@
 
 .scrollbox {
     width: auto;                
-    height: 500px;               
+    height: 68%;               
     border: 1px solid #000;      /* 枠にボーダーを引く */
     overflow: scroll;          /* 縦横方向にスクロール可能にする */
 }
@@ -257,37 +257,376 @@
   position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 2;
+  z-index: 3;
+  border-bottom: 1px solid #000;      /* 枠にボーダーを引く */
 }
 
 .holiday {
-  background-color: #efd54f;      /* 祝日の色(thead) */
+  color: #ffb300;      /* 祝日の色(thead) */
 }
 
 .saturday {
-  background-color: #1aa1ff;      /* 土曜日の色(thead) */
+  color: #1aa0ff;      /* 土曜日の色(thead) */
 }
 
 .sunday {
-  background-color: #f4255f;      /* 日曜日の色(thead) */
+  color: #ff1d1df2;      /* 日曜日の色(thead) */
 }
 
-.empcolor {
-  background-color: #86f09d;      /* 従業員の名前の色(name) */
+.colorbox {
+  margin-top: 3px;
+  width        : 15px;
+  height       : 15px;
+  border-radius: 5px;
+}
+.colorbox_flex{
+  display: flex;
+}
+.colorbox_text{
+  padding-left: 4px;
+  padding-right: 10px;
 }
 
-.partcolor {
-  background-color: #82ecec;      /* アルバイトの色(name) */
+
+/* １から31日のカラム */
+.gusuemprow {
+  background-color: rgb(253, 255, 115);      /* 従業員の偶然行の色 */
+  font-weight: bold;
+}
+
+.kisuemprow {
+  background-color: #fff;      /* 従業員の奇数行の色 */
+  font-weight: bold;
+}
+.gusupartrow {
+  background-color: #73e8fd87;      /* アルバイトの偶然行の色 */
+  font-weight: bold;
+}
+
+.kisupartrow {
+  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  font-weight: bold;
 }
 
 .loginrow {
-  background-color: #ab4de9;      /* ログイン中の人の行の色 */
+  background-color: #ff00ae6e;      /* ログイン中の人の行の色 */
+  font-weight: bold;
 }
 
-.gusurow {
-  background-color: #e9e9e9;      /* 偶然行の色 */
+.loginrow_border {
+  background-color: #ff00ae6e;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
 }
 
-.kisurow {
-  background-color: #ffffff;      /* 奇数行の色 */
+.gusupartrow_border {
+  background-color: #73e8fd87;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
+}
+
+/* シフト編集の１から31日のカラム */
+.gusuemprow_edit {
+  background-color: rgb(253, 255, 115);      /* 従業員の偶然行の色 */
+}
+
+.kisuemprow_edit {
+  background-color: #fff;      /* 従業員の奇数行の色 */
+  /* cursor: pointer; */
+}
+.gusupartrow_edit {
+  background-color: #73e8fd87;      /* アルバイトの偶然行の色 */
+  /* cursor: pointer; */
+}
+
+.kisupartrow_edit {
+  background-color: #fff;      /* アルバイトの奇数行の色 */
+  /* cursor: pointer; */
+}
+
+.loginrow_edit {
+  background-color: #ff00ae6e;      /* ログイン中の人の行の色 */
+  /* cursor: pointer; */
+}
+
+.loginrow_edit_border {
+  background-color: #ff00ae6e;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  /* cursor: pointer; */
+}
+
+.gusupartrow_edit_border {
+  background-color: #73e8fd87;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  /* cursor: pointer; */
+}
+
+
+/* 左端の名前カラム */
+.gusuemprow_name {
+  background-color: #fffc5d;      /* 従業員の偶然行の色 */
+  font-weight: bold;
+}
+
+.kisuemprow_name {
+  background-color: #fff;      /* 従業員の奇数行の色 */
+  font-weight: bold;
+}
+.gusupartrow_name {
+  background-color: #73e8fd;      /* アルバイトの偶然行の色 */
+  font-weight: bold;
+}
+
+.kisupartrow_name {
+  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  font-weight: bold;
+}
+
+.loginrow_name {
+  background-color: #ff7fd6;      /* ログイン中の人の行の色 */
+  font-weight: bold;
+}
+
+
+.loginrow_name_border {
+  background-color: #ff97de;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
+}
+
+.gusupartrow_name_border {
+  background-color: #73e8fd;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
+}
+
+#name {
+  border-right: 1px solid #000;      /* 名前の縦線 */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.thname {
+  border-right: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+}
+
+.shifttext {
+  text-align: center;
+  font-size: 1em;
+}
+
+/* 右端の日数、時間カラム */
+.gusuemprow_work {
+  background-color: rgb(253, 255, 115);      /* 従業員の偶然行の色 */
+  font-weight: bold;
+}
+
+.kisuemprow_work {
+  background-color: #fff;      /* 従業員の奇数行の色 */
+  font-weight: bold;
+}
+.gusupartrow_work {
+  background-color: #73e8fd7a;      /* アルバイトの偶然行の色 */
+  font-weight: bold;
+}
+
+.kisupartrow_work {
+  background-color: #ffffff;      /* アルバイトの奇数行の色 */
+  font-weight: bold;
+}
+
+.loginrow_work {
+  background-color: #ff00ae6e;      /* ログイン中の人の行の色 */
+  font-weight: bold;
+}
+
+
+.loginrow_work_border {
+  background-color: #ff00ae6e;      /* ログイン中の最初のアルバイトの行の色 */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
+}
+
+.gusupartrow_work_border {
+  background-color: #73e8fd7a;      /* 最初のアルバイト */
+  border-top: 1px solid #000;      /* 従業員とアルバイトを分ける線 */
+  font-weight: bold;
+}
+
+/* 編集シフトテーブル */
+.compshift_edit_table {
+  border-top: 1px solid #ddd;	
+  width: 6500px;
+  height: auto;
+  border:1px solid #ddd;
+/* 	  border-top: none;	 */
+  border-collapse:separate;
+  padding:0;
+  text-align: center;
+  }
+  .compshift_edit_table th {
+    /* 	border:1px solid #ddd;
+    border-top: none; */
+    padding: 10px 5px;
+    font-weight: normal;
+    font-weight: bold;
+    }
+    .compshift_edit_table td {
+    /* 	border:1px solid #ddd; */
+        padding:10px 2px;
+    }
+
+
+.compshift_edit_table th, .compshift_edit_table td {
+  border-right: 1px solid #ddd;
+}
+
+.compshift_edit_table th:last-child, .compshift_edit_table td:last-child {
+  border-right: none;
+}
+
+.compshift_edit_table tr:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+#morning .compshift_edit_table td:nth-child(3) {
+  background: #fff;
+}
+
+.compshift_edit_table td.align-bottom {
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.compshift_edit_table td.align-top {
+  vertical-align: top;
+  padding: 0;  
+}
+
+#morning .compshift_edit_table td:nth-child(3), #afternoon .compshift_edit_table td:nth-child(3), #evening .compshift_edit_table td:nth-child(3) {
+  background: #fff;
+} 
+
+.compshift_edit_table .gusuemprow_edit,
+.compshift_edit_table .kisuemprow_edit,
+.compshift_edit_table .gusupartrow_edit,
+.compshift_edit_table .kisupartrow_edit,
+.compshift_edit_table .gusupartrow_edit_border {
+    width: 191px;
+    height: 6rem;
+    padding: 0;
+  }
+
+/* tdの中のテキストやボタンたち */
+/* 必要ならviewのほうを入れ替え */
+.compshift_edit_table td {
+  position: relative;
+  text-align: center;
+}
+td.shifttext,
+td.shiftp,
+td.hihunp{
+  text-align: center;
+}
+ .shifttext {
+  cursor: default;      /* 入力されるテキスト*/
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 11.9rem;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+}
+
+.shiftp {
+  cursor: default;      /* 最初に表示されてるシフト */
+  position: relative;
+  margin: 0.9rem 0 0 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+}
+
+.starttimepull {
+  cursor: pointer;      /* スタート時間変更のプルダウン */
+  position: absolute;
+  top: 2rem;
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+  width: 47%;
+}
+
+.hihunp {
+  cursor: default;      /* 時間変更の間のハイフン */
+  position: absolute;
+  top: 2rem;
+  left: 5.7rem;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+}
+
+.endtimepull {
+  cursor: pointer;      /* エンド時間変更のプルダウン */
+  position: absolute;
+  top: 2rem;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 1.2rem;
+  width: 47%;
+}
+
+.chengebtn {
+  cursor: pointer;      /* 変更ボタン */
+  position: relative;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 0.8rem;
+  transition:0ms;
+}
+
+.returnbtn {
+  cursor: pointer;      /* 元に戻るボタン */
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin: 0 0 0.2rem 0.2rem;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 0.7rem;
+  transition:0ms;
+}
+
+.batsubtn {
+  cursor: pointer;      /* バツ入力ボタン */
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 0 0.3rem 0.2rem 0;
+  font-weight: bold;
+  font-family: Arial;
+  font-size: 0.7rem;
+  transition:0ms;
+  background-color: #ff3737;
+}
+
+.batsubtn:hover {
+  background:#d51111;
+  color: #fff;
 }

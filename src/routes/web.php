@@ -42,7 +42,10 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('emp_header');
+    return view('emp_shift_add');
+});
+Route::post('/title', function () {
+    return view('emp_shift_add');
 });
 
 Route::get('/emp_calendar', function () {
@@ -167,7 +170,8 @@ Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'man
 
 Route::get('/shiftView', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('shiftView');
 Route::get('/new_shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('new_shiftView');                                    //シフト閲覧
-Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                    //シフト編集
+Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                         //シフト編集
+Route::post('/shiftupdate', [App\Http\Controllers\ShiftController::class, 'update'])->name('shiftupdate');                                    //シフト編集上書き
 
 Route::get('/shiftCreateMenu', [App\Http\Controllers\ShiftController::class, 'menu'])->name('shiftCreateMenu');                        //シフト作成メニュー
 Route::get('/shiftCreate', [App\Http\Controllers\ShiftController::class, 'create'])->name('shiftCreate');                                //シフト作成
@@ -186,3 +190,7 @@ Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting
 Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
 Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
 
+//  test用
+Route::post('/emp', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
+
+Route::get('emp_shift_add', "App\Http\Controllers\ShiftController@shift_show")->name('shift_show');

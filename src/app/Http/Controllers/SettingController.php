@@ -9,11 +9,11 @@ use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
-    private $formItems = ["workstarttime", "workendtime", "submissionlimit","vote"];    
+    private $formItems = ["workstarttime", "workendtime", "submissionlimit","vote",];    
 
     public function update(Request $request){
 
-        //$data = $request->only($this->formItems);
+        $data = $request->only($this->formItems);
 
         $workstarttime = $_POST['workstarttime'];
         $workendtime = $_POST['workendtime'];
