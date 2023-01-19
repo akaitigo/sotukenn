@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     use HasFactory;
-    protected $table = 'staffshift'; 
+    protected $table = 'comment'; 
     public function stores()
     {
         return $this->belongsTo(Store::class);

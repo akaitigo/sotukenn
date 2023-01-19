@@ -232,17 +232,17 @@ class NeedShiftSeeder extends Seeder
             'day'=>'26',
             'time1'=>'10-23',
             'time2'=>'17-23',
-            'time3'=>'17-23',
-            'time4'=>'18-23',
-            'time5'=>'18-23'
+            'time3'=>'18-23',
+            'time4'=>'18-23'
         ]);
         DB::table('needshift')->insert([
             'store_id'=>'1',
             'day'=>'27',
-            'time1'=>'10-23',
+            'time1'=>'15-23',
             'time2'=>'17-23',
-            'time3'=>'18-23',
-            'time4'=>'18-23'
+            'time3'=>'17-23',
+            'time4'=>'18-23',
+            'time5'=>'18-23'
         ]);
         DB::table('needshift')->insert([
             'store_id'=>'1',

@@ -305,11 +305,7 @@
 }
 
 .all-date {
-  /* border-color: #42c914; */
-  border-right-color:#42c914;
-  border-left-color:#52A0FD;
-  border-top-color:#52A0FD;
-  border-bottom-color:#42c914;
+  border-color: #ff8400;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
@@ -326,6 +322,10 @@
 
 .event-date.active-date {
   background: #52A0FD;
+  box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
+}
+.event-date.all-date.active-date {
+  background: #ff8400;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
@@ -404,7 +404,7 @@
 
   .dialog {
     width: 370px;
-    height: 450px;
+    height: 530px;
     border-radius: 3px;
     top: 0;
     left: 0;
@@ -453,7 +453,7 @@
 
   .dialog {
     width: 370px;
-    height: 450px;
+    height: 530px;
     border-radius: 3px;
     top: 0;
     left: 0;
@@ -475,7 +475,7 @@
     margin: 0 auto;
     margin-right: 0;
     display: block;
-    height: 480px;
+    height: 520px;
     left: 0;
     border-radius: 3px;
     box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);

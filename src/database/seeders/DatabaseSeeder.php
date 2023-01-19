@@ -39,5 +39,6 @@ class DatabaseSeeder extends Seeder
         $this->call(NextdividerSeeder::class);
         $this->call(StaffShiftSeeder::class);
         $this->call(NeedShiftSeeder::class);
+        $this->call(CommentSeeder::class);
     }
 }

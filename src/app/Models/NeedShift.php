@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class NeedShift extends Model
 {
     use HasFactory;
-
+    protected $table = 'needshift'; 
     public function stores()
     {
         return $this->belongsTo(Store::class);

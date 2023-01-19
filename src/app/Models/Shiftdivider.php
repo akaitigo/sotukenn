@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Shiftdivider extends Model
 {
     use HasFactory;
+    protected $table = 'shiftdivider';
 
     public function stores()
     {

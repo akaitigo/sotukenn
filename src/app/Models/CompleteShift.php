@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompleteShift extends Model
 {
     use HasFactory;
+    protected $table = 'complete_shifts';
 
     public function stores()
     {
