@@ -116,37 +116,75 @@ class ShiftController extends Controller
         }
         $employees = Employee::where('store_id',$storeid)->get();
         $parttimers = Parttimer::where('store_id',$storeid)->get();
-        $completeshift = CompleteShift::where('store_id',$storeid)->get();
-        $staffcompleteshift = CompleteShift::where('emppartid',$userId)->where('judge',$empjudge)->get();
-        $privatestaffshift = StaffShift::where('emppartid',$userId)->where('judge',$empjudge)->get();
 
         $carbonNow = Carbon::now();
+        $carbonNext = Carbon::now()->addMonth(1);
+        if($carbonNext->month == 13) {
+            $carbonNext = Carbon::now()->Month(1);
+        }
         $thisMonth = $carbonNow->month;
+        $thisMonthNext = $carbonNext->month;
         $firstDay = $carbonNow->firstOfMonth()->day;
+        $firstDayNext = $carbonNext->firstOfMonth()->day;
         $lastDate = $carbonNow->lastOfMonth()->day;
+        $lastDateNext = $carbonNext->lastOfMonth()->day;
+
+        $completeshift = CompleteShift::where('store_id',$storeid)->where('month',$thisMonth)->get();
+        $staffcompleteshift = CompleteShift::where('emppartid',$userId)->where('judge',$empjudge)->where('month',$thisMonth)->get();
+        $privatestaffshift = StaffShift::where('emppartid',$userId)->where('judge',$empjudge)->where('month',$thisMonth)->get();
+
+        $completeshiftNext = CompleteShift::where('store_id',$storeid)->where('month',$thisMonthNext)->get();
+        $staffcompleteshiftNext = CompleteShift::where('emppartid',$userId)->where('judge',$empjudge)->where('month',$thisMonthNext)->get();
+        $privatestaffshiftNext = StaffShift::where('emppartid',$userId)->where('judge',$empjudge)->where('month',$thisMonthNext)->get();
+
+
         $calendarData = [
             [
-                'day'=>Carbon::now()->firstOfMonth()->dayOfWeek,
+                'day'=>$carbonNow->firstOfMonth()->dayOfWeek,
                 'month'=>$thisMonth,
                 'lastDay'=>$lastDate,
             ]
         ];
+
+        $calendarDataNext = [
+            [
+                'day'=>$carbonNext->firstOfMonth()->dayOfWeek,
+                'month'=>$thisMonthNext,
+                'lastDay'=>$lastDateNext,
+            ]
+        ];
+
         //祝日を入れる
         $holidays = Yasumi::create('Japan', '2023', 'ja_JP');
         $holidaysInBetweenDays = $holidays->between(
-            Carbon::now()->firstOfMonth(),
-            Carbon::now()->lastOfMonth()
+            $carbonNow->firstOfMonth(),
+            $carbonNow->lastOfMonth()
+        );
+        $holidaysInBetweenDaysNext = $holidays->between(
+            $carbonNext->firstOfMonth(),
+            $carbonNext->lastOfMonth()
         );
         $array=['-'];
+        $arrayNext=['-'];
         for($i=1;$i<=$lastDate;$i++){
-                array_push($array,'-');
+            array_push($array,'-');
+        }
+        for($i=1;$i<=$lastDateNext;$i++){
+            array_push($arrayNext,'-');
         }
         foreach($holidaysInBetweenDays as $holiday) {
             $array[$holiday->format('j')] = $holiday->getName();
         }
+        foreach($holidaysInBetweenDaysNext as $holidayNext) {
+            $arrayNext[$holidayNext->format('j')] = $holidayNext->getName();
+        }
 
+        // 今月のシフト閲覧
+        // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
         $empname = [];
         $partname = [];
+        $StaffTimes = [];
+        $Staffworkdays = [];
         $i = 0;
 
         //社員を配列格納　労働時間と日数計算
@@ -161,7 +199,7 @@ class ShiftController extends Controller
             (double)$StaffsumTime = 0;
             $Staffworkday = 0;
 
-            for($j= 1; $j <= 31; $j++) {
+            for($j= 1; $j <= $lastDate; $j++) {
                 $hentai="day".$j;
 
                 if($compshift->$hentai != "×" && $compshift->$hentai != "-") {
@@ -211,10 +249,84 @@ class ShiftController extends Controller
                 }
             }
         }
+        // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+
+        // 来月のシフト閲覧
+        // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+        $empnameNext = [];
+        $partnameNext = [];
+        $StaffTimesNext = [];
+        $StaffworkdaysNext = [];
+        $i = 0;
+
+        //社員を配列格納　労働時間と日数計算
+        foreach($completeshiftNext as $compshiftNext) {
+            if($compshiftNext->judge == true) {
+                $empnameNext[] = Employee::where('id',$compshiftNext->emppartid)->value('name');
+            }else {
+                $partnameNext[] = Parttimer::where('id',$compshiftNext->emppartid)->value('name');
+            }
+
+            (double)$StaffTimeNext = 0;
+            (double)$StaffsumTimeNext = 0;
+            $StaffworkdayNext = 0;
+
+            for($j= 1; $j <= $lastDateNext; $j++) {
+                $hentai="day".$j;
+
+                if($compshiftNext->$hentai != "×" && $compshiftNext->$hentai != "-") {
+                    (int)$num1 = strpos($compshiftNext->$hentai,"-");//出勤、退勤抜き出しに使用
+                    (double)$in1 =  (double) substr($compshiftNext->$hentai,0,$num1);//提出シフトの出勤時間抜き出し
+                    (double)$out1 =  (double) substr($compshiftNext->$hentai,$num1 + 1);//提出シフトの退勤時間抜き出し
+                    $StaffTimeNext = $out1 - $in1;
+                    $StaffsumTimeNext = $StaffsumTimeNext + $StaffTimeNext;
+                    $StaffworkdayNext++;
+                }
+            }
+            $StaffTimesNext[$i] = $StaffsumTimeNext;
+            $StaffworkdaysNext[$i] = $StaffworkdayNext;
+            $i++;
+        }
+
+        $staffshiftcompleteworkdayNext = 0;
+        $staffshiftworkdayNext = 0;
+        (int)$staffshiftcoverNext = 0;
+
+        foreach($staffcompleteshiftNext as $staffcompshiftNext) {
+            for($j= 1; $j <= $lastDateNext; $j++) {
+                $hentai="day".$j;
+                if($staffcompshiftNext->$hentai != "×" && $staffcompshiftNext->$hentai != "-") {
+                    $staffshiftcompleteworkdayNext++;
+                }
+            }
+        }
+
+        foreach($privatestaffshiftNext as $staffshiftNext) {
+            for($j= 1; $j <= $lastDateNext; $j++) {
+                $hentai="day".$j;
+                if($staffshiftNext->$hentai != "-1") {
+                    $staffshiftworkdayNext++;
+                }
+            }
+        }
+
+        if($userId != 0) {                               //これないとバグる
+            if($staffshiftcompleteworkdayNext == 0 || $staffshiftworkdayNext == 0){
+                $staffshiftcoverNext = 0;
+            }else{
+                (int)$staffshiftcoverNext = ($staffshiftcompleteworkdayNext / $staffshiftworkdayNext) *100;
+                $staffshiftcoverNext = round($staffshiftcoverNext,0);
+                if($staffshiftcoverNext >= 100) {
+                    $staffshiftcoverNext = 100;
+                }
+            }
+        }
+        // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
         $week = ['日','月','火','水','木','金','土'];
-        $loginid=$userId;
-        return view('new_shiftView',compact('employees','parttimers','empname','partname','completeshift','userId','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week','calendarData','array'));
+
+        return view('new_shiftView',compact('empname','partname','completeshift','userId','empjudge','Staffworkdays','StaffTimes','staffshiftcover','week','calendarData','array',
+                                            'empnameNext','partnameNext','completeshiftNext','StaffworkdaysNext','StaffTimesNext','staffshiftcoverNext','calendarDataNext','arrayNext'));
     }
 
     /* シフト編集 変える*/
