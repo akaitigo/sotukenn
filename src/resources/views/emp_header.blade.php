@@ -1,5 +1,11 @@
 <!doctype html>
 <html lang="ja">
+    <?php
+use App\Models\admin;
+use App\Models\Store;
+use App\Models\Employee;
+use App\Models\Parttimer;
+?>
 
 <head>
     <meta charset="UTF-8">
@@ -24,8 +30,13 @@
                     <li><a href="{{ route('emp_calendar') }}">カレンダー</a></li>
                     <li><a href="#sec01">使い方</a></li>
                     <li><a href="{{route('shift_show')}}">シフト提出</a></li>
-                    <li><a href="">シフト閲覧</a></li>
                     <li><a href="{{ route('emp_informationShare') }}">情報共有掲示板</a></li>
+                    <li><a herf="{{ route('logout') }}"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        ログアウト</a></li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
                 </ul>
                 <ul id="sns">
                     <li><a href="#" target="_blank"><img src="/img_submit/iconTw.png" width="20"
