@@ -60,10 +60,10 @@ function addbatsu(id,day) {
     }
 }
 
-function update(emppartcountid,emppartname) {
+function update(emppartcountid,emppartname,lastday) {
     for(let id = 1; id <= emppartcountid; id++){
         let emppartnamearray = id -1;
-        for (let day = 1; day <= 31; day++){
+        for (let day = 1; day <= lastday; day++){
             let jstext = id + "-" + day;
             let starttimepull = id + "-" + day + "start";
             let endtimepull = id + "-" + day + "end";
