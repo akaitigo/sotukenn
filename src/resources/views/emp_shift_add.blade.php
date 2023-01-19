@@ -6,6 +6,7 @@
     <title>Calendar</title>
     <link rel="stylesheet" href="/css/shift_add.css" type="text/css">
     <link rel="stylesheet" href="/css/emp_box.css" type="text/css">
+    <link rel="stylesheet" href="/css/title_loading.css" type="text/css">
     <meta name="description" content="Calendar">
     <meta name="author" content="Charles Anderson">
 </head>
@@ -20,7 +21,6 @@ foreach ($privatestaffshift as $prv_shift) {
     for ($i = 1; $i <= $last_data; $i++) {
         $nowday = 'day' . $i;
         $today_shift = $prv_shift->$nowday;
-        dump($today_shift);
         if ($today_shift != -1) {
             (int) ($num1 = strpos($prv_shift->$nowday, '-'));
             (float) ($in = (float) substr($prv_shift->$nowday, 0, $num1));
@@ -52,63 +52,62 @@ foreach ($privatecomment as $prv_comment) {
             $day_comment[] = $i;
             $count_comment += 1;
         }
-        dump($today);
+        
     }
-    dump($prv_comment);
 }
 $json_comment_data = json_encode($comment);
 $json_comment_day = json_encode($day_comment);
-dump($privatestaffshift_next);
+
 ?>
 <?php
-//ログインしてる人のシフト 全て
-$next_count_shift = 0;
-$next_start = [];
-$next_end = [];
-$next_day_shift = [];
+    //ログインしてる人のシフト 全て
+    $next_count_shift = 0;
+    $next_start = [];
+    $next_end = [];
+    $next_day_shift = [];
 
-foreach ($privatestaffshift_next as $prv_shift_next) {
-    // 月の最大日数でループ
-    for ($i = 1; $i <= $next_last_data; $i++) {
-        $nowday = 'day' . $i;
-        $today_shift = $prv_shift_next->$nowday;
-        if ($today_shift != -1) {
-            (int) ($num1_next = strpos($prv_shift_next->$nowday, '-'));
-            (float) ($in_next = (float) substr($prv_shift_next->$nowday, 0, $num1_next));
-            (float) ($out_next = (float) substr($prv_shift_next->$nowday, $num1_next + 1));
-            $next_start[] = $in_next;
-            $next_end[] = $out_next;
-            $next_day_shift[] = $i;
-            $next_count_shift += 1;
+    foreach ($privatestaffshift_next as $prv_shift_next) {
+        // 月の最大日数でループ
+        for ($i = 1; $i <= $next_last_data; $i++) {
+            $nowday = 'day' . $i;
+            $today_shift = $prv_shift_next->$nowday;
+            if ($today_shift != -1) {
+                (int) ($num1_next = strpos($prv_shift_next->$nowday, '-'));
+                (float) ($in_next = (float) substr($prv_shift_next->$nowday, 0, $num1_next));
+                (float) ($out_next = (float) substr($prv_shift_next->$nowday, $num1_next + 1));
+                $next_start[] = $in_next;
+                $next_end[] = $out_next;
+                $next_day_shift[] = $i;
+                $next_count_shift += 1;
+            }
         }
     }
-}
-$json_next_start = json_encode($next_start);
-$json_next_end = json_encode($next_end);
-$json_next_shiftday = json_encode($next_day_shift);
+    $json_next_start = json_encode($next_start);
+    $json_next_end = json_encode($next_end);
+    $json_next_shiftday = json_encode($next_day_shift);
 
-/* ここまでシフト表の処理*/
+    /* ここまでシフト表の処理*/
 
-//ログインしてる人のコメント 全て取得
-$next_count_comment = 0;
-$next_comment = [];
-$next_day_comment = [];
+    //ログインしてる人のコメント 全て取得
+    $next_count_comment = 0;
+    $next_comment = [];
+    $next_day_comment = [];
 
-foreach ($privatecomment_next as $prv_comment_next) {
-    // 月の最大日数でループ
-    for ($i = 1; $i <= $next_last_data; $i++) {
-        // day1～day(last_data)まで入れてる
-        $nowday = 'comment' . $i;
-        $today = $prv_comment_next->$nowday;
-        if ($today != null) {
-            $next_comment[] = $today;
-            $next_day_comment[] = $i;
-            $next_count_comment += 1;
+    foreach ($privatecomment_next as $prv_comment_next) {
+        // 月の最大日数でループ
+        for ($i = 1; $i <= $next_last_data; $i++) {
+            // day1～day(last_data)まで入れてる
+            $nowday = 'comment' . $i;
+            $today = $prv_comment_next->$nowday;
+            if ($today != null) {
+                $next_comment[] = $today;
+                $next_day_comment[] = $i;
+                $next_count_comment += 1;
+            }
         }
     }
-}
-$json_next_comment_data = json_encode($next_comment);
-$json_next_comment_day = json_encode($next_day_comment);
+    $json_next_comment_data = json_encode($next_comment);
+    $json_next_comment_day = json_encode($next_day_comment);
 ?>
 
 <body
@@ -211,7 +210,6 @@ $json_next_comment_day = json_encode($next_day_comment);
 </body>
 
 </html>
-</div>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
     integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 

@@ -324,6 +324,10 @@
   background: #52A0FD;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
+.event-date.all-date.active-date {
+  background: #ff8400;
+  box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
+}
 
 .dialog2 {
   z-index: 5;

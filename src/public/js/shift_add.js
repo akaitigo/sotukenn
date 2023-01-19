@@ -6,7 +6,7 @@ function test2() {
 }
 
 // シフト表のデータセット
-function shift_data_set(json_start, json_end, json_shiftday, month, year, count_shift, json_comment, json_comment_day, count_comment, json_next_start , json_next_end , json_next_shiftday , next_month , next_year , next_count_shift, json_next_comment_data , json_next_comment_day,next_count_comment) {
+function shift_data_set(json_start, json_end, json_shiftday, month, year, count_shift, json_comment, json_comment_day, count_comment, json_next_start, json_next_end, json_next_shiftday, next_month, next_year, next_count_shift, json_next_comment_data, json_next_comment_day, next_count_comment) {
   var date = new Date();
   console.log("testtest2");
   // 
@@ -38,7 +38,7 @@ function shift_data_set(json_start, json_end, json_shiftday, month, year, count_
   console.log(x);
   console.log(y);
   console.log(z);
-  console.log(i + x +y +z);
+  console.log(i + x + y + z);
 
   //
   for (var y = 0; y < next_count_shift; ++y) {
@@ -69,7 +69,7 @@ function shift_data_set(json_start, json_end, json_shiftday, month, year, count_
   console.log(x);
   console.log(y);
   console.log(z);
-  console.log(i + x +y +z);
+  console.log(i + x + y + z);
   console.log('test2');
   console.log(event_data['events']);
 
@@ -113,6 +113,7 @@ $(document).ready(function () {
   $("#add-button").click({ date: date }, new_event);
   $("#delete-button").click({ date: date }, delete_event);
   $("#comment-button").click({ date: date }, comment_event);
+
 });
 
 // Display all events of the selected date in card views
@@ -169,13 +170,13 @@ function show_events(events, month, day) {
   console.log('month');
   console.log(month);
   for (var i = 0; i < event_data['events'].length; i++) {
-    if(event_data['events'][i]['month'] == month && event_data['events'][i]['kind'] == "ok"){
-      shift_data_input['events'][shift_input_count]=event_data['events'][i];
+    if (event_data['events'][i]['month'] == month && event_data['events'][i]['kind'] == "ok") {
+      shift_data_input['events'][shift_input_count] = event_data['events'][i];
       shift_input_count += 1;
     }
   }
   for (var i = 0; i < event_data['events'].length; i++) {
-    if(event_data['events'][i]['month'] == month && event_data['events'][i]['kind'] == "comment"){
+    if (event_data['events'][i]['month'] == month && event_data['events'][i]['kind'] == "comment") {
       comment_data_input['events'][comment_input_count] = event_data['events'][i];
       comment_input_count += 1;
     }
@@ -593,6 +594,7 @@ function check_events(day, month, year) {
   }
   return events;
 }
+
 
 // データの設定
 // Given data for events in JSON format
