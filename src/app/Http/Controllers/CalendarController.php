@@ -44,7 +44,7 @@ class CalendarController extends Controller
         }else if(Auth::guard('parttimer')->id()!=null){
             $userid = Auth::guard('parttimer')->id();
             $guard = "parttimer";
-            $storeid = Parrttimer::where('id',$userid)->value('store_id');
+            $storeid = Parttimer::where('id',$userid)->value('store_id');
             $userShift = CompleteShift::where('store_id',$storeid)->where('month',$thisMonth)->where('emppartid',$userid)->where('judge',false)->first();
         }
         $employees = Employee::where('store_id',$storeid)->get();
@@ -102,5 +102,9 @@ class CalendarController extends Controller
             }
         }
         return view('calendar',compact('calendarData','guard'));
+    }
+
+    public function test(){
+        return view('test_calendar');
     }
 }
