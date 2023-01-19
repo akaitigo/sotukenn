@@ -146,7 +146,8 @@ Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegis
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //メニューバー(header)
-Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar');                                   //カレンダー
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar'); 
+Route::get('/test_calendar', [App\Http\Controllers\CalendarController::class, 'test'])->name('test_calendar');                                   //カレンダー
 
 // Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理
 // Route::get('/employeesManagement', [App\Http\Controllers\EmployeeController::class, 'empPasswordNotView'])->name('employeesManagementPassNotView');  //従業員管理パスワード表示・管理-->従業員管理パスワード非表示
@@ -173,7 +174,7 @@ Route::get('/new_shiftView', [App\Http\Controllers\ShiftController::class, 'view
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                         //シフト編集
 Route::post('/shiftupdate', [App\Http\Controllers\ShiftController::class, 'update'])->name('shiftupdate');                                    //シフト編集上書き
 
-Route::get('/shiftCreateMenu', [App\Http\Controllers\ShiftController::class, 'menu'])->name('shiftCreateMenu');                        //シフト作成メニュー
+
 Route::get('/shiftCreate', [App\Http\Controllers\ShiftController::class, 'create'])->name('shiftCreate');                                //シフト作成
 Route::get('/candidacyView', [App\Http\Controllers\ShiftController::class, 'multiple'])->name('candidacyView');                            //シフト候補表示
 

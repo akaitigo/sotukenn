@@ -164,13 +164,21 @@ class LoginController extends Controller
     
     public function logout(Request $request)
     {
+        $toRedirect;
+        if(Auth::guard('admin')->check()){
+            $toRedirect="admin";
+        }else if(Auth::guard('employee')->check()){
+            $toRedirect="employee";
+        }else if(Auth::guard('parttimer')->check()){
+            $toRedirect="parttimer";
+        }
         Auth::logout();
  
         $request->session()->invalidate();
  
         $request->session()->regenerateToken();
  
-        return redirect('/admin/login');
+        return redirect('/'.$toRedirect.'/login');
     }
     public function tokenCheck($user){
         $client = tokenClient();
