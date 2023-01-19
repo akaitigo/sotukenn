@@ -415,19 +415,18 @@ class ShiftController extends Controller
         $data = new Carbon('+1 month');
         // $month = $data->month;
         $month = $_POST['month0'];
-        
+
         $empname = [];
         $partname = [];
         $i = 0;
         $data_name = ['year', 'month', 'day', 'comment', 'kind', 'start', 'end'];
         $shift_data_list = [];
         $shift_data = [];
-        $day_list = []; 
+        $day_list = [];
 
         $comment_data_name = ['comment_year', 'comment_month', 'comment_day', 'comment_comment', 'comment_kind', 'comment_start', 'comment_end'];
         $comment_data_list = [];
         $comment_data = [];
-
 
         //31日ループ
         for ($x = 0; $x < 31; $x++) {
@@ -435,7 +434,7 @@ class ShiftController extends Controller
             //データの種類でループ
             for ($i = 0; $i < count($data_name); $i++) {
                 // 受け取り判定
-                if (isset($_POST[$data_name[$i] . strval($x)])&& $_POST['month' . strval($x)] == $month) {
+                if (isset($_POST[$data_name[$i] . strval($x)]) && $_POST['month' . strval($x)] == $month) {
                     // 連想配列作成
                     $shift_data += [$data_name[$i] => $_POST[$data_name[$i] . strval($x)]];
                 }
@@ -445,12 +444,15 @@ class ShiftController extends Controller
             $shift_data_list[$x] = $shift_data;
             $work[$x] = -1;
         }
-
-        for ($x = 0; $x < 31; $x++) {
-            if (isset($shift_data_list[$x]['day'])&& $_POST['month' . strval($x)] == $month) {
-                $work[$shift_data_list[$x]['day']-1] = $shift_data_list[$x]['start'] . '-' . $shift_data_list[$x]['end'];
+        dump($shift_data_list[0]['day']);
+        if ($shift_data_list[0]['day'] != "") {
+            for ($x = 0; $x < 31; $x++) {
+                if (isset($shift_data_list[$x]['day']) && $_POST['month' . strval($x)] == $month) {
+                    $work[$shift_data_list[$x]['day'] - 1] = $shift_data_list[$x]['start'] . '-' . $shift_data_list[$x]['end'];
+                }
             }
         }
+
         dump($work);
 
         for ($x = 0; $x < 31; $x++) {
@@ -466,19 +468,19 @@ class ShiftController extends Controller
             }
             //連想配列を配列に格納(多次元配列にしてる)
             $comment_data_list[$x] = $comment_data;
-            $comment_work[$x] = null;    
+            $comment_work[$x] = null;
         }
         dump($comment_data_list);
-
-        for ($x = 0; $x < 31; $x++) {
-            if (isset($comment_data_list[$x]['comment_day'])) {
-                $comment_work[$comment_data_list[$x]['comment_day']-1] = $comment_data_list[$x]['comment_comment'];
+        if ($comment_data_list[0]['comment_day'] != "") {
+            for ($x = 0; $x < 31; $x++) {
+                if (isset($comment_data_list[$x]['comment_day'])) {
+                    $comment_work[$comment_data_list[$x]['comment_day'] - 1] = $comment_data_list[$x]['comment_comment'];
+                }
             }
+
+            dump($comment_work);
         }
-        dump($comment_work);
-
         //ここまで正常
-
         if (!(is_null($employee->email))) { //ログイン中のユーザ情報の取得
             $empuserEmail = $employee->email;
             $employee = Employee::where('email', $empuserEmail)->get();
@@ -502,7 +504,7 @@ class ShiftController extends Controller
             $shift = StaffShift::where('emppartid', $emp->id)->where('judge', true)->where('month', $month)->get();
             foreach ($shift as $shi) {
                 for ($i = 0; $i < 31; $i++) {
-                    $dayTemp = 'day' . $i +1;
+                    $dayTemp = 'day' . $i + 1;
                     if ($i == 0) {
                         if (!($shi->$i === '-')) {
                             $dayTemp = 'day' . $i + 1;
@@ -540,7 +542,7 @@ class ShiftController extends Controller
             $Comment = Comment::where('emppartid', $emp->id)->where('judge', true)->where('month', $month)->get();
             foreach ($Comment as $cmt) {
                 for ($i = 0; $i < 31; $i++) {
-                    $commentTemp = 'comment' . $i +1;
+                    $commentTemp = 'comment' . $i + 1;
                     if ($i == 0) {
                         if (!($cmt->$i === '-')) {
                             $commentTemp = 'comment' . $i + 1;
@@ -561,7 +563,6 @@ class ShiftController extends Controller
 
             $parttimerEmail = $parttimer->email;
             $employee = Parttimer::where('email', $parttimerEmail)->get();
-
         }
     }
 
@@ -604,7 +605,7 @@ class ShiftController extends Controller
         // コメント情報のすべて まだテーブルできてない
         // $privatestaffcomment = StaffComment::where('emppartid',$loginid)->where('judge',$judge)->get();
 
-        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment','privatestaffshift_next','privatecomment_next','next_last_data', 'next_month', 'next_year'));
+        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year'));
     }
 
 

@@ -63,6 +63,10 @@ dump($privatestaffshift_next);
 <?php
 //ログインしてる人のシフト 全て
 $next_count_shift = 0;
+$next_start = [];
+$next_end = [];
+$next_day_shift = [];
+
 foreach ($privatestaffshift_next as $prv_shift_next) {
     // 月の最大日数でループ
     for ($i = 1; $i <= $next_last_data; $i++) {
@@ -86,7 +90,7 @@ $json_next_shiftday = json_encode($next_day_shift);
 /* ここまでシフト表の処理*/
 
 //ログインしてる人のコメント 全て取得
-$next_count_comment = 0; //month year は使いまわし
+$next_count_comment = 0;
 $next_comment = [];
 $next_day_comment = [];
 

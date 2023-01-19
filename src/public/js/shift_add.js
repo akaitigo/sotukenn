@@ -188,7 +188,7 @@ function show_events(events, month, day) {
   for (var i = 0; i < shift_data_input['events'].length; i++) {
     // input作成
     year_date[i] = $("<input class='day-date' id='day_date' name='year" + i + "' value='" + shift_data_input['events'][i]['year'] + "'></input>");
-    month_date[i] = $("<input class='day-date' id='day_date' name='month" + i + "' value='" + shift_data_input['events'][i]['month'] + "'></input>");
+    month_date[i] = $("<input class='day-date' id='day_date' name='month" + i + "' value='" + month + "'></input>");
     day_date[i] = $("<input class='day-date' id='day_date' name='day" + i + "' value='" + shift_data_input['events'][i]['day'] + "'></input>");
     comment_date[i] = $("<input class='day-date' id='day_date' name='comment" + i + "' value='" + shift_data_input['events'][i]['comment'] + "'></input>");
     kind_date[i] = $("<input class='day-date' id='day_date' name='kind" + i + "' value='" + shift_data_input['events'][i]['kind'] + "'></input>");
@@ -207,7 +207,7 @@ function show_events(events, month, day) {
   }
   for (var i = 0; i < comment_data_input['events'].length; i++) {
     comment_year_date[i] = $("<input class='day-date' id='day_date' name='comment_year" + i + "' value='" + comment_data_input['events'][i]['year'] + "'></input>");
-    comment_month_date[i] = $("<input class='day-date' id='day_date' name='comment_month" + i + "' value='" + comment_data_input['events'][i]['month'] + "'></input>");
+    comment_month_date[i] = $("<input class='day-date' id='day_date' name='comment_month" + i + "' value='" + month + "'></input>");
     comment_day_date[i] = $("<input class='day-date' id='day_date' name='comment_day" + i + "' value='" + comment_data_input['events'][i]['day'] + "'></input>");
     comment_comment_date[i] = $("<input class='day-date' id='day_date' name='comment_comment" + i + "' value='" + comment_data_input['events'][i]['comment'] + "'></input>");
     comment_kind_date[i] = $("<input class='day-date' id='day_date' name='comment_kind" + i + "' value='" + comment_data_input['events'][i]['kind'] + "'></input>");
