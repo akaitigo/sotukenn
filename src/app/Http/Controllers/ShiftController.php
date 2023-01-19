@@ -96,7 +96,7 @@ class ShiftController extends Controller
     {
     }
 
-    /* シフト閲覧 変える*/
+    /* シフト閲覧 変えた*/
     public function view()
     {
         $userId;
@@ -374,7 +374,34 @@ class ShiftController extends Controller
             (float)$StaffsumTime = 0;
             $Staffworkday = 0;
 
-            for ($day = 1; $day <= 31; $day++) {
+            $carbonNow = Carbon::now();
+            $thisMonth = $carbonNow->month;
+            $firstDay = $carbonNow->firstOfMonth()->day;
+            $lastDate = $carbonNow->lastOfMonth()->day;
+            $calendarData = [
+                [
+                'day'=>Carbon::now()->firstOfMonth()->dayOfWeek,
+                'month'=>$thisMonth,
+                'lastDay'=>$lastDate,
+                ]
+            ];
+
+
+        //祝日を入れる
+        $holidays = Yasumi::create('Japan', '2023', 'ja_JP');
+        $holidaysInBetweenDays = $holidays->between(
+            $carbonNow->firstOfMonth(),
+            $carbonNow->lastOfMonth()
+        );
+        $array=['-'];
+        $arrayNext=['-'];
+        for($i=1;$i<=$lastDate;$i++){
+            array_push($array,'-');
+        }
+        foreach($holidaysInBetweenDays as $holiday) {
+            $array[$holiday->format('j')] = $holiday->getName();
+        }
+            for ($day = 1; $day <= $calendarData[0]['lastDay']; $day++) {
                 $hentai = "day" . $day;
 
                 if ($compshift->$hentai != "×" && $compshift->$hentai != "-") {
@@ -395,7 +422,7 @@ class ShiftController extends Controller
         $emppartcount = $i + 1;
         $week = ['日', '月', '火', '水', '木', '金', '土'];
 
-        return view('shiftEdit', compact('employees', 'parttimers', 'empname', 'partname', 'emppartname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'week', 'workstarttime', 'workendtime', 'emppartcount'));
+        return view('shiftEdit', compact('array','employees', 'parttimers', 'empname', 'partname', 'emppartname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'week', 'workstarttime', 'workendtime', 'emppartcount','calendarData'));
     }
 
 
