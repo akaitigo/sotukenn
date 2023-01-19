@@ -1438,6 +1438,7 @@ class LineWebhookController extends Controller
                                     $daysTemp = 'day' . $i;
                                     $registerTemp = 'registerCheck' . $i;
                                     $editFlagCheckBool = true;
+
                                     break;
                                 }
                             }
@@ -1534,7 +1535,7 @@ class LineWebhookController extends Controller
                 }
 
 
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name.'さんのシフト希望率は'.$staffshiftcover.'％です！');
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name.'さんのシフト希望率は'.$staffshiftcover.'％です!！！');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
             }
         }
