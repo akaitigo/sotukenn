@@ -11,8 +11,7 @@
                 <table class="month_table">
                     <caption>{{ $calendarData[0]['month'] }}月</caption>
                 </table>
-                <div class="scrollbox">
-                    <table class="compshift_table">
+                    <table class="calendar_table">
                         <thead class="thead">
                             <th class="sunday">日</th>
                             <th>月</th>
@@ -107,7 +106,7 @@
                         </tbody>
                         @endif
                     </table>
-                </div>
+                
 
             </div>
         </div>

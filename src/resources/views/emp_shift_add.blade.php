@@ -6,7 +6,6 @@
     <title>Calendar</title>
     <link rel="stylesheet" href="/css/shift_add.css" type="text/css">
     <link rel="stylesheet" href="/css/emp_box.css" type="text/css">
-    <link rel="stylesheet" href="/css/title_loading.css" type="text/css">
     <meta name="description" content="Calendar">
     <meta name="author" content="Charles Anderson">
 </head>
