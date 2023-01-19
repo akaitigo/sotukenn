@@ -400,7 +400,7 @@
 
   .dialog {
     width: 370px;
-    height: 450px;
+    height: 530px;
     border-radius: 3px;
     top: 0;
     left: 0;
@@ -449,7 +449,7 @@
 
   .dialog {
     width: 370px;
-    height: 450px;
+    height: 530px;
     border-radius: 3px;
     top: 0;
     left: 0;
@@ -471,7 +471,7 @@
     margin: 0 auto;
     margin-right: 0;
     display: block;
-    height: 480px;
+    height: 520px;
     left: 0;
     border-radius: 3px;
     box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
