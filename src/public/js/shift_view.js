@@ -39,10 +39,54 @@ $(document).ready(function () {
 	}
 });
 
+// 日にち選択プルダウン
+function shiftpull(maxday,maxtime) {
+	let startdayinput = Number(document.getElementById("startdaypull").value);
+    let enddayinput = Number(document.getElementById("enddaypull").value);
+	maxtime = maxtime + 1;
+	for(let thisday = 1; thisday <= maxday; thisday++) {
+		document.getElementById(thisday).style.background = "#fff";
+		for(let time = 1; time <= maxtime; time++) {
+			ninp = thisday + '*' + time;
+			if(thisday % 2 == 0) {
+				document.getElementById(ninp).style.background = "#fff";
+				document.getElementById(ninp).style.borderBottom = "none";
+			}else {
+				document.getElementById(ninp).style.background = "#f0f0f0";
+				document.getElementById(ninp).style.borderBottom = "none";
+			}
+		}
+	}
 
+	if(startdayinput != "" && enddayinput != "") {
+		for(let thisday = startdayinput; thisday <= enddayinput; thisday++) {
+			document.getElementById(thisday).style.background = "rgba(218, 249, 255)";
+			for(let time = 1; time <= maxtime; time++) {
+				ninp = thisday + '*' + time;
+				ninp_top = (startdayinput - 1) + '*' + time;
+				if(startdayinput - 1 == 0) {
+					ninp_top = startdayinput + '*' + time;
+				}
+				if(startdayinput == enddayinput) {
+					document.getElementById(ninp).style.background = "rgba(218, 249, 255)";
+					document.getElementById(ninp).style.borderBottom = "thin solid rgb(186, 186, 186)";
+					document.getElementById(ninp_top).style.borderBottom = "thin solid rgb(186, 186, 186)";
+				}else {
+					document.getElementById(ninp).style.background = "rgba(218, 249, 255)";
+					document.getElementById(ninp).style.borderBottom = "thin solid rgb(186, 186, 186)";
+					document.getElementById(ninp_top).style.borderBottom = "thin solid rgb(186, 186, 186)";
+				}
+			}
+		}
+	}
+
+}
+
+// 日にち選択ボタン
 function scopeday(day,maxday,maxtime) {
     let startdayinput = Number(document.getElementById("startdaypull").value);
     let enddayinput = Number(document.getElementById("enddaypull").value);
+	maxtime = maxtime + 1;
 	if(startdayinput == "" && enddayinput == "") {
 		document.getElementById("startdaypull").value = day;
 		for(let thisday = 1; thisday <= maxday; thisday++) {
@@ -51,8 +95,10 @@ function scopeday(day,maxday,maxtime) {
 				ninp = thisday + '*' + time;
 				if(thisday % 2 == 0) {
 					document.getElementById(ninp).style.background = "#fff";
+					document.getElementById(ninp).style.borderBottom = "none";
 				}else {
 					document.getElementById(ninp).style.background = "#f0f0f0";
+					document.getElementById(ninp).style.borderBottom = "none";
 				}
 			}
 		}
@@ -67,7 +113,19 @@ function scopeday(day,maxday,maxtime) {
 			document.getElementById(thisday).style.background = "rgba(218, 249, 255)";
 			for(let time = 1; time <= maxtime; time++) {
 				ninp = thisday + '*' + time;
-				document.getElementById(ninp).style.background = "rgba(218, 249, 255)";
+				ninp_top = (startdayinput - 1) + '*' + time;
+				if(startdayinput - 1 == 0) {
+					ninp_top = startdayinput + '*' + time;
+				}
+				if(startdayinput == enddayinput) {
+					document.getElementById(ninp).style.background = "rgba(218, 249, 255)";
+					document.getElementById(ninp).style.borderBottom = "thin solid rgb(186, 186, 186)";
+					document.getElementById(ninp_top).style.borderBottom = "thin solid rgb(186, 186, 186)";
+				}else {
+					document.getElementById(ninp).style.background = "rgba(218, 249, 255)";
+					document.getElementById(ninp).style.borderBottom = "thin solid rgb(186, 186, 186)";
+					document.getElementById(ninp_top).style.borderBottom = "thin solid rgb(186, 186, 186)";
+				}
 			}
 		}
 	}else {
@@ -79,8 +137,10 @@ function scopeday(day,maxday,maxtime) {
 				ninp = thisday + '*' + time;
 				if(thisday % 2 == 0) {
 					document.getElementById(ninp).style.background = "#fff";
+					document.getElementById(ninp).style.borderBottom = "none";
 				}else {
 					document.getElementById(ninp).style.background = "#f0f0f0";
+					document.getElementById(ninp).style.borderBottom = "none";
 				}
 			}
 		}
@@ -93,7 +153,7 @@ function scopeday(day,maxday,maxtime) {
 }
 
 
-
+// マイナスボタン
 function scopeminus(time) {
     let startdayinput =Number(document.getElementById("startdaypull").value);
     let enddayinput =Number(document.getElementById("enddaypull").value);
@@ -122,6 +182,7 @@ function scopeminus(time) {
 	}
 }
 
+// プラスボタン
 function scopeplus(time) {
     let startdayinput =Number(document.getElementById("startdaypull").value);
     let enddayinput =Number(document.getElementById("enddaypull").value);
@@ -136,13 +197,28 @@ function scopeplus(time) {
 		enddayinput_number = Number(enddayinput);
 		for(let day = startdayinput_number; day <= enddayinput_number; day++){
 			let nin_id = day + "-" + time;
+			let nin_gouid = day + "-gou";
 			let ninzu = Number(document.getElementById(nin_id).value);
+			let nin_gou = document.getElementById(nin_gouid).textContent;
+			let day_nin_gou = Number(nin_gou.replace('人',''));
 			if(ninzu == "") {
 				ninzu = 0;
 			}
 			ninzu = ninzu + 1;
+			day_nin_gou = day_nin_gou + 1;
 			document.getElementById(nin_id).value = ninzu;
+			document.getElementById(nin_gouid).textContent = day_nin_gou + "人";
 			document.getElementById(nin_id).style.visibility ="visible";
+		}
+	}
+}
+
+// シフト作成ボタン
+function needshift(maxday,maxtime) {
+	for(let day = 1; day <= maxday; day++){
+		for(let time = 1; time <= maxtime; time++){
+			let nin_id = day + "-" + time;
+			document.getElementById(nin_id).disabled = false;
 		}
 	}
 }

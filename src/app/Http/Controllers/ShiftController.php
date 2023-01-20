@@ -160,12 +160,12 @@ class ShiftController extends Controller
         //祝日を入れる
         $holidays = Yasumi::create('Japan', '2023', 'ja_JP');
         $holidaysInBetweenDays = $holidays->between(
-            $carbonNow->firstOfMonth(),
-            $carbonNow->lastOfMonth()
+            Carbon::now()->firstOfMonth(),
+            Carbon::now()->lastOfMonth()
         );
         $holidaysInBetweenDaysNext = $holidays->between(
-            $carbonNext->firstOfMonth(),
-            $carbonNext->lastOfMonth()
+            Carbon::now()->addMonth(1)->firstOfMonth(),
+            Carbon::now()->addMonth(1)->lastOfMonth()
         );
         $array = ['-'];
         $arrayNext = ['-'];

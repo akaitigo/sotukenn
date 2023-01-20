@@ -7,12 +7,12 @@
 <title>シフト閲覧</title>
 @include('new_header')
 <div id="scale">
+<?php $nextlastday = $calendarDataNext[0]['lastDay'];?>
     @if($nextcomshiftjudge == 0 && $userId == 0)
-        <?php $nextlastday = $calendarDataNext[0]['lastDay'];?>
          <div class="mom_scopeday"> 
             <div class="scopeday">
-                <input class="startdaypull" type="number" id="startdaypull" min="1" max="{{$nextlastday}}" step="1"/> 日～
-                <input class="enddaypull" type="number" id="enddaypull" min="1" max="{{$nextlastday}}" step="1"/> 日
+                <input class="startdaypull" type="number" id="startdaypull" min="1" max="{{$nextlastday}}" oninput="shiftpull({{$nextlastday}},{{$shift_divicount}})" step="1"/> 日～
+                <input class="enddaypull" type="number" id="enddaypull" min="1" max="{{$nextlastday}}" oninput="shiftpull({{$nextlastday}},{{$shift_divicount}})" step="1"/> 日
             </div>
         </div>
     @endif
@@ -59,26 +59,20 @@
                             @for ($i = 1; $i <= $calendarData[0]['lastDay']; $i++) <?php
                                                                                     $timestamp = mktime(0, 0, 0, $calendarData[0]['month'], $i, 2023);
                                                                                     $date = date('w', $timestamp);
-                                                                                    ?> @if($count==0) <th class="sunday">{{ $i }} 日({{ $week[$count] }})</th>
+                                                                                    ?> 
+                                @if($count==0) 
+                                    <th class="sunday">{{ $i }} 日({{ $week[$count] }})</th>
                                 @elseif($count==6)
-                                <th class="saturday">{{ $i }} 日({{ $week[$count] }})</th>
-                                <?php $count = -1; ?>
-                                @elseif($array[$i]!='-')
-                                <th class="holiday">{{ $i }} 日({{ $week[$count] }})</th>
+                                    <th class="saturday">{{ $i }} 日({{ $week[$count] }})</th>
+                                    <?php $count = -1; ?>
+                                @elseif($array[$i] != '-')
+                                    <th class="holiday">{{ $i }} 日({{ $week[$count] }})</th>
                                 @else
-                                <th>{{ $i }} 日({{ $week[$count] }})</th>
+                                    <th>{{ $i }} 日({{ $week[$count] }})</th>
                                 @endif
                                 <?php $count++; ?>
-                                {{-- @if ($i == 9)
-                                    <th class="holiday">{{ $i }} 日({{ $week[$date] }})</th>
-                                @elseif($date == 6)
-                                <th class="saturday">{{ $i }} 日({{ $week[$date] }})</th>
-                                @elseif($date == 0)
-                                <th class="sunday">{{ $i }} 日({{ $week[$date] }})</th>
-                                @else
-                                <th>{{ $i }} 日({{ $week[$date] }})</th>
-                                @endif --}}
-                                @endfor
+
+                            @endfor
                                 <th class="workday">労働日数</th>
                                 <th class="worktime">労働時間</th>
                         </thead>
@@ -228,7 +222,7 @@
                                 @elseif($count==6)
                                 <th class="saturday">{{ $i }} 日({{ $week[$count] }})</th>
                                 <?php $count = -1; ?>
-                                @elseif($array[$i]!='-')
+                                @elseif($arrayNext[$i]!='-')
                                 <th class="holiday">{{ $i }} 日({{ $week[$count] }})</th>
                                 @else
                                 <th>{{ $i }} 日({{ $week[$count] }})</th>
@@ -385,10 +379,13 @@
                                     </th>
                                 @endfor
                             @endforeach
+                            <th class= "shiftdivider">合計人数</th>
                         </thead>
                         <tbody>
-
-                        <?php $count = $calendarDataNext[0]['day']; ?>
+                        <form method="post" onsubmit="needshift({{$nextlastday}},{{$shift_divicount}})" action="{{ route('shiftupdate') }}">
+                         @csrf
+                        <?php $count = $calendarDataNext[0]['day']; 
+                              $gou = $shift_divicount + 1;?>
                             @for ($i = 1; $i <= $calendarDataNext[0]['lastDay']; $i++) <?php
                                                                                         $timestamp = mktime(0, 0, 0, $calendarDataNext[0]['month'], $i, 2023);
                                                                                         $date = date('w', $timestamp);
@@ -397,42 +394,54 @@
                                 <tr><td class="sunday_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
                                     @for($time = 1; $time <= $shift_divicount; $time++)
                                         <?php $ninp = $i . '-' . $time; 
-                                              $nin_colorid = $i . '*' . $time;?>
+                                              $nin_colorid = $i . '*' . $time;
+                                              $nin_gou = $i . '-gou';?>
                                         <td id="{{$nin_colorid}}">
                                             <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
                                         </td>
                                     @endfor
+                                    <?php $nin_colorid = $i . '*' . $gou;?>
+                                    <td id="{{$nin_colorid}}"><p id="{{$nin_gou}}"></p></td>
                                 </tr>
                                 @elseif($count==6)
                                 <tr><td class="saturday_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
                                     @for($time = 1; $time <= $shift_divicount; $time++)
                                         <?php $ninp = $i . '-' . $time; 
-                                              $nin_colorid = $i . '*' . $time;?>
+                                              $nin_colorid = $i . '*' . $time;
+                                              $nin_gou = $i . '-gou';?>
                                         <td id="{{$nin_colorid}}">
                                             <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
                                         </td>
                                     @endfor
+                                    <?php $nin_colorid = $i . '*' . $gou;?>
+                                    <td id="{{$nin_colorid}}"><p id="{{$nin_gou}}"></p></td>
                                 </tr>
                                 <?php $count = -1; ?>
-                                @elseif($array[$i]!='-')
+                                @elseif($arrayNext[$i]!='-')
                                 <tr><td class="holiday_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
                                     @for($time = 1; $time <= $shift_divicount; $time++)
                                         <?php $ninp = $i . '-' . $time; 
-                                              $nin_colorid = $i . '*' . $time;?>
+                                              $nin_colorid = $i . '*' . $time;
+                                              $nin_gou = $i . '-gou'; ?>
                                         <td id="{{$nin_colorid}}">
                                             <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
                                         </td>
                                     @endfor
+                                    <?php $nin_colorid = $i . '*' . $gou;?>
+                                    <td id="{{$nin_colorid}}"><p id="{{$nin_gou}}"></p></td>
                                 </tr>
                                 @else
                                 <tr><td class="day_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
                                     @for($time = 1; $time <= $shift_divicount; $time++)
                                         <?php $ninp = $i . '-' . $time; 
-                                              $nin_colorid = $i . '*' . $time;?>
+                                              $nin_colorid = $i . '*' . $time;
+                                              $nin_gou = $i . '-gou'; ?>
                                         <td id="{{$nin_colorid}}">
                                             <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
                                         </td>
                                     @endfor
+                                    <?php $nin_colorid = $i . '*' . $gou;?>
+                                    <td id="{{$nin_colorid}}"><p id="{{$nin_gou}}"></p></td>
                                 </tr>
                                 @endif
                                 <?php $count++; ?>
@@ -446,23 +455,34 @@
                     <p>来月のシフトは未完成です</p>
                     @endif
                 </div>
-                @if ($userId != 0)
-                {{ $staffshiftcoverNext }}
-                @endif
             </div>
-
         </div>
+        @if($nextcomshiftjudge == 0 && $userId == 0)
+            <button id="createshifr_btn" type="submit" name="updateId" class="updateButton">シフトを作成</button>
+        @endif
+        </form>
+        @if ($userId != 0)
+            {{ $staffshiftcoverNext }}
+        @endif
     </div>
 </div>
 
 <script>
-    let json_lastday = @json($nextlastday);
-    let json_timecount = @json($shift_divicount);
-    for(let day = 1; day <= json_lastday; day++){
-        for (let time = 1; time <= json_timecount; time++){
-            let json_ninid = day + "-" + time;
-            document.getElementById(json_ninid).style.visibility ="hidden";
-            document.getElementById(json_ninid).disabled =true;
+    let json_judge  = @json($nextcomshiftjudge);
+    let json_loginid  = @json($userId);
+    if(json_judge == 0 && json_loginid == 0) {
+        let json_lastday = @json($nextlastday);
+        let json_timecount = @json($shift_divicount);
+        document.getElementById("startdaypull").style.background = "rgba(218, 249, 255)";
+        document.getElementById("enddaypull").style.background = "rgba(218, 249, 255)";
+        for(let day = 1; day <= json_lastday; day++){
+            for (let time = 1; time <= json_timecount; time++){
+                let json_ninid = day + "-" + time;
+                document.getElementById(json_ninid).style.visibility ="hidden";
+                document.getElementById(json_ninid).disabled =true;
+            }
+            let ningou = day + "-gou";
+            document.getElementById(ningou).textContent = "0人";
         }
     }
 </script>
