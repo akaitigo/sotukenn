@@ -26,7 +26,7 @@ $all_data = array_merge($event, $day);
 $json_data = json_encode($all_data);
 ?>
 @include('new_header')
-<link rel="stylesheet" href="/css/calendar.css" type="text/css">
+<link rel="stylesheet" href="/css/test_calendar.css" type="text/css">
 <link rel="stylesheet" href="/css/scale.css" type="text/css">
 <title>カレンダー</title>
 {{-- @include('new_header') --}}
@@ -41,4 +41,4 @@ $json_data = json_encode($all_data);
 {{-- <script async src="https://js.cybozu.com/momentjs/2.27.0/moment.min.js"></script> --}}
 {{-- <script async src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script> --}}
-<script type="text/javascript" src="/js/calendar.js"></script>
+<script type="text/javascript" src="/js/test_calendar.js"></script>
