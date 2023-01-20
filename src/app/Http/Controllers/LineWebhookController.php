@@ -1435,7 +1435,6 @@ class LineWebhookController extends Controller
                                 }
                             }
                         }
-
                         if ($editFlagCheckBool) {
                             $shi->$daysTemp = $emp->favoriteShhift1;
                             $shi->$editFlagCheck = 0;
@@ -1576,11 +1575,12 @@ class LineWebhookController extends Controller
 
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name . 'さんのシフト希望率は' . $staffshiftcover . '％です!！！');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+            } else {
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("コマンドが確認できませんでした。");
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("ヘルプと送信したら利用できるコマンドを確認することができます。\nスマホでご利用の方は、下部のメニューから操作をお願いします");
+                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
             }
         }
     }
 }
-                // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("コマンドが確認できませんでした。");
-                // $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
-                // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("ヘルプと送信したら利用できるコマンドを確認することができます。\nスマホでご利用の方は、下部のメニューから操作をお願いします");
-                // $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);

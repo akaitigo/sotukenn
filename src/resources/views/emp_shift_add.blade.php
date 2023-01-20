@@ -15,6 +15,11 @@
 $month = $now_month;
 $year = $now_year;
 $count_shift = 0;
+
+$start = [];
+$end = [];
+$day_shift = [];
+
 foreach ($privatestaffshift as $prv_shift) {
     // 月の最大日数でループ
     for ($i = 1; $i <= $last_data; $i++) {
