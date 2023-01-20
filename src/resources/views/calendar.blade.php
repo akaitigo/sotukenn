@@ -25,7 +25,9 @@ for ($i = 1; $i <= $calendarData[0]['lastDay']; $i++) {
 $all_data = array_merge($event, $day);
 $json_data = json_encode($all_data);
 ?>
+@include('new_header')
 <link rel="stylesheet" href="/css/test_calendar.css" type="text/css">
+<link rel="stylesheet" href="/css/scale.css" type="text/css">
 <title>カレンダー</title>
 {{-- @include('new_header') --}}
 
@@ -35,6 +37,8 @@ $json_data = json_encode($all_data);
         <div id="calendar"></div>
     </div>
 </body>
-{{-- <script async src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js"></script> --}}
-<script async src="https://js.cybozu.com/momentjs/2.27.0/moment.min.js"></script>
+<script  src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment-with-locales.js"></script>
+{{-- <script async src="https://js.cybozu.com/momentjs/2.27.0/moment.min.js"></script> --}}
+{{-- <script async src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment-with-locales.min.js"></script> --}}
 <script type="text/javascript" src="/js/test_calendar.js"></script>

@@ -6,10 +6,10 @@
      overflow: hidden;
      font-family: 'HelveticaNeue-UltraLight', 'Helvetica Neue UltraLight', 'Helvetica Neue', Arial, Helvetica, sans-serif;
      font-weight: 100;
-     color: rgba(255, 255, 255, 1);
+     color: rgb(0, 0, 0);
      margin: 0;
      padding: 0;
-     background: #4A4A4A;
+     background: #ffffff;
      -webkit-touch-callout: none;
      -webkit-user-select: none;
      -khtml-user-select: none;
@@ -24,15 +24,16 @@
       transform: translate3d(0, 0, 0);
       width: 420px;
       margin: 0 auto;
-      height: 570px;
+      height: 580px;
       overflow: hidden;
     }
     
     .header {
       height: 50px;
       width: 420px;
-      background: rgba(66, 66, 66, 1);
+      background: #4c46fc;
       text-align: center;
+      margin-top: 20px;
       position:relative;
       z-index: 100;
     }
@@ -44,6 +45,7 @@
       line-height: 50px;
       font-weight: 100;
       letter-spacing: 1px;
+      color: #ffffff;
     }
     
     .left, .right {
@@ -58,13 +60,13 @@
     
     .left {
       border-width: 7.5px 10px 7.5px 0;
-      border-color: transparent rgba(160, 159, 160, 1) transparent transparent;
+      border-color: transparent #4c46fc transparent transparent;
       left: 20px;
     }
     
     .right {
       border-width: 7.5px 0 7.5px 10px;
-      border-color: transparent transparent transparent rgba(160, 159, 160, 1);
+      border-color: transparent transparent transparent #4c46fc;
       right: 20px;
     }
     
@@ -117,7 +119,7 @@
       text-align: center;
       vertical-align: top;
       cursor: pointer;
-      background: #4A4A4A;
+      background: #ffffff;
       position: relative;
       z-index: 100;
     }
