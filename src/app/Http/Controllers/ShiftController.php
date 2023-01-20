@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\CompleteShift;
 use App\Models\StaffShift;
 use App\Models\Comment;
+use App\Models\Shiftdivider;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
@@ -95,6 +96,7 @@ class ShiftController extends Controller
     public function detail()
     {
     }
+
 
     /* シフト閲覧 変えた*/
     public function view()
@@ -259,9 +261,11 @@ class ShiftController extends Controller
         $StaffTimesNext = [];
         $StaffworkdaysNext = [];
         $i = 0;
+        $nextcomshiftjudge = 0;
 
         //社員を配列格納　労働時間と日数計算
         foreach ($completeshiftNext as $compshiftNext) {
+            $nextcomshiftjudge = 1;
             if ($compshiftNext->judge == true) {
                 $empnameNext[] = Employee::where('id', $compshiftNext->emppartid)->value('name');
             } else {
@@ -324,6 +328,19 @@ class ShiftController extends Controller
         }
         // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+        $shift_divicount = 0;
+
+        $shiftdivider = Shiftdivider::where('store_id', $storeid)->get();
+
+        foreach($shiftdivider as $shift_divi) {
+            for($time = 1;$time <= 30; $time++) {
+                $shifttime = 'time'.$time;
+                if($shift_divi->$shifttime != null) {
+                    $shift_divicount++;
+                }
+            }
+        }
+
         $week = ['日', '月', '火', '水', '木', '金', '土'];
 
         return view('new_shiftView', compact(
@@ -345,9 +362,14 @@ class ShiftController extends Controller
             'StaffTimesNext',
             'staffshiftcoverNext',
             'calendarDataNext',
-            'arrayNext'
+            'arrayNext',
+            'nextcomshiftjudge',
+            'shiftdivider',
+            'shift_divicount'
         ));
     }
+
+
 
     /* シフト編集 変える*/
     public function edit()

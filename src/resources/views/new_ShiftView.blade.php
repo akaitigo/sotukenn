@@ -2,10 +2,22 @@
 <link rel="stylesheet" href="/css/tab.css" type="text/css">
 <link rel="stylesheet" href="/css/emp_change.css" type="text/css">
 <link rel="stylesheet" href="/css/shift_edit.css" type="text/css">
+<link rel="stylesheet" href="/css/shiftView.css" type="text/css">
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 <title>シフト閲覧</title>
 @include('new_header')
 <div id="scale">
+    @if($nextcomshiftjudge == 0 && $userId == 0)
+        <?php $nextlastday = $calendarDataNext[0]['lastDay'];?>
+         <div class="mom_scopeday"> 
+            <div class="scopeday">
+                <input class="startdaypull" type="number" id="startdaypull" min="1" max="{{$nextlastday}}" step="1"/> 日～
+                <input class="enddaypull" type="number" id="enddaypull" min="1" max="{{$nextlastday}}" step="1"/> 日
+            </div>
+        </div>
+    @endif
+
+    <!-- カラーボックス -->
     <div class="mom">
         <div class="colorbox_flex">
             <div class="colorbox gusuemprow_name">
@@ -154,33 +166,33 @@
                                             @if ($compshift->emppartid == $userId && $compshift->judge == $empjudge)
                                             <!-- 太線の処理 -->
                                             @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                            <td class="loginrow_border">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="loginrow_border">{{ $StaffTimes[$i] }}</td>
+                                            <td class="loginrow_border">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="loginrow_border">{{ $StaffTimes[$i] }}時間</td>
                                             @else
-                                            <td class="loginrow">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="loginrow">{{ $StaffTimes[$i] }}</td>
+                                            <td class="loginrow">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="loginrow">{{ $StaffTimes[$i] }}時間</td>
                                             @endif
                                             @elseif($rowcolor % 2 == 0)
                                             @if($compshift->judge == false)
                                             <!-- 太線の処理 -->
                                             @if($compshift->emppartid == 1 && $compshift->judge == false)
-                                            <td class="gusupartrow_border">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="gusupartrow_border">{{ $StaffTimes[$i] }}</td>
+                                            <td class="gusupartrow_border">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="gusupartrow_border">{{ $StaffTimes[$i] }}時間</td>
                                             @else
-                                            <td class="gusupartrow">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="gusupartrow">{{ $StaffTimes[$i] }}</td>
+                                            <td class="gusupartrow">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="gusupartrow">{{ $StaffTimes[$i] }}時間</td>
                                             @endif
                                             @else
-                                            <td class="gusuemprow">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="gusuemprow">{{ $StaffTimes[$i] }}</td>
+                                            <td class="gusuemprow">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="gusuemprow">{{ $StaffTimes[$i] }}時間</td>
                                             @endif
                                             @else
                                             @if($compshift->judge == false)
-                                            <td class="kisupartrow">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="kisupartrow">{{ $StaffTimes[$i] }}</td>
+                                            <td class="kisupartrow">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="kisupartrow">{{ $StaffTimes[$i] }}時間</td>
                                             @else
-                                            <td class="kisuemprow">{{ $Staffworkdays[$i] }}</td>
-                                            <td class="kisuemprow">{{ $StaffTimes[$i] }}</td>
+                                            <td class="kisuemprow">{{ $Staffworkdays[$i] }}日</td>
+                                            <td class="kisuemprow">{{ $StaffTimes[$i] }}時間</td>
                                             @endif
                                             @endif
                             </tr>
@@ -204,6 +216,7 @@
                     <caption>{{$calendarDataNext[0]["month"]}} 月</caption>
                 </table>
                 <div class="scrollbox">
+                    @if($nextcomshiftjudge == 1)
                     <table class="compshift_table">
                         <thead class="thead">
                             <th class="thname">&nbsp;名前&nbsp;</th>
@@ -318,33 +331,33 @@
                                             @if ($compshiftNext->emppartid == $userId && $compshiftNext->judge == $empjudge)
                                             <!-- 太線の処理 -->
                                             @if($compshiftNext->emppartid == 1 && $compshiftNext->judge == false)
-                                            <td class="loginrow_border">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="loginrow_border">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="loginrow_border">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="loginrow_border">{{ $StaffTimesNext[$i] }}時間</td>
                                             @else
-                                            <td class="loginrow">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="loginrow">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="loginrow">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="loginrow">{{ $StaffTimesNext[$i] }}時間</td>
                                             @endif
                                             @elseif($rowcolor % 2 == 0)
                                             @if($compshiftNext->judge == false)
                                             <!-- 太線の処理 -->
                                             @if($compshiftNext->emppartid == 1 && $compshiftNext->judge == false)
-                                            <td class="gusupartrow_border">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="gusupartrow_border">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="gusupartrow_border">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="gusupartrow_border">{{ $StaffTimesNext[$i] }}時間</td>
                                             @else
-                                            <td class="gusupartrow">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="gusupartrow">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="gusupartrow">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="gusupartrow">{{ $StaffTimesNext[$i] }}時間</td>
                                             @endif
                                             @else
-                                            <td class="gusuemprow">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="gusuemprow">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="gusuemprow">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="gusuemprow">{{ $StaffTimesNext[$i] }}時間</td>
                                             @endif
                                             @else
                                             @if($compshiftNext->judge == false)
-                                            <td class="kisupartrow">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="kisupartrow">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="kisupartrow">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="kisupartrow">{{ $StaffTimesNext[$i] }}時間</td>
                                             @else
-                                            <td class="kisuemprow">{{ $StaffworkdaysNext[$i] }}</td>
-                                            <td class="kisuemprow">{{ $StaffTimesNext[$i] }}</td>
+                                            <td class="kisuemprow">{{ $StaffworkdaysNext[$i] }}日</td>
+                                            <td class="kisuemprow">{{ $StaffTimesNext[$i] }}時間</td>
                                             @endif
                                             @endif
                             </tr>
@@ -353,6 +366,85 @@
                             @endforeach
                         </tbody>
                     </table>
+                    @elseif($userId == 0)
+
+                    <!-- シフト未完成時の処理（admin） -->
+                    <table class="comshift_not_table">
+                        <thead class="thead">
+                            <th class="thname"></th>
+                            <?php $i = 1;?>
+                            @foreach($shiftdivider as $shift_divi)
+                                @for($i = 1; $i <= $shift_divicount; $i++)
+                                    <?php $time = 'time' . $i;
+                                          $time_minus_btn = 'time' . $i. 'minus';
+                                          $time_plus_btn = 'time' . $i. 'plus';
+                                    ?>
+                                    <th class= "shiftdivider">{{$shift_divi -> $time}}
+                                    <button class="th_minus_btn" id="{{$time_minus_btn}}" onclick="scopeminus({{$i}})">-</button>
+                                    <button class="th_plus_btn" id="{{$time_plus_btn}}" onclick="scopeplus({{$i}})">+</button>
+                                    </th>
+                                @endfor
+                            @endforeach
+                        </thead>
+                        <tbody>
+
+                        <?php $count = $calendarDataNext[0]['day']; ?>
+                            @for ($i = 1; $i <= $calendarDataNext[0]['lastDay']; $i++) <?php
+                                                                                        $timestamp = mktime(0, 0, 0, $calendarDataNext[0]['month'], $i, 2023);
+                                                                                        $date = date('w', $timestamp);
+                                                                                        ?> 
+                                @if($count==0) 
+                                <tr><td class="sunday_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
+                                    @for($time = 1; $time <= $shift_divicount; $time++)
+                                        <?php $ninp = $i . '-' . $time; 
+                                              $nin_colorid = $i . '*' . $time;?>
+                                        <td id="{{$nin_colorid}}">
+                                            <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
+                                        </td>
+                                    @endfor
+                                </tr>
+                                @elseif($count==6)
+                                <tr><td class="saturday_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
+                                    @for($time = 1; $time <= $shift_divicount; $time++)
+                                        <?php $ninp = $i . '-' . $time; 
+                                              $nin_colorid = $i . '*' . $time;?>
+                                        <td id="{{$nin_colorid}}">
+                                            <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
+                                        </td>
+                                    @endfor
+                                </tr>
+                                <?php $count = -1; ?>
+                                @elseif($array[$i]!='-')
+                                <tr><td class="holiday_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
+                                    @for($time = 1; $time <= $shift_divicount; $time++)
+                                        <?php $ninp = $i . '-' . $time; 
+                                              $nin_colorid = $i . '*' . $time;?>
+                                        <td id="{{$nin_colorid}}">
+                                            <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
+                                        </td>
+                                    @endfor
+                                </tr>
+                                @else
+                                <tr><td class="day_view" id="{{$i}}" name="{{$i}}" onclick="scopeday({{$i}},{{$nextlastday}},{{$shift_divicount}})">{{ $i }} 日({{ $week[$count] }})</td>
+                                    @for($time = 1; $time <= $shift_divicount; $time++)
+                                        <?php $ninp = $i . '-' . $time; 
+                                              $nin_colorid = $i . '*' . $time;?>
+                                        <td id="{{$nin_colorid}}">
+                                            <input class="ninp" type="text" name="{{$ninp}}" id="{{$ninp}}" maxLength="2" readonly="readonly"/>
+                                        </td>
+                                    @endfor
+                                </tr>
+                                @endif
+                                <?php $count++; ?>
+                                @endfor
+
+                        </tbody>
+                    </table>
+
+                    @else
+                    <!-- シフト未完成時の処理（employee,parttimer） -->
+                    <p>来月のシフトは未完成です</p>
+                    @endif
                 </div>
                 @if ($userId != 0)
                 {{ $staffshiftcoverNext }}
@@ -362,6 +454,17 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="/js/notice.js"></script>
+
+<script>
+    let json_lastday = @json($nextlastday);
+    let json_timecount = @json($shift_divicount);
+    for(let day = 1; day <= json_lastday; day++){
+        for (let time = 1; time <= json_timecount; time++){
+            let json_ninid = day + "-" + time;
+            document.getElementById(json_ninid).style.visibility ="hidden";
+            document.getElementById(json_ninid).disabled =true;
+        }
+    }
+</script>
 <script type="text/javascript" src="/js/shift_view.js"></script>
 <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
