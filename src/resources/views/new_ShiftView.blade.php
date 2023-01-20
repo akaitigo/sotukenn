@@ -9,7 +9,7 @@
 <div id="scale">
 <?php $nextlastday = $calendarDataNext[0]['lastDay'];?>
     @if($nextcomshiftjudge == 0 && $userId == 0)
-         <div class="mom_scopeday"> 
+         <div class="mom_scopeday" id="mom_scopeday" value="{{$nextcomshiftjudge}}"> 
             <div class="scopeday">
                 <input class="startdaypull" type="number" id="startdaypull" min="1" max="{{$nextlastday}}" oninput="shiftpull({{$nextlastday}},{{$shift_divicount}})" step="1"/> 日～
                 <input class="enddaypull" type="number" id="enddaypull" min="1" max="{{$nextlastday}}" oninput="shiftpull({{$nextlastday}},{{$shift_divicount}})" step="1"/> 日
@@ -18,7 +18,7 @@
     @endif
 
     <!-- カラーボックス -->
-    <div class="mom">
+    <div class="mom" id="mom_colorbox">
         <div class="colorbox_flex">
             <div class="colorbox gusuemprow_name">
             </div>
@@ -458,7 +458,7 @@
             </div>
         </div>
         @if($nextcomshiftjudge == 0 && $userId == 0)
-            <button id="createshifr_btn" type="submit" name="updateId" class="updateButton">シフトを作成</button>
+            <button id="createshifr_btn" type="submit" name="updateId" class="shiftcreate_btn">シフトを作成</button>
         @endif
         </form>
         @if ($userId != 0)
@@ -475,6 +475,8 @@
         let json_timecount = @json($shift_divicount);
         document.getElementById("startdaypull").style.background = "rgba(218, 249, 255)";
         document.getElementById("enddaypull").style.background = "rgba(218, 249, 255)";
+        document.getElementById("mom_scopeday").style.visibility ="hidden";
+        document.getElementById("createshifr_btn").style.visibility ="hidden";
         for(let day = 1; day <= json_lastday; day++){
             for (let time = 1; time <= json_timecount; time++){
                 let json_ninid = day + "-" + time;

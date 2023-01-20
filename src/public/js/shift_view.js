@@ -11,14 +11,22 @@ $(document).ready(function () {
 		$(".widget3").hide();
 		$(".widget:first").before(newWidget);
 		$(".widget > div").each(function () {
-			$(".tab-wrapper").append("<li class='tab'>" + this.id + "</li>");
+			$(".tab-wrapper").append("<li class='tab' onclick='tabchange()'>" + this.id + "</li>");
 			$(this).appendTo(".new-widget",);
+	
 		});
 		$(".tab").click(function () {
 			$(".new-widget > div").hide();
 			$('#' + $(this).text()).show();
 			$(".tab").removeClass("active-tab");
 			$(this).addClass("active-tab");
+			document.getElementById("mom_scopeday").style.visibility ="visible";
+			document.getElementById("createshifr_btn").style.visibility ="visible";
+			if(document.getElementById("mom_colorbox").value == 0) {
+				document.getElementById("mom_colorbox").style.visibility ="visible";
+			}else {
+				document.getElementById("mom_colorbox").style.visibility ="hidden";
+			}
 		});
 		$(".tab:first").click();
 	} else {
@@ -38,6 +46,12 @@ $(document).ready(function () {
 		$(".tab").click();
 	}
 });
+
+function tabchange() {
+	document.getElementById("mom_scopeday").style.visibility ="hidden";
+	document.getElementById("createshifr_btn").style.visibility ="hidden";
+	document.getElementById("mom_colorbox").style.visibility ="visible";
+}
 
 // 日にち選択プルダウン
 function shiftpull(maxday,maxtime) {
