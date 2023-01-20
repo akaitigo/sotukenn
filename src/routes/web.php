@@ -43,10 +43,7 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('emp_shift_add');
-});
-Route::post('/title', function () {
-    return view('emp_shift_add');
+    return view('title');
 });
 
 Route::get('/emp_calendar', function () {
@@ -91,7 +88,7 @@ Route::middleware('auth:admin')->group(function () {
     // Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
 });
 //adminかemployeeしか使えないroute
-Route::middleware('auth:employee,admin')->group(function  ()  {
+Route::middleware('auth:employee,admin')->group(function () {
     Route::get('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
     Route::get('/emp_informationShareRegister',  [App\Http\Controllers\emp_informationShareController::class, 'informationShareRegister'])->name('emp_informationShare-register');
@@ -106,6 +103,7 @@ Route::middleware('auth:employee,admin,parttimer')->group(function  ()  {
     Route::get('/download/{year}/pdf/{month}', [App\Http\Controllers\OutputController::class, 'downloadpdf'])->name('downloadpdf');    
     Route::get('/download/{year}/image/{month}', [App\Http\Controllers\OutputController::class, 'downloadimage'])->name('downloadimage');    
     
+    Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
@@ -155,7 +153,7 @@ Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegis
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //メニューバー(header)
-Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar'); 
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar');
 Route::get('/test_calendar', [App\Http\Controllers\CalendarController::class, 'test'])->name('test_calendar');                                   //カレンダー
 
 // Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理

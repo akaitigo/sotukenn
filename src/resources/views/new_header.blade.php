@@ -6,7 +6,7 @@ use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
 ?>
-<div class="header">
+<div class="new_header">
     <a class="brand">M&nbsp;A&nbsp;R&nbsp;U&nbsp;O&nbsp;K&nbsp;U&nbsp;N</a>
     @include('setting')
 </div>

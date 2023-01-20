@@ -21,8 +21,8 @@ class AdminSeeder extends Seeder
         DB::table('admins')->insert([
             'id'=>'1',
             'store_id'=>'1',
-            'password'=>Hash::make('11111111'),
-            'email'=>'11@gmail.com',
+            'password'=>Hash::make('testtest'),
+            'email'=>'admin1@gmail.com',
             "created_at" =>  Carbon::now(),
             "updated_at" =>  Carbon::now(),
         ]);
@@ -30,8 +30,8 @@ class AdminSeeder extends Seeder
         DB::table('admins')->insert([
             'id'=>'2',
             'store_id'=>'2',
-            'password'=>Hash::make('22222222'),
-            'email'=>'22@gmail.com',
+            'password'=>Hash::make('testtest'),
+            'email'=>'admin2@gmail.com',
             "created_at" =>  Carbon::now(),
             "updated_at" =>  Carbon::now(),
         ]);
@@ -39,8 +39,8 @@ class AdminSeeder extends Seeder
         DB::table('admins')->insert([
             'id'=>'3',
             'store_id'=>'3',
-            'password'=>Hash::make('33333333'),
-            'email'=>'33@gmail.com',
+            'password'=>Hash::make('testtest'),
+            'email'=>'admin3@gmail.com',
             "created_at" =>  Carbon::now(),
             "updated_at" =>  Carbon::now(),
         ]);

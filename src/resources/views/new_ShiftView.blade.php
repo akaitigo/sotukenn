@@ -1,28 +1,31 @@
 <link rel="stylesheet" href="/css/scale.css" type="text/css">
 <link rel="stylesheet" href="/css/tab.css" type="text/css">
 <link rel="stylesheet" href="/css/emp_change.css" type="text/css">
+<link rel="stylesheet" href="/css/shift_edit.css" type="text/css">
 <link rel="stylesheet" href="/css/employeeManagement.css" type="text/css">
 <title>シフト閲覧</title>
 @include('new_header')
 <div id="scale">
-    <div class="colorbox_flex">
-        <div class="colorbox gusuemprow_name">
+    <div class="mom">
+        <div class="colorbox_flex">
+            <div class="colorbox gusuemprow_name">
+            </div>
+            <div class="colorbox_text">
+                従業員
+            </div>
+            <div class="colorbox gusupartrow" id="makeImg">
+            </div>
+            <div class="colorbox_text">
+                アルバイト
+            </div>
+            @if ($userId != 0)
+            <div class="colorbox loginrow_name" id="makeImg">
+            </div>
+            <div class="colorbox_text">
+                ログイン中
+            </div>
+            @endif
         </div>
-        <div class="colorbox_text">
-            従業員
-        </div>
-        <div class="colorbox gusupartrow" id="makeImg">
-        </div>
-        <div class="colorbox_text">
-            アルバイト
-        </div>
-        @if ($userId != 0)
-        <div class="colorbox loginrow_name" id="makeImg">
-        </div>
-        <div class="colorbox_text">
-            ログイン中
-        </div>
-        @endif
     </div>
     <div id='container'>
         <?php

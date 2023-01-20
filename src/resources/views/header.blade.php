@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="/css/header.css" type="text/css">
 <?php
+
 use App\Models\admin;
 use App\Models\Store;
 use App\Models\Employee;
@@ -32,12 +33,9 @@ use App\Models\Parttimer;
                     <a class="nav-link"><span>シフト表の操作&nbsp;∇</span></a>
                     <nav class="submenu">
                         <ul class="submenu-items">
-                            <li class="submenu-item"><a href="{{ route('shiftCreateMenu') }}"
-                                    class="submenu-link">シフト作成</a></li>
-                            <li class="submenu-item"><a href="{{ route('shiftCreate') }}"
-                                    class="submenu-link">自動シフト作成</a></li>
-                            <li class="submenu-item"><a href="{{ route('candidacyView') }}"
-                                    class="submenu-link">候補シフト表示</a></li>
+
+                            <li class="submenu-item"><a href="{{ route('shiftCreate') }}" class="submenu-link">自動シフト作成</a></li>
+                            <li class="submenu-item"><a href="{{ route('candidacyView') }}" class="submenu-link">候補シフト表示</a></li>
                             <li class="submenu-item">
                                 <hr class="submenu-seperator" />
                             </li>
@@ -59,26 +57,25 @@ use App\Models\Parttimer;
                 <li class="nav-item dropdown">
                     <a class="nav-link"><span>
                             @if (Auth::guard('admin')->check())
-                                <?php $adminid = Auth::guard('admin')->id();
-                                $storeid = admin::where('id', $adminid)->value('store_id');
-                                echo Store::where('id', $storeid)->value('store_name');
-                                ?>
+                            <?php $adminid = Auth::guard('admin')->id();
+                            $storeid = admin::where('id', $adminid)->value('store_id');
+                            echo Store::where('id', $storeid)->value('store_name');
+                            ?>
                             @elseif(Auth::guard('employee')->check())
-                                <?php $empid = Auth::guard('employee')->id();
-                                echo Employee::where('id', $empid)->value('name');
-                                ?>
+                            <?php $empid = Auth::guard('employee')->id();
+                            echo Employee::where('id', $empid)->value('name');
+                            ?>
                             @elseif(Auth::guard('parttimer')->check())
-                                <?php $partid = Auth::guard('parttimer')->id();
-                                echo Parttimer::where('id', $partid)->value('name');
-                                ?>
+                            <?php $partid = Auth::guard('parttimer')->id();
+                            echo Parttimer::where('id', $partid)->value('name');
+                            ?>
                             @endif
                             &nbsp;∇
                         </span></a>
                     <nav class="submenu">
                         <ul class="submenu-items">
                             <li class="submenu-item">
-                                <a class="submenu-link" href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
+                                <a class="submenu-link" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     ログアウト
                                 </a>
