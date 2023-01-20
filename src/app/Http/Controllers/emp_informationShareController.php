@@ -82,7 +82,7 @@ class emp_informationShareController extends Controller
             if ($emp->store_id == $userStore) {
                 $textMessageBuilder = new TextMessageBuilder("新規の掲示が登録されました。\n確認をお願いします");
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
-                $textMessageBuilder = new TextMessageBuilder("掲示名：" . $inputShareContent . "\n掲示内容：" . $inputText . "\n\n登録者：" . $emp->name);
+                $textMessageBuilder = new TextMessageBuilder("ーーーーーーーーーー\n掲示名：" . $inputShareContent . "\nーーーーーーーーーー\n掲示内容：" . $inputText . "\nーーーーーーーーーー\n登録者：" . $emp->name. "\nーーーーーーーーーー");
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
             }
         }

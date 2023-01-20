@@ -1,0 +1,75 @@
+.month_table caption {
+  background:#0084e0;
+  color: #fff;
+  padding: 4px;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.calendar_table {
+    border-top: 1px solid #ddd;	
+    width: 3000px;
+    height: auto;
+    border:1px solid #ddd;
+/* 	  border-top: none;	 */
+    border-collapse:separate;
+    padding:0;
+    text-align: center;
+    }
+    .calendar_table th {
+    /* 	border:1px solid #ddd;
+    border-top: none; */
+    padding: 10px 5px;
+    font-weight: normal;
+    font-weight: bold;
+    }
+    .calendar_table td {
+    /* 	border:1px solid #ddd; */
+        padding:10px 2px;
+    }
+
+
+.calendar_table th, .calendar_table td {
+  border-right: 1px solid #ddd;
+}
+
+.calendar_table th:last-child, .calendar_table td:last-child {
+  border-right: none;
+}
+
+.calendar_table tr:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+#morning .calendar_table td:nth-child(3) {
+  background: #fff;
+}
+
+.calendar_table td.align-bottom {
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.calendar_table td.align-top {
+  vertical-align: top;
+  padding: 0;  
+}
+
+#morning .calendar_table td:nth-child(3), #afternoon .calendar_table td:nth-child(3), #evening .calendar_table td:nth-child(3) {
+  background: #fff;
+} 
+
+.scrollbox {
+  width: auto;                
+  height: 68%;               
+  border: 1px solid #000;      /* 枠にボーダーを引く */
+  overflow: scroll;          /* 縦横方向にスクロール可能にする */
+}
+
+.thead, th {
+position: -webkit-sticky;
+position: sticky;
+top: 0;
+z-index: 3;
+border-bottom: 1px solid #000;      /* 枠にボーダーを引く */
+}

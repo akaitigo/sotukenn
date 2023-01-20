@@ -10,6 +10,9 @@ use App\Models\Job;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
+use function PHPUnit\Framework\isNan;
+use function PHPUnit\Framework\isNull;
+
 class EmployeeController extends Controller
 {
 
@@ -84,6 +87,7 @@ class EmployeeController extends Controller
         $allJob = Job::get();
         $jobcheck[0] = 0;
         $jobCount = 1;
+
         foreach ($employees as $emp) {
             // $decrypted = Crypt::decryptString($emp->password); //empパスワードの復元
             // $emp->password = $decrypted;
@@ -213,6 +217,12 @@ class EmployeeController extends Controller
         $updateUser = Employee::where('id', '=', $getId)->get();
         $alljobCheck = 3; //3の場合すべてのジョブが登録されていない
         $jobCount = 1;
+
+
+
+
+
+
         foreach ($updateUser as $remp) {
             if (!(is_null($inputName))) {
                 $changeConfirmName = $inputName;
@@ -234,6 +244,18 @@ class EmployeeController extends Controller
                 $changeConfirmAge = $inputAge;
                 $remp->age = $changeConfirmAge;
             }
+
+            if (!(is_null($request->input('newMaxTime')))) {
+                $remp->monthmaxworktime =$request->input('newMaxTime');
+            }else{
+                $remp->monthmaxworktime = -1;
+            }
+            if (!(is_null($request->input('newMinTime')))) {
+                $remp->monthminworktime = $request->input('newMinTime');
+            } else {
+                $remp->monthminworktime = -1;
+            }
+
             $remp->save();
         }
         foreach ($updateUser as $up) {

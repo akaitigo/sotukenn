@@ -3,8 +3,8 @@
 @include('new_header')
 
 <body>
-<div id=slide>
-<button class="backButton" onclick="history.back()">戻　る</button>
+    <div id=slide>
+        <button class="backButton" onclick="history.back()">戻　る</button>
 
         <a href="{{ route('employeesManagementPassView') }}" class="detailButton">詳細閲覧・変更・個別通知</a>
         @if(!($employees->isEmpty()))
@@ -15,11 +15,14 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>email</th>
-                    <th>name</th>
-                    <th>age</th>
-                    <th>weight</th>
-                    <th>position</th>
+                    <th>名前</th>
+                    <th>メール</th>
+                    <th>年齢</th>
+                    <th>重み</th>
+                    <th>ポジション</th>
+                    <th>最大労働時間</th>
+                    <th>最低労働時間</th>
+                    <th>パスワード</th>
                 </tr>
             </thead>
 
@@ -36,6 +39,20 @@
                         {{$job->name}}
 
                         @endforeach
+                    </td>
+
+
+                    <td>@if({{$emp->monthmaxworktime}}==-1)
+                        設定なし
+                        @elseif
+                        {{$emp->monthmaxworktime}}
+                        @endif
+                    </td>
+                    <td>@if({{$emp->monthminworktime}}==-1)
+                        設定なし
+                        @elseif
+                        {{$emp->monthminworktime}}
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -73,29 +90,15 @@
 
                         @endforeach
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>
         </table>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+        <br />
+        <br />
+        <br />
+        <br />
         @endif
-</div>
+    </div>
 </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

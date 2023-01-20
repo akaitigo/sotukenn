@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\Store;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('test_calendar');
+    return view('title');
 });
 
 Route::get('/emp_calendar', function () {
@@ -87,14 +88,22 @@ Route::middleware('auth:admin')->group(function () {
     // Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')->name('loginCheck');
 });
 //adminかemployeeしか使えないroute
-Route::middleware('auth:employee,admin')->group(function  ()  {
+Route::middleware('auth:employee,admin')->group(function () {
     Route::get('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'showParttimerRegisterForm'])->name('parttimer.register');
     Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
     Route::get('/emp_informationShareRegister',  [App\Http\Controllers\emp_informationShareController::class, 'informationShareRegister'])->name('emp_informationShare-register');
     Route::post('/emp_informationShareRegisterInput',  [App\Http\Controllers\emp_informationShareController::class, 'informationSave'])->name('emp_informationRegisterInput');
     Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');    
-
-
+});
+//ログインしないと使えない
+Route::middleware('auth:employee,admin,parttimer')->group(function  ()  {
+    Route::redirect('/output', '/output/'.Carbon::now()->year.'/'.Carbon::now()->month);
+    Route::get('/output/{year}/{month}', [App\Http\Controllers\OutputController::class, 'outputpage'])->name('output');    
+    Route::get('/download/{year}/csv/{month}', [App\Http\Controllers\OutputController::class, 'downloadcsv'])->name('downloadcsv');    
+    Route::get('/download/{year}/pdf/{month}', [App\Http\Controllers\OutputController::class, 'downloadpdf'])->name('downloadpdf');    
+    Route::get('/download/{year}/image/{month}', [App\Http\Controllers\OutputController::class, 'downloadimage'])->name('downloadimage');    
+    
+    Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
 
@@ -127,6 +136,7 @@ Route::prefix('parttimer')->name('parttimer.')->group(function () {
     // Route::get('password/reset/{token}', [App\Http\Controllers\Auth\ParttimerResetPasswordController::class, 'showResetForm'])->name('parttimer.password.reset');
     // Route::post('password/reset', [App\Http\Controllers\Auth\ParttimerResetPasswordController::class, 'reset'])->name('parttimer.password.update');
 });
+
 Route::get('login', [App\Http\Controllers\RedirectController::class, 'toLogin']);
 Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegister']);
 
@@ -143,7 +153,7 @@ Route::get('register', [App\Http\Controllers\RedirectController::class, 'toRegis
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //メニューバー(header)
-Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar'); 
+Route::get('/calendar', [App\Http\Controllers\CalendarController::class, 'foovar'])->name('calendar');
 Route::get('/test_calendar', [App\Http\Controllers\CalendarController::class, 'test'])->name('test_calendar');                                   //カレンダー
 
 // Route::get('/employeesManagementPassView', [App\Http\Controllers\EmployeeController::class, 'empPasswordView'])->name('employeesManagementPassView');  //従業員管理パスワード表示・管理

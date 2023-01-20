@@ -3,3 +3,4 @@
 !shift_csv/
 !.gitignore
 /api-key
+!shift
