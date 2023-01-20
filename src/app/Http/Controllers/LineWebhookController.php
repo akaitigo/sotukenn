@@ -95,6 +95,7 @@ class LineWebhookController extends Controller
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
                 $now = Carbon::now()->format('d');
                 $count = $now;
+
                 $countDays = 0;
                 foreach ($employeeNullCheck as $emp) {
                     $userId = $emp->id;
@@ -134,6 +135,9 @@ class LineWebhookController extends Controller
                 $text = "";
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 foreach ($employeeNullCheck as $emp) {
                     $userId = $emp->id;
                     $shift = CompleteShift::where('emppartid', '=', $userId)->where('judge', '=', true)->get();
@@ -168,12 +172,15 @@ class LineWebhookController extends Controller
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
                 $nullDay = 0;
+                $days = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 $day = 0;
                 $now = Carbon::now()->format('m');
                 foreach ($employeeNullCheck as $emp) {
 
                     $userId = $emp->id;
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
 
                     $nullCheck = false; //null
                     foreach ($shift as $shi) {
@@ -200,7 +207,7 @@ class LineWebhookController extends Controller
                             'emppartid' => $emp->id,
                             'store_id' => $emp->store_id,
                             'judge' => true,
-                            'month' => $now,
+                            'month' => $month,
                         ]);
                         $day = 1;
                     }
@@ -253,7 +260,7 @@ class LineWebhookController extends Controller
                         $result = curl_exec($ch);
                         curl_close($ch);
                     } else { //登録されている
-                        $text = $now . "月" . $day . "日のシフトの提出ですね！";
+                        $text = $month . "月" . $day . "日のシフトの提出ですね！";
                         $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($text);
                         $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);                        //JSONデータを取得
 
@@ -303,10 +310,13 @@ class LineWebhookController extends Controller
                 $nullDay = 0;
                 $day = 0;
                 $now = Carbon::now()->format('m');
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 foreach ($employeeNullCheck as $emp) {
 
                     $userId = $emp->id;
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -327,15 +337,18 @@ class LineWebhookController extends Controller
                             $shi->$daysTemp = 1;
                             $shi->timestamps = false;
                             $shi->save();
-                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift1 . "で登録しました。");
+                            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift1 . "で登録しました！！！");
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
                         } else {
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出が終了しました!ありがとございました！");
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                         }
                     } //一回目
-
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $now = Carbon::now()->format('d');
+                    $data = new Carbon('+1 month');
+                    $month = $data->month;
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -404,10 +417,13 @@ class LineWebhookController extends Controller
                 $day = 0;
                 $inputTime = substr($inputText, 1,);
                 $now = Carbon::now()->format('m');
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 foreach ($employeeNullCheck as $emp) {
 
                     $userId = $emp->id;
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -430,13 +446,14 @@ class LineWebhookController extends Controller
                             $shi->save();
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($inputTime . "で登録しました。");
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
                         } else {
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出が終了しました");
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                         }
                     } //一回目
 
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -504,10 +521,13 @@ class LineWebhookController extends Controller
                 $nullDay = 0;
                 $day = 0;
                 $now = Carbon::now()->format('m');
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 foreach ($employeeNullCheck as $emp) {
 
                     $userId = $emp->id;
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -530,13 +550,14 @@ class LineWebhookController extends Controller
                             $shi->save();
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift2 . "で登録しました。");
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
                         } else {
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出が終了しました");
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                         }
                     } //一回目
 
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -603,11 +624,14 @@ class LineWebhookController extends Controller
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
                 $nullDay = 0;
                 $day = 0;
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 $now = Carbon::now()->format('m');
                 foreach ($employeeNullCheck as $emp) {
 
                     $userId = $emp->id;
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -636,7 +660,7 @@ class LineWebhookController extends Controller
                         }
                     } //一回目
 
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         $registerCheck = false;
@@ -787,7 +811,7 @@ class LineWebhookController extends Controller
                         $emp->favoriteShhift2 = $inputTime;
                         $emp->save();
                         $text = $inputTime;
-                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift2);
+                        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->favoriteShhift2 . "でお気に入り登録しました！");
                         $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                     }
 
@@ -1294,9 +1318,10 @@ class LineWebhookController extends Controller
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
                 $inputDay = substr($inputText, 1,);
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 $inputDay = mb_strstr($inputDay, '日', true);
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($inputDay);
-                $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 foreach ($employeeNullCheck as $emp) {
 
                     $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
@@ -1341,15 +1366,18 @@ class LineWebhookController extends Controller
                         $quick_reply_buttons[] = $quick_reply_button_builder;
                     }
                     $quick_reply_message_builder = new QuickReplyMessageBuilder($quick_reply_buttons);
-                    $text_message_builder = new TextMessageBuilder($inputDay . '日の編集ですね！希望する時間を下の選択肢から選択をしてください' . "\n選択肢にない場合は、先頭文字に%を入力しハイフン区切りで送信してください。\n例）%10-15", $quick_reply_message_builder);
+                    $text_message_builder = new TextMessageBuilder($month . "月" . $inputDay . '日の編集ですね！希望する時間を下の選択肢から選択をしてください' . "\n選択肢にない場合は、先頭文字に%を入力しハイフン区切りで送信してください。\n例）%10-15", $quick_reply_message_builder);
                     $bot->replyMessage($reply_token, $text_message_builder);
                 }
             } else if (strpos($inputText, '!') !== false) {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
 
                 foreach ($employeeNullCheck as $emp) {
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
                         for ($i = 0; $i <= 31; $i++) {
                             $editFlagCheck = 'editFlag' . $i;
@@ -1375,6 +1403,7 @@ class LineWebhookController extends Controller
                             $shi->save();
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($i . '日のシフトを勤務不可能で更新しました！');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
                         } else {
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('正しく処理が行われていないようです！もう一度最初から操作をお願いします！');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
@@ -1384,9 +1413,12 @@ class LineWebhookController extends Controller
             } else if (strpos($inputText, '?') !== false) {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
 
                 foreach ($employeeNullCheck as $emp) {
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
                         for ($i = 0; $i <= 31; $i++) {
                             $editFlagCheck = 'editFlag' . $i;
@@ -1412,6 +1444,7 @@ class LineWebhookController extends Controller
                             $shi->save();
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($i . '日のシフトを' . $emp->favoriteShhift1 . 'で更新しました！');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
                         } else {
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('正しく処理が行われていないようです！もう一度最初から操作をお願いします！');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
@@ -1422,9 +1455,12 @@ class LineWebhookController extends Controller
                 $editflagCheckBool = false;
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
 
                 foreach ($employeeNullCheck as $emp) {
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     foreach ($shift as $shi) {
 
                         for ($i = 0; $i <= 31; $i++) {
@@ -1452,6 +1488,7 @@ class LineWebhookController extends Controller
                             $shi->save();
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($i . '日のシフトを' . $emp->favoriteShhift2 . 'で更新しました！');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
+                            break;
                         } else {
                             $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('正しく処理が行われていないようです！もう一度最初から操作をお願いします！');
                             $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
@@ -1461,10 +1498,13 @@ class LineWebhookController extends Controller
             } else if ($inputText === '提出したシフトの確認') {
                 $employeeNullCheck = Employee::where('lineUserId', '=', $event['source']['userId'])->get();
                 $partNullCheck = Parttimer::where('lineUserId', '=', $event['source']['userId'])->get();
+                $now = Carbon::now()->format('d');
+                $data = new Carbon('+1 month');
+                $month = $data->month;
                 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("提出シフトの確認ですね！提出したシフトを一覧で送信します！");
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
                 foreach ($employeeNullCheck as $emp) {
-                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->get();
+                    $shift = StaffShift::where('emppartid', '=', $emp->id)->where('judge', '=', true)->where('month', $month)->get();
                     $shiftText = "";
                     foreach ($shift as $shi) {
                         for ($i = 0; $i <= 31; $i++) {
@@ -1531,11 +1571,10 @@ class LineWebhookController extends Controller
                             }
                         }
                     }
-
                 }
 
 
-                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name.'さんのシフト希望率は'.$staffshiftcover.'％です!！！');
+                $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($emp->name . 'さんのシフト希望率は' . $staffshiftcover . '％です!！！');
                 $response = $bot->pushMessage($event['source']['userId'], $textMessageBuilder);
             }
         }
