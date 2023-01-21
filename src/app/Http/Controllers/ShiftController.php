@@ -808,7 +808,44 @@ class ShiftController extends Controller
         // コメント情報のすべて まだテーブルできてない
         // $privatestaffcomment = StaffComment::where('emppartid',$loginid)->where('judge',$judge)->get();
 
-        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year'));
+
+        // シフト網羅率
+        $staffshiftcompleteworkday = 0;
+        $staffshiftworkday = 0;
+        (int)$staffshiftcover = 0;
+
+        $staff_completeshift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $private_staffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+
+        foreach ($staff_completeshift as $staffcompshift) {
+            for ($day = 1; $day <= $last_data; $day++) {
+                $hentai = "day" . $day;
+                if ($staffcompshift->$hentai != "×" && $staffcompshift->$hentai != "-") {
+                    $staffshiftcompleteworkday++;
+                }
+            }
+        }
+
+        foreach ($private_staffshift as $staffshift) {
+            for ($day = 1; $day <= $last_data; $day++) {
+                $hentai = "day" . $day;
+                if ($staffshift->$hentai != "-1") {
+                    $staffshiftworkday++;
+                }
+            }
+        }
+
+            if ($staffshiftcompleteworkday == 0 || $staffshiftworkday == 0) {
+                $staffshiftcover = 0;
+            } else {
+                (int)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) * 100;
+                $staffshiftcover = round($staffshiftcover, 0);
+                if ($staffshiftcover >= 100) {
+                    $staffshiftcover = 100;
+                }
+            }
+
+        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year','staffshiftcover'));
     }
 
 

@@ -211,7 +211,7 @@ $json_comment_day = json_encode($day_comment);
                 </form>
             </div>
             <div class="dialog" id="dialog3">
-                <h2 class="dialog-header">希望達成率は</h2>
+                <h2 class="dialog-header">希望達成率は{{ $staffshiftcover }}</h2>
                 <form class="form" id="form">
                     <div class="form-container" align="center">
                         <label class="form-label" id="valueFromMyButton" for="count">コメント</label>
