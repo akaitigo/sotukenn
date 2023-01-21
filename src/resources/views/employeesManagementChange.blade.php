@@ -136,28 +136,10 @@
                                     @endforeach
                                 </td>
 
+   
 
-
-                                <td> <input type="checkbox" value="活性/非活性" onclick="clickBtn1()">
-                                    <input type="text" id="b1" value="">
-
-                                    <script>
-                                        function clickBtn1() {
-
-                                            if (document.getElementById("b1").disabled === true) {
-                                                // disabled属性を削除
-                                                document.getElementById("b1").removeAttribute("disabled");
-                                                document.getElementById("b1").style.color = "black";
-                                            } else {
-                                                // disabled属性を設定
-                                                document.getElementById("b1").setAttribute("disabled", true);
-                                                document.getElementById("b1").style.color = "White";
-                                            }
-                                        }
-                                    </script>
-                                </td>
-                                <td> <input type="checkbox" value="活性/非活性" onclick="clickBtn1()">
-                                    <input type="text" id="b1" value="">
+                                <td> <label for=''>設定なし<input type="checkbox" value="-1" name='noMax' onclick="clickBtn1()"></label>
+                                    <input type="number" max="500" min="1" id="b1" name="newMaxTime" placeholder="例）300">
 
                                     <script>
                                         function clickBtn1() {
@@ -174,6 +156,29 @@
                                         }
                                     </script>
                                 </td>
+
+                                    <td> <label for=''>設定なし</label><input type="checkbox" value="-1" name='noMin' onclick="clickBtn2()">
+                                    <input type="number" max="500" min="1" id="b2" name='newMinTime' placeholder="例）200">
+
+                                    <script>
+                                        function clickBtn2() {
+
+                                            if (document.getElementById("b2").disabled === true) {
+                                                // disabled属性を削除
+                                                document.getElementById("b2").removeAttribute("disabled");
+                                                document.getElementById("b2").style.color = "black";
+
+                                            } else {
+                                                // disabled属性を設定
+                                                document.getElementById("b2").setAttribute("disabled", true);
+                                                document.getElementById("b2").style.color = "White";
+
+                                            }
+                                        }
+                                    </script>
+                                </td>
+
+
 
                                 <td><input type="text" name="newPartPass" placeholder="password"></td>
 
