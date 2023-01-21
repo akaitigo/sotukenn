@@ -226,6 +226,14 @@
   background: #1fc20ebd;
 }
 
+#cover-button {
+  display: block;
+  position: absolute;
+  left: 10px;
+  bottom: 80px;
+  background: #ff8400bd;
+}
+
 #add-button:hover,
 #delete-button:hover,
 #ok-button:hover,

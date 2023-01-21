@@ -165,6 +165,7 @@ $json_comment_day = json_encode($day_comment);
                     <button class="button" id="add-button">登録・更新</button>
                     <button class="button" id="delete-button">予定の削除</button>
                     <button class="button" id="comment-button">コメント</button>
+                    <button class="button" id="cover-button">達成率</button>
                 </div>
             </div>
             <form action="{{ route('emp') }}" method="post">
@@ -218,8 +219,7 @@ $json_comment_day = json_encode($day_comment);
                         <datalist id="data-list">
                             {{-- お気に入り --}}
                         </datalist>
-                        <input type="button" value="Cancel" class="button" id="cancel-button2">
-                        <input type="button" value="OK" class="button" id="ok-button2">
+                        <input type="button" value="Cancel" class="button" id="cancel-button3">
                     </div>
                 </form>
             </div>

@@ -113,6 +113,7 @@ $(document).ready(function () {
   $("#add-button").click({ date: date }, new_event);
   $("#delete-button").click({ date: date }, delete_event);
   $("#comment-button").click({ date: date }, comment_event);
+  $("#cover-button").click({ date: date }, cover_event);
 
 });
 
@@ -381,6 +382,7 @@ function month_click(event) {
   $(".events-container").show(250);
   $("#dialog").hide(250);
   $("#dialog2").hide(250);
+  $("#dialog3").hide(250);
   var date = event.data.date;
   $(".active-month").removeClass("active-month");
   $(this).addClass("active-month");
@@ -393,6 +395,7 @@ function month_click(event) {
 function next_year(event) {
   $("#dialog").hide(250);
   $("#dialog2").hide(250);
+  $("#dialog3").hide(250);
   var date = event.data.date;
   var new_year = date.getFullYear() + 1;
   $("year").html(new_year);
@@ -404,6 +407,7 @@ function next_year(event) {
 function prev_year(event) {
   $("#dialog").hide(250);
   $("#dialog2").hide(250);
+  $("#dialog3").hide(250);
   var date = event.data.date;
   var new_year = date.getFullYear() - 1;
   $("year").html(new_year);
@@ -507,6 +511,23 @@ function comment_event(event) {
     comment_event_json(comment, date, day, button);
     date.setDate(day);
     init_calendar(date);
+  });
+}
+
+function cover_event(event) {
+  // remove red error input on click
+  $("input").click(function () {
+    $(this).removeClass("error-input");
+  })
+  // empty inputs and hide events
+  $("#dialog2 input[type=text]").val('');
+  $(".events-container").hide(250);
+  $("#dialog3").show(250);
+  // Event handler for cancel button
+  $("#cancel-button3").click(function () {
+    $("#comment").removeClass("error-input");
+    $("#dialog3").hide(250);
+    $(".events-container").show(250);
   });
 }
 
