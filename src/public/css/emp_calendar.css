@@ -66,6 +66,7 @@ body {
   top: 50%;
   margin-top: -7.5px;
   cursor: pointer;
+  display: none;
 }
 
 .left {

@@ -28,7 +28,7 @@ use App\Models\Parttimer;
             <div class="panel">
                 <ul>
                     <li><a href="{{ route('emp_calendar_show') }}">カレンダー</a></li>
-                    <li><a href="{{route('shift_show')}}">シフト提出</a></li>
+                    <li><a href="{{route('shift_show')}}">シフト提出・閲覧</a></li>
                     <li><a href="{{ route('emp_informationShare') }}">情報共有掲示板</a></li>
                     <li><a herf="{{ route('logout') }}"
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
