@@ -237,6 +237,9 @@ section h2 span {
 		display: inline-block;
 		padding-right: 10px;
 	}
+	#sns br{
+		display: none;
+	}
 
 	#sns a:hover img{
 		opacity: .8;

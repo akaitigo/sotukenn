@@ -75,7 +75,7 @@ $json_comment_day = json_encode($day_comment);
         for ($i = 1; $i <= $next_last_data; $i++) {
             $nowday = 'day' . $i;
             $today_shift = $prv_shift_next->$nowday;
-            if ($today_shift != '×' && $today_shift != '-') {
+            if ($today_shift != '×' && $today_shift != '-' && $today_shift != -1 ) {
                 (int) ($num1_next = strpos($prv_shift_next->$nowday, '-'));
                 (float) ($in_next = (float) substr($prv_shift_next->$nowday, 0, $num1_next));
                 (float) ($out_next = (float) substr($prv_shift_next->$nowday, $num1_next + 1));
