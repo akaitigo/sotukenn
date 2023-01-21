@@ -46,12 +46,6 @@ Route::get('/title', function () {
     return view('title');
 });
 
-Route::get('/emp_calendar', function () {
-    return view('emp_calendar');
-})->name('emp_calendar');
-
-
-
 Route::get('home', function () {
     return view('header');
 })->name('home');
@@ -202,3 +196,4 @@ Route::get('settingselect', "App\Http\Controllers\SettingController@select")->na
 Route::post('/emp', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
 
 Route::get('emp_shift_add', "App\Http\Controllers\ShiftController@shift_show")->name('shift_show');
+Route::get('/emp_calendar_show', [App\Http\Controllers\CalendarController::class, 'emp_foovar'])->name('emp_calendar_show'); 

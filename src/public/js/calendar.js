@@ -48,7 +48,7 @@
       this.el.appendChild(this.header);
     }
 
-    this.title.innerHTML = this.current.format('MMMM YYYY');
+    this.title.innerHTML = this.current.format('1月 YYYY');
   }
 
   Calendar.prototype.drawMonth = function () {
@@ -60,13 +60,13 @@
       all_day[i] = this.events[i + count];
       all_day[i] = all_day[i]['eventName'];
     }
-    for(var i = 0; i < count; i++){
-      all_day[i+count] = 32;
+    for (var i = 0; i < count; i++) {
+      all_day[i + count] = 32;
     }
     console.log(all_day);
     this.events.forEach(function (ev) {
-        ev.date = self.current.clone().date(all_day[day_count]);
-        day_count += 1;
+      ev.date = self.current.clone().date(all_day[day_count]);
+      day_count += 1;
     });
 
 
@@ -145,8 +145,25 @@
     });
 
     //Day Name
-    var name = createElement('div', 'day-name', day.format('ddd'));
-
+    console.log(day.format('ddd'));
+    if (day.format('ddd') == 'Sun') {
+      var name = createElement('div', 'day-name', '日');
+    }else if(day.format('ddd') == 'Mon'){
+      var name = createElement('div', 'day-name', '月');
+    }else if(day.format('ddd') == 'Tue'){
+      var name = createElement('div', 'day-name', '火');
+    }else if(day.format('ddd') == 'Wed'){
+      var name = createElement('div', 'day-name', '水');
+    }else if(day.format('ddd') == 'Thu'){
+      var name = createElement('div', 'day-name', '木');
+    }else if(day.format('ddd') == 'Fri'){
+      var name = createElement('div', 'day-name', '金');
+    }else if(day.format('ddd') == 'Sat'){
+      var name = createElement('div', 'day-name', '土');
+    }
+    else{
+      var name = createElement('div', 'day-name', day.format('ddd'));
+    }
     //Day Number
     var number = createElement('div', 'day-number', day.format('DD'));
 
@@ -338,7 +355,7 @@ function data_set(json_data, last_day) {
     { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
   ];
   for (var i = 0; i < json_data.length; i++) {
-    if (i < last_day) {
+    if (i <= last_day) {
       data[i] = { eventName: json_data[i], calendar: 'シフトに入ってる人数', color: 'blue' }
     } else {
       data[i] = { eventName: json_data[i], calendar: '祝日', color: 'orange' }

@@ -33,16 +33,15 @@ body {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
-  height: 540px;
-  padding-top: 10px;
+  height: 570px;
 }
 
 .header {
   height: 50px;
   width: 100%;
-  background: #4c46fc;
+  background: #273246;
   text-align: center;
   position: relative;
   z-index: 100;
@@ -123,7 +122,6 @@ body {
 .week {
   /* background: #dadada; */
   border-right: 1.5px solid;
-  border-left: 1.5px solid;
   color: #000;
 }
 
@@ -559,4 +557,3 @@ body {
     height: 0px;
   }
 }
-    

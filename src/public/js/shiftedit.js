@@ -83,7 +83,7 @@ function update(emppartcountid,emppartname,lastday) {
                 alert((emppartname[emppartnamearray]) + "さんの" + day + "日の退勤時間を入力してください");
                 return false;
             }else if(shifttime <= 0){
-                alert((emppartname[emppartnamearray]) + "さんの" + day +"日に入力ミスがあります"+ shifttime);
+                alert((emppartname[emppartnamearray]) + "さんの" + day +"日に入力ミスがあります");
                 return false;
             }
         }

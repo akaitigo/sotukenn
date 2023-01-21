@@ -25,7 +25,7 @@ foreach ($privatestaffshift as $prv_shift) {
     for ($i = 1; $i <= $last_data; $i++) {
         $nowday = 'day' . $i;
         $today_shift = $prv_shift->$nowday;
-        if ($today_shift != -1) {
+        if ($today_shift != '×' && $today_shift != '-') {
             (int) ($num1 = strpos($prv_shift->$nowday, '-'));
             (float) ($in = (float) substr($prv_shift->$nowday, 0, $num1));
             (float) ($out = (float) substr($prv_shift->$nowday, $num1 + 1));
@@ -75,7 +75,7 @@ $json_comment_day = json_encode($day_comment);
         for ($i = 1; $i <= $next_last_data; $i++) {
             $nowday = 'day' . $i;
             $today_shift = $prv_shift_next->$nowday;
-            if ($today_shift != -1) {
+            if ($today_shift != '×' && $today_shift != '-' && $today_shift != -1 ) {
                 (int) ($num1_next = strpos($prv_shift_next->$nowday, '-'));
                 (float) ($in_next = (float) substr($prv_shift_next->$nowday, 0, $num1_next));
                 (float) ($out_next = (float) substr($prv_shift_next->$nowday, $num1_next + 1));
@@ -165,6 +165,7 @@ $json_comment_day = json_encode($day_comment);
                     <button class="button" id="add-button">登録・更新</button>
                     <button class="button" id="delete-button">予定の削除</button>
                     <button class="button" id="comment-button">コメント</button>
+                    <button class="button" id="cover-button">達成率</button>
                 </div>
             </div>
             <form action="{{ route('emp') }}" method="post">
@@ -196,7 +197,7 @@ $json_comment_day = json_encode($day_comment);
                 </form>
             </div>
             <div class="dialog" id="dialog2">
-                <h2 class="dialog-header">シフト予定を入力してね</h2>
+                <h2 class="dialog-header">コメントを入力してね</h2>
                 <form class="form" id="form">
                     <div class="form-container" align="center">
                         <label class="form-label" id="valueFromMyButton" for="count">コメント</label>
@@ -208,6 +209,15 @@ $json_comment_day = json_encode($day_comment);
                         <input type="button" value="OK" class="button" id="ok-button2">
                     </div>
                 </form>
+            </div>
+            <div class="dialog" id="dialog3">
+                <h2 class="dialog-header" id="cover">今月の希望達成率は</h2>
+                    <div class="form-container" align="center">
+                        <div class="shiftcover" id="staffshiftcover" align="center">
+                            {{ $staffshiftcover }}%
+                        </div>
+                        <input type="button" value="Cancel" class="button" id="cancel-button3">
+                    </div>
             </div>
         </div>
 

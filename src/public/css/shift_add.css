@@ -177,6 +177,35 @@
   background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
   background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
 }
+#cancel-button2 {
+  box-shadow: -1px 10px 20px #FF7DAE;
+  background: #FF1744;
+  background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+}
+#cancel-button3 {
+  box-shadow: -1px 10px 20px #FF7DAE;
+  background: #FF1744;
+  background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+.shiftcover {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#cover {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 10px 10px 10px 10pxrgb(255, 61, 61);
+}
 
 #delete-button {
   box-shadow: -1px 10px 20px #FF7DAE;
@@ -210,6 +239,14 @@
   right: 20px;
   bottom: 80px;
   background: #1fc20ebd;
+}
+
+#cover-button {
+  display: block;
+  position: absolute;
+  left: 10px;
+  bottom: 80px;
+  background: #ff8400bd;
 }
 
 #add-button:hover,

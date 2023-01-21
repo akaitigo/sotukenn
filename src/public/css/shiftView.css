@@ -1,79 +1,187 @@
-.shiftcomp,
-.shiftcomp_kudo{
-    width: 170vw;
+#scale {
+  margin-left: 90px;
 }
 
-.shiftsub_kudo {
-    width: 164.5vw;
-}
-
-.shiftset_kudo {
-    width: 110vw;
-}
-
-.nameview {
-    width: 50;
-}
-
-.gusu,
-.kisu {
-    width: 70;
-    font-weight: 100;
-}
-
-.setkisu {
-    background-color: rgb(182, 243, 255);
-}
-
-.thname,
-.nameview,
-.headgusu,
-.headkisu {
-    border: 1px solid;
-}
-
-.thname {
-    background-color: #fff;
-}
-
-.headkisu {
-    background-color: rgb(182, 243, 255);
-}
-
-.gusu {
-    border: 1px solid;
-    border-color: #000;
+.comshift_not_table {
+    border-top: 1px solid #ddd;	
     font-weight: bold;
-}
-
-.kisu {
-    background-color: rgb(182, 243, 255);
-    border: 1px solid;
-    border-color: #000;
-    font-weight: bold;
-}
-
-.shiftcomp,
-.shiftcomp_kudo,
-.shiftsub_kudo,
-.shiftset_kudo {
-    border: solid;
-    border-collapse: separate;
-    border-spacing: 0;
+    width: 80rem;
+    height: auto;
+    border:1px solid #ddd;
+/* 	  border-top: none;	 */
+    border-collapse:separate;
+    padding:0;
     text-align: center;
-    font-family: Yu Gothic;
+    }
+    .comshift_not_table th {
+    /* 	border:1px solid #ddd;
+    border-top: none; */
+    padding: 10px 5px;
+    font-weight: normal;
     font-weight: bold;
+    }
+    .comshift_not_table td {
+    /* 	border:1px solid #ddd; */
+        padding:10px 2px;
+    }
+
+
+.comshift_not_table th, .comshift_not_table td {
+  border-right: 1px solid #ddd;
 }
 
-.hleft {
-    margin-right: -5px;
+.comshift_not_table th:last-child, .comshift_not_table td:last-child {
+  border-right: none;
 }
 
-.shiftset_kudo th,
-.shiftset_kudo td {
-    border-color: #000;
+.comshift_not_table tr:nth-child(odd) {
+  background: #f0f0f0;
 }
 
-h2 {
-    margin-top: 0;
+#morning .comshift_not_table td:nth-child(3) {
+  background: #fff;
+}
+
+.comshift_not_table td.align-bottom {
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.comshift_not_table td.align-top {
+  vertical-align: top;
+  padding: 0;  
+}
+
+#morning .comshift_not_table td:nth-child(3), #afternoon .comshift_not_table td:nth-child(3), #evening .comshift_not_table td:nth-child(3) {
+  background: #fff;
+} 
+
+
+.comshift_not_table thead,
+.comshift_not_table th {
+position: -webkit-sticky;
+position: sticky;
+font-size: 1rem;
+top: 0;
+height: 4rem;
+z-index: 3;
+border-bottom: 1px solid #000;      /* 枠にボーダーを引く */
+}
+
+.comshift_not_table .sunday_view,
+.comshift_not_table .saturday_view,
+.comshift_not_table .holiday_view,
+.comshift_not_table .day_view {
+  border-right: 1px solid #000;      /* 左の縦線 */
+  border-bottom: 1px solid rgb(186, 186, 186);
+  background-color: #fff;
+  position: -webkit-sticky;
+  font-size: 1rem;
+  position: sticky;
+  width: 8rem;
+  height: 3rem;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.holiday_view {
+  color: #ffb300;      /* 祝日の色(thead) */
+}
+
+.saturday_view {
+  color: #1aa0ff;      /* 土曜日の色(thead) */
+}
+
+.sunday_view {
+  color: #ff1d1df2;      /* 日曜日の色(thead) */
+}
+
+.comshift_not_table .sunday_view:hover,
+.comshift_not_table .saturday_view:hover,
+.comshift_not_table .holiday_view:hover,
+.comshift_not_table .day_view:hover{
+  background-color: rgba(203, 246, 255, 0.83);
+}
+
+.comshift_not_table .shiftdivider {
+  width: 191px;
+}
+
+
+
+.th_minus_btn,
+.th_plus_btn {
+  position: absolute;
+}
+
+/* 未完成thのプラス、マイナスボタン */
+.th_minus_btn {
+  bottom: 0;
+  right: 0rem;
+  margin: 0 0.2rem 0.2rem 0;
+  font-size: 0.7rem;
+  font-family: Arial;
+}
+.th_plus_btn {
+  top: 0;
+  right: 0rem;
+  margin: 0.2rem 0.2rem 0 0;
+  font-size: 0.6rem;
+  font-family: Arial;
+}
+
+/* 未完成tdのプラス、マイナスボタン */
+.comshift_not_table td {
+  position: relative;
+  text-align: center;
+}
+
+.ninp {
+  position: relative;
+  border: 0;
+  text-align: center;
+  font-size: 1.2rem;
+  width: 3rem;
+  font-family: Arial;
+}
+
+.minus_btn,
+.plus_btn {
+  position: absolute;
+}
+
+.minus_btn {
+  top: 0rem;
+  left: 0rem;
+  margin-left: 0.2rem;
+  font-size: 0.7rem;
+  font-family: Arial;
+}
+
+.plus_btn {
+  top: 0rem;
+  right: 0rem;
+  margin-right: 0.2rem;
+  font-size: 0.7rem;
+  font-family: Arial;
+}
+
+.startdaypull {
+  width: auto;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: Arial;
+}
+
+.enddaypull {
+  width: auto;
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: Arial;
+}
+
+.shiftcreate_btn {
+  transition:0ms;
 }

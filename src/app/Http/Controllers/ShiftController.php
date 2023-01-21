@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\CompleteShift;
 use App\Models\StaffShift;
 use App\Models\Comment;
+use App\Models\Shiftdivider;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
@@ -96,6 +97,7 @@ class ShiftController extends Controller
     {
     }
 
+
     /* シフト閲覧 変えた*/
     public function view()
     {
@@ -158,12 +160,12 @@ class ShiftController extends Controller
         //祝日を入れる
         $holidays = Yasumi::create('Japan', '2023', 'ja_JP');
         $holidaysInBetweenDays = $holidays->between(
-            $carbonNow->firstOfMonth(),
-            $carbonNow->lastOfMonth()
+            Carbon::now()->firstOfMonth(),
+            Carbon::now()->lastOfMonth()
         );
         $holidaysInBetweenDaysNext = $holidays->between(
-            $carbonNext->firstOfMonth(),
-            $carbonNext->lastOfMonth()
+            Carbon::now()->addMonth(1)->firstOfMonth(),
+            Carbon::now()->addMonth(1)->lastOfMonth()
         );
         $array = ['-'];
         $arrayNext = ['-'];
@@ -259,9 +261,11 @@ class ShiftController extends Controller
         $StaffTimesNext = [];
         $StaffworkdaysNext = [];
         $i = 0;
+        $nextcomshiftjudge = 0;
 
         //社員を配列格納　労働時間と日数計算
         foreach ($completeshiftNext as $compshiftNext) {
+            $nextcomshiftjudge = 1;
             if ($compshiftNext->judge == true) {
                 $empnameNext[] = Employee::where('id', $compshiftNext->emppartid)->value('name');
             } else {
@@ -324,6 +328,19 @@ class ShiftController extends Controller
         }
         // ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
 
+        $shift_divicount = 0;
+
+        $shiftdivider = Shiftdivider::where('store_id', $storeid)->get();
+
+        foreach($shiftdivider as $shift_divi) {
+            for($time = 1;$time <= 30; $time++) {
+                $shifttime = 'time'.$time;
+                if($shift_divi->$shifttime != null) {
+                    $shift_divicount++;
+                }
+            }
+        }
+
         $week = ['日', '月', '火', '水', '木', '金', '土'];
 
         return view('new_shiftView', compact(
@@ -345,9 +362,14 @@ class ShiftController extends Controller
             'StaffTimesNext',
             'staffshiftcoverNext',
             'calendarDataNext',
-            'arrayNext'
+            'arrayNext',
+            'nextcomshiftjudge',
+            'shiftdivider',
+            'shift_divicount'
         ));
     }
+
+
 
     /* シフト編集 変える*/
     public function edit()
@@ -758,15 +780,72 @@ class ShiftController extends Controller
             $judge = false;
         }
         //シフト表の情報全て
-        $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $comp_judge = 0;
+        $comp_judge_next = 0;
+        $now_comp_shift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $next_comp_shift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
+        foreach($now_comp_shift as $nexc){
+            $comp_judge = 1;
+        }
+        foreach($next_comp_shift as $nexc){
+            $comp_judge_next = 1;
+        }
+
+        if ($comp_judge == 1) {
+            $privatestaffshift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        }else{
+            $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        }
+        if($comp_judge_next == 1){
+            $privatestaffshift_next = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
+        }else{
+            $privatestaffshift_next = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
+        }
+
         $privatecomment = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
-        $privatestaffshift_next = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
         $privatecomment_next = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
 
         // コメント情報のすべて まだテーブルできてない
         // $privatestaffcomment = StaffComment::where('emppartid',$loginid)->where('judge',$judge)->get();
 
-        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year'));
+
+        // シフト網羅率
+        $staffshiftcompleteworkday = 0;
+        $staffshiftworkday = 0;
+        (int)$staffshiftcover = 0;
+
+        $staff_completeshift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $private_staffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+
+        foreach ($staff_completeshift as $staffcompshift) {
+            for ($day = 1; $day <= $last_data; $day++) {
+                $hentai = "day" . $day;
+                if ($staffcompshift->$hentai != "×" && $staffcompshift->$hentai != "-") {
+                    $staffshiftcompleteworkday++;
+                }
+            }
+        }
+
+        foreach ($private_staffshift as $staffshift) {
+            for ($day = 1; $day <= $last_data; $day++) {
+                $hentai = "day" . $day;
+                if ($staffshift->$hentai != "-1") {
+                    $staffshiftworkday++;
+                }
+            }
+        }
+
+            if ($staffshiftcompleteworkday == 0 || $staffshiftworkday == 0) {
+                $staffshiftcover = 0;
+            } else {
+                (int)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) * 100;
+                $staffshiftcover = round($staffshiftcover, 0);
+                if ($staffshiftcover >= 100) {
+                    $staffshiftcover = 100;
+                }
+            }
+
+        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year','staffshiftcover'));
     }
 
 
