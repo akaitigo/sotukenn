@@ -177,6 +177,20 @@
   background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
   background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
 }
+#cancel-button2 {
+  box-shadow: -1px 10px 20px #FF7DAE;
+  background: #FF1744;
+  background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+}
+#cancel-button3 {
+  box-shadow: -1px 10px 20px #FF7DAE;
+  background: #FF1744;
+  background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+}
 
 #delete-button {
   box-shadow: -1px 10px 20px #FF7DAE;
