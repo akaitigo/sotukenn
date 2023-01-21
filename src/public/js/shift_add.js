@@ -261,7 +261,7 @@ function show_events(events, month, day) {
   for (var i = 0; i < events.length; i++) {
     if (events[i]["kind"] == "ok") {
       var event_card = $("<div class='event-card'></div>");
-      var event_name = $("<div class='event-name'>希望予定：</div>");
+      var event_name = $("<div class='event-name'>予定：</div>");
       var event_count = $("<div class='event-count'>" + events[i]["start"] + "～" + events[i]["end"] + "時間</div>");
       if (events[i]["cancelled"] === true) {
         $(event_card).css({

@@ -13,11 +13,10 @@ legend{display:none;}
 h1,h2,h3,h4,h5,h6{font-size:100%;}
 img,abbr,acronym,fieldset{border:0;}
 
-body{
+#sidebar{
 	font: 14px/1.9 'Noto Sans JP', Arial, Verdana, 游ゴシック, YuGothic,'ヒラギノ角ゴ ProN W3', 'Hiragino Kaku Gothic ProN', メイリオ, Meiryo,sans-serif;
 	font-weight: 300;
 	-webkit-text-size-adjust:100%;
-	overflow-x: hidden;
 	color: #000;
 	background: #fff;
 }
@@ -55,9 +54,7 @@ a:active, a:focus,input:active, input:focus{outline:0;}
 
 /* 共通
 ------------------------------------------------------------*/
-h1, h2{
-	font-family: 'Modern Antiqua', 'Noto Sans JP',serif;
-}
+
 
 img{
 	max-width: 100%;

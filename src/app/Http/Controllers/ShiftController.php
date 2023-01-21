@@ -780,9 +780,29 @@ class ShiftController extends Controller
             $judge = false;
         }
         //シフト表の情報全て
-        $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $comp_judge = 0;
+        $comp_judge_next = 0;
+        $now_comp_shift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        $next_comp_shift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
+        foreach($now_comp_shift as $nexc){
+            $comp_judge = 1;
+        }
+        foreach($next_comp_shift as $nexc){
+            $comp_judge_next = 1;
+        }
+
+        if ($comp_judge == 1) {
+            $privatestaffshift = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        }else{
+            $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
+        }
+        if($comp_judge_next == 1){
+            $privatestaffshift_next = CompleteShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
+        }else{
+            $privatestaffshift_next = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
+        }
+
         $privatecomment = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $now_month)->get();
-        $privatestaffshift_next = StaffShift::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
         $privatecomment_next = Comment::where('emppartid', $loginid)->where('judge', $judge)->where('month', $next_month)->get();
 
         // コメント情報のすべて まだテーブルできてない

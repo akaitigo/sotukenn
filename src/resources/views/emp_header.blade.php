@@ -27,8 +27,7 @@ use App\Models\Parttimer;
             <p id="menuWrap"><a id="menu"><span id="menuBtn"></span></a></p>
             <div class="panel">
                 <ul>
-                    <li><a href="{{ route('emp_calendar') }}">カレンダー</a></li>
-                    <li><a href="#sec01">使い方</a></li>
+                    <li><a href="{{ route('emp_calendar_show') }}">カレンダー</a></li>
                     <li><a href="{{route('shift_show')}}">シフト提出</a></li>
                     <li><a href="{{ route('emp_informationShare') }}">情報共有掲示板</a></li>
                     <li><a herf="{{ route('logout') }}"
