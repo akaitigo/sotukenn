@@ -355,7 +355,7 @@ function data_set(json_data, last_day) {
     { eventName: 'Dinner w/ Marketing', calendar: 'Work', color: 'orange' },
   ];
   for (var i = 0; i < json_data.length; i++) {
-    if (i < last_day) {
+    if (i <= last_day) {
       data[i] = { eventName: json_data[i], calendar: 'シフトに入ってる人数', color: 'blue' }
     } else {
       data[i] = { eventName: json_data[i], calendar: '祝日', color: 'orange' }

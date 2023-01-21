@@ -153,6 +153,7 @@ body {
 
 .day.other {
   color: rgba(255, 255, 255, .3);
+  display: none;
 }
 
 .day.today {
