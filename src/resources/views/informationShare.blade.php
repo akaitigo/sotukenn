@@ -46,7 +46,6 @@
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach ($information as $info)
                             @if ($search_name != null)
                                 @if (preg_match("/$search_name/", $info->registrationDate) == 0 &&
@@ -63,6 +62,7 @@
                                 <td>{{ $info->shareText }}</td>
                                 <td>{{ $info->registerUser }}</td>
                                 <td>{{ $info->daysRemaining }}</td>
+                          
 
                                 <form method="post" action="{{ route('informationDelete') }}"
                                     onsubmit="return DeleteCheck();">

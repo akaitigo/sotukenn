@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
+use App\Models\admin;
 
 use App\Models\InformationShare;
 use Carbon\Carbon;
@@ -28,9 +29,10 @@ class informationShareController extends Controller
         $user = Auth::user();
 
         $userStore = $user->store_id;
-        $userEmail=$user->email;
+        $userEmail = $user->email;
+
         $information = InformationShare::where('store_id', '=', $userStore)->get();
-        return view('informationShare', compact('information','userEmail'));
+        return view('informationShare', compact('information', 'userEmail'));
     }
 
     public function informationShareRegister()
@@ -44,6 +46,7 @@ class informationShareController extends Controller
         $getEmail = $request->input('registerUser');
         $getUserEmp = Employee::where('email', '=', $getEmail)->get();
         $getUserPart = Parttimer::where('email', '=', $getEmail)->get();
+        $getUserAdmin = admin::where('email', $getEmail)->get();
         $inputSpan = $request->input('days');
         $inputShareContent = $request->input('sharename');
         $inputText = $request->input('massage');
@@ -52,25 +55,39 @@ class informationShareController extends Controller
 
         foreach ($getUserEmp as $emp) {
             \DB::table('informationshares')->insert([
+                'store_id' => $emp->store_id,
                 'shareSpan' => $inputSpan, //表示期間
                 'shareContent' => $inputShareContent, //掲示明
                 'registerUser' => $emp->name, //登録者
                 'shareText' => $inputText,
                 'registrationDate' => $now,
                 'daysRemaining' => $time->addDays($inputSpan), //残り日数
-                'email'=>$emp->email
+                'email' => $emp->email
             ]);
         }
 
         foreach ($getUserPart as $part) {
             \DB::table('informationshares')->insert([
+                'store_id' => $emp->store_id,
                 'shareSpan' => $inputSpan, //表示期間
                 'shareContent' => $inputShareContent, //掲示明
                 'registerUser' => $emp->name, //登録者
                 'shareText' => $inputText,
                 'registrationDate' => $now,
                 'daysRemaining' => $time->addDays($inputSpan), //残り日数
-                'email'=>$part->email
+                'email' => $part->email
+            ]);
+        }
+        foreach ($getUserAdmin as $admin) {
+            \DB::table('informationshares')->insert([
+                'store_id' => $admin->store_id,
+                'shareSpan' => $inputSpan, //表示期間
+                'shareContent' => $inputShareContent, //掲示明
+                'registerUser' => '管理者ID->' . $admin->id, //登録者
+                'shareText' => $inputText,
+                'registrationDate' => $now,
+                'daysRemaining' => $time->addDays($inputSpan), //残り日数
+                'email' => $admin->email
             ]);
         }
 
@@ -87,7 +104,7 @@ class informationShareController extends Controller
             if ($emp->store_id == $userStore) {
                 $textMessageBuilder = new TextMessageBuilder("新規の掲示が登録されました。\n確認をお願いします");
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
-                $textMessageBuilder = new TextMessageBuilder("ーーーーーーーーーー\n掲示名：" . $inputShareContent . "\nーーーーーーーーーー\n掲示内容：" . $inputText . "\nーーーーーーーーーー\n登録者：" . $emp->name."\nーーーーーーーーーー");
+                $textMessageBuilder = new TextMessageBuilder("ーーーーーーーーーー\n掲示名：" . $inputShareContent . "\nーーーーーーーーーー\n掲示内容：" . $inputText . "\nーーーーーーーーーー\n登録者：" . $emp->name . "\nーーーーーーーーーー");
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
             }
         }
@@ -99,6 +116,7 @@ class informationShareController extends Controller
                 $response = $bot->pushMessage($emp->lineUserId, $textMessageBuilder);
             }
         }
+
         $information = InformationShare::where('store_id', '=', $userStore)->get();
         return view('informationShare', compact('information'));
     }

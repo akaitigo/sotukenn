@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\Models\admin;
 use App\Models\Store;
@@ -19,12 +20,12 @@ class EmployeeController extends Controller
     //パスワードを表示、復元
     public function empPasswordView()
     {
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
 
         $emp_jobkind[] = null;
         $part_jobkind[] = null;
@@ -32,40 +33,40 @@ class EmployeeController extends Controller
         // アルバイトのバイト種類を取得
         foreach ($parttimers as $part) {
             foreach ($part->jobs as $job) {
-                if(in_array(null,$part_jobkind)){
+                if (in_array(null, $part_jobkind)) {
                     $part_jobkind[0] = $job->name;
-                }elseif(in_array($job->name,$part_jobkind) == false){
+                } elseif (in_array($job->name, $part_jobkind) == false) {
                     $part_jobkind[] = $job->name;
-                }else{
+                } else {
                     continue;
                 }
             }
         }
         foreach ($employees as $emp) {
             foreach ($emp->jobs as $job) {
-                if(in_array(null,$emp_jobkind)){
+                if (in_array(null, $emp_jobkind)) {
                     $emp_jobkind[0] = $job->name;
-                }elseif(in_array($job->name,$emp_jobkind) == false){
+                } elseif (in_array($job->name, $emp_jobkind) == false) {
                     $emp_jobkind[] = $job->name;
-                }else{
+                } else {
                     continue;
                 }
             }
         }
 
         //ここリダイレクトにするとページが開かなくなる。
-        return view('employeesManagementPassView', compact('employees', 'parttimers','part_jobkind','emp_jobkind'));
+        return view('employeesManagementPassView', compact('employees', 'parttimers', 'part_jobkind', 'emp_jobkind'));
     }
 
     //パスワード非表示にする
     public function empPasswordNotView()
     {
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
 
         return view('employeesManagement', compact('employees', 'parttimers'));
     }
@@ -74,7 +75,7 @@ class EmployeeController extends Controller
     public function empAdd()
     {
         $allJob = Job::get();
-        return view('employeesManagementAdd',compact('allJob'));
+        return view('employeesManagementAdd', compact('allJob'));
     }
 
     //-->変更対象受け渡し
@@ -132,10 +133,10 @@ class EmployeeController extends Controller
         }
         Employee::where('id', '=', $getId)->delete(); //削除
 
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
         // return redirect('employeesManagementPassView', compact('employees', 'parttimers'));
         return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
@@ -152,10 +153,10 @@ class EmployeeController extends Controller
             $del->statuses()->detach();
         }
         Parttimer::where('id', '=', $getId)->delete();
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
         return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
 
@@ -164,8 +165,8 @@ class EmployeeController extends Controller
     //<-追加処理
     public  function empdbAdd(Request $request)
     {
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
 
         $inputName = $request->input('newEmpName');
         $inputEmail = $request->input('newEmpEmail');
@@ -173,7 +174,7 @@ class EmployeeController extends Controller
         $inputPassword = $request->input('newEmpPassword');
         $inputAge = $request->input('newEmpAge');
         $selectemp = $_POST['newemp'];
-        if($selectemp == 1) {
+        if ($selectemp == 1) {
             \DB::table('employees')->insert([
                 'name' => $inputName,
                 'email' => $inputEmail,
@@ -182,8 +183,7 @@ class EmployeeController extends Controller
                 'store_id' => $storeid,
                 'age' => $inputAge
             ]);
-
-        }else {
+        } else {
             \DB::table('parttimers')->insert([
                 'name' => $inputName,
                 'email' => $inputEmail,
@@ -192,13 +192,12 @@ class EmployeeController extends Controller
                 'store_id' => $storeid,
                 'age' => $inputAge
             ]);
-
         }
-        
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
 
         return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
@@ -246,8 +245,8 @@ class EmployeeController extends Controller
             }
 
             if (!(is_null($request->input('newMaxTime')))) {
-                $remp->monthmaxworktime =$request->input('newMaxTime');
-            }else{
+                $remp->monthmaxworktime = $request->input('newMaxTime');
+            } else {
                 $remp->monthmaxworktime = -1;
             }
             if (!(is_null($request->input('newMinTime')))) {
@@ -305,10 +304,10 @@ class EmployeeController extends Controller
                 }
             }
         }
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
 
         return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
@@ -347,6 +346,16 @@ class EmployeeController extends Controller
             if (!(is_null($inputAge))) {
                 $changeConfirmAge = $inputAge;
                 $remp->age = $changeConfirmAge;
+            }
+            if (!(is_null($request->input('newMaxTime')))) {
+                $remp->monthmaxworktime = $request->input('newMaxTime');
+            } else {
+                $remp->monthmaxworktime = -1;
+            }
+            if (!(is_null($request->input('newMinTime')))) {
+                $remp->monthminworktime = $request->input('newMinTime');
+            } else {
+                $remp->monthminworktime = -1;
             }
 
             $remp->save();
@@ -398,10 +407,10 @@ class EmployeeController extends Controller
                 }
             }
         }
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
         return redirect()->route('employeesManagementPassView')->with(compact('employees', 'parttimers'));
     }
 
@@ -410,12 +419,12 @@ class EmployeeController extends Controller
     // post受け取り
     public function empsearchView(Request $request)
     {
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $employees = Employee::where('store_id',$storeid)->get();
-        $adminid=Auth::guard('admin')->id();
-        $storeid = admin::where('id',$adminid)->value('store_id');
-        $parttimers = Parttimer::where('store_id',$storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $employees = Employee::where('store_id', $storeid)->get();
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
 
         $emp_jobkind[] = null;
         $part_jobkind[] = null;
@@ -423,30 +432,28 @@ class EmployeeController extends Controller
         // アルバイトのバイト種類を取得
         foreach ($parttimers as $part) {
             foreach ($part->jobs as $job) {
-                if(in_array(null,$part_jobkind)){
+                if (in_array(null, $part_jobkind)) {
                     $part_jobkind[0] = $job->name;
-                }elseif(in_array($job->name,$part_jobkind) == false){
+                } elseif (in_array($job->name, $part_jobkind) == false) {
                     $part_jobkind[] = $job->name;
-                }else{
+                } else {
                     continue;
                 }
             }
         }
         foreach ($employees as $emp) {
             foreach ($emp->jobs as $job) {
-                if(in_array(null,$emp_jobkind)){
+                if (in_array(null, $emp_jobkind)) {
                     $emp_jobkind[0] = $job->name;
-                }elseif(in_array($job->name,$emp_jobkind) == false){
+                } elseif (in_array($job->name, $emp_jobkind) == false) {
                     $emp_jobkind[] = $job->name;
-                }else{
+                } else {
                     continue;
                 }
             }
         }
 
         //ここリダイレクトにするとページが開かなくなる。
-        return view('employeesManagementPassView', compact('employees', 'parttimers','part_jobkind','emp_jobkind'),['search_name1'=>$request->search_name1],['search_name2'=>$request->search_name2]);
+        return view('employeesManagementPassView', compact('employees', 'parttimers', 'part_jobkind', 'emp_jobkind'), ['search_name1' => $request->search_name1], ['search_name2' => $request->search_name2]);
     }
-
-
 }
