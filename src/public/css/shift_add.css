@@ -190,6 +190,21 @@
   background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
   background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
   background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+.shiftcover {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#cover {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 10px 10px 10px 10pxrgb(255, 61, 61);
 }
 
 #delete-button {

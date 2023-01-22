@@ -211,17 +211,13 @@ $json_comment_day = json_encode($day_comment);
                 </form>
             </div>
             <div class="dialog" id="dialog3">
-                <h2 class="dialog-header">希望達成率は{{ $staffshiftcover }}</h2>
-                <form class="form" id="form">
+                <h2 class="dialog-header" id="cover">今月の希望達成率は</h2>
                     <div class="form-container" align="center">
-                        <label class="form-label" id="valueFromMyButton" for="count">コメント</label>
-                        <input class="input" type="text" id="comment" maxlength="20">
-                        <datalist id="data-list">
-                            {{-- お気に入り --}}
-                        </datalist>
+                        <div class="shiftcover" id="staffshiftcover" align="center">
+                            {{ $staffshiftcover }}%
+                        </div>
                         <input type="button" value="Cancel" class="button" id="cancel-button3">
                     </div>
-                </form>
             </div>
         </div>
 

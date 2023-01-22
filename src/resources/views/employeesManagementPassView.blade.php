@@ -252,14 +252,16 @@
                 <caption>アルバイト一覧</caption>
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>email</th>
-                        <th>name</th>
-                        <th>age</th>
-                        <th>weight</th>
-                        <th>position</th>
-                        <th>notice</th>
-                        <th>change</th>
+                       <th>id</th>
+                        <th>名前</th>
+                        <th>メール</th>
+                        <th>年齢</th>
+                        <th>重み</th>
+                        <th>ポジション</th>
+                        <th>最大労働時間</th>
+                        <th>最低労働時間</th>
+                        <th>通知</th>
+                        <th>変更</th>
                     </tr>
                 </thead>
                 <?php
@@ -353,6 +355,18 @@
                                 @foreach ($part->Jobs as $job)
                                 {{ $job->name }}
                                 @endforeach
+                            </td>
+                                <td>@if ($part->monthmaxworktime==-1)
+                                設定なし
+                                @else
+                                {{$part->monthmaxworktime}}
+                                @endif
+                            </td>
+                            <td>@if ($part->monthminworktime==-1)
+                                設定なし
+                                @else
+                                {{$part->monthminworktime}}
+                                @endif
                             </td>
 
                             @if (!is_null($part->lineUserId))

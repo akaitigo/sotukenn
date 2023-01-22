@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=yes, maximum-scale=1.0, minimum-scale=1.0">
-    <meta name="description" content="ホームページサンプル株式会社のサイトです">
-    <title>ホームページサンプル株式会社 | ホームページサンプル株式会社のサイトです</title>
+    <title></title>
     <link rel="profile" href="http://gmpg.org/xfn/11">
     <link rel="stylesheet" href="/css/title_emp.css" type="text/css">
     <link rel="stylesheet" href="/css/title_emp2.css" type="text/css">
@@ -23,7 +22,7 @@
     <header id="header" role="banner">
         <div class="inner">
             <div class="logo">
-                <a href="index.html" title="ホームページサンプル株式会社" rel="home">MARUO
+                <a href="index.html" rel="home">MARUO
                     KUN<br /><span>自動シフト作成アプリ</span></a>
             </div>
             <nav id="mainNav">
