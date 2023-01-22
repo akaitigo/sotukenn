@@ -107,4 +107,9 @@ ex)./ngrok config...
 12/9用
 https://3ee2-49-104-8-143.jp.ngrok.io
 
-tes
+'''
+chmod -R 777 src/storage/fonts
+export COMPOSER_PROCESS_TIMEOUT=1200
+composer install
+'''
+

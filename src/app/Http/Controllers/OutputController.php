@@ -10,7 +10,7 @@ use App\Models\Parttimer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
-
+use PDF;
 
 class OutputController extends Controller
 {
@@ -59,14 +59,20 @@ class OutputController extends Controller
         $arr = array('名前');
         $lastDate=new Carbon($year.'-01-01');
         $day=$lastDate->dayOfWeek;
+        $daycount=$day;
         $lastDate=$lastDate->daysInMonth;
         $youbi=['日','月','火','水','木','金','土'];
         for($i=1;$i<=$lastDate;$i++){
-            $str=$i.'('.$youbi[$day].')';
+            $str=$i.'('.$youbi[$daycount].')';
             array_push($arr,$str);
+            $daycount++;
+            if($daycount==7){
+                $daycount=0;
+            }
         }
+        $daycount = $day;
         fputcsv($stream, $arr);
-
+        $allshift = [];
         foreach($completeshift as $shift){
             $name;
             if($shift['judge']){
@@ -76,10 +82,16 @@ class OutputController extends Controller
             }
             $shiftArray=array('名前'=>$name);
             for($i=1;$i<=$lastDate;$i++){
-                $str=$i.'('.$youbi[$day].')';
+                $str=$i.'('.$youbi[$daycount].')';
                 $shiftArray = array_merge($shiftArray,array($str=>$shift['day'.$i]));
+                $daycount++;
+                if($daycount==7){
+                    $daycount=0;
+                }
             }
+            $daycount=$day;
             fputcsv($stream, $shiftArray); 
+            array_push($allshift,$shiftArray);
         }
         rewind($stream);                      
         $csv = stream_get_contents($stream);
@@ -87,7 +99,33 @@ class OutputController extends Controller
         Storage::put($path, $csv);
         fclose($stream);
         //pdf作成
+        // dump($arr);
+        // dump($allshift);
+        // return;
+        $path = "shift/".$storeid."/".$year."/pdf/".$month.".pdf";
+        $pdf = PDF::loadView('pdf', compact('arr','allshift','month','year'))
+                        ->setPaper('a4','landscape');
+        Storage::put($path,$pdf->output()) ;
         //image作成              
+    }
+    public function downloadcsv($year,$month){
+        $storeid;
+        if(Auth::guard('admin')->check()){
+            $storeid=Auth::guard('admin')->user()->store_id;
+        }else if(Auth::guard('employee')->check()){
+            $storeid=Auth::guard('employee')->user()->store_id;
+        }else if(Auth::guard('parttimer')->check()){
+            $storeid=Auth::guard('parttimer')->user()->store_id;
+        } 
+        if(!file_exists(storage_path().'/app/shift/'.$storeid.'/csv/'.$month.'.csv')){
+            $this->makefile($year,$month);
+        }
+        $filePath = '/shift/'.$storeid."/".$year.'/csv/'.$month.'.csv';
+        $headers = array(                    
+            'Content-Type' => 'text/csv'
+        );
+        $csv=Storage::get($filePath);
+        return Response::make($csv, 200, $headers);
     }
     public function downloadpdf($year,$month){
         $storeid;
@@ -107,25 +145,6 @@ class OutputController extends Controller
         );
         $pdf=Storage::get($filePath);;
         return Response::make($pdf, 200, $headers);
-    }
-    public function downloadcsv($year,$month){
-        $storeid;
-        if(Auth::guard('admin')->check()){
-            $storeid=Auth::guard('admin')->user()->store_id;
-        }else if(Auth::guard('employee')->check()){
-            $storeid=Auth::guard('employee')->user()->store_id;
-        }else if(Auth::guard('parttimer')->check()){
-            $storeid=Auth::guard('parttimer')->user()->store_id;
-        } 
-        if(!file_exists(storage_path().'/app/shift/'.$storeid.'/csv/'.$month.'.csv')){
-            $this->makefile($year,$month);
-        }
-        $filePath = '/shift/'.$storeid."/".$year.'/csv/'.$month.'.csv';
-        $headers = array(                    
-            'Content-Type' => 'text/csv'
-        );
-        $csv=Storage::get($filePath);;
-        return Response::make($csv, 200, $headers);
     }   
     public function downloadimage($year,$month){
         $storeid;
