@@ -174,6 +174,7 @@ Route::get('/shiftView', [App\Http\Controllers\tokuchan\MainController::class, '
 Route::get('/new_shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('new_shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                         //シフト編集
 Route::post('/shiftupdate', [App\Http\Controllers\ShiftController::class, 'update'])->name('shiftupdate');                                    //シフト編集上書き
+Route::post('/new_shiftcreate', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('new_shiftcreate');                                    //シフト編集上書き
 
 
 Route::get('/shiftCreate', [App\Http\Controllers\ShiftController::class, 'create'])->name('shiftCreate');                                //シフト作成
