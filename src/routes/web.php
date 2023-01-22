@@ -43,7 +43,7 @@ Route::post('/loginCheck', 'App\Http\Controllers\MessageController@loginCheck')-
 
 
 Route::get('/title', function () {
-    return view('title');
+    return view('title_emp');
 });
 
 Route::get('home', function () {
