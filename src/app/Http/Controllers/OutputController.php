@@ -10,6 +10,7 @@ use App\Models\Parttimer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Response;
 use Carbon\Carbon;
+
 use PDF;
 
 class OutputController extends Controller
@@ -106,7 +107,10 @@ class OutputController extends Controller
         $pdf = PDF::loadView('pdf', compact('arr','allshift','month','year'))
                         ->setPaper('a4','landscape');
         Storage::put($path,$pdf->output()) ;
-        //image作成              
+        //image作成          
+        $imagepath = "shift/".$storeid."/".$year."/image/".$month.".jpeg";
+        $command = "pdftoppm -jpeg -f 1 -l 1 ".storage_path('app/'.$path)." > ".storage_path('app/'.$imagepath);
+        shell_exec($command);
     }
     public function downloadcsv($year,$month){
         $storeid;
@@ -121,11 +125,7 @@ class OutputController extends Controller
             $this->makefile($year,$month);
         }
         $filePath = '/shift/'.$storeid."/".$year.'/csv/'.$month.'.csv';
-        $headers = array(                    
-            'Content-Type' => 'text/csv'
-        );
-        $csv=Storage::get($filePath);
-        return Response::make($csv, 200, $headers);
+        return Storage::download($filePath);
     }
     public function downloadpdf($year,$month){
         $storeid;
@@ -140,11 +140,7 @@ class OutputController extends Controller
             $this->makefile($year,$month);
         }
         $filePath = '/shift/'.$storeid."/".$year.'/pdf/'.$month.'.pdf';
-        $headers = array(                    
-            'Content-Type' => 'application/pdf'
-        );
-        $pdf=Storage::get($filePath);;
-        return Response::make($pdf, 200, $headers);
+        return Storage::download($filePath);
     }   
     public function downloadimage($year,$month){
         $storeid;
@@ -159,11 +155,7 @@ class OutputController extends Controller
             $this->makefile($year,$month);
         }
         $filePath = '/shift/'.$storeid."/".$year.'/image/'.$month.'.jpeg';
-        $headers = array(            
-            'Content-Type' => 'image/jpeg'
-        );
-        $image=Storage::get($filePath);;
-        return Response::make($image, 200, $headers);
+        return Storage::download($filePath);
     }
     public function createdcheck($year,$month){
 
