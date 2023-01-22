@@ -6,12 +6,11 @@ use App\Http\Controllers\Controller;
     use Illuminate\Pagination\LengthAwarePaginator;
     class VerticalSortController extends Controller{
 
-        
+        static $inCount = [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0]];//出勤した回数をカウント INDEX1スタッフの数
+        static $k2 = 0;
         
     function verSort($SortStaff,$staff,$NeedShift,$StaffShift,$days,$StaffNum,$MaxWeight,$LowestWeight,$ShiftDivider,$dotw){//確定前のシフトを重み順でランダムで配置
             
-            static $inCount = [[0,0],[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0]];//出勤した回数をカウント INDEX1スタッフの数
-            static $k2 = 0;
             $MaW = $MaxWeight;//重みの最大値
             $LoW = $LowestWeight;//重みの最低値
             $count = [[]];//重みごとの人数をカウント
@@ -74,7 +73,7 @@ use App\Http\Controllers\Controller;
             $DeNum = [[]];
             
             for($j = 0; $MaW > $j; $j++) {//重みごとのスタッフの人数分配列の要素を作成
-                $DeNum[] = array_fill(0,$count[$j][1],0);
+                $DeNum[] = array_fill(0,$count[$j][1],-1);
                 //System.out.println("重みが" + (MaW - j) + "である従業員の人数:" + DeNum[j].length);
             }
             
@@ -97,6 +96,22 @@ use App\Http\Controllers\Controller;
                     $counter = 0;
                 }
             }
+            $YosoNum1 = count($DeNum);
+            for($i = 0; $YosoNum1 > $i; $i++){
+                $YosoNum2 = count($DeNum[$i]);
+                for($j = 0; $YosoNum2 > $j; $j++){
+                    if(-1 == $DeNum[$i][$j]){
+                        unset($DeNum[$i][$j]);
+                        $DeNum = array_values($DeNum);
+                    }
+                }
+            }
+            // for($i = 0; $YosoNum1 > $i; $i++){
+            //     if(count($DeNum[$i]) == 0){
+            //         unset($DeNum[$i]);
+            //     }
+            // }
+            // $DeNum = array_values($DeNum);
 
             $MaW = $MaxWeight;//重みごとの従業員の表示に使用
             $LoW = $LowestWeight;
@@ -120,11 +135,13 @@ use App\Http\Controllers\Controller;
             
             
             for($i = 0; count($CanKey) > $i; $i++) {//日にちごとに必要な人数スタッフを割り当て
+
+
                 //k = 0; 繁忙期のみ有効に
                 
                 if($dotw[$i][1] == 1) {
-                    $khinan = $k2;
-                    $k2 = $k;
+                    $khinan = VerticalSortController::$k2;
+                    VerticalSortController::$k2 = $k;
                 }
                 
                 if($Ycounter[$i] == 0) {//その日出勤できる人が一人もいなかったら次の日へ
@@ -137,17 +154,17 @@ use App\Http\Controllers\Controller;
                             for($n = 0; count($DeNum[$l]) > $n; $n++) {
                                 if(0 == strcmp($StaffShiftClone[$DeNum[$l][$n]][$i+1],"Y")) {
                                     $CanKey[$i][$j + 1] = $DeNum[$l][$n];
-                                    $inCount[$CanKey[$i][$j + 1]][1]++;//出勤日数を調整↑
+                                    VerticalSortController::$inCount[$CanKey[$i][$j + 1]][1]++;//出勤日数を調整↑
                                     $j++;
                                 }
                             }
                         }
                         break;
                     }
-                        for($l = 0; count($DeNum[$k2]) > $l; $l++) {
+                        for($l = 0; count($DeNum[VerticalSortController::$k2]) > $l; $l++) {
                             // (boolean) $InOrOut = false;//その日に従業員がいたかをチェック
                             for($m = 0; count($CanKey[$i]) - 1 > $m; $m++) {//その日にすでに該当従業員がいた場合スキップ
-                                if(0 == strcmp($CanKey[$i][$m + 1],$DeNum[$k2][$l])) {
+                                if(0 == strcmp($CanKey[$i][$m + 1],$DeNum[VerticalSortController::$k2][$l])) {
                                     // $InOrOut = true;//LOOPラベルで簡略化可能
                                     continue 2;
                                 }
@@ -158,26 +175,36 @@ use App\Http\Controllers\Controller;
                             /*if(DeNum[k2][l] == CanKey[i][j+1]) {
                                 continue;
                             }*/
-                            if(0 == strcmp($StaffShiftClone[$DeNum[$k2][$l]][$i+1],"Y")) {//まず最初にYである従業員を代入
+                            if(0 == strcmp($StaffShiftClone[$DeNum[VerticalSortController::$k2][$l]][$i+1],"Y")) {//まず最初にYである従業員を代入
                                 if(0 == strcmp($CanKey[$i][$j+1],-1)) {//CanKeyに何も入っていなかったら
-                                    $CanKey[$i][$j+1] = $DeNum[$k2][$l];
+                                    $CanKey[$i][$j+1] = $DeNum[VerticalSortController::$k2][$l];
                                     continue;
                                 }
-                                if($inCount[$DeNum[$k2][$l]][1] < $inCount[$CanKey[$i][$j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)
+                                if((int)VerticalSortController::$inCount[$DeNum[VerticalSortController::$k2][$l]][1] == (int)VerticalSortController::$inCount[$CanKey[$i][$j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)
+                                    
+                                }
+                                else if((int)VerticalSortController::$inCount[$DeNum[VerticalSortController::$k2][$l]][1] < (int)VerticalSortController::$inCount[$CanKey[$i][$j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)
                                     //System.out.print(DeNum[k2][l]);
-                                    $CanKey[$i][$j+1] = $DeNum[$k2][$l];
+                                    $CanKey[$i][$j+1] = $DeNum[VerticalSortController::$k2][$l];
+                                    continue;
+                                }else if((int)VerticalSortController::$inCount[$DeNum[VerticalSortController::$k2][$l]][1] > (int)VerticalSortController::$inCount[$CanKey[$i][$j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)
                                     continue;
                                 }
-                                if((int) $staff[$DeNum[$k2][$l]][1] > (int) $staff[$CanKey[$i][$j+1]][1]) {//重みを比較
+                                if((int) $staff[$DeNum[VerticalSortController::$k2][$l]][1] == (int) $staff[$CanKey[$i][$j+1]][1]) {//重みを比較
+                                    if((int) $staff[$DeNum[VerticalSortController::$k2][$l]][5] > (int) $staff[$CanKey[$i][$j+1]][5]) {//提出率を比較
+                                            $CanKey[$i][$j+1] = $DeNum[VerticalSortController::$k2][$l];
+                                    }
+                                }
+                                if((int) $staff[$DeNum[VerticalSortController::$k2][$l]][1] > (int) $staff[$CanKey[$i][$j+1]][1]) {//重みを比較
                                     /*if(inCount[DeNum[k2][l]][1] < inCount[CanKey[i][j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)*/
-                                        $CanKey[$i][$j+1] = $DeNum[$k2][$l];
+                                        $CanKey[$i][$j+1] = $DeNum[VerticalSortController::$k2][$l];
                                     /*}else if(inCount[DeNum[k2][l]][1] > inCount[CanKey[i][j+1]][1]) {//現在の出勤日数を比較
                                         continue;
                                     }*/
                                 }
-                                else if((int) $staff[$DeNum[$k2][$l]][5] > (int) $staff[$CanKey[$i][$j+1]][5]) {//提出率を比較
+                                else if((int) $staff[$DeNum[VerticalSortController::$k2][$l]][5] > (int) $staff[$CanKey[$i][$j+1]][5]) {//提出率を比較
                                     /*if(inCount[DeNum[k2][l]][1] < inCount[CanKey[i][j+1]][1]) {//現在の出勤日数を比較(すでに入っている従業員のほうが出勤日数が多い場合)*/
-                                        $CanKey[$i][$j+1] = $DeNum[$k2][$l];
+                                        $CanKey[$i][$j+1] = $DeNum[VerticalSortController::$k2][$l];
                                     /*}else if(inCount[DeNum[k2][l]][1] > inCount[CanKey[i][j+1]][1]) {//現在の出勤日数を比較
                                         continue;
                                     }*/
@@ -188,23 +215,23 @@ use App\Http\Controllers\Controller;
                             }
                         }
                         if(0 != strcmp($CanKey[$i][$j+1],-1)) {
-                            $inCount[$CanKey[$i][$j+1]][1]++;//出勤日数を調整↑
+                            VerticalSortController::$inCount[$CanKey[$i][$j+1]][1]++;//出勤日数を調整↑
                             if(0 != strcmp($kCopy,-1)) {
-                                $k2 = $kCopy;
+                                VerticalSortController::$k2 = $kCopy;
                             }
                         }else if(0 == strcmp($CanKey[$i][$j+1],-1)) {
                             $j--;
-                            $kCopy = $k2;
+                            $kCopy = VerticalSortController::$k2;
                         }
-                        $k2++;
-                        if($k2 == 4) {//重みの最大値によって変わる
-                            $k2 = 0;
+                        VerticalSortController::$k2++;
+                        if(VerticalSortController::$k2 == 4) {//重みの最大値によって変わる
+                            VerticalSortController::$k2 = 0;
                         }
                     
                 }
             }
             
-            $k2 = $khinan;//逃がした値を再代入
+            VerticalSortController::$k2 = $khinan;//逃がした値を再代入
             
             for($i = 0; count($CanKey) > $i; $i++) {//シフトに決定したシフトを代入
                 

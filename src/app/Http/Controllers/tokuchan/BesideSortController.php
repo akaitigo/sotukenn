@@ -61,6 +61,8 @@
 			}
 		}
 		
+
+		
 		return $StaffTimes;
 	}
 	
@@ -106,19 +108,14 @@
 			}
 		}
 
-		for ($i = 0; count($staff) > $i; $i++) {
-			for ($j = 0; 2 > $j; $j++) {
-				$ConseWork[$i][$j] = "";
-			}
-		}
 
 		for ($i = 0; count($staff) > $i; $i++) {
+			$CanChange[$i][0] = $staff[$i][4]; //キー値を代入しておく
 			$CanChange[$i][1] = "N";
 		}
 
 		for ($i = 0; count($staff) > $i; $i++) { //従業員一人ずつ最低労働時間などを参考に時間を調整していく
 
-			$CanChange[$i][0] = $staff[$i][4]; //ついでにキー値を代入しておく
 
 			/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
 			continue;
@@ -240,7 +237,6 @@
 					}
 				}
 
-
 				for ($j = 0; count(BesideSortController::$CompStaff) > $j; $j++) { //一番労働時間が長いスタッフを見つける
 					if (0 == strcmp(BesideSortController::$CompStaff[$j][2], "N")) { //最低労働時間の調整が不要な場合
 						//勤務時間が一番長いかつ調整が行われるスタッフではない
@@ -254,6 +250,8 @@
 						}
 					}
 				}
+
+				//echo $TimeTopStaff."=";
 
 				(int) $count = 0; //最大連勤数をカウント
 				(int) $IndexCount = 0;
@@ -273,10 +271,21 @@
 						$ConseCount++;
 					}
 				}
+
+				//  $YosoNum1 = count($ConseWork);
+				//  for($x = 0; $YosoNum1 > $x; $x++){
+				//  	$YosoNum2 = count($ConseWork[$x]);
+				//  	for($j = 0; $YosoNum2 > $j; $j++){
+				//  		if(is_null($ConseWork[$x][$j])){
+				//  			$ConseWork[$x][$j] = 0;
+				//  		}
+				//  	}
+				//  }
+
 				(int) $SortCount = 1;
 				//下記処理はカプセル化のためにメソッド化していいかも
-				for ($j = 0; $ConseCount > $j; $j++) { //そうや！出勤日数順に並べ替えるンゴ！
-					for ($k = $SortCount; $ConseCount > $k; $k++) {
+				for ($j = 0; count($ConseWork) > $j; $j++) { //そうや！出勤日数順に並べ替えるンゴ！
+					for ($k = 0; count($ConseWork[$j]) > $k; $k++) {
 						if ($ConseWork[$k][0] > $ConseWork[$j][0]) {
 							(int) $hinan1 = $ConseWork[$j][0];
 							(int) $hinan2 = $ConseWork[$j][1]; //値を避難
@@ -284,16 +293,19 @@
 							$ConseWork[$j][1] = $ConseWork[$k][1];
 							$ConseWork[$k][0] = $hinan1;
 							$ConseWork[$k][1] = $hinan2;
-							$SortCount++;
 						}
 					}
+					$SortCount++;
 				}
 
-
+				//print_r($ConseWork);
+				//echo $ConseCount;
 
 				//連続出勤日数順に交代できるシフトを探すンゴよ！
 				for ($j = 0; $ConseCount > $j; $j++) {
 					for ($k = $ConseWork[$j][0]; $k > 0; $k--) {
+						echo $i;
+						echo $ConseWork[$j][1];
 						if (0 == strcmp($EndShift[$i][$ConseWork[$j][1]], "-")) {
 							(int) $num1 = strpos($StaffShift[$i][$ConseWork[$j][1]], "-"); //出勤、退勤抜き出しに使用
 							(double) $in1 = (double) substr($StaffShift[$i][$ConseWork[$j][1]], 0, $num1); //提出シフトの出勤時間抜き出し

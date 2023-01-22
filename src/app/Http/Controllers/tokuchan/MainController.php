@@ -225,6 +225,7 @@
 			(int) $LastDay = 31;//作成するシフトの最終日
 			$PerfectShift = [[]];
 
+
 			for($i = 0; count($StaffShift) > $i; $i++) {
 				for($j = 0; count($StaffShift[$i]) > $j; $j++) {
 					$PerfectShift[$i][$j] = $StaffShift[$i][$j];//コピー元に干渉しないように　シフト作成用シフト抽出変数
@@ -263,11 +264,13 @@
 				$Bsc->RoadTimes($EndShift);
 				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
 				$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+				echo 1;
 				}while($Bsc->Stoper1($staff));
 				do{
 					$Bsc->RoadTimes($EndShift);
 					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
 					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+					echo 2;
 				}while($Bsc->Stoper2($staff));
 			//print_r($EndShift);
 			//完成したシフトの登録
