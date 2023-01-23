@@ -203,6 +203,8 @@
         </div>
 
 
+        <form method="post" onsubmit="return needshift({{$nextlastday}},{{$shift_divicount}})" action="{{ route('new_shiftcreate') }}">
+        @csrf
         <!-- 来月のシフト -->
         <div class='widget'>
             <div id='{{$nextmonth}}' class="tab-content">
@@ -382,8 +384,6 @@
                             <th class= "shiftdivider">合計人数</th>
                         </thead>
                         <tbody>
-                        <form method="post" onsubmit="needshift({{$nextlastday}},{{$shift_divicount}})" action="{{ route('shiftupdate') }}">
-                         @csrf
                         <?php $count = $calendarDataNext[0]['day']; 
                               $gou = $shift_divicount + 1;?>
                             @for ($i = 1; $i <= $calendarDataNext[0]['lastDay']; $i++) <?php
