@@ -102,7 +102,7 @@
 		(int) $ConseWork = [[]]; //最大連勤数と何日から連勤か
 		$CanChange = [[]];
 
-		for ($i = 0; 31 > $i; $i++) {
+		for ($i = 0; 31 > $i; $i++) {//day変数に変更
 			for ($j = 0; 2 > $j; $j++) {
 				$ConseWork[$i][$j] = 0;
 			}

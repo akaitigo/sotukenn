@@ -355,6 +355,20 @@
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
 
+<<<<<<< HEAD
+			do{
+				$Bsc->RoadTimes($EndShift);
+				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
+				$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+				echo 1;
+				}while($Bsc->Stoper1($staff));
+				do{
+					$Bsc->RoadTimes($EndShift);
+					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
+					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+					echo 2;
+				}while($Bsc->Stoper2($staff));
+=======
 			// do{
 			// 	$Bsc->RoadTimes($EndShift);
 			// 	$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
@@ -367,6 +381,7 @@
 			// 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
 			// 		echo 2;
 			// 	}while($Bsc->Stoper2($staff));
+>>>>>>> ca6ebc8c6ceb0df44d97c3929c2e443c00bd3b0f
 			//print_r($EndShift);
 			//完成したシフトの登録
 			$CompleteShiftdb = CompleteShift::where('store_id',$storeid)->where('month',$month)->get();
