@@ -24,7 +24,7 @@ class MultiAuthTableSeeder extends Seeder
             //MARUOカンパニー
             [
                 'name' => '徳澤涼介',
-                'email' => '22@gmail.com',
+                'email' => 'emp1@gmail.com',
                 'password' => 'testtest',
                 'weight' => '4',
                 'store_id' => '1',
@@ -42,7 +42,7 @@ class MultiAuthTableSeeder extends Seeder
             ],
             [
                 'name' => '檜田翔平',
-                'email' => '11@gmail.com',
+                'email' => 'emp2@gmail.com',
                 'password' => 'testtest',
                 'weight' => '3',
                 'store_id' => '1',
@@ -59,7 +59,7 @@ class MultiAuthTableSeeder extends Seeder
             ],
             [
                 'name' => '三浦優也',
-                'email' => '33@gmail.com',
+                'email' => 'emp3@gmail.com',
                 'password' => 'testtest',
                 'weight' => '2',
                 'store_id' => '1',

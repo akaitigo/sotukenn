@@ -177,6 +177,35 @@
   background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
   background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
 }
+#cancel-button2 {
+  box-shadow: -1px 10px 20px #FF7DAE;
+  background: #FF1744;
+  background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+}
+#cancel-button3 {
+  box-shadow: -1px 10px 20px #FF7DAE;
+  background: #FF1744;
+  background: -moz-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: -webkit-linear-gradient(left, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  background: linear-gradient(to right, #FF1744 0%, #FF5D95 80%, #FF5D95 100%);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+}
+.shiftcover {
+  font-size: 4rem;
+  font-weight: bold;
+}
+
+#cover {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-shadow: 10px 10px 10px 10pxrgb(255, 61, 61);
+}
 
 #delete-button {
   box-shadow: -1px 10px 20px #FF7DAE;
@@ -210,6 +239,14 @@
   right: 20px;
   bottom: 80px;
   background: #1fc20ebd;
+}
+
+#cover-button {
+  display: block;
+  position: absolute;
+  left: 10px;
+  bottom: 80px;
+  background: #ff8400bd;
 }
 
 #add-button:hover,
@@ -305,11 +342,7 @@
 }
 
 .all-date {
-  /* border-color: #42c914; */
-  border-right-color:#42c914;
-  border-left-color:#52A0FD;
-  border-top-color:#52A0FD;
-  border-bottom-color:#42c914;
+  border-color: #ff8400;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
@@ -326,6 +359,10 @@
 
 .event-date.active-date {
   background: #52A0FD;
+  box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
+}
+.event-date.all-date.active-date {
+  background: #ff8400;
   box-shadow: 0 2px 8px RGBA(130, 180, 255, .9);
 }
 
@@ -404,7 +441,7 @@
 
   .dialog {
     width: 370px;
-    height: 450px;
+    height: 530px;
     border-radius: 3px;
     top: 0;
     left: 0;
@@ -453,7 +490,7 @@
 
   .dialog {
     width: 370px;
-    height: 450px;
+    height: 530px;
     border-radius: 3px;
     top: 0;
     left: 0;
@@ -475,7 +512,7 @@
     margin: 0 auto;
     margin-right: 0;
     display: block;
-    height: 480px;
+    height: 520px;
     left: 0;
     border-radius: 3px;
     box-shadow: 3px 8px 16px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);

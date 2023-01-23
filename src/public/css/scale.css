@@ -3,6 +3,11 @@
     margin-left: 0px;
     transition: margin-left 250ms ease-in-out;
 }
+#scale2{
+    margin-top: 0px;
+    margin-left: 0px;
+    transition: margin-left 250ms ease-in-out;
+}
 input[type="checkbox"]:checked ~ #scale {
     margin-left: 270px;
 }

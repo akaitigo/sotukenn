@@ -22,6 +22,7 @@
         "webpack-dev-server": "^4.11.1"
     },
     "dependencies": {
-        "vue-loader": "^17.0.1"
+        "vue-loader": "^17.0.1",
+        "vue-route": "^1.5.1"
     }
 }

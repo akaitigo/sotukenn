@@ -282,3 +282,7 @@ th {
 .inputText {
     padding: 10 10 10 10;
 }
+::placeholder{
+    color: #999999;
+    
+}

@@ -1,0 +1,26 @@
+{
+    "ipag": {
+        "normal": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipag",
+        "bold": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipag",
+        "italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipag",
+        "bold_italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipag"
+    },
+    "ipagp": {
+        "normal": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipagp",
+        "bold": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipagp",
+        "italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipagp",
+        "bold_italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipagp"
+    },
+    "ipam": {
+        "normal": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipam",
+        "bold": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipam",
+        "italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipam",
+        "bold_italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipam"
+    },
+    "ipamp": {
+        "normal": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipamp",
+        "bold": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipamp",
+        "italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipamp",
+        "bold_italic": "\/data\/vendor\/dompdf\/dompdf\/lib\/fonts\/ipamp"
+    }
+}

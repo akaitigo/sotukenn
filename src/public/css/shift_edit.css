@@ -1,0 +1,46 @@
+#container{
+    margin: 150px, 0, 0, 100px;
+    text-align: left;
+    position: relative;
+    font-weight: bold;
+  }
+
+.mom {
+    position: relative;
+    transition: transform 250ms ease-in-out;
+}
+
+.mom_scopeday {
+    position: relative;
+    transition: transform 250ms ease-in-out;
+}
+
+/* 日にちの範囲指定 */
+.scopeday {
+    position: absolute;
+    left: 12rem;
+    top: -1.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.colorbox_flex {
+    position: absolute;
+    left: 9rem;
+    top: 0.7rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+#slide{
+    margin-top: 60px;
+    transform: translateX(0px);
+    transition: transform 250ms ease-in-out;
+}
+input[type="checkbox"]:checked ~ .mom {
+    transform: translateX(250px);
+}
+
+input[type="checkbox"]:checked ~ .mom_scopeday {
+    transform: translateX(250px);
+}

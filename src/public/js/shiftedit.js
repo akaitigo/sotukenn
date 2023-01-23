@@ -60,10 +60,10 @@ function addbatsu(id,day) {
     }
 }
 
-function update(emppartcountid,emppartname) {
+function update(emppartcountid,emppartname,lastday) {
     for(let id = 1; id <= emppartcountid; id++){
         let emppartnamearray = id -1;
-        for (let day = 1; day <= 31; day++){
+        for (let day = 1; day <= lastday; day++){
             let jstext = id + "-" + day;
             let starttimepull = id + "-" + day + "start";
             let endtimepull = id + "-" + day + "end";
@@ -83,7 +83,7 @@ function update(emppartcountid,emppartname) {
                 alert((emppartname[emppartnamearray]) + "さんの" + day + "日の退勤時間を入力してください");
                 return false;
             }else if(shifttime <= 0){
-                alert((emppartname[emppartnamearray]) + "さんの" + day +"日に入力ミスがあります"+ shifttime);
+                alert((emppartname[emppartnamearray]) + "さんの" + day +"日に入力ミスがあります");
                 return false;
             }
         }
