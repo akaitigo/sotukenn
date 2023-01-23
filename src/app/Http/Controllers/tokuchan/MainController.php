@@ -227,9 +227,9 @@
 						}
 					  }
 
-			(int) $days = count($StaffShift[0]);
+			(int) $days = count($StaffShift[0]) - 1;
 			(int) $StaffNum = count($staff);
-			(int) $LastDay = count($StaffShift[0]);//作成するシフトの最終日
+			(int) $LastDay = count($StaffShift[0]) - 1;//作成するシフトの最終日
 			$PerfectShift = [[]];
 
 
@@ -266,7 +266,7 @@
 				$EndShift = $Osc->End($Shift,$EndShift,$ShiftDivider,$staff,$now);
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
-31
+
 			do{
 				$Bsc->RoadTimes($EndShift);
 				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
