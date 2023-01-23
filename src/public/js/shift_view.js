@@ -21,7 +21,7 @@ $(document).ready(function () {
 			$(".tab").removeClass("active-tab");
 			$(this).addClass("active-tab");
 			document.getElementById("mom_scopeday").style.visibility ="visible";
-			document.getElementById("createshifr_btn").style.visibility ="visible";
+			document.getElementById("createshift_btn").style.visibility ="visible";
 			if(document.getElementById("mom_colorbox").value == 0) {
 				document.getElementById("mom_colorbox").style.visibility ="visible";
 			}else {
@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 function tabchange() {
 	document.getElementById("mom_scopeday").style.visibility ="hidden";
-	document.getElementById("createshifr_btn").style.visibility ="hidden";
+	document.getElementById("createshift_btn").style.visibility ="hidden";
 	document.getElementById("mom_colorbox").style.visibility ="visible";
 }
 
@@ -235,5 +235,4 @@ function needshift(maxday,maxtime) {
 			document.getElementById(nin_id).disabled = false;
 		}
 	}
-	return true;
 }

@@ -12,17 +12,103 @@
 	use App\Models\Shiftdivider;
 	use App\Models\Nextdivider;
 	use App\Models\CompleteShift;
+	use Illuminate\Http\Request;
+	use Carbon\Carbon;
+
 
     class MainController{
 
-        function main(){
+        function main(Request $request){
+
+			$adminid = Auth::guard('admin')->id();
+			$storeid = admin::where('id', $adminid)->value('store_id');
+			$time_gou = 1;
+			$shift_divicount = 0;
+
+			$carbonNext = Carbon::now()->addMonth(1);
+			$month = $carbonNext->month;//何月のシフトを作成するか
+			$lastDate = $carbonNext->lastOfMonth()->day; //来月の最終日
+			$shiftdivider = Shiftdivider::where('store_id', $storeid)->get();
+			$needshift_divider = NeedShift::where('store_id', $storeid)->where('month', $month)->get();
+			$judge=0;
+
+			foreach($needshift_divider as $need) {
+				$judge=1;
+			}
+
+			foreach($shiftdivider as $shift_divi) {
+				for($time = 1;$time <= 30; $time++) {
+					$shifttime = 'time'.$time;
+					if($shift_divi->$shifttime != null) {
+						$shift_divicount++;
+					}
+				}
+			}
+			
+			if($judge == 0) {
+				for($day = 1;$day <= $lastDate; $day++) {
+					\DB::table('needshift')
+						->insert([
+							"store_id" => $storeid,
+							"month" => $month,
+							"day" => $day
+						]);
+				}
+			}
+
+			// NULLを入れる上書き
+			for ($day = 1; $day <= $lastDate; $day++) {
+				for ($time = 1; $time <= 30; $time++) {
+					$shiftdivi_time = 'time' . $time;
+						\DB::table('needshift')
+						->where('store_id', $storeid)
+						->where('month', $month)
+						->where('day', $day)
+						->update([
+							$shiftdivi_time => null
+						]);
+				}
+			}
+
+
+				for ($day = 1; $day <= $lastDate; $day++) {
+					$time_gou = 1;
+					foreach($shiftdivider as $shift_divi) {
+						for($time = 1;$time <= $shift_divicount; $time++) {
+							$needshift_nin = $day . '-' . $time;
+							$shiftdivi_time = 'time' . $time;
+							$input_needshift = $request->input($needshift_nin);
+							dump($input_needshift);
+							$needgou = $input_needshift + $time_gou;
+							if($input_needshift != null) {
+								for($i = $time_gou; $i < $needgou; $i++) {
+									$needshift_db = 'time' . $i;
+									$time_gou++;
+									\DB::table('needshift')
+									->where('store_id', $storeid)
+									->where('month', $month)
+									->where('day', $day)
+									->update([
+										$needshift_db => $shift_divi->$shiftdivi_time
+									]);
+								}
+							}
+						}
+					}
+				}
+
+
+
+
+
+
+
 			//$asa ini_get('max_execution_time');
 			//set_time_limit(3000);
-			$month = 1;//何月のシフトを作成するか
+			$month = 2;//何月のシフトを作成するか
 			(int) $StaffStatus = 6;//固定値
 			(int) $MaxWeight = 4;//固定値
 			(int) $LowestWeight = 1;//固定値
-			$month;
 			// int $NeedShift[][] = new int[days][2]要な人数
 			//$ShiftDivider = [];
 			//$NextDivider = [["10-23","11-23"],["11-23","10-17","17-23"],["10-17","11-17"],["15-23","17-23"],["17-23","18-23"],["18-23","18.5-23"],["18.5-23","19-23"]];
@@ -90,7 +176,7 @@
 			$ShiftDividerCount = count($ShiftDivider);
 			//store1の必要なシフトを取得
 			
-			$NeedShiftdb = NeedShift::where('store_id',$storeid)->get();
+			$NeedShiftdb = NeedShift::where('store_id',$storeid)->where('month',$month)->get();
 			$counterX = 0;
 			foreach($NeedShiftdb as $nsd){
 				$NeedShift2[$counterX][0] = $nsd->day;
@@ -132,15 +218,17 @@
 				$StaffShift[$counterX][24] = $ssd->day24;$StaffShift[$counterX][25] = $ssd->day25;$StaffShift[$counterX][26] = $ssd->day26;
 				$StaffShift[$counterX][27] = $ssd->day27;$StaffShift[$counterX][28] = $ssd->day28;$StaffShift[$counterX][29] = $ssd->day29;
 				$StaffShift[$counterX][30] = $ssd->day30;$StaffShift[$counterX][31] = $ssd->day31;
-				$how = count($StaffShift[$counterX]);
-				for($i = 0; $how > $i; $i++){
-					if(is_null($StaffShift[$counterX][$i])){
-						unset($StaffShift[$counterX][$i]);
-					}
-				}
-				$StaffShift = array_values($StaffShift);
 				$counterX++;
 			}
+
+			$days = count($NeedShift2);
+			$delete = count($StaffShift[0]) - 1 - $days;
+			for($i = 0; count($StaffShift) > $i; $i++){
+				for($j = 0; $delete > $j; $j++){
+					unset($StaffShift[$i][$days + $j + 1]);
+				}
+			}
+			$StaffShift = array_values($StaffShift);
 
 
 			//store1のスタッフのステータスの取得
@@ -267,6 +355,7 @@
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
 
+<<<<<<< HEAD
 			do{
 				$Bsc->RoadTimes($EndShift);
 				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
@@ -279,30 +368,85 @@
 					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
 					echo 2;
 				}while($Bsc->Stoper2($staff));
+=======
+			// do{
+			// 	$Bsc->RoadTimes($EndShift);
+			// 	$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
+			// 	$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+			// 	echo 1;
+			// 	}while($Bsc->Stoper1($staff));
+			// 	do{
+			// 		$Bsc->RoadTimes($EndShift);
+			// 		$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
+			// 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+			// 		echo 2;
+			// 	}while($Bsc->Stoper2($staff));
+>>>>>>> ca6ebc8c6ceb0df44d97c3929c2e443c00bd3b0f
 			//print_r($EndShift);
 			//完成したシフトの登録
 			$CompleteShiftdb = CompleteShift::where('store_id',$storeid)->where('month',$month)->get();
 			$CounterX = 0;
+			$judge=0;
 			foreach($CompleteShiftdb as $csd){
-				for($i = 1; count($EndShift[$CounterX]) > $i; $i++){
-					$dayIs = "day".(String)$i;
-					$csd->$dayIs = $EndShift[$CounterX][$i];
-				}
-				$csd->timestamps = false;
-				$csd->save();
-				$CounterX++;
+				$judge=1;
 			}
-			$CounterX = 0;
-			foreach($CompleteShiftdb as $csd){
-				for($i = 1; count($EndShift[$CounterX]) > $i; $i++){
-					$dayIs = "day".(String)$i;
-					echo $csd->$dayIs;
+			if($judge==1) {
+				foreach($CompleteShiftdb as $csd){
+					for($i = 1; count($EndShift[$CounterX]) > $i; $i++){
+						$dayIs = "day".(String)$i;
+						$csd->$dayIs = $EndShift[$CounterX][$i];
+					}
+					$csd->timestamps = false;
+					$csd->save();
+					$CounterX++;
 				}
-				echo '<br>';
-				$CounterX++;
+			}else {
+				$CounterX = 0;
+				$emppartnin = 0;
+				$emppart_id = [];
+				$emppartjudge = [];
+				$empnin = 0;
+				$partnin = 0;
+				$employees = Employee::where('store_id', $storeid)->get();
+        		$parttimers = Parttimer::where('store_id', $storeid)->get();
+				foreach($employees as $emp) {
+					$emppartnin++;
+					$empnin++;
+					$emppart_id[] = $emp->id;
+					$emppartjudge[] = true;
+				}
+				foreach($parttimers as $part) {
+					$emppartnin++;
+					$partnin++;
+					$emppart_id[] = $part->id;
+					$emppartjudge[] = false;
+				}
+
+
+				for($staffnin = 1; $emppartnin > $staffnin; $staffnin++){
+					\DB::table('complete_shifts')
+						->insert([
+							"store_id" => $storeid,
+							"emppartid" => $emppart_id[$CounterX],
+							"judge" => $emppartjudge[$CounterX],
+							"month" => $month
+						]);
+					for($i = 1; count($EndShift[$CounterX]) > $i; $i++){
+						$dayIs = "day".(String)$i;
+						\DB::table('complete_shifts')
+							->where('store_id', $storeid)
+							->where('emppartid', $emppart_id[$CounterX])
+							->where('judge', $emppartjudge[$CounterX])
+							->where('month', $month)
+							->update([
+								$dayIs => $EndShift[$CounterX][$i]
+							]);
+					}
+					$CounterX++;
+				}
 			}
 
-			//return view('shiftView', compact('EndShift','StaffShift','staff'));
+			return redirect()->route('new_shiftView');
         }
 	}
 

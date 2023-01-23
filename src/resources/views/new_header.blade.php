@@ -72,9 +72,7 @@ function savesession() {
         <a href="{{ route('employeesManagementPassView') }}"><li>従業員管理</li></a>
         <a href="{{ route('new_shiftView') }}"><li>シフト閲覧</li></a>
         <a href="{{ route('informationShare') }}"><li>情報共有</li></a>
-        @elseif($role=="parttimer")
-        <a href="{{ route('calendar') }}"><li>カレンダー</li></a>
-        <a href="{{ route('shiftEdit') }}"><li>シフト編集</li></a>
+        <a href="{{ route('emp_calendar_show') }}"><li>バイト用ページへ</li></a>
         @endif
     </ul>
 </div>

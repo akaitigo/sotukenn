@@ -36,9 +36,6 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
-
-
-
             ],
             [
                 'name' => '檜田翔平',

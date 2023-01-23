@@ -16,6 +16,15 @@ $(function () {
         }
     });
 });
+$(function () {
+    $('.check_job').on('click', function () {
+        if ($(this).prop('checked')) {
+            // 一旦全てをクリアして再チェックする
+            $('.check_job').prop('checked', false);
+            $(this).prop('checked', true);
+        }
+    });
+});
 // $(function () {
 //     $('.check_kind').on('click', function () {
 //         if ($(this).prop('checked')) {

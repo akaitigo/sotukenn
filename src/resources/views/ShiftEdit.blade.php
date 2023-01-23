@@ -28,7 +28,7 @@
             <div class='widget'>
                 <div class="tab-content" href="#tab1">
                 <table class="month_table">
-                    <caption>１ 月</caption>
+                    <caption>{{$thisMonth}} 月</caption>
                 </table>
                 <div class="scrollbox">
                     <table class="compshift_edit_table">

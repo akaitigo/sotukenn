@@ -203,11 +203,14 @@
         </div>
 
 
-        <form method="post" onsubmit="return needshift({{$nextlastday}},{{$shift_divicount}})" action="{{ route('new_shiftcreate') }}">
-        @csrf
+
+
+
         <!-- 来月のシフト -->
         <div class='widget'>
             <div id='{{$nextmonth}}' class="tab-content">
+            <form method="post" action="{{ route('new_shiftcreate') }}">
+            @csrf
                 <table class="month_table">
                     <caption>{{$calendarDataNext[0]["month"]}} 月</caption>
                 </table>
@@ -376,8 +379,8 @@
                                           $time_plus_btn = 'time' . $i. 'plus';
                                     ?>
                                     <th class= "shiftdivider">{{$shift_divi -> $time}}
-                                    <button class="th_minus_btn" id="{{$time_minus_btn}}" onclick="scopeminus({{$i}})">-</button>
-                                    <button class="th_plus_btn" id="{{$time_plus_btn}}" onclick="scopeplus({{$i}})">+</button>
+                                    <button type="button" class="th_minus_btn" id="{{$time_minus_btn}}" onclick="scopeminus({{$i}})">-</button>
+                                    <button type="button" class="th_plus_btn" id="{{$time_plus_btn}}" onclick="scopeplus({{$i}})">+</button>
                                     </th>
                                 @endfor
                             @endforeach
@@ -455,12 +458,12 @@
                     <p>来月のシフトは未完成です</p>
                     @endif
                 </div>
+            @if($nextcomshiftjudge == 0 && $userId == 0)
+                <button id="createshift_btn" type="submit" name="updateId" class="shiftcreate_btn" onclick="needshift({{$nextlastday}},{{$shift_divicount}})" >シフトを作成</button>
+            @endif
+            </form>
             </div>
         </div>
-        @if($nextcomshiftjudge == 0 && $userId == 0)
-            <button id="createshifr_btn" type="submit" name="updateId" class="shiftcreate_btn">シフトを作成</button>
-        @endif
-        </form>
         @if ($userId != 0)
             {{ $staffshiftcoverNext }}
         @endif
@@ -476,7 +479,7 @@
         document.getElementById("startdaypull").style.background = "rgba(218, 249, 255)";
         document.getElementById("enddaypull").style.background = "rgba(218, 249, 255)";
         document.getElementById("mom_scopeday").style.visibility ="hidden";
-        document.getElementById("createshifr_btn").style.visibility ="hidden";
+        document.getElementById("createshift_btn").style.visibility ="hidden";
         for(let day = 1; day <= json_lastday; day++){
             for (let time = 1; time <= json_timecount; time++){
                 let json_ninid = day + "-" + time;
