@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Notifications\AdminResetPassword;
 
-class admin extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
