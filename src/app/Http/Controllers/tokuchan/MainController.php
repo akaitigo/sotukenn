@@ -56,21 +56,36 @@
 				}
 			}
 
+			// NULLを入れる上書き
+			for ($day = 1; $day <= $lastDate; $day++) {
+				for ($time = 1; $time <= 30; $time++) {
+					$shiftdivi_time = 'time' . $time;
+						\DB::table('needshift')
+						->where('store_id', $storeid)
+						->where('month', $month)
+						->where('day', $day)
+						->update([
+							$shiftdivi_time => null
+						]);
+				}
+			}
+
+
 				for ($day = 1; $day <= $lastDate; $day++) {
 					$time_gou = 1;
 					for ($time = 1; $time <= $shift_divicount; $time++) {
 						$needshift_nin = $day . '-' . $time;
+						$shiftdivi_time = 'time' . $time;
 						$input_needshift = $request->input($needshift_nin);
-						dump($input_needshift);
-						if($input_needshift == null) {
+						if($input_needshift != null) {
 							for($i = $time_gou; $i <= $input_needshift; $i++) {
 								$needshift_db = 'time' . $i;
 								\DB::table('needshift')
-								->where('storeid', $storeid)
+								->where('store_id', $storeid)
 								->where('month', $month)
 								->where('day', $day)
 								->update([
-									$needshift_db => "18-23"
+									$needshift_db => "10-17"
 								]);
 								$time_gou++;
 							}
