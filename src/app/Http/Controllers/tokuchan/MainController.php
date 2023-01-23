@@ -73,21 +73,25 @@
 
 				for ($day = 1; $day <= $lastDate; $day++) {
 					$time_gou = 1;
-					for ($time = 1; $time <= $shift_divicount; $time++) {
-						$needshift_nin = $day . '-' . $time;
-						$shiftdivi_time = 'time' . $time;
-						$input_needshift = $request->input($needshift_nin);
-						if($input_needshift != null) {
-							for($i = $time_gou; $i <= $input_needshift; $i++) {
-								$needshift_db = 'time' . $i;
-								\DB::table('needshift')
-								->where('store_id', $storeid)
-								->where('month', $month)
-								->where('day', $day)
-								->update([
-									$needshift_db => "10-17"
-								]);
-								$time_gou++;
+					foreach($shiftdivider as $shift_divi) {
+						for($time = 1;$time <= $shift_divicount; $time++) {
+							$needshift_nin = $day . '-' . $time;
+							$shiftdivi_time = 'time' . $time;
+							$input_needshift = $request->input($needshift_nin);
+							dump($input_needshift);
+							$needgou = $input_needshift + $time_gou;
+							if($input_needshift != null) {
+								for($i = $time_gou; $i < $needgou; $i++) {
+									$needshift_db = 'time' . $i;
+									$time_gou++;
+									\DB::table('needshift')
+									->where('store_id', $storeid)
+									->where('month', $month)
+									->where('day', $day)
+									->update([
+										$needshift_db => $shift_divi->$shiftdivi_time
+									]);
+								}
 							}
 						}
 					}
