@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedInteger('store_id')->default('1');
             $table->foreign('store_id')->references('id')->on('stores');
+            $table->integer('month');
             $table->integer('day');
             $table->string('time1')->nullable();
             $table->string('time2')->nullable();

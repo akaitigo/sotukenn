@@ -59,6 +59,7 @@ class OtherSortController extends Controller
 		}
 
 
+
 		for ($i = 0; count($NeedShiftDays) > $i; $i++) { //必要なスタッフ数を割り出し
 			for ($j = 1; count($NeedShiftDays[$i]) > $j; $j++) {
 				for ($k = 0; count($NeedShift[$i]) > $k; $k++) {
