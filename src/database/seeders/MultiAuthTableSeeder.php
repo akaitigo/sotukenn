@@ -36,9 +36,6 @@ class MultiAuthTableSeeder extends Seeder
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',
                 'daymaxworktime' => '-1',
-
-
-
             ],
             [
                 'name' => '檜田翔平',
@@ -362,7 +359,7 @@ class MultiAuthTableSeeder extends Seeder
                 'name' => '中山竜誓',
                 'email' => 'panda@example.com',
                 'password' => 'qwertytanaka',
-                'weight' => '2',
+                'weight' => '3',
                 'store_id' => '1',
                 'age' => '20',
                 'submissionrate' => '0',
@@ -397,7 +394,7 @@ class MultiAuthTableSeeder extends Seeder
                 'age' => '88',
                 'submissionrate' => '0',
                 'monthminworktime' => '-1',
-                'monthmaxworktime' => '-120',
+                'monthmaxworktime' => '120',
                 'weekminworktime' => '-1',
                 'weekmaxworktime' => '-1',
                 'dayminworktime' => '-1',

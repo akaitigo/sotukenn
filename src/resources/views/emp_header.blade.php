@@ -6,7 +6,23 @@ use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
 ?>
-
+@if (Auth::guard('admin')->check())
+<?php $adminid = Auth::guard('admin')->id();
+$storeid = admin::where('id', $adminid)->value('store_id');
+$role="admin";
+echo Store::where('id', $storeid)->value('store_name');
+?>
+@elseif(Auth::guard('employee')->check())
+<?php $empid = Auth::guard('employee')->id();
+$role="employee";
+echo Employee::where('id', $empid)->value('name');
+?>
+@elseif(Auth::guard('parttimer')->check())
+<?php $partid = Auth::guard('parttimer')->id();
+$role="parttimer";
+echo Parttimer::where('id', $partid)->value('name');
+?>
+@endif
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="最新技術と自然との調和を目指す">
@@ -37,6 +53,9 @@ use App\Models\Parttimer;
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
+                        @if($role=="employee")
+                            <li><a href="{{ route('calendar') }}">管理者ページへ</a></li>
+                        @endif
                     </ul>
                     <ul id="sns">
                         <p>・今月シフト</p>

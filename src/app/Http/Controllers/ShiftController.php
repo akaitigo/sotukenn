@@ -621,13 +621,12 @@ class ShiftController extends Controller
                     // 連想配列作成
                     $shift_data += [$data_name[$i] => $_POST[$data_name[$i] . strval($x)]];
                 }
-                // dump($data_name[$i].":".$x.":".$test);
+                
             }
             //連想配列を配列に格納(多次元配列にしてる)
             $shift_data_list[$x] = $shift_data;
             $work[$x] = -1;
         }
-        dump($shift_data_list[0]['day']);
         if ($shift_data_list[0]['day'] != "") {
             for ($x = 0; $x < 31; $x++) {
                 if (isset($shift_data_list[$x]['day']) && $_POST['month' . strval($x)] == $month) {
@@ -635,8 +634,6 @@ class ShiftController extends Controller
                 }
             }
         }
-
-        dump($work);
 
         for ($x = 0; $x < 31; $x++) {
             $comment_data = [];
@@ -653,15 +650,12 @@ class ShiftController extends Controller
             $comment_data_list[$x] = $comment_data;
             $comment_work[$x] = null;
         }
-        dump($comment_data_list);
         if ($comment_data_list[0]['comment_day'] != "") {
             for ($x = 0; $x < 31; $x++) {
                 if (isset($comment_data_list[$x]['comment_day'])) {
                     $comment_work[$comment_data_list[$x]['comment_day'] - 1] = $comment_data_list[$x]['comment_comment'];
                 }
             }
-
-            dump($comment_work);
         }
         //ここまで正常
         if (!(is_null($employee->email))) { //ログイン中のユーザ情報の取得
@@ -747,6 +741,8 @@ class ShiftController extends Controller
             $parttimerEmail = $parttimer->email;
             $employee = Parttimer::where('email', $parttimerEmail)->get();
         }
+
+        return redirect('emp_shift_add');
     }
 
     public function shift_show()

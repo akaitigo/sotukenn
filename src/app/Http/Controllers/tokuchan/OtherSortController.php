@@ -39,7 +39,7 @@ class OtherSortController extends Controller
 
 	function Ycounter($StaffShift, $StaffNum)
 	{ //従業員ごとの出勤日数をカウントするメソッド
-		$Ycounter = array_fill(0, $StaffNum, 0);
+		$Ycounter = array_fill(0, count($StaffShift) , 0);
 
 		for ($i = 0; count($StaffShift) > $i; $i++) {
 			for ($j = 1; count($StaffShift[$i]) > $j; $j++) {

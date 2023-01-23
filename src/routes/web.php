@@ -87,16 +87,16 @@ Route::middleware('auth:employee,admin')->group(function () {
     Route::post('parttimer/register',  [App\Http\Controllers\Auth\RegisterController::class, 'registerParttimer'])->name('parttimer-register');
     Route::get('/emp_informationShareRegister',  [App\Http\Controllers\emp_informationShareController::class, 'informationShareRegister'])->name('emp_informationShare-register');
     Route::post('/emp_informationShareRegisterInput',  [App\Http\Controllers\emp_informationShareController::class, 'informationSave'])->name('emp_informationRegisterInput');
-    Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');    
+    Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');
 });
 //ログインしないと使えない
-Route::middleware('auth:employee,admin,parttimer')->group(function  ()  {
-    Route::redirect('/output', '/output/'.Carbon::now()->year.'/'.Carbon::now()->month);
-    Route::get('/output/{year}/{month}', [App\Http\Controllers\OutputController::class, 'outputpage'])->name('output');    
-    Route::get('/download/{year}/csv/{month}', [App\Http\Controllers\OutputController::class, 'downloadcsv'])->name('downloadcsv');    
-    Route::get('/download/{year}/pdf/{month}', [App\Http\Controllers\OutputController::class, 'downloadpdf'])->name('downloadpdf');    
-    Route::get('/download/{year}/image/{month}', [App\Http\Controllers\OutputController::class, 'downloadimage'])->name('downloadimage');    
-    
+Route::middleware('auth:employee,admin,parttimer')->group(function () {
+    Route::redirect('/output', '/output/' . Carbon::now()->year . '/' . Carbon::now()->month);
+    Route::get('/output/{year}/{month}', [App\Http\Controllers\OutputController::class, 'outputpage'])->name('output');
+    Route::get('/download/{year}/csv/{month}', [App\Http\Controllers\OutputController::class, 'downloadcsv'])->name('downloadcsv');
+    Route::get('/download/{year}/pdf/{month}', [App\Http\Controllers\OutputController::class, 'downloadpdf'])->name('downloadpdf');
+    Route::get('/download/{year}/image/{month}', [App\Http\Controllers\OutputController::class, 'downloadimage'])->name('downloadimage');
+
     Route::get('/emp_informationShare', [App\Http\Controllers\emp_informationShareController::class, 'informationShareView'])->name('emp_informationShare');
 });
 //Route::get('/', [App\Http\Controllers\Controller::class, 'index'])->name('home');
@@ -129,6 +129,13 @@ Route::prefix('parttimer')->name('parttimer.')->group(function () {
     // Route::post('password/email', [App\Http\Controllers\Auth\ParttimerForgotPasswordController::class, 'sendResetLinkEmail'])->name('parttimer.password.email');
     // Route::get('password/reset/{token}', [App\Http\Controllers\Auth\ParttimerResetPasswordController::class, 'showResetForm'])->name('parttimer.password.reset');
     // Route::post('password/reset', [App\Http\Controllers\Auth\ParttimerResetPasswordController::class, 'reset'])->name('parttimer.password.update');
+});
+
+//  従業員とアルバイトしか入れない
+Route::middleware('auth:employee,parttimer')->group(function () {
+    Route::post('/emp_shift_add', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
+    Route::get('emp_shift_add', "App\Http\Controllers\ShiftController@shift_show")->name('shift_show');
+    Route::get('/emp_calendar_show', [App\Http\Controllers\CalendarController::class, 'emp_foovar'])->name('emp_calendar_show');
 });
 
 Route::get('login', [App\Http\Controllers\RedirectController::class, 'toLogin']);
@@ -168,12 +175,14 @@ Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::clas
 Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
 Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeManagementDelete');                       //通知削除
 
+
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
 
 Route::get('/shiftView', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('shiftView');
 Route::get('/new_shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('new_shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                         //シフト編集
 Route::post('/shiftupdate', [App\Http\Controllers\ShiftController::class, 'update'])->name('shiftupdate');                                    //シフト編集上書き
+Route::post('/new_shiftcreate', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('new_shiftcreate');                                    //シフト編集上書き
 
 
 Route::get('/shiftCreate', [App\Http\Controllers\ShiftController::class, 'create'])->name('shiftCreate');                                //シフト作成
@@ -191,9 +200,3 @@ Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting
 
 Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
 Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
-
-//  test用
-Route::post('/emp', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
-
-Route::get('emp_shift_add', "App\Http\Controllers\ShiftController@shift_show")->name('shift_show');
-Route::get('/emp_calendar_show', [App\Http\Controllers\CalendarController::class, 'emp_foovar'])->name('emp_calendar_show'); 

@@ -49,7 +49,7 @@
 
                                 <td class="emptext">
                                     @foreach ($allJob as $alljob)
-                                    <input type="checkbox" name="{{ $loop->iteration }}" value="{{ $loop->iteration }}" {{ in_array($alljob->id, $jobcheck) ? 'checked' : '' }}>
+                                    <input type="checkbox" class="check_job" name="{{ $loop->iteration }}" value="{{ $loop->iteration }}" {{ in_array($alljob->id, $jobcheck) ? 'checked' : '' }}>
                                     {{ $alljob->name }}
                                     <br>
                                     {{-- {{$loop->iteration}}で現在のループ回数 --}}
@@ -129,7 +129,7 @@
                                 <td>
 
                                     @foreach ($allJob as $alljob)
-                                    <input type="checkbox" name="{{ $loop->iteration }}" value="{{ $loop->iteration }}" {{ in_array($alljob->id, $jobcheck) ? 'checked' : '' }}>
+                                    <input type="checkbox" class="check_job name="{{ $loop->iteration }}" value="{{ $loop->iteration }}" {{ in_array($alljob->id, $jobcheck) ? 'checked' : '' }}>
                                     {{ $alljob->name }}
 
                                     {{-- {{$loop->iteration}}で現在のループ回数 --}}
@@ -202,3 +202,4 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="/js/checkbox.js"></script>

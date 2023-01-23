@@ -132,6 +132,13 @@
 				$StaffShift[$counterX][24] = $ssd->day24;$StaffShift[$counterX][25] = $ssd->day25;$StaffShift[$counterX][26] = $ssd->day26;
 				$StaffShift[$counterX][27] = $ssd->day27;$StaffShift[$counterX][28] = $ssd->day28;$StaffShift[$counterX][29] = $ssd->day29;
 				$StaffShift[$counterX][30] = $ssd->day30;$StaffShift[$counterX][31] = $ssd->day31;
+				$how = count($StaffShift[$counterX]);
+				for($i = 0; $how > $i; $i++){
+					if(is_null($StaffShift[$counterX][$i])){
+						unset($StaffShift[$counterX][$i]);
+					}
+				}
+				$StaffShift = array_values($StaffShift);
 				$counterX++;
 			}
 
@@ -220,10 +227,11 @@
 						}
 					  }
 
-			(int) $days = 31;
+			(int) $days = count($StaffShift[0]);
 			(int) $StaffNum = count($staff);
-			(int) $LastDay = 31;//作成するシフトの最終日
+			(int) $LastDay = count($StaffShift[0]);//作成するシフトの最終日
 			$PerfectShift = [[]];
+
 
 			for($i = 0; count($StaffShift) > $i; $i++) {
 				for($j = 0; count($StaffShift[$i]) > $j; $j++) {
@@ -258,16 +266,18 @@
 				$EndShift = $Osc->End($Shift,$EndShift,$ShiftDivider,$staff,$now);
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
-
+31
 			do{
 				$Bsc->RoadTimes($EndShift);
 				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
 				$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+				echo 1;
 				}while($Bsc->Stoper1($staff));
 				do{
 					$Bsc->RoadTimes($EndShift);
 					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
 					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+					echo 2;
 				}while($Bsc->Stoper2($staff));
 			//print_r($EndShift);
 			//完成したシフトの登録
