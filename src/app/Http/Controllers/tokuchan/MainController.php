@@ -26,10 +26,15 @@
 			$shift_divicount = 0;
 
 			$carbonNext = Carbon::now()->addMonth(1);
-			$month = 2;//何月のシフトを作成するか
+			$month = $carbonNext->month;//何月のシフトを作成するか
 			$lastDate = $carbonNext->lastOfMonth()->day; //来月の最終日
 			$shiftdivider = Shiftdivider::where('store_id', $storeid)->get();
-			$needshift_divider = NeedShift::where('store_id', $storeid)->get();
+			$needshift_divider = NeedShift::where('store_id', $storeid)->where('month', $month)->get();
+			$judge=0;
+
+			foreach($needshift_divider as $need) {
+				$judge=1;
+			}
 
 			foreach($shiftdivider as $shift_divi) {
 				for($time = 1;$time <= 30; $time++) {
@@ -40,38 +45,38 @@
 				}
 			}
 			
-			if(!(isset($needshift_divider))) {
-				foreach($needshift_divider as $need_shift) {
-					for($day = 1;$day <= $lastDate; $day++) {
-						\DB::table('needshift')
-							->insert([
-								"store_id" => $storeid,
-								"day" => $day
-							]);
-					}
+			if($judge == 0) {
+				for($day = 1;$day <= $lastDate; $day++) {
+					\DB::table('needshift')
+						->insert([
+							"store_id" => $storeid,
+							"month" => $month,
+							"day" => $day
+						]);
 				}
 			}
 
 				for ($day = 1; $day <= $lastDate; $day++) {
+					$time_gou = 1;
 					for ($time = 1; $time <= $shift_divicount; $time++) {
 						$needshift_nin = $day . '-' . $time;
 						$input_needshift = $request->input($needshift_nin);
-						if($input_needshift != "") {
+						dump($input_needshift);
+						if($input_needshift == null) {
 							for($i = $time_gou; $i <= $input_needshift; $i++) {
 								$needshift_db = 'time' . $i;
 								\DB::table('needshift')
 								->where('storeid', $storeid)
+								->where('month', $month)
+								->where('day', $day)
 								->update([
-									"month" => $month,
-									"day" => $day,
-									$needshift_db => $shiftdivider -> $needshift_db
+									$needshift_db => "18-23"
 								]);
 								$time_gou++;
 							}
 						}
 					}
 				}
-
 
 
 

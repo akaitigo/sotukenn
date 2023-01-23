@@ -458,7 +458,7 @@
             </div>
         </div>
         @if($nextcomshiftjudge == 0 && $userId == 0)
-            <button id="createshifr_btn" type="submit" name="updateId" class="shiftcreate_btn">シフトを作成</button>
+            <button id="createshift_btn" type="submit" name="updateId" class="shiftcreate_btn">シフトを作成</button>
         @endif
         </form>
         @if ($userId != 0)
@@ -476,7 +476,7 @@
         document.getElementById("startdaypull").style.background = "rgba(218, 249, 255)";
         document.getElementById("enddaypull").style.background = "rgba(218, 249, 255)";
         document.getElementById("mom_scopeday").style.visibility ="hidden";
-        document.getElementById("createshifr_btn").style.visibility ="hidden";
+        document.getElementById("createshift_btn").style.visibility ="hidden";
         for(let day = 1; day <= json_lastday; day++){
             for (let time = 1; time <= json_timecount; time++){
                 let json_ninid = day + "-" + time;
