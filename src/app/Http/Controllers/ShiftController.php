@@ -466,7 +466,7 @@ class ShiftController extends Controller
         $emppartcount = $i + 1;
         $week = ['日', '月', '火', '水', '木', '金', '土'];
 
-        return view('shiftEdit', compact('array', 'employees', 'parttimers', 'empname', 'partname', 'emppartname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'week', 'workstarttime', 'workendtime', 'emppartcount', 'calendarData'));
+        return view('shiftEdit', compact('array','thisMonth',  'employees', 'parttimers', 'empname', 'partname', 'emppartname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'week', 'workstarttime', 'workendtime', 'emppartcount', 'calendarData'));
     }
 
 
