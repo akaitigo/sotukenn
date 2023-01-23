@@ -194,8 +194,8 @@ Route::post('/', "App\Http\Controllers\SettingController@update")->name('setting
 Route::post('settingupdate', "App\Http\Controllers\SettingController@update")->name('setting.update');
 Route::get('settingselect', "App\Http\Controllers\SettingController@select")->name('setting.select');
 
-//  test用
-Route::post('/emp', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
+
+Route::post('/emp_shift_add', "App\Http\Controllers\ShiftController@shift_add")->name('emp');
 
 Route::get('emp_shift_add', "App\Http\Controllers\ShiftController@shift_show")->name('shift_show');
 Route::get('/emp_calendar_show', [App\Http\Controllers\CalendarController::class, 'emp_foovar'])->name('emp_calendar_show'); 
