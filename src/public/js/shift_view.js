@@ -235,5 +235,4 @@ function needshift(maxday,maxtime) {
 			document.getElementById(nin_id).disabled = false;
 		}
 	}
-	return true;
 }
