@@ -168,6 +168,7 @@ Route::get('/noticeEdit', [App\Http\Controllers\NoticeManagementController::clas
 Route::post('/noticeManagementUpdate', [App\Http\Controllers\NoticeManagementController::class, 'update'])->name('noticeUpdate');                       //通知更新
 Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementController::class, 'delete'])->name('noticeManagementDelete');                       //通知削除
 
+
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
 
 Route::get('/shiftView', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('shiftView');
