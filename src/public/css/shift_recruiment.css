@@ -33,10 +33,6 @@
         padding:10px 2px;
     }
 
-td:nth-child(3) {
-    /* min-width: 90px; */
-}
-
 .recruitment_table th, .recruitment_table td {
   border-right: 1px solid #ddd;
 }
@@ -107,7 +103,7 @@ td:nth-child(3) {
 }
 
 .recruitment_table .hihunp {
-  left: 10.6rem;
+  left: 10.7rem;
 }
 
 .recruitment_table .batsubtn {
@@ -117,4 +113,8 @@ td:nth-child(3) {
   right: 4.1rem;
   font-family: Arial;
   font-weight: 2000;
+}
+
+.bangou {
+  width: 2rem;
 }
