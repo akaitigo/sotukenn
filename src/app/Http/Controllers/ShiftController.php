@@ -12,6 +12,7 @@ use App\Models\CompleteShift;
 use App\Models\StaffShift;
 use App\Models\Comment;
 use App\Models\Shiftdivider;
+use App\Models\Nextdivider;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
@@ -844,6 +845,20 @@ class ShiftController extends Controller
         return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year','staffshiftcover'));
     }
 
+
+    /* 募集シフト */
+    public function recruitment()
+    {
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $shiftdivider = Shiftdivider::where('store_id', $storeid)->get();
+        $nextdivider = Nextdivider::where('store_id', $storeid)->get();
+        $workstarttime = Store::where('id', $storeid)->value('workstarttime');
+        $workendtime = Store::where('id', $storeid)->value('workendtime');
+
+
+        return view('recruitment_Shift', compact('shiftdivider','nextdivider','workstarttime','workendtime'));
+    }
 
 
     /* シフト作成メニュー */

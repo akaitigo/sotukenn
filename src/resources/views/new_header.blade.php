@@ -64,6 +64,7 @@ function savesession() {
         <a href="{{ route('employeesManagementPassView') }}"><li>従業員管理</li></a>
         <a href="{{ route('noticeManagement') }}"><li>通知管理</li></a>
         <a href="{{ route('submittedShift') }}"><li>提出シフト管理</li></a>
+        <a href="{{ route('recruitment_Shift') }}"><li>募集シフト</li></a>
         <a href="{{ route('new_shiftView') }}"><li>シフト閲覧</li></a>
         <a href="{{ route('shiftEdit') }}"><li>シフト編集</li></a>
         <a href="{{ route('informationShare') }}"><li>情報共有</li></a>

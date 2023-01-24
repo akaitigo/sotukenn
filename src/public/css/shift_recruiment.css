@@ -1,0 +1,120 @@
+#scale {
+  margin-left: 120px;
+}
+
+.recruitment_table caption {
+  background:#1aa1ff;
+  color: #fff;
+  padding: 8px;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.recruitment_table {
+    border-top: 1px solid #ddd;	
+    width:70rem;
+    border:1px solid #ddd;
+/* 	  border-top: none;	 */
+    border-collapse:collapse;
+    padding:5px;
+    text-align: center;
+    }
+    .recruitment_table th {
+    /* 	border:1px solid #ddd;
+    border-top: none; */
+    padding: 10px 5px;
+    font-weight: normal;
+    background:#1aa1ff;
+    color: #fff;
+    font-weight: bold;
+    }
+    .recruitment_table td {
+    /* 	border:1px solid #ddd; */
+        padding:10px 2px;
+    }
+
+td:nth-child(3) {
+    /* min-width: 90px; */
+}
+
+.recruitment_table th, .recruitment_table td {
+  border-right: 1px solid #ddd;
+}
+
+.recruitment_table th:last-child, .recruitment_table td:last-child {
+  border-right: none;
+}
+
+.recruitment_table tr:nth-child(odd) {
+  background: #f0f0f0;
+}
+
+#morning .recruitment_table td:nth-child(3) {
+  background: #fff;
+}
+
+.recruitment_table td.align-bottom {
+  vertical-align: bottom;
+  padding: 0;
+}
+
+.recruitment_table td.align-top {
+  vertical-align: top;
+  padding: 0;  
+}
+
+#morning .recruitment_table td:nth-child(3), #afternoon .recruitment_table td:nth-child(3), #evening .recruitment_table td:nth-child(3) {
+  background: #fff;
+} 
+
+#weekend .recruitment_table td:nth-child(2) {
+  background: #fff;
+}
+
+.recruitment_table td {
+  position: relative;
+  height: 4rem;
+  width: 50rem;
+  margin-bottom: 2rem;
+}
+
+
+.recruitment_table .shifttext,
+.recruitment_table .starttimepull,
+.recruitment_table .hihunp,
+.recruitment_table .endtimepull,
+.recruitment_table .batsubtn {
+  position: absolute;
+}
+
+.recruitment_table .shifttext {
+  top: 0.2rem;
+  left: 3rem;
+  width: 15.9rem;
+}
+
+.recruitment_table .starttimepull,
+.recruitment_table .endtimepull {
+  width: 4rem;
+}
+
+.recruitment_table .starttimepull {
+  left: 3rem;
+}
+
+.recruitment_table .endtimepull {
+  right: 4.4rem;
+}
+
+.recruitment_table .hihunp {
+  left: 10.6rem;
+}
+
+.recruitment_table .batsubtn {
+  width: 1.7rem;
+  height: 1.7rem;
+  top: 0.2rem;
+  right: 4.1rem;
+  font-family: Arial;
+  font-weight: 2000;
+}
