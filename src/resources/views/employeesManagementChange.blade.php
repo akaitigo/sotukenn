@@ -15,11 +15,11 @@
                     <caption>変更</caption>
                     <thead>
                         <tr>
-                            <th>id</th>
+                            <th>ID</th>
                             <th>名前</th>
                             <th>メール</th>
                             <th>年齢</th>
-                            <th>重み</th>
+                            <th>期待値</th>
                             <th>ポジション</th>
                             <th>最大労働時間</th>
                             <th>最低労働時間</th>
