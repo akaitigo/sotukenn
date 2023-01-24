@@ -71,7 +71,7 @@ function nullshift(id,mainsubid) {
     }
 }
 
-var counter = 0;
+var counter = 1;
 function addcolumn(id_goukei,storestart,storeend) {
     id_goukei = id_goukei + counter;
     sannsyou_id = id_goukei - 1;
@@ -83,7 +83,7 @@ function addcolumn(id_goukei,storestart,storeend) {
     let end = document.getElementById(input_endpull).value;
     if(text == "") {
         alert("先に上記のメインを入力してください");
-    }else if((start == "" || end == "") && counter > 0) {
+    }else if((start == "" || end == "") && counter > 1) {
         alert("先に上記のメインを入力してください");
     }else if(id_goukei > 30) {
         alert("それ以上追加できません");
@@ -128,7 +128,7 @@ function addcolumn(id_goukei,storestart,storeend) {
     }
 }
 
-function update(id,minnsubid) {
+function update(id_goukei) {
     for(let id = 1; id <= emppartcountid; id++){
         let emppartnamearray = id -1;
         for (let day = 1; day <= lastday; day++){

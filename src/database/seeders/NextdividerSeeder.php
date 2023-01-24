@@ -33,6 +33,10 @@ class NextdividerSeeder extends Seeder
         ]);
         DB::table('nextdivider')->insert([
             'store_id'=>'1',
+            'main'=>'11-17'
+        ]);
+        DB::table('nextdivider')->insert([
+            'store_id'=>'1',
             'main'=>'15-23',
             'sub1'=>'17-23'
         ]);
@@ -51,5 +55,10 @@ class NextdividerSeeder extends Seeder
             'main'=>'18.5-23',
             'sub1'=>'19-23'
         ]);
+        DB::table('nextdivider')->insert([
+            'store_id'=>'1',
+            'main'=>'19-23'
+        ]);
+
     }
 }

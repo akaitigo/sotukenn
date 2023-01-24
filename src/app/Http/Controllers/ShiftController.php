@@ -873,9 +873,19 @@ class ShiftController extends Controller
         $nextdivider = Nextdivider::where('store_id', $storeid)->get();
         $workstarttime = Store::where('id', $storeid)->value('workstarttime');
         $workendtime = Store::where('id', $storeid)->value('workendtime');
+        $shift_divicount = 0;
+
+        foreach($shiftdivider as $shift_divi) {
+            for($time = 1;$time <= 30; $time++) {
+                $shifttime = 'time'.$time;
+                if($shift_divi->$shifttime != null) {
+                    $shift_divicount++;
+                }
+            }
+        }
 
 
-        return view('recruitment_Shift', compact('shiftdivider','nextdivider','workstarttime','workendtime'));
+        return view('recruitment_Shift', compact('shiftdivider','nextdivider','workstarttime','workendtime','shift_divicount'));
     }
 
 

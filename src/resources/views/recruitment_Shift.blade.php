@@ -7,10 +7,7 @@
 @include('new_header')
 <div id="scale">
     <div id='container'>
-    <?php $shift_divi_count = 1; ?>
 
-    <form method="post" onsubmit="return update()" action="{{ route('shiftupdate') }}">
-    @csrf
         <div class='widget'>
                 <table class="recruitment_table">
                     <caption>募集シフト</caption>
@@ -22,6 +19,8 @@
                         <th class="sub2">サブ２</th>
                     </thead>
                     <tbody>
+                        <form method="post" onsubmit="update({{$shift_divicount}})"  action="{{ route('shiftupdate') }}">
+                        @csrf
                         @foreach ($nextdivider as $next_divi)
                         <?php
                             $input_text_main = $next_divi->id . 'text_main';
@@ -63,14 +62,13 @@
                                 <button class="batsubtn" onclick="nullshift({{$next_divi->id}},{{$sub2}})" type="button" id="{{$sub2_btn}}">×</button>
                             </td>
                         </tr>
-                        <?php $shift_divi_count++; ?>
                         @endforeach
                     </tbody>
                 </table>
         </div>
         <button type="submit" name="updateId" class="updateButton">更新</button>
     </form>
-    <button type="button"onclick="addcolumn({{$shift_divi_count}},{{$workstarttime}},{{$workendtime}})" name="add_column" class="updateButton">＋</button>
+    <button type="button"onclick="addcolumn({{$shift_divicount}},{{$workstarttime}},{{$workendtime}})" name="add_column" class="updateButton">＋</button>
     </div>
 </div>
 
