@@ -321,11 +321,13 @@ body {
 }
 
 .legend {
-  bottom: 0;
+  top: 0;
   width: 100%;
   height: 30px;
-  background: rgba(60, 60, 60, 1);
+  background: rgb(255, 255, 255);
   line-height: 30px;
+  color: #000;
+  border: 1.5px solid;
 
 }
 

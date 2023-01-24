@@ -59,16 +59,23 @@ echo Parttimer::where('id', $partid)->value('name');
                     </ul>
                     <ul id="sns">
                         <p>・今月シフト</p>
-                        <li><a href="#" target="_blank"><img src="/img_submit/PDF.png" width="20"
+                        <li><a href="{{url("/download/{$calendarData[0]['year']}/pdf/{$calendarData[0]['month']}")}}" target="_blank"><img src="/img_submit/PDF.png" width="20"
                                     height="20" alt="twitter"></a></li>
-                        <li><a href="#" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
+                        <li><a href="{{url("/download/{$calendarData[0]['year']}/image/{$calendarData[0]['month']}")}}" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
                                     height="20" alt="Instagram"></a></li>
                         <br>
                         <p>・来月シフト</p>
-                        <li><a href="#" target="_blank"><img src="/img_submit/PDF.png" width="20"
+                        @if($calendarData[0]['month']==12)
+                        <li><a href="{{url("/download/{$calendarData[0]['year']+1}/pdf/1}")}}" target="_blank"><img src="/img_submit/PDF.png" width="20"
                                     height="20" alt="twitter"></a></li>
-                        <li><a href="#" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
+                        <li><a href="{{url("/download/{$calendarData[0]['year']+1}/image/1")}}" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
                                     height="20" alt="Instagram"></a></li>
+                        @else
+                        <li><a href="{{url("/download/{$calendarData[0]['year']}/pdf/{$calendarData[0]['month']+1}")}}" target="_blank"><img src="/img_submit/PDF.png" width="20"
+                                    height="20" alt="twitter"></a></li>
+                        <li><a href="{{url("/download/{$calendarData[0]['year']}/image/{$calendarData[0]['month']+1}")}}" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
+                                    height="20" alt="Instagram"></a></li>
+                        @endif
                     </ul>
                 </div>
             </nav>
