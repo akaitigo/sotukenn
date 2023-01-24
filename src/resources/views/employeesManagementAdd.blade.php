@@ -15,14 +15,14 @@
                     <caption>追加</caption>
                     <thead>
                         <tr>
-                            <th>employee</th>
-                            <th>name</th>
-                            <th>email</th>
-                            <th>age</th>
-                            <th>weight</th>
-                            <th>position</th>
-                            <th>pass</th>
-                            <th>add</th>
+                            <th>社員</th>
+                            <th>名前</th>
+                            <th>メール</th>
+                            <th>年齢</th>
+                            <th>期待値</th>
+                            <th>ポジション</th>
+                            <th>パスワード</th>
+                            <th>追加</th>
                         </tr>
                     </thead>
                         <tbody>

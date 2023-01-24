@@ -399,9 +399,14 @@ class ShiftController extends Controller
 
 
         $carbonNow = Carbon::now();
-        $thisMonth = $carbonNow->month;
+        $old_Month = $carbonNow->month;
         $firstDay = $carbonNow->firstOfMonth()->day;
-        $lastDate = $carbonNow->lastOfMonth()->day;
+        // $lastDate = $carbonNow->lastOfMonth()->day;
+
+        $carbonNow = new Carbon('+1 month');
+        $thisMonth = $carbonNow->month;
+        $lastDate = $carbonNow->daysInMonth;
+        
         $calendarData = [
             [
                 'day' => Carbon::now()->firstOfMonth()->dayOfWeek,
@@ -427,6 +432,14 @@ class ShiftController extends Controller
         }
 
         $completeshift = CompleteShift::where('store_id', $storeid)->where('month', $thisMonth)->get();
+        $completeshift_old = CompleteShift::where('store_id', $storeid)->where('month', $old_Month)->get();
+
+
+
+        $count = 0 ;
+        foreach ($completeshift_old as $compshift_old) {
+            $count +=1;
+        }
 
         $empname = [];
         $partname = [];
@@ -462,12 +475,15 @@ class ShiftController extends Controller
             $StaffTimes[$i] = $StaffsumTime;
             $Staffworkdays[$i] = $Staffworkday;
             $i++;
+
+            $compshift->id = $compshift->id - $count;
+
         }
 
         $emppartcount = $i + 1;
         $week = ['日', '月', '火', '水', '木', '金', '土'];
 
-        return view('shiftEdit', compact('array','thisMonth',  'employees', 'parttimers', 'empname', 'partname', 'emppartname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'week', 'workstarttime', 'workendtime', 'emppartcount', 'calendarData'));
+        return view('shiftEdit', compact('array','thisMonth',  'employees', 'parttimers', 'empname', 'partname', 'emppartname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'week', 'workstarttime', 'workendtime', 'emppartcount', 'calendarData'));   
     }
 
 
@@ -841,6 +857,8 @@ class ShiftController extends Controller
                     $staffshiftcover = 100;
                 }
             }
+        
+        
 
         return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year','staffshiftcover'));
     }
