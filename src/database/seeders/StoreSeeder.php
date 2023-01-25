@@ -20,7 +20,7 @@ class StoreSeeder extends Seeder
             'store_name' => 'MARUOカンパニー',
             'workstarttime' => '10',
             'workendtime' => '23',
-            'submissionlimit' => null,
+            'submissionlimit' => '7',
             'vote' => false
         ]);
 
@@ -31,7 +31,7 @@ class StoreSeeder extends Seeder
             'store_name' => 'しょーまカンパニー',
             'workstarttime' => '10',
             'workendtime' => '23',
-            'submissionlimit' => null,
+            'submissionlimit' => '7',
             'vote' => false
         ]);
 
@@ -40,7 +40,7 @@ class StoreSeeder extends Seeder
             'store_name' => 'ひかるカンパニー',
             'workstarttime' => '10',
             'workendtime' => '23',
-            'submissionlimit' => null,
+            'submissionlimit' => '7',
             'vote' => false
 
         ]);

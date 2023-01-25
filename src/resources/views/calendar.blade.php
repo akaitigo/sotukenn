@@ -1,4 +1,3 @@
-{{-- @dump($calendarData); --}}
 <?php
 $event = [];
 $day = [];

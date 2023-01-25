@@ -178,6 +178,8 @@ Route::post('/noticeManagementDelete', [App\Http\Controllers\NoticeManagementCon
 
 Route::get('/submittedShift', [App\Http\Controllers\ShiftController::class, 'management'])->name('submittedShift');                          //提出シフト管理
 
+
+Route::get('/recruitment_Shift', [App\Http\Controllers\ShiftController::class, 'recruitment'])->name('recruitment_Shift');
 Route::get('/shiftView', [App\Http\Controllers\tokuchan\MainController::class, 'main'])->name('shiftView');
 Route::get('/new_shiftView', [App\Http\Controllers\ShiftController::class, 'view'])->name('new_shiftView');                                    //シフト閲覧
 Route::get('/shiftEdit', [App\Http\Controllers\ShiftController::class, 'edit'])->name('shiftEdit');                                         //シフト編集

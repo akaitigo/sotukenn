@@ -147,6 +147,7 @@ class CalendarController extends Controller
                 'day'=>Carbon::now()->firstOfMonth()->dayOfWeek,
                 'month'=>$thisMonth,
                 'lastDay'=>$lastDate,
+                'year' =>Carbon::now()->year
             ]
         ];
         $dateArrayHinagata = [

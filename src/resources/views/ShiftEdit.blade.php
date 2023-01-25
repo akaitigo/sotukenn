@@ -22,11 +22,11 @@
             </div>
             <div class="colorbox_text">
                 ログイン中
-            </div>
+            </div>2月
             @endif
         </div>
             <div class='widget'>
-                <div class="tab-content" href="#tab1">
+                <div  class="tab-content" href="?tab1">
                 <table class="month_table">
                     <caption>{{$thisMonth}} 月</caption>
                 </table>
@@ -275,7 +275,6 @@
             </div>
         </div>
 </div>
-
 
 <script>
     let emppartcountid = @json($empcount);

@@ -68,11 +68,11 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>email</th>
-                    <th>name</th>
-                    <th>age</th>
-                    <th>weight</th>
-                    <th>position</th>
+                    <th>メール</th>
+                    <th>名前</th>
+                    <th>年齢</th>
+                    <th>期待値</th>
+                    <th>ポジション</th>
                 </tr>
             </thead>
             <tbody>

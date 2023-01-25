@@ -5,22 +5,24 @@ use App\Models\admin;
 use App\Models\Store;
 use App\Models\Employee;
 use App\Models\Parttimer;
+use Carbon\Carbon;
+$now = [
+            'month'=>Carbon::now()->month,
+            'year' =>Carbon::now()->year
+        ];
 ?>
 @if (Auth::guard('admin')->check())
 <?php $adminid = Auth::guard('admin')->id();
 $storeid = admin::where('id', $adminid)->value('store_id');
 $role="admin";
-echo Store::where('id', $storeid)->value('store_name');
 ?>
 @elseif(Auth::guard('employee')->check())
 <?php $empid = Auth::guard('employee')->id();
 $role="employee";
-echo Employee::where('id', $empid)->value('name');
 ?>
 @elseif(Auth::guard('parttimer')->check())
 <?php $partid = Auth::guard('parttimer')->id();
 $role="parttimer";
-echo Parttimer::where('id', $partid)->value('name');
 ?>
 @endif
 <head>
@@ -59,16 +61,23 @@ echo Parttimer::where('id', $partid)->value('name');
                     </ul>
                     <ul id="sns">
                         <p>・今月シフト</p>
-                        <li><a href="#" target="_blank"><img src="/img_submit/PDF.png" width="20"
+                        <li><a href="{{route('downloadpdf', ['year' => $now['year'], 'month' => $now['month']]) }}" target="_blank"><img src="/img_submit/PDF.png" width="20"
                                     height="20" alt="twitter"></a></li>
-                        <li><a href="#" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
+                        <li><a href="{{route('downloadimage', ['year' => $now['year'], 'month' => $now['month']]) }}" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
                                     height="20" alt="Instagram"></a></li>
                         <br>
                         <p>・来月シフト</p>
-                        <li><a href="#" target="_blank"><img src="/img_submit/PDF.png" width="20"
+                        @if($now['month']==12)
+                        <li><a href="{{ route('downloadpdf', ['year' => $now['year']+1, 'month' => '1']) }}" target="_blank"><img src="/img_submit/PDF.png" width="20"
                                     height="20" alt="twitter"></a></li>
-                        <li><a href="#" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
+                        <li><a href="{{route('downloadimage', ['year' => $now['year']+1, 'month' => '1']) }}" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
                                     height="20" alt="Instagram"></a></li>
+                        @else
+                        <li><a href="{{route('downloadpdf', ['year' => $now['year'], 'month' => $now['month']+1]) }}" target="_blank"><img src="/img_submit/PDF.png" width="20"
+                                    height="20" alt="twitter"></a></li>
+                        <li><a href="{{route('downloadimage', ['year' => $now['year'], 'month' => $now['month']+1]) }}" target="_blank"><img src="/img_submit/Jpeg.png" width="20"
+                                    height="20" alt="Instagram"></a></li>
+                        @endif
                     </ul>
                 </div>
             </nav>

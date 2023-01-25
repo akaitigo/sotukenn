@@ -51,5 +51,6 @@ class NextdividerSeeder extends Seeder
             'main'=>'18.5-23',
             'sub1'=>'19-23'
         ]);
+
     }
 }

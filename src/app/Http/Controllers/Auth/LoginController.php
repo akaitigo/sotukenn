@@ -82,10 +82,10 @@ class LoginController extends Controller
             // dump($user);
             // echo $user->refresh_token;
             // return ;
-            if(empty($user->refresh_token)){
-                $api = new CalendarApiController();
-                return $api->redirectToGoogle();
-            }
+            // if(empty($user->refresh_token)){
+            //     $api = new CalendarApiController();
+            //     return $api->redirectToGoogle();
+            // }
             if(is_null($submitlimit)) {
                 return view('submittedShiftEdit',compact('stores'));
             }else {

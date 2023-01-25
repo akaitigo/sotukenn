@@ -57,6 +57,14 @@ function tabchange() {
 function shiftpull(maxday,maxtime) {
 	let startdayinput = Number(document.getElementById("startdaypull").value);
     let enddayinput = Number(document.getElementById("enddaypull").value);
+
+	if(startdayinput > maxday) {
+		alert("正しい値を入力してください");
+		document.getElementById("startdaypull").value = "";
+	}else if(enddayinput > maxday) {
+		alert("正しい値を入力してください");
+		document.getElementById("enddaypull").value = "";
+	}
 	maxtime = maxtime + 1;
 	for(let thisday = 1; thisday <= maxday; thisday++) {
 		document.getElementById(thisday).style.background = "#fff";
