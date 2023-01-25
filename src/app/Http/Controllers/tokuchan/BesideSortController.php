@@ -175,8 +175,6 @@
 			}
 		}
 
-		dump(BesideSortController::$TimerCounter);
-		dump(BesideSortController::$Timer);
 
 		for ($i = 0; count(BesideSortController::$CompStaff) > $i; $i++) {
 			if (0 == strcmp(BesideSortController::$CompStaff[$i][2], "Y")) { //最低労働時間の調整がある場合
