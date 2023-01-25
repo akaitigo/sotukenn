@@ -125,7 +125,7 @@
 				BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
 				continue;
 			}
-			if(0 == strcmp(BesideSortController::$CompStaff[$i][1],"YN")){
+			if(0 == strcmp(BesideSortController::$CompStaff[$i][1],"YN") || 0 == strcmp(BesideSortController::$CompStaff[$i][1],"E")){
 			}
 			else if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
 				BesideSortController::$CompStaff[$i][1] = "Y"; //調整の必要があるためYを代入
@@ -372,22 +372,24 @@
 				/*if(CompStaff[i][1].equals("N")) {//調整が終わっていたら次のスタッフへ
 				continue;
 				}*/
-				if (BesideSortController::$MaxTime[$i][1] == -1 && BesideSortController::$MinTime[$i][1] == -1) { //どちらも制限がなければ次のスタッフへ
+				if (BesideSortController::$MaxTime[$i][1] == -1 && BesideSortController::$MinTime[$i][1] == -1 && 0 != strcmp(BesideSortController::$CompStaff[$i][1],"E")) { //どちらも制限がなければ次のスタッフへ
 					BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
 					BesideSortController::$CompStaff[$i][2] = "N"; //調整の必要がないためNを代入
 					continue;
 				}
-				if(0 == strcmp(BesideSortController::$CompStaff[$i][1],"YN")){
+				if(0 == strcmp(BesideSortController::$CompStaff[$i][1],"YN") || 0 == strcmp(BesideSortController::$CompStaff[$i][1],"E")){
 				}
-				if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
+				else if (0 > BesideSortController::$MaxOut[$i][1]) { //上限労働時間-実際の労働時間がオーバーしている場合
 					BesideSortController::$CompStaff[$i][1] = "Y"; //調整の必要があるためYを代入
 					$MaxCounter++;
-				} else {
+				} else if(0 < BesideSortController::$MaxOut[$i][1] &&  0 == strcmp(BesideSortController::$CompStaff[$i][1],"N")){
+					BesideSortController::$CompStaff[$i][1] = "E"; //調整の必要がないためNを代入
+				}else{
 					BesideSortController::$CompStaff[$i][1] = "N"; //調整の必要がないためNを代入
 				}
 				if(0 == strcmp(BesideSortController::$CompStaff[$i][2],"YN")){
 				}
-				if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
+				else if (BesideSortController::$MinOut[$i][1] > 0) { //下限労働時間-実際の労働時間がオーバーしている場合
 					BesideSortController::$CompStaff[$i][2] = "Y"; //調整の必要があるためYを代入
 					$MinCounter++;
 				} else {
@@ -406,8 +408,60 @@
 			$ConseCount = 0; //連勤の回数
 			$CanCount = 0;
 
+			for ($i = 0; count(BesideSortController::$CompStaff) > $i; $i++) {
+				if(0 == strcmp(BesideSortController::$CompStaff[$i][1], "YN")){//最大労働時間の調整があるかつ交代スタッフがいない場合
+					(int) $count = 0; //最大連勤数をカウント
+					(int) $IndexCount = 0;
+				for ($j = 1; count($EndShift[$i]) > $j; $j++) {
+					if (0 != strcmp($EndShift[$i][$j], "-") && 0 != strcmp($EndShift[$i][$j], "×")) { //出勤しているか
+						$count++;
+						if (count($EndShift[$i]) - 1 == $j) {
+							$ConseWork[$IndexCount][0] = $count; //連続出勤日数を代入
+							$ConseWork[$IndexCount][1] = $j - $count; //何日から連勤しているか代入
+							$ConseCount++;
+						}
+					} else if ($count != 0) {
+						$ConseWork[$IndexCount][0] = $count; //連続出勤日数を代入
+						$ConseWork[$IndexCount][1] = $j - $count; //何日から連勤しているか
+						$count = 0;
+						$IndexCount++;
+						$ConseCount++;
+					}
+				}
 
 
+				// (int) $SortCount = 1;
+				// //下記処理はカプセル化のためにメソッド化していいかも
+				// for ($j = 0; count($ConseWork) > $j; $j++) { //そうや！出勤日数順に並べ替えるンゴ！
+				// 	for ($k = 0; count($ConseWork[$j]) > $k; $k++) {
+				// 		if ($ConseWork[$k][0] > $ConseWork[$j][0]) {
+				// 			(int) $hinan1 = $ConseWork[$j][0];
+				// 			(int) $hinan2 = $ConseWork[$j][1]; //値を避難
+				// 			$ConseWork[$j][0] = $ConseWork[$k][0];
+				// 			$ConseWork[$j][1] = $ConseWork[$k][1];
+				// 			$ConseWork[$k][0] = $hinan1;
+				// 			$ConseWork[$k][1] = $hinan2;
+				// 		}
+				// 	}
+				// 	$SortCount++;
+				// }
+
+				array_multisort(array_column($ConseWork, 0),SORT_ASC, $ConseWork);
+
+				
+
+					//dump($ConseWork);
+
+				$EndShift[$i][$ConseWork[30][1]] = "-";
+
+				$WorkTime = $this->RoadTimes($EndShift);
+				if($WorkTime[$i][1] < $staff[$i][3]){
+					BesideSortController::$CompStaff[$i][1] = "E";
+					return $EndShift;
+				}
+				return $EndShift;
+				}
+			}
 
 			for ($i = 0; count(BesideSortController::$CompStaff) > $i; $i++) {
 				if (0 == strcmp(BesideSortController::$CompStaff[$i][1], "Y")) { //最大労働時間の調整がある場合
@@ -416,7 +470,7 @@
 							//シフトが休みではなく本人シフトとの比較ではない場合
 							if (0 != strcmp($EndShift[$i][$k], "-") && 0 != strcmp($EndShift[$i][$k], "×") && $i != $j) {
 								//シフトが休みではない場合
-								if (0 != strcmp($EndShift[$j][$k], "-") && 0 != strcmp($EndShift[$j][$k], "×")) {
+								if (0 != strcmp($EndShift[$j][$k], "-") && 0 != strcmp($EndShift[$j][$k], "×") && 0 == strcmp(BesideSortController::$CompStaff[$j][1],"N")) {
 
 									(int) $num1 = strpos($EndShift[$i][$k], "-"); //出勤、退勤抜き出しに使用
 									(double) $in1 = (double) substr($EndShift[$i][$k], 0, $num1); //出勤時間抜き出し
@@ -475,7 +529,7 @@
 							//シフトが提出で休みであるかつ本人のシフトとの比較ではない場合
 							if (0 != strcmp($EndShift[$i][$k], "-") && 0 != strcmp($EndShift[$i][$k], "×") && $i != $j) {
 								//シフトが休みになっていないか
-								if (0 != strcmp($StaffShift[$j][$k], "-1") && 0 == strcmp($EndShift[$j][$k], "-")) {
+								if (0 != strcmp($StaffShift[$j][$k], "-1") && 0 == strcmp($EndShift[$j][$k], "-") && 0 == strcmp(BesideSortController::$CompStaff[$j][1],"N")) {
 									(int) $num1 = strpos($StaffShift[$j][$k], "-"); //出勤、退勤抜き出しに使用
 									(double) $in1 = (double) substr($StaffShift[$j][$k], 0, $num1); //提出シフトの出勤時間抜き出し
 									(double) $out1 = (double) substr($StaffShift[$j][$k], $num1 + 1); //提出シフトの退勤時間抜き出し
@@ -654,8 +708,9 @@
 		if ($MaxCounter == count($staff) || $MinCounter == count($staff)) { //全スタッフが各項目OR全項目調整の必要がある場合は調整が不可能なので処理を返す
 			return false;
 		}
+		dump(BesideSortController::$CompStaff);
 			for ($j = 0; count(BesideSortController::$CompStaff) > $j; $j++) {
-				if (0 == strcmp(BesideSortController::$CompStaff[$j][1], "Y")) {
+				if (0 == strcmp(BesideSortController::$CompStaff[$j][1], "Y") || 0 == strcmp(BesideSortController::$CompStaff[$j][1], "YN")) {
 					return true;
 				}
 			}

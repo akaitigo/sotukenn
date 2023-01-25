@@ -78,7 +78,7 @@
 							$needshift_nin = $day . '-' . $time;
 							$shiftdivi_time = 'time' . $time;
 							$input_needshift = $request->input($needshift_nin);
-							dump($input_needshift);
+							//dump($input_needshift);
 							$needgou = $input_needshift + $time_gou;
 							if($input_needshift != null) {
 								for($i = $time_gou; $i < $needgou; $i++) {
@@ -105,7 +105,7 @@
 
 			//$asa ini_get('max_execution_time');
 			//set_time_limit(3000);
-			$month = 2;//何月のシフトを作成するか
+			//$month = 2;//何月のシフトを作成するか
 			(int) $StaffStatus = 6;//固定値
 			(int) $MaxWeight = 4;//固定値
 			(int) $LowestWeight = 1;//固定値
@@ -355,33 +355,16 @@
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
 
-<<<<<<< HEAD
 			do{
 				$Bsc->RoadTimes($EndShift);
-				$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
-				$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
-				echo 1;
-				}while($Bsc->Stoper1($staff));
-				do{
-					$Bsc->RoadTimes($EndShift);
-					$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
-					$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
-					echo 2;
-				}while($Bsc->Stoper2($staff));
-=======
-			// do{
-			// 	$Bsc->RoadTimes($EndShift);
-			// 	$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
-			// 	$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
-			// 	echo 1;
-			// 	}while($Bsc->Stoper1($staff));
-			// 	do{
-			// 		$Bsc->RoadTimes($EndShift);
-			// 		$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
-			// 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
-			// 		echo 2;
-			// 	}while($Bsc->Stoper2($staff));
->>>>>>> ca6ebc8c6ceb0df44d97c3929c2e443c00bd3b0f
+			 	$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
+			 	$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+			 	}while($Bsc->Stoper1($staff));
+			do{
+				$Bsc->RoadTimes($EndShift);
+		 		$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
+		 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
+		 	}while($Bsc->Stoper2($staff));
 			//print_r($EndShift);
 			//完成したシフトの登録
 			$CompleteShiftdb = CompleteShift::where('store_id',$storeid)->where('month',$month)->get();
