@@ -1,25 +1,60 @@
-function addshift(id,minnsubid) {
+// プルダウンが入力されたとき
+function addshift(id,minnsubid,storeend) {
+
     if(minnsubid == 1) {
         let input_textid = id + 'text_main';
         let input_startpull = id + 'start_main';
         let input_endpull = id + 'end_main';
         let starttimetext =document.getElementById(input_startpull).value;
         let endtimetext =document.getElementById(input_endpull).value;
-        let shifttime = starttimetext + "-" + endtimetext;
-        document.getElementById(input_textid).value= shifttime;
+        if(starttimetext > storeend) {
+            alert("正しい値を入力してください");
+            document.getElementById(input_startpull).value = "";
+        }else if(endtimetext > storeend) {
+            alert("正しい値を入力してください");
+            document.getElementById(input_endpull).value = "";
+        }else {
+            let shifttime = starttimetext + "-" + endtimetext;
+            document.getElementById(input_textid).value= shifttime;
+        }
     }else if(minnsubid == 2) {
         let input_textid_main = id + 'text_main';
         let input_textid = id + 'text_sub1';
         let input_startpull = id + 'start_sub1';
         let input_endpull = id + 'end_sub1';
+
+        let input_text_main = document.getElementById(input_textid_main).value
         let starttimetext =document.getElementById(input_startpull).value;
         let endtimetext =document.getElementById(input_endpull).value;
-        let shifttime = starttimetext + "-" + endtimetext;
-        if(document.getElementById(input_textid_main).value == "") {
-            alert("先にメインの時間を登録してください");
+
+        var pattern = '-';
+        let indexstarttext = input_text_main.indexOf("-",0);
+
+        if (indexstarttext == 0) {
+            document.getElementById(input_textid).value = "";
             document.getElementById(input_startpull).value = "";
             document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
+        }else if(input_text_main.lastIndexOf(pattern)+pattern.length===input_text_main.length){
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
+        }else if(starttimetext > storeend) {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            alert("正しい値を入力してください");       
+        }else if(endtimetext > storeend) {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("正しい値を入力してください");
+        }else if(input_text_main == "") {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
         }else {
+            let shifttime = starttimetext + "-" + endtimetext;
             document.getElementById(input_textid).value= shifttime;
         }
     }else {
@@ -28,24 +63,63 @@ function addshift(id,minnsubid) {
         let input_textid = id + 'text_sub2';
         let input_startpull = id + 'start_sub2';
         let input_endpull = id + 'end_sub2';
+
+        let input_text_main = document.getElementById(input_textid_main).value
+        let input_text_sub1 = document.getElementById(input_textid_sub1).value
         let starttimetext =document.getElementById(input_startpull).value;
         let endtimetext =document.getElementById(input_endpull).value;
-        let shifttime = starttimetext + "-" + endtimetext;
+        var pattern = '-';
+        let indexstarttext = input_text_main.indexOf("-",0);
+        let indexstarttext_sub = input_text_sub1.indexOf("-",0);
 
-        if(document.getElementById(input_textid_main).value == "") {
+        if (indexstarttext == 0) {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
             alert("先にメインの時間を登録してください");
+        }else if(input_text_main.lastIndexOf(pattern)+pattern.length===input_text_main.length){
+            document.getElementById(input_textid).value = "";
             document.getElementById(input_startpull).value = "";
             document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
+        }else if (indexstarttext_sub == 0) {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
+        }else if(input_text_sub1.lastIndexOf(pattern)+pattern.length===input_text_sub1.length){
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
+        }else if(starttimetext > storeend) {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("正しい値を入力してください");
+        }else if(endtimetext > storeend) {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("正しい値を入力してください");
+        }else if(document.getElementById(input_textid_main).value == "") {
+            document.getElementById(input_textid).value = "";
+            document.getElementById(input_startpull).value = "";
+            document.getElementById(input_endpull).value = "";
+            alert("先にメインの時間を登録してください");
         }else if(document.getElementById(input_textid_sub1).value == "") {
-            alert("先にサブ１の時間を登録してください");
+            document.getElementById(input_textid).value = "";
             document.getElementById(input_startpull).value = "";
             document.getElementById(input_endpull).value = "";
+            alert("先にサブ１の時間を登録してください");
         }else {
+            let shifttime = starttimetext + "-" + endtimetext;
             document.getElementById(input_textid).value= shifttime;
         }
     }
 }
 
+// バツボタンが入力された時
 function nullshift(id,mainsubid) {
     if(mainsubid == 1) {
         let input_textid = id + 'text_main';
@@ -71,13 +145,14 @@ function nullshift(id,mainsubid) {
     }
 }
 
+// プラスボタンが入力されたとき
 var counter = 1;
 function addcolumn(id_goukei,storestart,storeend) {
     id_goukei = id_goukei + counter;
-    sannsyou_id = id_goukei - 1;
-    let input_textid = sannsyou_id + 'text_main';
-    let input_startpull = sannsyou_id + 'start_main';
-    let input_endpull = sannsyou_id + 'end_main';
+    sansyou_id = id_goukei - 1;
+    let input_textid = sansyou_id + 'text_main';
+    let input_startpull = sansyou_id + 'start_main';
+    let input_endpull = sansyou_id + 'end_main';
     let text = document.getElementById(input_textid).value;
     let start = document.getElementById(input_startpull).value;
     let end = document.getElementById(input_endpull).value;
@@ -128,25 +203,120 @@ function addcolumn(id_goukei,storestart,storeend) {
     }
 }
 
+// 更新ボタンが入力されたとき
 function update(id_goukei) {
-    for(let id = 1; id <= emppartcountid; id++){
-        let emppartnamearray = id -1;
-        for (let day = 1; day <= lastday; day++){
-            let jstext = id + "-" + day;
-            let starttimepull = id + "-" + day + "start";
-            let endtimepull = id + "-" + day + "end";
-            let inputshifttext = document.getElementById(jstext).value;
-            var pattern = '-';
-            let indexstarttext = inputshifttext.indexOf("-",0);
+    id_goukei = id_goukei + counter - 1;
+    for(let id = 1; id <= id_goukei; id++){
+        let input_text_mainid = id + 'text_main';
+        let input_text_sub1id = id + 'text_sub1';
+        let input_text_sub2id = id + 'text_sub2';
+        document.getElementById(input_text_mainid).style.background = "#fff";
+        document.getElementById(input_text_sub1id).style.background = "#fff";
+        document.getElementById(input_text_sub2id).style.background = "#fff";
+    }
+    for(let id = 1; id <= id_goukei; id++){
+        let input_text_mainid = id + 'text_main';
+        let input_text_sub1id = id + 'text_sub1';
+        let input_text_sub2id = id + 'text_sub2';
+        let input_text_main = document.getElementById(input_text_mainid).value;
+        let input_text_sub1 = document.getElementById(input_text_sub1id).value;
+        let input_text_sub2 = document.getElementById(input_text_sub2id).value;
 
-            let indexstartnumber = parseFloat(document.getElementById(starttimepull).value);
-            let indexendnumber = parseFloat(document.getElementById(endtimepull).value);
-            let shifttime = indexendnumber - indexstartnumber;
-            
-            if(shifttime <= 0){
-                alert((emppartname[emppartnamearray]) + "さんの" + day +"日に入力ミスがあります");
-                return false;
+        if(input_text_main == input_text_sub1 && input_text_main != "") {
+            document.getElementById(input_text_mainid).style.background = "rgb(255 251 128 / 89%)";
+            document.getElementById(input_text_sub1id).style.background = "rgb(255 251 128 / 89%)";
+            alert('メインとサブ１に被りがあります');
+            return false;
+        }else if(input_text_main == input_text_sub2 && input_text_main != "") {
+            document.getElementById(input_text_mainid).style.background = "rgb(255 251 128 / 89%)";
+            document.getElementById(input_text_sub2id).style.background = "rgb(255 251 128 / 89%)";
+            alert('メインとサブ２に被りがあります');
+            return false;
+        }else if(input_text_sub1 == input_text_sub2 && input_text_sub2 != "") {
+            document.getElementById(input_text_sub1id).style.background = "rgb(255 251 128 / 89%)";
+            document.getElementById(input_text_sub2id).style.background = "rgb(255 251 128 / 89%)";
+            alert('サブ１とサブ２に被りがあります');
+            return false;
+        }
+        
+        for(let checkid = 1; checkid <= id_goukei; checkid++){
+            if(id != checkid) {
+                let input_check_mainid = checkid + 'text_main';
+                let input_check_main = document.getElementById(input_check_mainid).value;
+                if(input_text_main == input_check_main) {
+                    document.getElementById(input_text_mainid).style.background = "rgb(255 251 128 / 89%)";
+                    document.getElementById(input_check_mainid).style.background = "rgb(255 251 128 / 89%)";
+                    alert('メインに被りがあります');
+                    return false;
+                }
             }
         }
+
+
+        var pattern = '-';
+        let indexstarttext = input_text_main.indexOf("-",0);
+        let indexstarttext_sub1 = input_text_sub1.indexOf("-",0);
+        let indexstarttext_sub2 = input_text_sub2.indexOf("-",0);
+
+        if (indexstarttext == 0 && input_text_main != "") {
+            document.getElementById(input_text_mainid).style.background = "rgb(255 251 128 / 89%)";
+            alert("メインの時間に誤りがあります");
+            return false;
+        }else if(input_text_main.lastIndexOf(pattern)+pattern.length===input_text_main.length && input_text_main != ""){
+            document.getElementById(input_text_mainid).style.background = "rgb(255 251 128 / 89%)";
+            alert("メインの時間に誤りがあります");
+            return false;
+        }else if (indexstarttext_sub1 == 0 && input_text_sub1 != "") {
+            document.getElementById(input_text_sub1id).style.background = "rgb(255 251 128 / 89%)";
+            alert("サブ１の時間に誤りがあります");
+            return false;
+        }else if(input_text_sub1.lastIndexOf(pattern)+pattern.length===input_text_sub1.length && input_text_sub1 != ""){
+            document.getElementById(input_text_sub1id).style.background = "rgb(255 251 128 / 89%)";
+            alert("サブ１の時間に誤りがあります");
+            return false;
+        }else if (indexstarttext_sub2 == 0 && input_text_sub2 != "") {
+            document.getElementById(input_text_sub2id).style.background = "rgb(255 251 128 / 89%)";
+            alert("サブ２の時間に誤りがあります");
+            return false;
+        }else if(input_text_sub2.lastIndexOf(pattern)+pattern.length===input_text_sub2.length && input_text_sub2 != ""){
+            document.getElementById(input_text_sub2id).style.background = "rgb(255 251 128 / 89%)";
+            alert("サブ２の時間に誤りがあります");
+            return false;
+        }
+
+
+        let start_mainid = id + 'start_main';
+        let end_mainid = id + 'end_main';
+        let start_sub1id = id + 'start_sub1';
+        let end_sub1id = id + 'end_sub1';
+        let start_sub2id = id + 'start_sub2';
+        let end_sub2id = id + 'end_sub2';
+
+        let start_main = document.getElementById(start_mainid).value;
+        let end_main = document.getElementById(end_mainid).value;
+        let start_sub1 = document.getElementById(start_sub1id).value;
+        let end_sub1 = document.getElementById(end_sub1id).value;
+        let start_sub2 = document.getElementById(start_sub2id).value;
+        let end_sub2 = document.getElementById(end_sub2id).value;
+
+        let shifttime_main = end_main - start_main;
+        let shifttime_sub1 = end_sub1 - start_sub1;
+        let shifttime_sub2 = end_sub2 - start_sub2;
+
+        if(shifttime_main <= 0 && start_main != ""){
+            document.getElementById(input_text_mainid).style.background = "rgb(255 251 128 / 89%)";
+            alert("メインの時間に入力ミスがあります");
+            return false;
+        }else if(shifttime_sub1 <= 0 && start_sub1 != ""){
+            document.getElementById(input_text_sub1id).style.background = "rgb(255 251 128 / 89%)";
+            alert("サブ１の時間に入力ミスがあります");
+            return false;
+        }else if(shifttime_sub2 <= 0 && start_sub2 != ""){
+            document.getElementById(input_text_sub2id).style.background = "rgb(255 251 128 / 89%)";
+            alert("サブ２の時間に入力ミスがあります");
+            return false;
+        }
+
+
     }
 }

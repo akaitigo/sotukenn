@@ -491,120 +491,60 @@ class ShiftController extends Controller
     public function update(Request $request)
     {
 
+        $carbonNext = Carbon::now()->addMonth(1);
+        if ($carbonNext->month == 13) {
+            $carbonNext = Carbon::now()->Month(1);
+        }
+        $MonthNext = $carbonNext->month;
+        $lastDateNext = $carbonNext->lastOfMonth()->day;
+
         $adminid = Auth::guard('admin')->id();
         $storeid = admin::where('id', $adminid)->value('store_id');
-        $completeshift = CompleteShift::where('store_id', $storeid)->get();
-        $emppartcount = 0;
-        foreach ($completeshift as $compshift) {
+        $completeshift = CompleteShift::where('store_id', $storeid)->where('month', $MonthNext)->get();
+        $employees = Employee::where('store_id', $storeid)->get();
+        $parttimers = Parttimer::where('store_id', $storeid)->get();
+        $emppartcount = 1;
+        $compjudge = 0;
+        $emppart_id = [];
+        $empjudge = [];
+        $counter = 0;
+        $counterid = 1;
+
+        foreach ($employees as $emp) {
+            $emppart_id[] = $emp->id;
+            $empjudge[] = true;
+            $emppartcount++;
+        }
+        foreach ($parttimers as $part) {
+            $emppart_id[] = $part->id;
+            $empjudge[] = false;
             $emppartcount++;
         }
 
         foreach ($completeshift as $compshift) {
-            for ($day = 1; $day <= 31; $day++) {
+            $judge = 1;
+        }
+
+
+        foreach ($completeshift as $compshift) {
+            for ($day = 1; $day <= $lastDateNext; $day++) {
                 $hentai = 'day' . $day;
-                $shifttext = $compshift->id . '-' . $day;
+                $shifttext = $counterid . '-' . $day;
                 $inputshifttext = $request->input($shifttext);
                 \DB::table('complete_shifts')
-                    ->where('id', $compshift->id)
+                    ->where('store_id', $storeid)
+                    ->where('emppartid', $emppart_id[$counter])
+                    ->where('judge', $empjudge[$counter])
+                    ->where('month', $MonthNext)
                     ->update([
                         $hentai => $inputshifttext
                     ]);
             }
+            $counterid++;
+            $counter++;
         }
 
-        $adminid = Auth::guard('admin')->id();
-        $employeeid = Auth::guard('employee')->id();
-        $parttimerid = Auth::guard('parttimer')->id();
-        $loginid = 0;
-        $empjudge = 0;
-        if (isset($adminid)) {
-            $storeid = admin::where('id', $adminid)->value('store_id');
-        } elseif (isset($employeeid)) {
-            $storeid = Employee::where('id', $employeeid)->value('store_id');
-            $loginid = $employeeid;
-            $empjudge = true;
-        } elseif (isset($parttimerid)) {
-            $storeid = Parttimer::where('id', $parttimerid)->value('store_id');
-            $loginid = $parttimerid;
-            $empjudge = false;
-        }
-
-        $employees = Employee::where('store_id', $storeid)->get();
-        $parttimers = Parttimer::where('store_id', $storeid)->get();
-        $completeshift = CompleteShift::where('store_id', $storeid)->get();
-        $staffcompleteshift = CompleteShift::where('emppartid', $loginid)->where('judge', $empjudge)->get();
-        $privatestaffshift = StaffShift::where('emppartid', $loginid)->where('judge', $empjudge)->get();
-
-        $empname = [];
-        $partname = [];
-        $i = 0;
-
-        //社員を配列格納　労働時間と日数計算
-        foreach ($completeshift as $compshift) {
-            if ($compshift->judge == true) {
-                $empname[] = Employee::where('id', $compshift->emppartid)->value('name');
-            } else {
-                $partname[] = Parttimer::where('id', $compshift->emppartid)->value('name');
-            }
-
-            (float)$StaffTime = 0;
-            (float)$StaffsumTime = 0;
-            $Staffworkday = 0;
-
-            for ($day = 1; $day <= 31; $day++) {
-                $hentai = "day" . $day;
-
-                if ($compshift->$hentai != "×" && $compshift->$hentai != "-") {
-                    (int)$num1 = strpos($compshift->$hentai, "-"); //出勤、退勤抜き出しに使用
-                    (float)$in1 =  (float) substr($compshift->$hentai, 0, $num1); //提出シフトの出勤時間抜き出し
-                    (float)$out1 =  (float) substr($compshift->$hentai, $num1 + 1); //提出シフトの退勤時間抜き出し
-                    $StaffTime = $out1 - $in1;
-                    $StaffsumTime = $StaffsumTime + $StaffTime;
-                    $Staffworkday++;
-                }
-            }
-            $StaffTimes[$i] = $StaffsumTime;
-            $Staffworkdays[$i] = $Staffworkday;
-            $i++;
-        }
-
-        $staffshiftcompleteworkday = 0;
-        $staffshiftworkday = 0;
-        (int)$staffshiftcover = 0;
-
-        foreach ($staffcompleteshift as $staffcompshift) {
-            for ($day = 1; $day <= 31; $day++) {
-                $hentai = "day" . $day;
-                if ($staffcompshift->$hentai != "×" && $staffcompshift->$hentai != "-") {
-                    $staffshiftcompleteworkday++;
-                }
-            }
-        }
-
-        foreach ($privatestaffshift as $staffshift) {
-            for ($day = 1; $day <= 31; $day++) {
-                $hentai = "day" . $day;
-                if ($staffshift->$hentai != "-1") {
-                    $staffshiftworkday++;
-                }
-            }
-        }
-
-        if ($loginid != 0) {                               //これないとバグる
-            if ($staffshiftcompleteworkday == 0 || $staffshiftworkday == 0) {
-                $staffshiftcover = 0;
-            } else {
-                (int)$staffshiftcover = ($staffshiftcompleteworkday / $staffshiftworkday) * 100;
-                $staffshiftcover = round($staffshiftcover, 0);
-                if ($staffshiftcover >= 100) {
-                    $staffshiftcover = 100;
-                }
-            }
-        }
-
-        $week = ['日', '月', '火', '水', '木', '金', '土'];
-
-        return redirect()->route('new_shiftView')->with(compact('employees', 'parttimers', 'empname', 'partname', 'completeshift', 'loginid', 'empjudge', 'Staffworkdays', 'StaffTimes', 'staffshiftcover', 'week'));
+        return redirect()->route('new_shiftView');
     }
 
     public function shift_add(Request $request)
@@ -858,9 +798,11 @@ class ShiftController extends Controller
                 }
             }
         
+        $workstarttime = Store::where('id', $storeid)->value('workstarttime');
+        $workendtime = Store::where('id', $storeid)->value('workendtime');
         
 
-        return view('emp_shift_add', compact('privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year','staffshiftcover'));
+        return view('emp_shift_add', compact('workstarttime','workendtime','privatestaffshift', 'last_data', 'now_month', 'now_year', 'privatecomment', 'privatestaffshift_next', 'privatecomment_next', 'next_last_data', 'next_month', 'next_year','staffshiftcover'));
     }
 
 
@@ -874,6 +816,7 @@ class ShiftController extends Controller
         $workstarttime = Store::where('id', $storeid)->value('workstarttime');
         $workendtime = Store::where('id', $storeid)->value('workendtime');
         $shift_divicount = 0;
+        $shift_divi_array = array();
 
         foreach($shiftdivider as $shift_divi) {
             for($time = 1;$time <= 30; $time++) {
@@ -884,10 +827,93 @@ class ShiftController extends Controller
             }
         }
 
+        for($i = 0;$i < $shift_divicount; $i++) {
+            $time = $i + 1;
+            $shifttime = 'time'. $time;
+            $shift_divi_array[$i][0] = Shiftdivider::where('store_id',$storeid)->value($shifttime);
+            $shift_divi_array[$i][1] = null;
+            $shift_divi_array[$i][2] = null;
+        }
+        foreach($nextdivider as $next_divi) {
+            for($i = 0;$i < $shift_divicount; $i++) {
+                $time = $i + 1;
+                $shifttime = 'time'. $time;
+                if($next_divi->main == $shift_divi_array[$i][0]) {
+                    $shift_divi_array[$i][1] = $next_divi->sub1;
+                    $shift_divi_array[$i][2] = $next_divi->sub2;
+                }
+            }
+        }
 
-        return view('recruitment_Shift', compact('shiftdivider','nextdivider','workstarttime','workendtime','shift_divicount'));
+        return view('recruitment_Shift', compact('shiftdivider','nextdivider','shift_divi_array','workstarttime','workendtime','shift_divicount'));
     }
 
+
+     /* シフト募集上書き */
+     public function dividerupdate(Request $request)
+     {
+        $adminid = Auth::guard('admin')->id();
+        $storeid = admin::where('id', $adminid)->value('store_id');
+        $shiftdivider = Shiftdivider::where('store_id', $storeid)->get();
+        $nextdivider = Nextdivider::where('store_id', $storeid)->get();
+        $shiftdivi_judge = 0;
+        $nextdivi_judge = 0;
+        foreach($shiftdivider as $shift_divi) {
+            $shiftdivi_judge = 1;
+        } 
+        foreach($nextdivider as $next_divi) {
+            $nextdivi_judge = 1;
+        } 
+        if($shiftdivi_judge == 0) {
+            \DB::table('shiftdivider')
+			->insert([
+                "store_id" => $storeid
+		    ]);
+        }
+
+        for ($time = 1; $time <= 30; $time++) {
+            $shiftdivi_time = 'time' . $time;
+            \DB::table('shiftdivider')
+            ->where('store_id', $storeid)
+            ->update([
+                $shiftdivi_time => null
+            ]);
+        }
+        foreach ($nextdivider as $next_divi) {
+            \DB::table('nextdivider')
+            ->where('store_id', $storeid)
+            ->delete();
+        }
+
+
+        for ($time = 1; $time <= 30; $time++) {
+            $shiftdivi_time = 'time' . $time;
+            $input_mainid = $time . 'text_main';
+            $input_sub1id = $time . 'text_sub1';
+            $input_sub2id = $time . 'text_sub2';
+			$input_main = $request->input($input_mainid);
+            $input_sub1 = $request->input($input_sub1id);
+            $input_sub2 = $request->input($input_sub2id);
+            \DB::table('shiftdivider')
+            ->where('store_id', $storeid)
+            ->update([
+                $shiftdivi_time => $input_main
+            ]);
+
+            if($input_sub1 != null) {
+                \DB::table('nextdivider')
+			    ->insert([
+                    "store_id" => $storeid,
+                    "main" => $input_main,
+                    "sub1" => $input_sub1,
+                    "sub2" => $input_sub2
+		        ]);
+            }
+        }
+
+
+        return redirect()->route('new_shiftView');
+     }
 
     /* シフト作成メニュー */
     public function menu()
