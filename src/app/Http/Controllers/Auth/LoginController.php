@@ -152,7 +152,7 @@ class LoginController extends Controller
         }
         if (Auth::guard('parttimer')->attempt(['email' => $request->email, 'password' => $request->password])) {
 
-            return redirect(route('home'));
+            return redirect(route('emp_calendar_show'));
         }
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this

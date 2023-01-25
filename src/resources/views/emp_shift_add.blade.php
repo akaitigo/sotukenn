@@ -180,17 +180,14 @@ $json_comment_day = json_encode($day_comment);
                 <form class="form" id="form">
                     <div class="form-container" align="center">
                         <label class="form-label" id="valueFromMyButton" for="name">希望開始時間</label>
-                        <input class="input" type="number" id="start" min="0" max="24"
+                        <input class="input" type="number" id="start" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5"
                             maxlength="5">
                         <label class="form-label" id="valueFromMyButton" for="count">希望終了時間</label>
-                        <input class="input" type="number" id="end" min="0" max="24"
+                        <input class="input" type="number" id="end" min="{{$workstarttime}}" max="{{$workendtime}}" step="0.5"
                             maxlength="5">
                         <datalist id="data-list">
                             {{-- お気に入り --}}
                         </datalist>
-                        {{-- <label class="form-label" id="valueFromMyButton" for="count">希望終了時間</label>
-                            <input class="input" type="time" id="count" min="0" max="24"
-                                maxlength="7"> --}}
                         <input type="button" value="Cancel" class="button" id="cancel-button">
                         <input type="button" value="OK" class="button" id="ok-button">
                     </div>
