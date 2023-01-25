@@ -708,7 +708,7 @@
 		if ($MaxCounter == count($staff) || $MinCounter == count($staff)) { //全スタッフが各項目OR全項目調整の必要がある場合は調整が不可能なので処理を返す
 			return false;
 		}
-		dump(BesideSortController::$CompStaff);
+		//dump(BesideSortController::$CompStaff);
 			for ($j = 0; count(BesideSortController::$CompStaff) > $j; $j++) {
 				if (0 == strcmp(BesideSortController::$CompStaff[$j][1], "Y") || 0 == strcmp(BesideSortController::$CompStaff[$j][1], "YN")) {
 					return true;
