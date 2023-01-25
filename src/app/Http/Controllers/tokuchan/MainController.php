@@ -365,6 +365,7 @@
 		 		$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
 		 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
 		 	}while($Bsc->Stoper2($staff));
+			//print_r($EndShift);
 
 			//完成したシフトの登録
 			$CompleteShiftdb = CompleteShift::where('store_id',$storeid)->where('month',$month)->get();
