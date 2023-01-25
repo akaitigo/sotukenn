@@ -407,7 +407,7 @@
 				}
 
 
-				for($staffnin = 1; $emppartnin > $staffnin; $staffnin++){
+				for($staffnin = 1; $emppartnin >= $staffnin; $staffnin++){
 					\DB::table('complete_shifts')
 						->insert([
 							"store_id" => $storeid,
