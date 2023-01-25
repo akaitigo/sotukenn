@@ -11,6 +11,10 @@
 		 static $MaxTime = [[]];//最大労働時間
 		 static $MinTime = [[]];//最低労働時間
 
+		 static $Timer = [[]];
+
+		 static $TimerCounter = [[]];
+
 	
 	function __construct($staff) {
 
@@ -25,6 +29,8 @@
 	 			(double) BesideSortController::$MinOut[$i][$j] = 0.0;
 	 			(double) BesideSortController::$MaxTime[$i][$j] = 0.0;
 	 			(double) BesideSortController::$MinTime[$i][$j] = 0.0;
+				 BesideSortController::$Timer[$i][$j] = -1;
+				 BesideSortController::$TimerCounter[$i][$j] = 0;
 	 		}
 	 	}
 		
@@ -34,6 +40,8 @@
 			BesideSortController::$MaxTime[$i][0] = $staff[$i][4];
 			BesideSortController::$MinTime[$i][0] = $staff[$i][4];
 			BesideSortController::$CompStaff[$i][0] = $staff[$i][4];
+			BesideSortController::$Timer[$i][0] = $staff[$i][4];
+			BesideSortController::$TimerCounter[$i][0] = $staff[$i][4];
 	 	}
 	 }
 	
@@ -153,7 +161,22 @@
 		$ConseCount = 0; //連勤の回数
 		$CanCount = 0;
 
+		for ($i = 0; count(BesideSortController::$CompStaff) > $i; $i++) {
+			if (0 == strcmp(BesideSortController::$CompStaff[$i][2], "Y")) { //最低労働時間の調整がある場合
+				if(BesideSortController::$Timer[$i][1] == $StaffTimes[$i][1]){
+					BesideSortController::$TimerCounter[$i][1]++;
+				}else{
+					BesideSortController::$Timer[$i][1] = $StaffTimes[$i][1];
+					BesideSortController::$TimerCounter[$i][1] = 0;
+				}
+				if(BesideSortController::$TimerCounter[$i][1] > 32){
+					BesideSortController::$CompStaff[$i][2] = "YN";
+				}
+			}
+		}
 
+		dump(BesideSortController::$TimerCounter);
+		dump(BesideSortController::$Timer);
 
 		for ($i = 0; count(BesideSortController::$CompStaff) > $i; $i++) {
 			if (0 == strcmp(BesideSortController::$CompStaff[$i][2], "Y")) { //最低労働時間の調整がある場合
