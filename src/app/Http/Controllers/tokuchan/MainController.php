@@ -78,10 +78,7 @@
 							$needshift_nin = $day . '-' . $time;
 							$shiftdivi_time = 'time' . $time;
 							$input_needshift = $request->input($needshift_nin);
-<<<<<<< HEAD
 							//dump($input_needshift);
-=======
->>>>>>> e1f6c954ffd5ca2c6a772621f9ddf07af13bc307
 							$needgou = $input_needshift + $time_gou;
 							if($input_needshift != null) {
 								for($i = $time_gou; $i < $needgou; $i++) {
@@ -358,7 +355,6 @@
 				$StaffSHiftClone = $StaffShiftClone2;
 			}
 
-<<<<<<< HEAD
 			do{
 				$Bsc->RoadTimes($EndShift);
 			 	$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
@@ -369,20 +365,6 @@
 		 		$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
 		 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
 		 	}while($Bsc->Stoper2($staff));
-=======
-			// do{
-			// 	$Bsc->RoadTimes($EndShift);
-			// 	$Bsc->MaxMin($Bsc->RoadTimes($EndShift),$staff,$days, $LastDay );
-			// 	$EndShift = $Bsc->beSort($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
-			// 	echo 1;
-			// 	}while($Bsc->Stoper1($staff));
-			// 	do{
-			// 		$Bsc->RoadTimes($EndShift);
-			// 		$Bsc->MaxMin($Bsc->RoadTimes($EndShift), $staff, $days, $LastDay );
-			// 		$EndShift = $Bsc->beSort2($PerfectShift, $staff, $Bsc->RoadTimes($EndShift), $EndShift);
-			// 		echo 2;
-			// 	}while($Bsc->Stoper2($staff));
->>>>>>> e1f6c954ffd5ca2c6a772621f9ddf07af13bc307
 			//print_r($EndShift);
 
 			//完成したシフトの登録
